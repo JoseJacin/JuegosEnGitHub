@@ -20,10 +20,10 @@ Proyecto personal para publicar una colección de juegos web estáticos con GitH
 
 - Solo hay documentación y estructura inicial; no hay páginas ni código de juegos todavía.
 - Repositorio local inicializado en la rama `main`, conectado al remoto público `https://github.com/JoseJacin/JuegosEnGitHub.git`.
-- `main` y las ramas de trabajo históricas están publicadas en GitHub. Esta guía se prepara en `feature/007_guia_agentes_sdd` y está pendiente de commit, merge y publicación.
+- `main` y las ramas de trabajo están publicadas en GitHub. La guía de agentes/SDD está integrada en `main` y publicada desde `feature/007_guia_agentes_sdd`.
 - Las reglas del juego de botellas están aprobadas; el plan jerárquico está en `PLAN.md`.
 - Se añadieron guías de agentes y una base ligera para propuestas SDD. T1/T2 siguen pendientes y no se han iniciado en este cambio.
-- GitHub CLI (`gh`) está instalado, pero la sesión guardada para `JoseJacin` tiene un token inválido; la publicación puede requerir volver a autenticarse.
+- GitHub CLI (`gh`) tiene un token inválido; los pushes de esta tarea se completaron mediante la autenticación configurada para Git.
 - La configuración de GitHub Pages sigue pendiente.
 
 ## Próximos pasos sugeridos
