@@ -7,6 +7,9 @@ Proyecto personal para publicar una colección de juegos web estáticos con GitH
 ## Estructura existente
 
 - `README.md`: presentación y mapa del proyecto.
+- `AGENTS.md`: instrucciones para agentes, flujo SDD y Git.
+- `COMANDOS.md`: comandos para inspección, servidor local, revisión, Git y publicación.
+- `docs/README.md` y `docs/plantillas/propuesta.md`: índice y plantilla ligera de propuestas SDD.
 - `PLAN.md`: objetivo, fases, decisiones y próximos pasos.
 - `menu/README.md`: propósito del directorio de menú.
 - `juegos/README.md`: convención de carpetas de juegos.
@@ -17,15 +20,15 @@ Proyecto personal para publicar una colección de juegos web estáticos con GitH
 
 - Solo hay documentación y estructura inicial; no hay páginas ni código de juegos todavía.
 - Repositorio local inicializado en la rama `main`, conectado al remoto público `https://github.com/JoseJacin/JuegosEnGitHub.git`.
-- `main` y `feature/001_estructura_documentacion_inicial` están publicados en GitHub.
+- `main` y las ramas de trabajo históricas están publicadas en GitHub. Esta guía se prepara en `feature/007_guia_agentes_sdd` y está pendiente de commit, merge y publicación.
 - Las reglas del juego de botellas están aprobadas; el plan jerárquico está en `PLAN.md`.
-- GitHub CLI (`gh`) está instalado y autenticado para la cuenta `JoseJacin`.
+- Se añadieron guías de agentes y una base ligera para propuestas SDD. T1/T2 siguen pendientes y no se han iniciado en este cambio.
+- GitHub CLI (`gh`) está instalado, pero la sesión guardada para `JoseJacin` tiene un token inválido; la publicación puede requerir volver a autenticarse.
 - La configuración de GitHub Pages sigue pendiente.
-- No se encontraron archivos `AGENTS.md` o `COMANDOS.md` en el árbol explorado.
 
 ## Próximos pasos sugeridos
 
-1. Empezar por T1/T2 de `PLAN.md`, trabajando en una rama de funcionalidad y haciendo commits atómicos.
+1. Empezar por T1/T2 de `PLAN.md` en una conversación separada, trabajando en una rama de funcionalidad y haciendo commits atómicos.
 2. Seguir las dependencias y criterios de finalización de las tareas del plan.
 3. Activar GitHub Pages y validar las rutas publicadas al completar T7.
 
