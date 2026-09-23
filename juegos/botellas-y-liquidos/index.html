@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101821">
+  <title>Botellas y líquidos · Configuración</title>
+  <style>
+    :root { color-scheme: dark; --bg: #101821; --panel: #1b2833; --text: #f4f6f7; --muted: #b6c2ca; --accent: #82d8a0; --line: #40515d; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; color: var(--text); background: radial-gradient(ellipse at 50% -20%, #29423d, var(--bg) 60%); font: 16px/1.5 system-ui, sans-serif; }
+    main { width: min(100% - 2rem, 920px); margin: auto; padding: 2rem 0 4rem; }
+    a { color: var(--accent); text-underline-offset: .2em; }
+    .back { display: inline-block; margin-bottom: 1.5rem; }
+    h1 { margin: 0; font-size: clamp(2rem, 7vw, 3.7rem); line-height: 1.1; }
+    .lead { max-width: 65ch; color: var(--muted); }
+    form, .summary { padding: clamp(1rem, 4vw, 2rem); border: 1px solid var(--line); border-radius: 1.2rem; background: color-mix(in srgb, var(--panel), transparent 7%); }
+    fieldset { min-width: 0; margin: 0; padding: 0; border: 0; }
+    legend { margin-bottom: 1rem; font-size: 1.3rem; font-weight: 750; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 1rem; }
+    label.control { display: grid; gap: .45rem; color: var(--muted); font-weight: 650; }
+    select, button { min-height: 46px; padding: .65rem .8rem; border: 1px solid #637681; border-radius: .65rem; background: #111c25; color: var(--text); font: inherit; }
+    select:focus-visible, button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+    .check { display: flex; align-items: flex-start; gap: .7rem; margin: 1.3rem 0; }
+    .check input { width: 1.2rem; height: 1.2rem; accent-color: var(--accent); flex: 0 0 auto; }
+    .hint, .muted { color: var(--muted); font-size: .95rem; }
+    .summary { margin-top: 1rem; }
+    .summary h2 { margin: 0 0 .5rem; font-size: 1.2rem; }
+    .summary p { margin: .4rem 0; }
+    .status { padding: .8rem 1rem; border-left: 4px solid var(--accent); background: #172c27; border-radius: .25rem .7rem .7rem .25rem; }
+    .status.error { border-color: #ff9d91; background: #352321; }
+    button { margin-top: 1rem; background: var(--accent); border-color: var(--accent); color: #102019; font-weight: 800; cursor: pointer; }
+    button:disabled { cursor: not-allowed; opacity: .7; }
+    [hidden] { display: none !important; }
+  </style>
+</head>
+<body>
+  <main>
+    <a class="back" href="../../menu/">← Menú de juegos</a>
+    <p class="eyebrow">Juego de lógica</p>
+    <h1>Botellas y líquidos</h1>
+    <p class="lead">Prepara un reto a tu medida. Puedes revisar y cambiar estos valores antes de empezar; el tablero se generará cuando esté lista la generación de partidas.</p>
+
+    <form id="settings" novalidate>
+      <fieldset>
+        <legend>Configuración de partida</legend>
+        <div class="grid">
+          <label class="control" for="columns">Botellas por fila
+            <select id="columns" name="columns"></select>
+          </label>
+          <label class="control" for="rows">Filas
+            <select id="rows" name="rows"></select>
+          </label>
+          <label class="control" for="colors">Colores
+            <select id="colors" name="colors"></select>
+          </label>
+          <label class="control" for="maxCapacity">Capacidad máxima (unidades)
+            <select id="maxCapacity" name="maxCapacity"></select>
+          </label>
+        </div>
+        <label class="check" for="differentCapacities">
+          <input id="differentCapacities" name="differentCapacities" type="checkbox">
+          <span>Usar capacidades distintas <span class="hint">(se asignarán tamaños al azar entre 2 y el máximo elegido)</span></span>
+        </label>
+        <div id="sizesControl" class="grid" hidden>
+          <label class="control" for="sizeCount">Número de tamaños distintos
+            <select id="sizeCount" name="sizeCount"></select>
+          </label>
+          <p id="sizesHint" class="hint"></p>
+        </div>
+      </fieldset>
+      <section class="summary" aria-labelledby="summaryTitle" aria-live="polite">
+        <h2 id="summaryTitle">Tu configuración</h2>
+        <p id="summaryText"></p>
+        <p id="validation" class="status" role="status"></p>
+        <button id="start" type="button" disabled>Empezar</button>
+        <p id="startNote" class="hint">El inicio de partida estará disponible al implementar la generación resoluble (T3).</p>
+      </section>
+    </form>
+  </main>
+  <script>
+    // CONFIGURACIÓN INICIAL: valores predeterminados y límites acordados del juego.
+    const CONFIG = Object.freeze({
+      defaults: { columns: 4, rows: 2, colors: 4, maxCapacity: 4, differentCapacities: false, sizeCount: 2 },
+      limits: { columns: [2, 10], rows: [1, 6], colors: [2, 6], maxCapacity: [2, 6], sizeCount: [2, 4] }
+    });
+
+    const form = document.querySelector('#settings');
+    const fields = {
+      columns: document.querySelector('#columns'), rows: document.querySelector('#rows'),
+      colors: document.querySelector('#colors'), maxCapacity: document.querySelector('#maxCapacity'),
+      differentCapacities: document.querySelector('#differentCapacities'), sizeCount: document.querySelector('#sizeCount')
+    };
+    const summaryText = document.querySelector('#summaryText');
+    const validation = document.querySelector('#validation');
+    const sizeCountSelect = fields.sizeCount;
+
+    function hasFeasibleCapacityPlan(total, colors, maxCapacity, sizeCount) {
+      if (!fields.differentCapacities.checked) {
+        const targetUnits = colors * maxCapacity;
+        const maxInitialUnits = total * (maxCapacity - 1);
+        return targetUnits >= total && targetUnits <= maxInitialUnits;
+      }
+
+      const minimumSizes = sizeCount;
+      const sizeSets = [];
+      function chooseSizes(next, chosen) {
+        if (chosen.length === minimumSizes) {
+          sizeSets.push(chosen);
+          return;
+        }
+        for (let size = next; size <= maxCapacity; size += 1) chooseSizes(size + 1, [...chosen, size]);
+      }
+      chooseSizes(2, []);
+
+      return sizeSets.some((sizes) => {
+        if (sizes.length > total) return false;
+        function assignCounts(index, remaining, counts) {
+          if (index === sizes.length - 1) {
+            if (remaining < 1) return false;
+            const bottles = [...counts, remaining].flatMap((count, i) => Array(count).fill(sizes[i])).sort((a, b) => a - b);
+            const targetUnits = bottles.slice(0, colors).reduce((sum, capacity) => sum + capacity, 0);
+            const maxInitialUnits = bottles.reduce((sum, capacity) => sum + capacity - 1, 0);
+            return targetUnits >= total && targetUnits <= maxInitialUnits;
+          }
+          const slotsAfter = sizes.length - index - 1;
+          for (let count = 1; count <= remaining - slotsAfter; count += 1) {
+            if (assignCounts(index + 1, remaining - count, [...counts, count])) return true;
+          }
+          return false;
+        }
+        return assignCounts(0, total, []);
+      });
+    }
+
+    function fillRange(select, min, max, selected) {
+      const previous = Number(select.value);
+      select.replaceChildren(...Array.from({ length: max - min + 1 }, (_, i) => {
+        const value = min + i;
+        const option = new Option(String(value), String(value));
+        option.selected = value === (previous >= min && previous <= max ? previous : selected);
+        return option;
+      }));
+    }
+
+    for (const key of ['columns', 'rows', 'colors', 'maxCapacity']) {
+      const [min, max] = CONFIG.limits[key];
+      fillRange(fields[key], min, max, CONFIG.defaults[key]);
+    }
+    fields.differentCapacities.checked = CONFIG.defaults.differentCapacities;
+
+    function update() {
+      const maxCapacity = Number(fields.maxCapacity.value);
+      const columns = Number(fields.columns.value);
+      const rows = Number(fields.rows.value);
+      const colors = Number(fields.colors.value);
+      const total = columns * rows;
+      const enabled = fields.differentCapacities.checked;
+      const availableSizes = maxCapacity - 1;
+      const maxSizes = Math.min(CONFIG.limits.sizeCount[1], availableSizes, total);
+      document.querySelector('#sizesControl').hidden = !enabled;
+      document.querySelector('#sizesHint').textContent = `Tamaños disponibles: ${Array.from({ length: availableSizes }, (_, i) => i + 2).join(', ')} unidades.`;
+      fillRange(sizeCountSelect, CONFIG.limits.sizeCount[0], Math.max(CONFIG.limits.sizeCount[0], maxSizes), CONFIG.defaults.sizeCount);
+      sizeCountSelect.disabled = !enabled || maxSizes < CONFIG.limits.sizeCount[0];
+
+      const sizeCount = Number(sizeCountSelect.value);
+      const messages = [];
+      if (colors >= total) messages.push(`Esta combinación no deja botellas libres al completar los colores. Añade al menos ${colors + 1 - total} botella${colors + 1 - total === 1 ? '' : 's'} o reduce el número de colores.`);
+      if (enabled && availableSizes < CONFIG.limits.sizeCount[0]) messages.push('Para usar capacidades distintas, aumenta la capacidad máxima a 3 o más: hacen falta al menos dos tamaños disponibles.');
+      if (enabled && sizeCount > maxSizes) messages.push('Reduce el número de tamaños distintos o aumenta la capacidad máxima.');
+      if (total > 0 && colors < total && !hasFeasibleCapacityPlan(total, colors, maxCapacity, enabled ? sizeCount : 1)) {
+        messages.push('No hay suficiente capacidad para empezar con todas las botellas parcialmente llenas y completar los colores. Añade botellas, reduce colores o aumenta la capacidad máxima; con capacidades distintas, también puedes elegir menos tamaños.');
+      }
+
+      summaryText.textContent = `${total} botellas (${rows} ${rows === 1 ? 'fila' : 'filas'} de ${columns}), ${colors} colores y capacidad ${enabled ? `variable con ${sizeCount} tamaños` : `${maxCapacity} unidades en todas las botellas`}.`;
+      validation.classList.toggle('error', messages.length > 0);
+      validation.textContent = messages.length ? messages.join(' ') : 'Hay una asignación de capacidades que permite respetar el estado inicial y reservar capacidad completa para cada color. El generador de T3 deberá escoger una asignación compatible y producir la disposición resoluble.';
+      document.querySelector('#start').disabled = true;
+    }
+
+    form.addEventListener('change', update);
+    update();
+  </script>
+</body>
+</html>

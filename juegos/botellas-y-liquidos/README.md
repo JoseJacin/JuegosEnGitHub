@@ -38,4 +38,4 @@ El menú de configuración y la partida seguirán un estilo parecido a la imagen
 
 ## Estado
 
-Definición y decisiones de diseño consolidadas; pendiente de revisión final. No hay interfaz ni lógica de juego implementadas.
+Definición y decisiones de diseño consolidadas. La pantalla de configuración está implementada; la generación de partidas y la lógica de juego siguen pendientes según `PLAN.md`.
