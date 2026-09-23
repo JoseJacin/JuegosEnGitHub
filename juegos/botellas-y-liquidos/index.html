@@ -115,9 +115,8 @@
     function hasFeasibleCapacityPlan(total, colors, maxCapacity, sizeCount) {
       if (!fields.differentCapacities.checked) {
         const targetUnits = colors * maxCapacity;
-        const nonEmptyBottles = total - 1;
-        const maxInitialUnits = nonEmptyBottles * (maxCapacity - 1);
-        return targetUnits >= nonEmptyBottles && targetUnits <= maxInitialUnits;
+        const maxInitialUnits = total * (maxCapacity - 1);
+        return targetUnits >= total && targetUnits <= maxInitialUnits;
       }
 
       const minimumSizes = sizeCount;
@@ -138,8 +137,8 @@
             if (remaining < 1) return false;
             const bottles = [...counts, remaining].flatMap((count, i) => Array(count).fill(sizes[i])).sort((a, b) => a - b);
             const targetUnits = bottles.slice(0, colors).reduce((sum, capacity) => sum + capacity, 0);
-            const maxInitialUnits = bottles.reduce((sum, capacity) => sum + capacity - 1, 0) - (bottles[colors] - 1);
-            return targetUnits >= total - 1 && targetUnits <= maxInitialUnits;
+            const maxInitialUnits = bottles.reduce((sum, capacity) => sum + capacity - 1, 0);
+            return targetUnits >= total && targetUnits <= maxInitialUnits;
           }
           const slotsAfter = sizes.length - index - 1;
           for (let count = 1; count <= remaining - slotsAfter; count += 1) {
@@ -188,21 +187,21 @@
       if (enabled && sizeCount > maxSizes) messages.push('Reduce el número de tamaños distintos o aumenta la capacidad máxima.');
       if (total > 0 && colors < total && !hasFeasibleCapacityPlan(total, colors, maxCapacity, enabled ? sizeCount : 1)) {
         if (enabled) {
-          messages.push(`Con capacidades distintas no hay una asignación que permita empezar con una botella vacía y las otras parcialmente llenas. Se necesitan al menos ${total - 1} unidades para las botellas con líquido, sin superar el espacio disponible después de reservar una botella vacía.`);
+          messages.push(`Con capacidades distintas no hay una asignación que permita empezar con todas las botellas parcialmente llenas. Se necesitan al menos ${total} unidades de líquido, sin superar el espacio libre total de una unidad por botella.`);
         } else {
           const targetUnits = colors * maxCapacity;
-          const maxInitialUnits = (total - 1) * (maxCapacity - 1);
-          if (targetUnits < total - 1) {
-            messages.push(`Los colores suman ${targetUnits} unidades, pero hacen falta al menos ${total - 1} para que todas las botellas con líquido tengan una unidad; se reserva una botella vacía.`);
+          const maxInitialUnits = total * (maxCapacity - 1);
+          if (targetUnits < total) {
+            messages.push(`Los colores suman ${targetUnits} unidades, pero hacen falta al menos ${total} para que cada botella empiece con líquido.`);
           } else {
-            messages.push(`Los colores necesitan ${targetUnits} unidades. Al reservar una botella vacía, las demás admiten como máximo ${maxInitialUnits} unidades sin empezar llenas.`);
+            messages.push(`Los colores necesitan ${targetUnits} unidades. Las botellas admiten como máximo ${maxInitialUnits} unidades al empezar parcialmente llenas.`);
           }
         }
       }
 
       summaryText.textContent = `${total} botellas (${rows} ${rows === 1 ? 'fila' : 'filas'} de ${columns}), ${colors} colores y capacidad ${enabled ? `variable con ${sizeCount} tamaños` : `${maxCapacity} unidades en todas las botellas`}.`;
       validation.classList.toggle('error', messages.length > 0);
-      validation.textContent = messages.length ? messages.join(' ') : 'La configuración permite crear una partida resoluble con una botella vacía de reserva y las demás parcialmente llenas.';
+      validation.textContent = messages.length ? messages.join(' ') : 'La configuración permite crear una partida resoluble con todas las botellas parcialmente llenas.';
       document.querySelector('#start').disabled = messages.length > 0;
     }
 
@@ -223,12 +222,10 @@
       const goals = capacities.map((capacity, index) => ({ capacity, index })).sort((a, b) => a.capacity - b.capacity).slice(0, colorCount);
       const goalIndexes = new Set(goals.map((goal) => goal.index));
       const extras = capacities.map((_, index) => index).filter((index) => !goalIndexes.has(index));
-      const emptyIndex = extras.reduce((smallest, index) => capacities[index] < capacities[smallest] ? index : smallest, extras[0]);
-      const activeExtras = extras.filter((index) => index !== emptyIndex);
       const totalUnits = goals.reduce((sum, goal) => sum + goal.capacity, 0);
-      const extraCapacity = activeExtras.reduce((sum, index) => sum + capacities[index] - 1, 0);
+      const extraCapacity = extras.reduce((sum, index) => sum + capacities[index] - 1, 0);
       const lowerRetained = Math.max(colorCount, totalUnits - extraCapacity);
-      const upperRetained = Math.min(totalUnits - colorCount, totalUnits - activeExtras.length);
+      const upperRetained = Math.min(totalUnits - colorCount, totalUnits - extras.length);
       if (lowerRetained > upperRetained) return null;
 
       const retainedTotal = lowerRetained + Math.floor(Math.random() * (upperRetained - lowerRetained + 1));
@@ -240,15 +237,15 @@
         retainedLeft -= add;
       }
 
-      const extraFill = activeExtras.map((index) => ({ index, units: 1, room: capacities[index] - 2 }));
-      let extraLeft = totalUnits - retainedTotal - activeExtras.length;
+      const extraFill = extras.map((index) => ({ index, units: 1, room: capacities[index] - 2 }));
+      let extraLeft = totalUnits - retainedTotal - extras.length;
       for (const bottle of shuffled(extraFill)) {
         const add = Math.min(bottle.room, extraLeft);
         bottle.units += add;
         extraLeft -= add;
       }
       if (retainedLeft || extraLeft) return null;
-      return { goals, retained, extras, activeExtras, emptyIndex, extraFill, goalIndexes };
+      return { goals, retained, extras, extraFill, goalIndexes };
     }
 
     function chooseCapacities(total, maxCapacity, variable, sizeCount, colors) {
@@ -306,7 +303,6 @@
       });
       const colorOrder = shuffled(palette);
       for (const index of plan.extras) {
-        if (index === plan.emptyIndex) continue;
         bottles[index].layers = colorOrder.filter((color) => assigned.get(index).has(color)).map((color) => ({ color, units: assigned.get(index).get(color) }));
       }
       renderGame(shuffled(bottles), columns, rows, colors);
@@ -339,7 +335,7 @@
         item.append(glass, meta);
         bottleGrid.append(item);
       });
-      document.querySelector('#gameSummary').textContent = `${bottles.length} botellas · ${colors} colores · ${rows} ${rows === 1 ? 'fila' : 'filas'}. Hay una botella vacía de reserva; las demás empiezan parcialmente llenas. Cada color permite completar una botella objetivo.`;
+      document.querySelector('#gameSummary').textContent = `${bottles.length} botellas · ${colors} colores · ${rows} ${rows === 1 ? 'fila' : 'filas'}. Todas empiezan parcialmente llenas; durante la partida pueden quedar botellas vacías. Cada color permite completar una botella objetivo.`;
       form.hidden = true;
       document.querySelector('#game').hidden = false;
     }

@@ -1,40 +1,30 @@
 # Propuesta: botella vacía de reserva al inicio
 
-**Estado:** Aprobada e implementada
+**Estado:** Descartada tras aclaración del usuario
 **Fecha:** 2026-09-23
 **Responsable:** Codex
 
 ## Problema y objetivo
 
-Una botella vacía al inicio ofrece espacio para maniobrar y permite admitir configuraciones donde no hay unidades suficientes para poner líquido en todas las botellas.
+Esta propuesta interpretó incorrectamente que la botella vacía debía existir desde el inicio. El usuario aclaró que el estado inicial no debe tener botellas vacías; las botellas vacías pueden surgir durante los movimientos y no impiden ganar.
 
 ## Alcance
 
-- Incluye: dejar una botella vacía de reserva en cada partida, mantener las demás botellas con líquido parcialmente llenas, ajustar la validación de configuración y explicarla en pantalla.
-- No incluye: cambiar las reglas de trasvase, la victoria o los controles de partida.
+- Incluye: propuesta anterior de botella vacía inicial, reemplazada por la aclaración en [`012_vacias_intermedias_y_victoria.md`](012_vacias_intermedias_y_victoria.md).
+- No incluye: cambios implementados. La reserva vacía inicial queda descartada.
 
 ## Requisitos y decisiones
 
-- Actualizar la regla de estado inicial en [`../../juegos/botellas-y-liquidos/README.md`](../../juegos/botellas-y-liquidos/README.md).
-- La configuración solo se puede iniciar si hay una asignación de capacidades con una botella vacía, y cada una de las restantes tiene al menos una unidad y un espacio libre.
-- Con capacidades iguales, el volumen objetivo de color debe estar entre `n−1` y `(n−1)×(capacidad−1)`, donde `n` es el total de botellas.
-- Con capacidades distintas, dejar vacía la botella de menor capacidad no objetivo y verificar el volumen contra el mínimo de botellas ocupadas y la capacidad parcial restante.
-- La partida conserva una solución conocida por construcción.
+- La botella vacía se había interpretado como parte del estado inicial; esa interpretación se retiró.
 
 ## Criterios de aceptación
 
-- [x] Cada partida inicia con exactamente una botella vacía, identificada visualmente.
-- [x] Ninguna otra botella empieza vacía ni llena.
-- [x] La validación habilita solo asignaciones compatibles con el nuevo estado inicial y explica los límites cuando no lo son.
-- [x] Las partidas generadas siguen siendo resolubles.
-- [x] Se actualizan las reglas, el plan y CONTEXTO.
+- [ ] No quedan criterios de aceptación vigentes para esta propuesta descartada.
 
 ## Tareas
 
-- [x] Actualizar las reglas aprobadas del juego.
-- [x] Ajustar validador y generador de T3.
-- [x] Actualizar propuesta, plan y CONTEXTO.
+- [x] Registrar la aclaración y revertir la interpretación incorrecta.
 
 ## Riesgos, dependencias y preguntas
 
-Reservar un espacio vacío reduce la capacidad disponible para los líquidos iniciales. Algunas combinaciones antes aceptadas dejarán de ser compatibles; el validador debe explicarlo.
+La aclaración vigente está en la especificación del juego y en la propuesta 012.

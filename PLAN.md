@@ -65,10 +65,10 @@ Cada parte funcional tendrá su propio directorio. Un juego pequeño podrá impl
 - [x] T3.2 Crear capacidades iguales o asignar capacidades distintas según la configuración.
 - [x] T3.3 Calcular automáticamente las cantidades de cada color para que puedan terminar en botellas llenas del mismo color.
 - [x] T3.4 Generar una disposición aleatoria cuya solución se conozca o pueda garantizarse.
-- [x] T3.5 Garantizar que al inicio haya una botella vacía de reserva y que las demás empiecen con al menos una unidad y un espacio libre.
+- [x] T3.5 Garantizar que al inicio ninguna botella esté vacía ni llena: cada una debe tener al menos una unidad y un espacio libre.
 - [x] T3.6 Admitir tableros de hasta 60 botellas respetando colores, capacidades y cantidades.
 
-**Hecho cuando:** cada configuración admitida genera una partida aleatoria resoluble, con el estado inicial descrito en las reglas: una botella vacía de reserva y las restantes parcialmente llenas. El generador designa una botella objetivo por color y asigna a ese color un volumen igual a la capacidad de su objetivo; la disposición puede incluir varias capas de colores distintos en una botella.
+**Hecho cuando:** cada configuración admitida genera una partida aleatoria resoluble, con el estado inicial descrito en las reglas: todas las botellas parcialmente llenas. El generador designa una botella objetivo por color y asigna a ese color un volumen igual a la capacidad de su objetivo; la disposición puede incluir varias capas de colores distintos en una botella. Las botellas vacías se permiten durante la partida y al ganar.
 
 ### T4 — Implementar selección y trasvase
 
@@ -86,7 +86,7 @@ Cada parte funcional tendrá su propio directorio. Un juego pequeño podrá impl
 
 - [ ] T5.1 Guardar los estados necesarios para deshacer cada movimiento válido.
 - [ ] T5.2 Permitir deshacer y volver al estado inicial de la disposición actual.
-- [ ] T5.3 Detectar la victoria cuando todas las botellas no vacías estén llenas al 100 % con un único color; las botellas vacías no impedirán ganar.
+- [ ] T5.3 Detectar la victoria cuando todas las botellas con líquido estén llenas al 100 %, con un único color y cerradas; las botellas vacías no impedirán ganar.
 - [ ] T5.4 Mostrar el mensaje de victoria con opciones de repetir con la misma configuración o cambiarla.
 - [ ] T5.5 Al repetir, generar una nueva disposición aleatoria con los valores de configuración actuales.
 
