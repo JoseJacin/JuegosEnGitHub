@@ -24,3 +24,4 @@ Cada funcionalidad nueva o cambio relevante debe comenzar como propuesta basada 
 - [`propuestas/020_diagnostico_botellas.md`](propuestas/020_diagnostico_botellas.md): diagnóstico local copiable de capas y huecos visibles.
 - [`propuestas/021_corregir_conteo_unidades_iniciales.md`](propuestas/021_corregir_conteo_unidades_iniciales.md): corregir unidades excedentes que producían capas sin color.
 - [`propuestas/022_trasvases_interactivos.md`](propuestas/022_trasvases_interactivos.md): seleccionar botellas y trasvasar capas según las reglas aprobadas.
+- [`propuestas/023_historial_reinicio_victoria.md`](propuestas/023_historial_reinicio_victoria.md): deshacer, reiniciar y completar una partida.
