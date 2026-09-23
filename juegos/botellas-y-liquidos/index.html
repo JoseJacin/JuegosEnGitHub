@@ -37,7 +37,7 @@
     .board-head button { margin: 0; }
     .bottles { display: grid; gap: 1.25rem .75rem; margin-top: 1.5rem; }
     .bottle { display: grid; justify-items: center; gap: .4rem; min-width: 0; }
-    .glass { display: flex; flex-direction: column-reverse; width: min(100%, 4rem); height: 8rem; overflow: hidden; border: 3px solid #a9c1ca; border-top: 0; border-radius: 0 0 1rem 1rem; background: #101820; box-shadow: inset 0 0 0 1px #ffffff12; }
+    .glass { display: flex; flex-direction: column; width: min(100%, 4rem); height: 8rem; overflow: hidden; border: 3px solid #a9c1ca; border-top: 0; border-radius: 0 0 1rem 1rem; background: #101820; box-shadow: inset 0 0 0 1px #ffffff12; }
     .liquid { flex: 1 0 0; min-height: 0; }
     .empty-space { flex: 1 0 0; min-height: 0; }
     .bottle-meta { color: var(--muted); font-size: .8rem; text-align: center; }
@@ -403,7 +403,7 @@
         glass.className = 'glass';
         const contents = bottle.layers.map((layer) => `${layer.units} unidad${layer.units === 1 ? '' : 'es'}`).join(', ');
         glass.setAttribute('aria-label', bottle.layers.length ? `Botella ${index + 1}: ${contents} de ${bottle.capacity} unidades, con ${bottle.layers.length} capa${bottle.layers.length === 1 ? '' : 's'}` : `Botella ${index + 1}: vacía, capacidad ${bottle.capacity}`);
-        const liquids = bottle.layers.map((layer) => {
+        const liquids = [...bottle.layers].reverse().map((layer) => {
           const liquid = document.createElement('span');
           liquid.className = 'liquid';
           liquid.style.flexGrow = String(layer.units);
@@ -413,7 +413,7 @@
         const emptySpace = document.createElement('span');
         emptySpace.className = 'empty-space';
         emptySpace.style.flexGrow = String(bottle.capacity - bottle.layers.reduce((sum, layer) => sum + layer.units, 0));
-        glass.append(...liquids, emptySpace);
+        glass.append(emptySpace, ...liquids);
         const meta = document.createElement('span');
         meta.className = 'bottle-meta';
         meta.textContent = bottle.layers.length ? `${bottle.layers.reduce((sum, layer) => sum + layer.units, 0)}/${bottle.capacity}` : `Vacía · ${bottle.capacity}`;
