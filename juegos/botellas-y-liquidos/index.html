@@ -37,8 +37,8 @@
     .board-head button { margin: 0; }
     .bottles { display: grid; gap: 1.25rem .75rem; margin-top: 1.5rem; }
     .bottle { display: grid; justify-items: center; gap: .4rem; min-width: 0; }
-    .glass { display: grid; grid-template-rows: repeat(var(--capacity), minmax(0, 1fr)); width: min(100%, 4rem); height: 8rem; overflow: hidden; border: 3px solid #a9c1ca; border-top: 0; border-radius: 0 0 1rem 1rem; background: #101820; box-shadow: inset 0 0 0 1px #ffffff12; }
-    .liquid, .empty-space { min-height: 0; }
+    .glass { position: relative; width: min(100%, 4rem); height: 8rem; overflow: hidden; border: 3px solid #a9c1ca; border-top: 0; border-radius: 0 0 1rem 1rem; background: #101820; box-shadow: inset 0 0 0 1px #ffffff12; }
+    .liquid { position: absolute; right: 0; left: 0; }
     .bottle-meta { color: var(--muted); font-size: .8rem; text-align: center; }
     .bottle.done .glass { border-color: var(--accent); }
     .bottle.done::after { content: '✓ Completada'; color: var(--accent); font-size: .75rem; }
@@ -400,26 +400,16 @@
         item.className = 'bottle';
         const glass = document.createElement('div');
         glass.className = 'glass';
-        glass.style.setProperty('--capacity', bottle.capacity);
         const contents = bottle.layers.map((layer) => `${layer.units} unidad${layer.units === 1 ? '' : 'es'}`).join(', ');
         glass.setAttribute('aria-label', bottle.layers.length ? `Botella ${index + 1}: ${contents} de ${bottle.capacity} unidades, con ${bottle.layers.length} capa${bottle.layers.length === 1 ? '' : 's'}` : `Botella ${index + 1}: vacía, capacidad ${bottle.capacity}`);
-        let nextRow = 1;
-        const emptyUnits = bottle.capacity - bottle.layers.reduce((sum, layer) => sum + layer.units, 0);
-        if (emptyUnits > 0) {
-          const emptySpace = document.createElement('span');
-          emptySpace.className = 'empty-space';
-          emptySpace.style.gridRow = `${nextRow} / span ${emptyUnits}`;
-          emptySpace.style.gridColumn = '1';
-          nextRow += emptyUnits;
-          glass.append(emptySpace);
-        }
-        const liquids = [...bottle.layers].reverse().map((layer) => {
+        let bottomUnits = 0;
+        const liquids = bottle.layers.map((layer) => {
           const liquid = document.createElement('span');
           liquid.className = 'liquid';
-          liquid.style.gridRow = `${nextRow} / span ${layer.units}`;
-          liquid.style.gridColumn = '1';
+          liquid.style.bottom = `${bottomUnits / bottle.capacity * 100}%`;
+          liquid.style.height = `${layer.units / bottle.capacity * 100}%`;
           liquid.style.background = layer.color;
-          nextRow += layer.units;
+          bottomUnits += layer.units;
           return liquid;
         });
         glass.append(...liquids);

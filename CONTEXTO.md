@@ -68,10 +68,17 @@ Proyecto personal para publicar una colección de juegos web estáticos con GitH
 ## Bloque 018 — representar cada unidad con una celda
 
 - Rama: `feature/018_unidades_visuales_botellas`.
-- Estado: corregido y verificado visualmente en navegador local.
-- Decisión: cada botella usa una fila por unidad de capacidad; los bloques se colocan en filas consecutivas en orden explícito, dejando arriba las unidades vacías.
-- Verificación: tablero local con capacidad 6. Las capas ocupan celdas consecutivas desde el fondo y los huecos quedan arriba; los niveles visibles coinciden con las etiquetas. `git diff --check` sin errores.
+- Estado: integrado; la revisión posterior del usuario todavía observó huecos. Se reemplaza el método por posicionamiento absoluto en el bloque 019.
+- Decisión: la cuadrícula por celdas no resolvió todos los casos.
+- Verificación: las capturas en navegador mostraron que algunas configuraciones aún presentaban franjas oscuras.
 - Integración: fusionado y publicado en `main`; rama de trabajo también publicada en `origin`.
-- Próximo paso: continuar T4 según `PLAN.md`.
+
+## Bloque 019 — posicionamiento por unidades
+
+- Rama: `feature/019_capas_posicionadas`.
+- Estado: implementación integrada y publicada; revisión visual pendiente.
+- Decisión: cada capa se posiciona desde el fondo usando el porcentaje acumulado de unidades, con altura proporcional al número de unidades; no hay elementos vacíos entre capas.
+- Verificación: revisión estática de que los porcentajes de altura y posición se calculan desde las unidades acumuladas; `git diff --check` sin errores. No se hizo otra revisión en navegador, según la indicación del usuario.
+- Próximo paso: revisión visual por parte del usuario en su navegador.
 
 Al retomar, revisar primero `PLAN.md` y el estado real del repositorio; mantener este archivo actualizado al cerrar tareas.
