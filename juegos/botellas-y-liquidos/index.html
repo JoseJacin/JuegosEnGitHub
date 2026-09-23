@@ -22,7 +22,7 @@
     form, .summary { padding: clamp(1rem, 4vw, 2rem); border: 1px solid var(--line); border-radius: 1.2rem; background: color-mix(in srgb, var(--panel), transparent 7%); }
     fieldset { min-width: 0; margin: 0; padding: 0; border: 0; }
     legend { margin-bottom: 1rem; font-size: 1.3rem; font-weight: 750; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 1rem; }
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
     label.control { display: grid; gap: .45rem; color: var(--muted); font-weight: 650; }
     select, button { min-height: 46px; padding: .65rem .8rem; border: 1px solid #637681; border-radius: .65rem; background: #111c25; color: var(--text); font: inherit; }
     select:focus-visible, button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
@@ -37,10 +37,13 @@
     button { margin-top: 1rem; background: var(--accent); border-color: var(--accent); color: #102019; font-weight: 800; cursor: pointer; }
     button:disabled { cursor: not-allowed; opacity: .7; }
     .board { min-width: 0; margin-top: 1.5rem; padding: clamp(1rem, 4vw, 2rem); border: 1px solid var(--line); border-radius: 1.2rem; background: linear-gradient(145deg, #1e2d38, var(--panel) 55%); }
-    .board-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .75rem; }
-    .board-head h2 { margin: 0; }
+    .board-head { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; }
     .board-head button { margin: 0; }
     .game-actions { display: flex; flex-wrap: wrap; gap: .45rem; }
+    .move-status { display: flex; min-height: 1.5em; align-items: center; gap: .45rem; margin: 0; }
+    .game-actions { margin-left: auto; }
+    .poured-color { width: .68rem; height: .68rem; flex: 0 0 auto; border: 1px solid #ffffff99; border-radius: .12rem; }
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; clip-path: inset(50%); }
     .game-actions .icon-button { display: inline-grid; width: 44px; height: 44px; min-height: 44px; place-items: center; margin: 0; padding: .55rem; border-color: var(--line); background: #111c25; color: var(--text); }
     .icon-button svg { width: 1.25rem; height: 1.25rem; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.8; }
     .icon-button:hover { border-color: var(--accent); color: var(--accent); }
@@ -64,7 +67,6 @@
     .glass { position: relative; width: min(100%, 4rem); height: 8rem; overflow: hidden; border: 3px solid #a9c1ca; border-top: 0; border-radius: 0 0 1rem 1rem; background: linear-gradient(90deg, #101820, #1b2833 48%, #101820); box-shadow: inset 0 0 0 1px #ffffff12; }
     .liquid { position: absolute; right: 0; left: 0; }
     .bottle-meta { color: var(--muted); font-size: .8rem; text-align: center; font-variant-numeric: tabular-nums; }
-    .move-status { min-height: 1.5em; }
     .move-status.error { color: #ffb0a6; }
     @media (max-width: 600px) {
       main { width: min(100% - 1rem, 1200px); padding: .65rem 0 1.25rem; }
@@ -73,8 +75,9 @@
       .site-heading p { font-size: .62rem; }
       .site-heading h1 { font-size: clamp(1.25rem, 6vw, 1.75rem); }
       .back { padding: .4rem .5rem; font-size: .85rem; }
-      .board-head { align-items: flex-start; }
-      .game-actions { flex: 1 1 100%; }
+      .board-head { align-items: center; }
+      .move-status { flex: 1 1 auto; }
+      .game-actions { flex: 0 0 auto; }
       .game-actions .icon-button { width: 44px; height: 44px; min-height: 44px; }
       .grid { gap: .65rem; }
       form, .summary { padding: .8rem; border-radius: .8rem; }
@@ -104,9 +107,9 @@
     </header>
 
     <form id="settings" novalidate>
-      <p class="lead">Prepara un reto a tu medida. Puedes revisar y cambiar estos valores antes de empezar.</p>
       <fieldset>
         <legend>Configuración de partida</legend>
+        <p class="lead">Prepara un reto a tu medida antes de empezar.</p>
         <div class="grid">
           <label class="control" for="columns">Botellas por fila
             <select id="columns" name="columns"></select>
@@ -137,11 +140,10 @@
         <p id="summaryText"></p>
         <p id="validation" class="status" role="status"></p>
         <button id="start" type="button">Empezar</button>
-        <p id="startNote" class="hint">Cada partida se genera con una solución posible.</p>
       </section>
     </form>
-    <section id="game" class="board" aria-labelledby="gameTitle" hidden>
-      <div class="board-head"><h2 id="gameTitle">Tu partida</h2><div class="game-actions" role="group" aria-label="Acciones de la partida">
+    <section id="game" class="board" aria-label="Partida de Botellas y líquidos" hidden>
+      <div class="board-head"><p id="moveStatus" class="move-status" role="status" aria-live="polite"></p><div class="game-actions" role="group" aria-label="Acciones de la partida">
         <button id="undo" class="icon-button" type="button" aria-label="Deshacer" title="Deshacer" disabled><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M9 14 4 9l5-5"/><path d="M4 9h9a7 7 0 0 1 0 14h-2"/></svg></button>
         <button id="restart" class="icon-button" type="button" aria-label="Reiniciar" title="Reiniciar"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20 7v5h-5"/><path d="M20 12a8 8 0 1 0 1 4"/></svg></button>
         <button id="copyDiagnostics" class="icon-button" type="button" aria-label="Copiar diagnóstico" title="Copiar diagnóstico"><svg aria-hidden="true" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h2"/><path d="M11 13h6M11 17h6"/></svg></button>
@@ -149,7 +151,6 @@
       </div></div>
       <p id="diagnosticsStatus" class="muted" aria-live="polite" hidden></p>
       <pre id="diagnosticReport" class="diagnostic-report" tabindex="0" aria-label="Diagnóstico para copiar" hidden></pre>
-      <p id="moveStatus" class="move-status" role="status" aria-live="polite"></p>
       <div class="bottles-scroll" role="region" aria-label="Tablero de botellas; desplázate horizontalmente si hace falta" tabindex="0">
         <div id="bottles" class="bottles"></div>
       </div>
@@ -355,7 +356,8 @@
 
       summaryText.textContent = `${total} botellas (${rows} ${rows === 1 ? 'fila' : 'filas'} de ${columns}), ${colors} colores y ${enabled ? `capacidades entre 3 y ${maxCapacity} unidades, con ${sizeCount} tamaños distintos` : `capacidad de ${maxCapacity} unidades en todas las botellas`}.`;
       validation.classList.toggle('error', messages.length > 0);
-      validation.textContent = messages.length ? messages.join(' ') : 'La configuración permite crear una partida resoluble: todas las botellas empiezan parcialmente llenas y con al menos dos colores; un mismo color puede completar varias botellas.';
+      validation.textContent = messages.join(' ');
+      validation.hidden = messages.length === 0;
       document.querySelector('#start').disabled = messages.length > 0;
     }
 
@@ -455,6 +457,7 @@
       if (!capacityPlan) {
         validation.classList.add('error');
         validation.textContent = 'No se encontró una asignación resoluble para esta combinación. Cambia la configuración e inténtalo de nuevo.';
+        validation.hidden = false;
         return;
       }
       const { capacities, plan } = capacityPlan;
@@ -485,6 +488,7 @@
       if (!assigned) {
         validation.classList.add('error');
         validation.textContent = 'No se pudo generar una distribución con dos colores por botella para esta combinación. Prueba con más capacidad o más colores.';
+        validation.hidden = false;
         return;
       }
       for (let index = 0; index < total; index += 1) {
@@ -549,9 +553,24 @@
       setMoveStatus('Selecciona una botella con líquido para empezar a verter.', false);
     }
 
-    function setMoveStatus(message, isError) {
+    function setMoveStatus(message, isError, poured = null) {
       const status = document.querySelector('#moveStatus');
-      status.textContent = message;
+      status.replaceChildren();
+      if (poured) {
+        const quantity = document.createElement('span');
+        quantity.textContent = String(poured.units);
+        const square = document.createElement('span');
+        square.className = 'poured-color';
+        square.style.backgroundColor = poured.color;
+        square.setAttribute('aria-hidden', 'true');
+        const spoken = document.createElement('span');
+        spoken.className = 'sr-only';
+        const colorName = COLOR_NAMES[COLORS.indexOf(poured.color)] || 'color';
+        spoken.textContent = `${poured.units} ${poured.units === 1 ? 'unidad vertida' : 'unidades vertidas'}, color ${colorName}.`;
+        status.append(quantity, square, spoken);
+      } else {
+        status.textContent = message;
+      }
       status.classList.toggle('error', isError);
     }
 
@@ -576,7 +595,7 @@
         const item = bottleGrid.querySelector(`[data-bottle-id="${bottleId}"]`);
         item.classList.add('selected');
         item.setAttribute('aria-pressed', 'true');
-        setMoveStatus(`Botella en la posición ${currentBottles.indexOf(chosen) + 1} seleccionada. Elige el destino o vuelve a tocarla para cancelar.`, false);
+        setMoveStatus('', false);
         return;
       }
 
@@ -625,11 +644,9 @@
       if (!chosen.open) {
         currentBottles = [...currentBottles.filter((bottle) => !bottle.open), ...currentBottles.filter((bottle) => bottle.open)];
       }
-      const destinationPosition = currentBottles.indexOf(chosen) + 1;
       clearSelection();
       renderGame();
-      const closedMessage = chosen.open ? '' : ` La botella en la posición ${destinationPosition} se ha completado, cerrado y colocado al principio del tablero.`;
-      setMoveStatus(`Se han vertido ${moved} unidad${moved === 1 ? '' : 'es'} en la botella de la posición ${destinationPosition}.${closedMessage}`, false);
+      setMoveStatus('', false, { units: moved, color: movedColor });
       finishIfWon();
     }
 

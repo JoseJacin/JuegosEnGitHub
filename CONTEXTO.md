@@ -42,6 +42,16 @@ Colección de juegos web estáticos publicada en GitHub Pages. El primer juego, 
 - Se revisaron cambios y sintaxis, pero no se pudo hacer comprobación interactiva en navegador porque no había superficie de navegador disponible.
 - Próximo paso: elegir el siguiente juego o mejora del catálogo y crear una propuesta SDD correspondiente.
 
+## Bloque 027 — compactar la partida y simplificar el catálogo
+
+- Propuesta aprobada e implementada: `docs/propuestas/027_interfaz_compacta.md`.
+- La selección de origen ya no muestra el mensaje explicativo; el resultado del trasvase muestra cantidad y muestra cuadrada del color, con anuncio accesible descriptivo.
+- Se quitó el título «Tu partida», el texto positivo de validación y la nota de generación. El mensaje de generación solo se muestra en errores tras agotar sus intentos.
+- Las acciones quedan alineadas a la derecha; los campos de configuración usan dos columnas. El catálogo usa «Acceder» y ya no enlaza «Volver a la entrada».
+- La introducción corregida está bajo «Configuración de partida».
+- Rama: `feature/027_interfaz_compacta`. Diff revisado; `git diff --check` pasó. No se ejecutaron pruebas ni comprobación en navegador.
+- Próximo paso: integrar en `main` y publicar según `COMANDOS.md`.
+
 ## Estado de Git al cerrar
 
 Los cambios de 026 están integrados en `main` y publicados en `origin/main` (`3ab9acd`); la rama `feature/026_interfaz_partida_catalogo` también está publicada. El árbol de trabajo está en `main`. `.history/` es un archivo local ajeno al cambio y debe quedar fuera del commit.
