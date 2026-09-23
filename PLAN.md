@@ -90,7 +90,7 @@ Cada parte funcional tendrá su propio directorio. Un juego pequeño podrá impl
 - [x] T5.4 Mostrar el mensaje de victoria con opciones de repetir con la misma configuración o cambiarla.
 - [x] T5.5 Al repetir, generar una nueva disposición aleatoria con los valores de configuración actuales.
 
-**Hecho cuando:** deshacer, reiniciar, victoria y repetición respetan la partida actual y las reglas acordadas. Implementado en la propuesta [023](docs/propuestas/023_historial_reinicio_victoria.md).
+**Hecho cuando:** deshacer, reiniciar, victoria y repetición respetan la partida actual y las reglas acordadas. Implementado en la propuesta 023 (archivada en el historial de Git).
 
 ### T6 — Aplicar el estilo visual y adaptar la interfaz
 
@@ -99,7 +99,7 @@ Cada parte funcional tendrá su propio directorio. Un juego pequeño podrá impl
 - [x] T6.3 Adaptar el tablero y la configuración a ordenador y móvil, incluidos tableros grandes.
 - [x] T6.4 Asegurar que controles e información sigan siendo utilizables con teclado y lector de pantalla cuando corresponda.
 
-**Hecho cuando:** el juego se entiende visualmente y se puede usar en tamaños de pantalla habituales sin perder controles o información. Implementado en la propuesta [024](docs/propuestas/024_estilo_visual_accesibilidad.md).
+**Hecho cuando:** el juego se entiende visualmente y se puede usar en tamaños de pantalla habituales sin perder controles o información. Implementado en la propuesta 024 (archivada en el historial de Git).
 
 ### T7 — Publicar y verificar en GitHub Pages
 
@@ -109,7 +109,7 @@ Cada parte funcional tendrá su propio directorio. Un juego pequeño podrá impl
 - [x] T7.4 Comprobar carga directa de las páginas y recursos desde la URL de Pages.
 - [x] T7.5 Actualizar README y CONTEXTO con la URL y el estado publicado.
 
-**Hecho cuando:** el menú y el juego están accesibles desde la URL pública de GitHub Pages y los flujos principales funcionan. Verificación manual y publicación registradas en la propuesta [025](docs/propuestas/025_publicacion_github_pages.md).
+**Hecho cuando:** el menú y el juego están accesibles desde la URL pública de GitHub Pages y los flujos principales funcionan. Verificación manual y publicación registradas en la propuesta 025 (archivada en el historial de Git).
 
 ### T8 — Centrar la interfaz en la partida y compactar el catálogo
 
@@ -119,7 +119,7 @@ Cada parte funcional tendrá su propio directorio. Un juego pequeño podrá impl
 - [x] T8.4 Añadir encabezados coherentes y dejar el resumen de configuración fuera de la partida.
 - [x] T8.5 Revisar los estilos adaptables, teclado y código; registrar el límite de revisión visual interactiva.
 
-**Hecho cuando:** el tablero prioriza el juego, la configuración concentra el resumen y las vistas son compactas y accesibles. Cambios registrados en la propuesta [026](docs/propuestas/026_interfaz_partida_catalogo.md). La comprobación interactiva en navegador no estuvo disponible en esta sesión.
+**Hecho cuando:** el tablero prioriza el juego, la configuración concentra el resumen y las vistas son compactas y accesibles. Cambios registrados en la propuesta 026 (archivada en el historial de Git). La comprobación interactiva en navegador no estuvo disponible en esta sesión.
 
 ### T9 — Compactar estado y configuración; simplificar acceso desde el catálogo
 
@@ -129,7 +129,7 @@ Cada parte funcional tendrá su propio directorio. Un juego pequeño podrá impl
 - [x] T9.4 Simplificar el catálogo y corregir la introducción de configuración.
 - [x] T9.5 Registrar la propuesta y revisar el diff.
 
-**Hecho cuando:** la partida, configuración y catálogo reflejan los cambios aprobados sin alterar las reglas. Cambios registrados en la propuesta [027](docs/propuestas/027_interfaz_compacta.md).
+**Hecho cuando:** la partida, configuración y catálogo reflejan los cambios aprobados sin alterar las reglas. Cambios registrados en la propuesta 027 (archivada en el historial de Git).
 
 ### T10 — Ajustar el tablero para pantallas pequeñas
 
@@ -138,7 +138,7 @@ Cada parte funcional tendrá su propio directorio. Un juego pequeño podrá impl
 - [x] T10.3 Mostrar los errores de botella llena y color no coincidente en el estado de movimiento.
 - [x] T10.4 Reducir la separación de los controles y documentar el cambio.
 
-**Hecho cuando:** el tablero compacto y sus mensajes muestran los estados aprobados sin cambiar las reglas. Cambios registrados en la propuesta [028](docs/propuestas/028_tablero_movil_compacto.md).
+**Hecho cuando:** el tablero compacto y sus mensajes muestran los estados aprobados sin cambiar las reglas. Cambios registrados en la propuesta 028 (archivada en el historial de Git).
 
 ### T11 — Modo aplicación móvil (PWA) y pantallas sin scroll vertical
 
@@ -148,7 +148,7 @@ Cada parte funcional tendrá su propio directorio. Un juego pequeño podrá impl
 - [x] T11.4 Adaptar el tablero de juego a `100dvh`, reduciendo ligeramente la altura de las botellas para que hasta 6 filas quepan sin scroll vertical.
 - [x] T11.5 Actualizar la propuesta, el plan y el contexto de continuidad.
 
-**Hecho cuando:** la web se puede instalar como aplicación móvil en iPhone y Android abriendo en modo standalone, y tanto la configuración como la partida de hasta 6 filas caben al 100 % de la pantalla sin scroll vertical. Cambios registrados en la propuesta [029](docs/propuestas/029_modo_app_y_tablero_sin_scroll.md).
+**Hecho cuando:** la web se puede instalar como aplicación móvil en iPhone y Android abriendo en modo standalone, y tanto la configuración como la partida de hasta 6 filas caben al 100 % de la pantalla sin scroll vertical. Cambios registrados en la propuesta 029 (archivada en el historial de Git).
 
 ### T12 — Respetar zonas seguras (Safe Area) en iOS y Dynamic Island
 
@@ -158,6 +158,15 @@ Cada parte funcional tendrá su propio directorio. Un juego pequeño podrá impl
 - [x] T12.4 Actualizar la propuesta, el plan y el contexto de continuidad.
 
 **Hecho cuando:** en iPhone con Dynamic Island / notch, la cabecera y el botón de volver son totalmente accesibles sin solapamiento, y el juego y catálogo respetan las zonas seguras sin scroll indeseado. Cambios registrados en la propuesta [030](docs/propuestas/030_respetar_safe_area_ios.md).
+
+### T13 — Ajustes visuales y limpieza de propuestas
+
+- [x] T13.1 Cambiar el aviso de botella cerrada por formato compacto con icono «✕» usando `setMoveError`.
+- [x] T13.2 Eliminar el `box-shadow` verde perimetral de `.bottle.selected`, manteniendo solo el fondo sutil y el contorno blanco sobre el vidrio.
+- [x] T13.3 Eliminar las propuestas `008`–`029` de `docs/propuestas/`, conservando las dos últimas (`030` y `031`).
+- [x] T13.4 Actualizar `docs/README.md`, `PLAN.md` y `CONTEXTO.md` para evitar enlaces rotos.
+
+**Hecho cuando:** los mensajes de botella cerrada son compactos con icono, la selección no muestra borde verde, y el directorio de propuestas solo contiene las dos últimas. Cambios registrados en la propuesta [031](docs/propuestas/031_ajustes_visuales_y_limpieza_propuestas.md).
 
 ## Dependencias y orden sugerido
 
