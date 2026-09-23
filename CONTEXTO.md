@@ -26,6 +26,7 @@ Proyecto personal para publicar una colección de juegos web estáticos con GitH
 - Las propuestas están en `docs/propuestas/008_entrada_y_configuracion.md`, `docs/propuestas/009_generador_resoluble.md`, `docs/propuestas/011_botella_vacia_reserva.md` (descartada), `docs/propuestas/012_vacias_intermedias_y_victoria.md` y `docs/propuestas/014_dos_colores_por_botella.md`.
 - GitHub CLI (`gh`) tiene un token inválido; los pushes de esta tarea se completaron mediante la autenticación configurada para Git.
 - La configuración de GitHub Pages sigue pendiente.
+- Se corrigió la validación de Botellas y líquidos para que no use una búsqueda aleatoria al decidir si la configuración es compatible; propuesta 015 en rama `feature/015_validacion_determinista`.
 
 ## Próximos pasos sugeridos
 
@@ -40,5 +41,12 @@ Proyecto personal para publicar una colección de juegos web estáticos con GitH
 - Decisiones: ninguna botella empieza vacía ni llena; cualquier número de botellas vacías se ignora al ganar. El volumen objetivo se reparte en tantas botellas completas como sea necesario y los colores pueden repetirse.
 - La especificación vigente está en `juegos/botellas-y-liquidos/README.md`; la propuesta 014 registra el cambio que exige dos colores distintos en cada botella inicial.
 - Verificación: `git diff --check` sin errores y revisión del diff. No se ejecutaron pruebas automatizadas ni comprobación manual en navegador.
+
+## Bloque 015 — validación determinista
+
+- Rama: `feature/015_validacion_determinista`.
+- Estado: implementación y documentación preparadas; verificación local completada, pendiente commit, fusión y publicación.
+- Decisión: la compatibilidad se calcula por existencia mediante búsqueda determinista; el generador aún elige al azar entre objetivos compatibles.
+- Verificación: `node --check` del bloque JavaScript, `git diff --check` y comprobación de que los valores de las capturas se aceptan siempre; los casos de capacidad 2 y sin botella extra se rechazan.
 
 Al retomar, revisar primero `PLAN.md` y el estado real del repositorio; mantener este archivo actualizado al cerrar tareas.
