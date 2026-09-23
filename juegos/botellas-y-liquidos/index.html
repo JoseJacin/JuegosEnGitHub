@@ -2,41 +2,47 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#101821">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Juegos">
+  <link rel="apple-touch-icon" href="../../imagenes/icono-192.png">
+  <link rel="icon" type="image/svg+xml" href="../../imagenes/icono.svg">
+  <link rel="manifest" href="../../manifest.json">
   <title>Botellas y líquidos</title>
   <style>
     :root { color-scheme: dark; --bg: #101821; --panel: #1b2833; --text: #f4f6f7; --muted: #b6c2ca; --accent: #82d8a0; --line: #40515d; }
     * { box-sizing: border-box; }
-    body { margin: 0; min-height: 100vh; color: var(--text); background: radial-gradient(ellipse at 50% -20%, #29423d, var(--bg) 60%); font: 16px/1.5 system-ui, sans-serif; }
-    main { width: min(100% - 2rem, 1200px); margin: auto; padding: 2rem 0 4rem; }
+    body { margin: 0; min-height: 100vh; min-height: 100dvh; color: var(--text); background: radial-gradient(ellipse at 50% -20%, #29423d, var(--bg) 60%); font: 16px/1.5 system-ui, sans-serif; }
+    main { width: min(100% - 2rem, 1200px); margin: auto; padding: 1.5rem 0 2.5rem; }
     a { color: var(--accent); text-underline-offset: .2em; }
-    .site-header { display: flex; align-items: center; justify-content: space-between; gap: 1.25rem; margin-bottom: 1.5rem; padding: 1rem 1.25rem; border: 1px solid var(--line); border-radius: 1rem; background: #1b2833dc; }
+    .site-header { display: flex; align-items: center; justify-content: space-between; gap: 1.25rem; margin-bottom: 1.25rem; padding: .85rem 1.15rem; border: 1px solid var(--line); border-radius: 1rem; background: #1b2833dc; }
     .site-brand { color: var(--accent); font-size: .9rem; font-weight: 800; letter-spacing: .08em; text-decoration: none; text-transform: uppercase; }
     .site-heading { margin: 0 auto 0 0; }
     .site-heading p { margin: 0; color: var(--muted); font-size: .72rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
-    .site-heading h1 { margin: .1rem 0 0; font-size: clamp(1.6rem, 4vw, 2.5rem); }
-    .back { flex: 0 0 auto; padding: .5rem .7rem; border: 1px solid var(--line); border-radius: .6rem; text-decoration: none; }
-    h1 { margin: 0; font-size: clamp(2rem, 7vw, 3.7rem); line-height: 1.1; }
+    .site-heading h1 { margin: .1rem 0 0; font-size: clamp(1.5rem, 3.5vw, 2.2rem); }
+    .back { flex: 0 0 auto; padding: .45rem .65rem; border: 1px solid var(--line); border-radius: .6rem; text-decoration: none; }
+    h1 { margin: 0; font-size: clamp(1.8rem, 6vw, 3.2rem); line-height: 1.1; }
     .lead { max-width: 65ch; color: var(--muted); }
-    form, .summary { padding: clamp(1rem, 4vw, 2rem); border: 1px solid var(--line); border-radius: 1.2rem; background: color-mix(in srgb, var(--panel), transparent 7%); }
+    form, .summary { padding: clamp(1rem, 3vw, 1.6rem); border: 1px solid var(--line); border-radius: 1.1rem; background: color-mix(in srgb, var(--panel), transparent 7%); }
     fieldset { min-width: 0; margin: 0; padding: 0; border: 0; }
-    legend { margin-bottom: 1rem; font-size: 1.3rem; font-weight: 750; }
-    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
-    label.control { display: grid; gap: .45rem; color: var(--muted); font-weight: 650; }
-    select, button { min-height: 46px; padding: .65rem .8rem; border: 1px solid #637681; border-radius: .65rem; background: #111c25; color: var(--text); font: inherit; }
+    legend { margin-bottom: .8rem; font-size: 1.2rem; font-weight: 750; }
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .85rem; }
+    label.control { display: grid; gap: .35rem; color: var(--muted); font-weight: 650; }
+    select, button { min-height: 44px; padding: .55rem .75rem; border: 1px solid #637681; border-radius: .65rem; background: #111c25; color: var(--text); font: inherit; }
     select:focus-visible, button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
-    .check { display: flex; align-items: flex-start; gap: .7rem; margin: 1.3rem 0; }
+    .check { display: flex; align-items: flex-start; gap: .7rem; margin: 1rem 0; }
     .check input { width: 1.2rem; height: 1.2rem; accent-color: var(--accent); flex: 0 0 auto; }
-    .hint, .muted { color: var(--muted); font-size: .95rem; }
-    .summary { margin-top: 1rem; }
-    .summary h2 { margin: 0 0 .5rem; font-size: 1.2rem; }
-    .summary p { margin: .4rem 0; }
-    .status { padding: .8rem 1rem; border-left: 4px solid var(--accent); background: #172c27; border-radius: .25rem .7rem .7rem .25rem; }
+    .hint, .muted { color: var(--muted); font-size: .92rem; }
+    .summary { margin-top: .85rem; }
+    .summary h2 { margin: 0 0 .4rem; font-size: 1.15rem; }
+    .summary p { margin: .35rem 0; }
+    .status { padding: .7rem .9rem; border-left: 4px solid var(--accent); background: #172c27; border-radius: .25rem .7rem .7rem .25rem; }
     .status.error { border-color: #ff9d91; background: #352321; }
-    button { margin-top: 1rem; background: var(--accent); border-color: var(--accent); color: #102019; font-weight: 800; cursor: pointer; }
+    button { margin-top: .85rem; background: var(--accent); border-color: var(--accent); color: #102019; font-weight: 800; cursor: pointer; }
     button:disabled { cursor: not-allowed; opacity: .7; }
-    .board { min-width: 0; margin-top: 1.5rem; padding: clamp(1rem, 4vw, 2rem); border: 1px solid var(--line); border-radius: 1.2rem; background: linear-gradient(145deg, #1e2d38, var(--panel) 55%); }
+    .board { min-width: 0; margin-top: 1.25rem; padding: clamp(1rem, 3vw, 1.75rem); border: 1px solid var(--line); border-radius: 1.2rem; background: linear-gradient(145deg, #1e2d38, var(--panel) 55%); }
     .board-head { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; }
     .board-head button { margin: 0; }
     .game-actions { display: flex; flex-wrap: wrap; gap: .25rem; }
@@ -51,19 +57,19 @@
     .victory-dialog::backdrop { background: #071015cc; }
     .victory-dialog h2 { margin-top: 0; }
     .diagnostic-report { max-height: 16rem; overflow: auto; padding: .75rem; border: 1px solid var(--line); border-radius: .5rem; background: #101820; color: var(--muted); font: .78rem/1.45 ui-monospace, monospace; white-space: pre-wrap; overflow-wrap: anywhere; }
-    .bottles-scroll { max-width: 100%; margin-top: 1.25rem; overflow-x: auto; overscroll-behavior-inline: contain; scrollbar-color: var(--accent) #111c25; }
+    .bottles-scroll { max-width: 100%; margin-top: 1rem; overflow-x: auto; overflow-y: hidden; scrollbar-color: var(--accent) #111c25; }
     .bottles-scroll:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
-    .bottles { --bottle-columns: 4; display: grid; grid-template-columns: repeat(var(--bottle-columns), minmax(0, 1fr)); gap: .4rem .35rem; width: 100%; padding: .4rem .25rem .7rem; }
-    .bottle { display: grid; justify-items: center; align-content: start; gap: 0; min-width: 0; padding: .3rem .1rem; }
+    .bottles { --bottle-columns: 4; --bottle-rows: 2; display: grid; grid-template-columns: repeat(var(--bottle-columns), minmax(0, 1fr)); gap: .35rem .3rem; width: 100%; padding: .3rem .2rem .5rem; }
+    .bottle { display: grid; justify-items: center; align-content: start; gap: 0; min-width: 0; padding: .2rem .1rem; }
     .bottle[role="button"] { cursor: pointer; border-radius: .5rem; }
     .bottle:hover { background: #ffffff08; }
     .bottle:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
     .bottle.selected { background: #82d8a01c; box-shadow: inset 0 0 0 1px var(--accent); }
     .bottle.selected .glass { outline: 2px solid #f4f6f7; outline-offset: 2px; }
     .bottle.closed .glass { border-color: var(--accent); box-shadow: inset 0 0 0 2px var(--accent), 0 0 1rem #82d8a044; }
-    .cork { position: relative; z-index: 2; width: min(100%, 4rem); height: .72rem; margin-bottom: -0.72rem; border: 1px solid #7a492b; border-radius: .12rem .12rem .35rem .35rem; background: linear-gradient(90deg, #744226, #c88b54 45%, #8b5732); box-shadow: inset 0 .12rem #e4b17a55, 0 .1rem .18rem #0008; }
-    .cork::before { position: absolute; right: 0; bottom: 0.32rem; left: 0; height: .16rem; border: 1px solid #8f5b35; border-radius: .2rem; background: #b87945; content: ''; }
-    .glass { position: relative; width: min(100%, 4rem); height: 8rem; overflow: hidden; border: 3px solid #a9c1ca; border-top: 0; border-radius: 0 0 1rem 1rem; background: linear-gradient(90deg, #101820, #1b2833 48%, #101820); box-shadow: inset 0 0 0 1px #ffffff12; }
+    .cork { position: relative; z-index: 2; width: min(100%, 3.8rem); height: .68rem; margin-bottom: -0.68rem; border: 1px solid #7a492b; border-radius: .12rem .12rem .35rem .35rem; background: linear-gradient(90deg, #744226, #c88b54 45%, #8b5732); box-shadow: inset 0 .12rem #e4b17a55, 0 .1rem .18rem #0008; }
+    .cork::before { position: absolute; right: 0; bottom: 0.3rem; left: 0; height: .15rem; border: 1px solid #8f5b35; border-radius: .2rem; background: #b87945; content: ''; }
+    .glass { position: relative; width: min(100%, 3.8rem); height: clamp(4rem, calc((100dvh - 15rem) / var(--bottle-rows, 6)), 7.2rem); overflow: hidden; border: 3px solid #a9c1ca; border-top: 0; border-radius: 0 0 1rem 1rem; background: linear-gradient(90deg, #101820, #1b2833 48%, #101820); box-shadow: inset 0 0 0 1px #ffffff12; }
     .liquid { position: absolute; right: 0; left: 0; }
     .bottle-meta { position: absolute; z-index: 2; top: 50%; left: 50%; display: grid; justify-items: center; gap: .12rem; max-width: calc(100% - .2rem); padding: .08rem .2rem; transform: translate(-50%, -50%); border-radius: .25rem; background: #101821d9; color: var(--muted); font-size: .8rem; line-height: 1.2; text-align: center; font-variant-numeric: tabular-nums; white-space: nowrap; pointer-events: none; }
     .bottle.closed .bottle-meta { color: var(--accent); }
@@ -71,27 +77,39 @@
     .move-error-icon { display: inline-grid; width: 1.1rem; height: 1.1rem; flex: 0 0 auto; place-items: center; border: 1px solid currentColor; border-radius: 50%; font-size: .75rem; font-weight: 800; line-height: 1; }
     .move-status.error { color: #ffb0a6; }
     @media (max-width: 600px) {
-      main { width: min(100% - 1rem, 1200px); padding: .65rem 0 1.25rem; }
-      .site-header { gap: .6rem; margin-bottom: .75rem; padding: .65rem .7rem; }
-      .site-brand { font-size: .72rem; }
-      .site-heading p { font-size: .62rem; }
-      .site-heading h1 { font-size: clamp(1.25rem, 6vw, 1.75rem); }
-      .back { padding: .4rem .5rem; font-size: .85rem; }
-      .board-head { align-items: center; }
-      .move-status { flex: 1 1 auto; }
-      .game-actions { flex: 0 0 auto; }
-      .game-actions .icon-button { width: 44px; height: 44px; min-height: 44px; }
-      .grid { gap: .65rem; }
-      form, .summary { padding: .8rem; border-radius: .8rem; }
-      legend { margin-bottom: .65rem; font-size: 1.1rem; }
-      select { min-height: 42px; padding: .45rem .6rem; }
-      .summary { margin-top: .7rem; }
-      .summary button { min-height: 44px; margin-top: .6rem; }
-      .board { margin-top: .7rem; padding: .75rem .55rem; border-radius: .8rem; }
-      .bottles { gap: .2rem .2rem; }
-      .glass { width: min(100%, 3.25rem); height: 6.25rem; }
-      .cork { width: min(100%, 3.25rem); }
-      .bottle-meta { font-size: clamp(.55rem, 2.6vw, .7rem); }
+      body { height: 100dvh; max-height: 100dvh; overflow: hidden; overscroll-behavior: none; }
+      main { width: min(100% - .8rem, 1200px); height: 100dvh; max-height: 100dvh; padding: .35rem 0 .45rem; display: flex; flex-direction: column; }
+      .site-header { gap: .5rem; margin-bottom: .35rem; padding: .35rem .55rem; flex: 0 0 auto; }
+      .site-brand { font-size: .68rem; }
+      .site-heading p { font-size: .56rem; }
+      .site-heading h1 { font-size: clamp(1.1rem, 4.8vw, 1.35rem); }
+      .back { padding: .25rem .45rem; font-size: .78rem; }
+      form#settings { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; justify-content: space-between; padding: .55rem .65rem; border-radius: .8rem; overflow-y: auto; }
+      legend { margin-bottom: .25rem; font-size: .98rem; }
+      .lead { margin: 0 0 .3rem; font-size: .78rem; line-height: 1.25; }
+      .grid { gap: .3rem .45rem; }
+      label.control { gap: .12rem; font-size: .75rem; }
+      select { min-height: 34px; padding: .22rem .45rem; font-size: .8rem; }
+      .check { gap: .45rem; margin: .3rem 0; font-size: .78rem; line-height: 1.25; }
+      .check input { width: 1.05rem; height: 1.05rem; }
+      #sizesControl { gap: .25rem; }
+      .hint, .muted { font-size: .75rem; }
+      .summary { margin-top: .3rem; padding: .45rem .65rem; border-radius: .7rem; }
+      .summary h2 { margin: 0 0 .12rem; font-size: .9rem; }
+      .summary p { margin: .12rem 0; font-size: .76rem; line-height: 1.25; }
+      .status { padding: .35rem .5rem; margin: .2rem 0; font-size: .76rem; }
+      .summary button { min-height: 36px; margin-top: .3rem; padding: .35rem .55rem; font-size: .85rem; }
+      .board { flex: 1 1 auto; min-height: 0; margin-top: .35rem; padding: .45rem .4rem; border-radius: .8rem; display: flex; flex-direction: column; }
+      .board-head { flex: 0 0 auto; align-items: center; gap: .3rem; }
+      .move-status { flex: 1 1 auto; font-size: .78rem; min-height: 1.2em; }
+      .game-actions { flex: 0 0 auto; gap: .2rem; }
+      .game-actions .icon-button { width: 36px; height: 36px; min-height: 36px; padding: .35rem; }
+      .icon-button svg { width: 1.05rem; height: 1.05rem; }
+      .bottles-scroll { flex: 1 1 auto; min-height: 0; margin-top: .3rem; overflow-x: auto; overflow-y: hidden; display: flex; align-items: center; }
+      .bottles { gap: .15rem .15rem; padding: .1rem 0; height: 100%; align-content: center; }
+      .glass { width: min(100%, 3.1rem); height: clamp(3.2rem, calc((100dvh - 8.8rem) / var(--bottle-rows, 6) - 0.45rem), 5.25rem); }
+      .cork { width: min(100%, 3.1rem); height: .55rem; margin-bottom: -0.55rem; }
+      .bottle-meta { font-size: clamp(.5rem, 2.2vw, .65rem); padding: .04rem .12rem; }
       .victory-dialog { max-height: calc(100dvh - 2rem); overflow-y: auto; }
       .victory-dialog button { width: 100%; }
     }
@@ -510,6 +528,7 @@
       selectedBottle = null;
       bottleGrid.replaceChildren();
       bottleGrid.style.setProperty('--bottle-columns', gameConfig.columns);
+      bottleGrid.style.setProperty('--bottle-rows', gameConfig.rows);
       currentBottles.forEach((bottle, index) => {
         const item = document.createElement('div');
         item.className = `bottle${bottle.open ? '' : ' closed done'}`;

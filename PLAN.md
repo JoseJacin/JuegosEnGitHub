@@ -140,6 +140,16 @@ Cada parte funcional tendrá su propio directorio. Un juego pequeño podrá impl
 
 **Hecho cuando:** el tablero compacto y sus mensajes muestran los estados aprobados sin cambiar las reglas. Cambios registrados en la propuesta [028](docs/propuestas/028_tablero_movil_compacto.md).
 
+### T11 — Modo aplicación móvil (PWA) y pantallas sin scroll vertical
+
+- [x] T11.1 Crear el manifiesto `manifest.json` con `display: standalone` y los recursos de icono (SVG y PNG 192x192 / 512x512).
+- [x] T11.2 Incluir metadatos para iOS (`apple-mobile-web-app-*`) y enlace a manifest e iconos en `index.html`, `menu/index.html` y el juego.
+- [x] T11.3 Compactar el formulario de configuración para que quepa en pantalla móvil sin scroll vertical.
+- [x] T11.4 Adaptar el tablero de juego a `100dvh`, reduciendo ligeramente la altura de las botellas para que hasta 6 filas quepan sin scroll vertical.
+- [x] T11.5 Actualizar la propuesta, el plan y el contexto de continuidad.
+
+**Hecho cuando:** la web se puede instalar como aplicación móvil en iPhone y Android abriendo en modo standalone, y tanto la configuración como la partida de hasta 6 filas caben al 100 % de la pantalla sin scroll vertical. Cambios registrados en la propuesta [029](docs/propuestas/029_modo_app_y_tablero_sin_scroll.md).
+
 ## Dependencias y orden sugerido
 
 1. T1 y T2 preparan navegación y opciones de partida.

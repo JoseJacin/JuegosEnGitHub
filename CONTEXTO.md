@@ -64,6 +64,15 @@ Colección de juegos web estáticos publicada en GitHub Pages. El primer juego, 
 - No se ejecutaron pruebas ni comprobación en navegador.
 - Próximo paso: elegir el siguiente cambio o juego.
 
+## Bloque 029 — modo aplicación (PWA) y pantallas sin scroll vertical
+
+- Propuesta aprobada e implementada: `docs/propuestas/029_modo_app_y_tablero_sin_scroll.md`.
+- Se creó `manifest.json` y los iconos en `imagenes/` (SVG y PNGs de 192x192 y 512x512) para permitir instalación como app en iPhone y Android en modo `standalone`.
+- Se añadieron metadatos `apple-mobile-web-app-*` y `viewport-fit=cover` en `index.html`, `menu/index.html` y el juego.
+- Se compactó la vista de configuración (`#settings`) para que quepa en pantalla móvil sin scroll vertical.
+- Se ajustó el tablero de juego (`#game`) a `100dvh` y se redujo ligeramente la altura base de las botellas haciéndola adaptativa mediante `--bottle-rows`, garantizando que hasta 6 filas de botellas quepan íntegramente en pantalla sin scroll vertical.
+- Próximo paso: verificar flujos en móvil y elegir el siguiente juego o mejora del catálogo.
+
 ## Estado de Git al cerrar
 
-Los cambios de 026 están integrados en `main` y publicados en `origin/main` (`3ab9acd`); la rama `feature/026_interfaz_partida_catalogo` también está publicada. El árbol de trabajo está en `main`. `.history/` es un archivo local ajeno al cambio y debe quedar fuera del commit.
+Los cambios de 029 se integraron en `main` y se publicaron en `origin/main`; la rama `feature/029_modo_app_y_tablero_sin_scroll` también queda publicada. `.history/` es un archivo local ajeno al cambio y debe quedar fuera del commit.
