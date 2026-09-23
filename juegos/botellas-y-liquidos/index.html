@@ -135,7 +135,13 @@
       const options = [];
       for (let count = colorCount; count < total; count += 1) {
         for (let units = total * 2; units <= maxInitialUnits; units += 1) {
-          if (reachable[count].has(units)) options.push({ count, units, path: reachable[count].get(units) });
+          const extraCount = total - count;
+          const extraUnits = totalUnits - units;
+          const lowerRetained = Math.max(count * 2, units - (extraUnits - extraCount));
+          const upperRetained = Math.min(units - extraCount * 2, units - extraCount);
+          if (reachable[count].has(units) && lowerRetained <= upperRetained) {
+            options.push({ count, units, path: reachable[count].get(units) });
+          }
         }
       }
       if (!options.length) return null;
@@ -148,14 +154,55 @@
     function goalSelectionCanFit(capacities, colorCount) {
       const total = capacities.length;
       if (capacities.some((capacity) => capacity < 3)) return false;
-      const sorted = [...capacities].sort((a, b) => a - b);
       const maxInitialUnits = capacities.reduce((sum, capacity) => sum + capacity - 1, 0);
+      const reachable = Array.from({ length: total }, () => new Set());
+      reachable[0].add(0);
+      capacities.forEach((capacity, index) => {
+        for (let count = Math.min(index + 1, total - 1); count >= 1; count -= 1) {
+          for (const units of reachable[count - 1]) reachable[count].add(units + capacity);
+        }
+      });
+
       for (let count = colorCount; count < total; count += 1) {
-        const smallestGoalVolume = sorted.slice(0, count).reduce((sum, capacity) => sum + capacity, 0);
-        const largestGoalVolume = sorted.slice(total - count).reduce((sum, capacity) => sum + capacity, 0);
-        if (smallestGoalVolume <= maxInitialUnits && largestGoalVolume >= total * 2) return true;
+        const extraCount = total - count;
+        for (const goalUnits of reachable[count]) {
+          if (goalUnits < total * 2 || goalUnits > maxInitialUnits) continue;
+          const extraUnits = capacities.reduce((sum, capacity) => sum + capacity, 0) - goalUnits;
+          const lowerRetained = Math.max(count * 2, goalUnits - (extraUnits - extraCount));
+          const upperRetained = Math.min(goalUnits - extraCount * 2, goalUnits - extraCount);
+          if (lowerRetained <= upperRetained) return true;
+        }
       }
       return false;
+    }
+
+    function hasCapacityPlan(total, maxCapacity, variable, sizeCount, colors) {
+      if (!variable) return goalSelectionCanFit(Array(total).fill(maxCapacity), colors);
+      const sizes = [];
+      function chooseSizes(next) {
+        if (sizes.length === sizeCount) {
+          function assignCounts(index, remaining, counts) {
+            if (index === sizes.length - 1) {
+              if (remaining < 1) return false;
+              const capacities = [...counts, remaining].flatMap((count, i) => Array(count).fill(sizes[i]));
+              return goalSelectionCanFit(capacities, colors);
+            }
+            const slotsAfter = sizes.length - index - 1;
+            for (let count = 1; count <= remaining - slotsAfter; count += 1) {
+              if (assignCounts(index + 1, remaining - count, [...counts, count])) return true;
+            }
+            return false;
+          }
+          return sizes.length <= total && assignCounts(0, total, []);
+        }
+        for (let size = next; size <= maxCapacity; size += 1) {
+          sizes.push(size);
+          if (chooseSizes(size + 1)) return true;
+          sizes.pop();
+        }
+        return false;
+      }
+      return chooseSizes(3);
     }
 
     function fillRange(select, min, max, selected) {
@@ -195,10 +242,9 @@
       if (enabled && availableSizes < CONFIG.limits.sizeCount[0]) messages.push('Para usar capacidades distintas, aumenta la capacidad máxima a 3 o más: hacen falta al menos dos tamaños disponibles.');
       if (enabled && sizeCount > maxSizes) messages.push('Reduce el número de tamaños distintos o aumenta la capacidad máxima.');
       pendingGamePlan = null;
-      if (messages.length === 0 && total > 0 && colors < total) {
-        pendingGamePlan = findCapacityPlan(total, maxCapacity, enabled, sizeCount, colors);
-      }
-      if (total > 0 && colors < total && !pendingGamePlan) {
+      const capacityPlanExists = messages.length === 0 && total > 0 && colors < total
+        && hasCapacityPlan(total, maxCapacity, enabled, sizeCount, colors);
+      if (total > 0 && colors < total && messages.length === 0 && !capacityPlanExists) {
         if (enabled) {
           messages.push(`Con capacidades distintas no hay una asignación compatible. Cada botella necesita al menos 2 unidades de dos colores y quedar parcialmente llena; el volumen objetivo debe ser al menos ${total * 2} unidades y no superar la suma de capacidad menos una unidad por botella.`);
         } else {
