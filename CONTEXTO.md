@@ -18,7 +18,7 @@ Proyecto personal para publicar una colección de juegos web estáticos con GitH
 
 ## Estado actual
 
-- La entrada raíz (`index.html`), el catálogo (`menu/index.html`), la pantalla de configuración y el generador de partidas de Botellas y líquidos están implementados en `main`; se trabaja en `feature/011_t3_botella_reserva` para añadir una botella vacía de reserva al inicio.
+- La entrada raíz (`index.html`), el catálogo (`menu/index.html`), la pantalla de configuración y el generador de partidas de Botellas y líquidos están implementados en `main`.
 - Repositorio local inicializado en la rama `main`, conectado al remoto público `https://github.com/JoseJacin/JuegosEnGitHub.git`.
 - `main` y las ramas de trabajo están publicadas en GitHub. La guía de agentes/SDD está integrada en `main` y publicada desde `feature/007_guia_agentes_sdd`.
 - Las reglas del juego de botellas están aprobadas; el plan jerárquico está en `PLAN.md`.
@@ -35,8 +35,9 @@ Proyecto personal para publicar una colección de juegos web estáticos con GitH
 
 ## Estado de Git al cerrar este bloque
 
-- Rama actual: `feature/011_t3_botella_reserva`, creada desde `main` actualizado; cambios locales revisados, pendientes de commit, fusión y publicación.
-- Decisión en curso: dejar exactamente una botella vacía de reserva. Se desactivan las combinaciones para las que no sea posible conservar esa reserva sin que alguna de las otras botellas empiece vacía o llena.
+- Rama actual: `main`, sincronizada con `origin/main`. Las ramas de T3 `feature/009_t3_generador_resoluble`, `feature/010_t3_capas_mezcladas` y `feature/011_t3_botella_reserva` están publicadas.
+- Commits del cambio de reserva: implementación `0e6c5ea`; fusión en `main` `af75c5e`.
+- Decisión: cada partida empieza con exactamente una botella vacía de reserva. Las restantes empiezan con líquido y al menos un espacio libre; las combinaciones incompatibles se explican en la validación.
 - La distribución conserva objetivos por color y puede mezclar varias capas en una botella, siguiendo la referencia visual; algunas pueden quedar monocromáticas.
 - Verificación: `git diff --check` sin errores y revisión del diff. No se ejecutaron pruebas automatizadas ni comprobación manual en navegador.
 
