@@ -35,7 +35,7 @@ Proyecto personal para publicar una colección de juegos web estáticos con GitH
 
 ## Estado de Git al cerrar este bloque
 
-- Rama actual: `main`, con la funcionalidad integrada localmente; pendiente de publicar `main` y `feature/014_dos_colores_por_botella`.
+- Rama actual: `main`, sincronizada con `origin/main`; `feature/014_dos_colores_por_botella` también está publicada.
 - Commits del ajuste de objetivos: implementación `5df160b`; fusión en `main` `83d5d9f`.
 - Decisiones: ninguna botella empieza vacía ni llena; cualquier número de botellas vacías se ignora al ganar. El volumen objetivo se reparte en tantas botellas completas como sea necesario y los colores pueden repetirse.
 - La disposición puede mezclar varias capas en cada botella, siguiendo la referencia visual; ninguna empieza monocromática.
