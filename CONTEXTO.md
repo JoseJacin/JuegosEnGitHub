@@ -23,6 +23,7 @@ Proyecto personal para publicar una colección de juegos web estáticos con GitH
 - `main` y las ramas de trabajo están publicadas en GitHub. La guía de agentes/SDD está integrada en `main` y publicada desde `feature/007_guia_agentes_sdd`.
 - Las reglas del juego de botellas están aprobadas; el plan jerárquico está en `PLAN.md`.
 - T1–T5 están integradas en `main`. Cada botella empieza parcialmente llena y con al menos dos colores distintos; la capacidad 2 no es válida para iniciar. T4 permite selección, cancelación y trasvase de capas, y tapa automáticamente las botellas completadas. T5 añade historial, deshacer, reinicio y victoria.
+- T6 está implementada en `feature/024_estilo_visual_accesibilidad`: tablero adaptable con desplazamiento horizontal cuando hace falta, botellas identificadas visualmente, estados más claros y descripciones accesibles de capas y colores. Pendiente de revisión e integración.
 - Las propuestas están en `docs/propuestas/008_entrada_y_configuracion.md`, `docs/propuestas/009_generador_resoluble.md`, `docs/propuestas/011_botella_vacia_reserva.md` (descartada), `docs/propuestas/012_vacias_intermedias_y_victoria.md` y `docs/propuestas/014_dos_colores_por_botella.md`.
 - GitHub CLI (`gh`) tiene un token inválido; los pushes de esta tarea se completaron mediante la autenticación configurada para Git.
 - La configuración de GitHub Pages sigue pendiente.
@@ -88,6 +89,15 @@ Proyecto personal para publicar una colección de juegos web estáticos con GitH
 - Verificación: revisión estática del informe y `git diff --check`; no se usó el navegador, según indicación del usuario.
 - Próximo paso: el usuario puede pulsar «Copiar diagnóstico» y pegar el informe aquí para localizar cualquier espacio restante.
 
+## Bloque 024 — estilo visual y accesibilidad
+
+- Rama: `feature/024_estilo_visual_accesibilidad`.
+- Estado: propuesta 024 aprobada e implementación preparada; pendiente revisión e integración.
+- Cambio: estilos refinados para el tema oscuro; tablero de ancho adaptable con desplazamiento horizontal y acceso por teclado; controles reorganizados en móvil; identificación visible de cada botella y estados más claros; las etiquetas de lector de pantalla anuncian unidades, colores, capacidad y estado.
+- Decisión: conservar un ancho mínimo de columna para mantener legibles tableros grandes; el usuario puede desplazarse horizontalmente cuando el ancho de pantalla no alcance.
+- Verificación: revisión estática del cambio y `git diff --check`; no se hizo comprobación manual en navegador.
+- Próximo paso: revisión final de T6 e integración; luego abordar T7 (GitHub Pages).
+
 Al retomar, revisar primero `PLAN.md` y el estado real del repositorio; mantener este archivo actualizado al cerrar tareas.
 
 ## Bloque 021 — conteo de unidades iniciales
@@ -113,4 +123,4 @@ Al retomar, revisar primero `PLAN.md` y el estado real del repositorio; mantener
 - Estado: integrado y publicado en `main` mediante `8097553` y `97cf0bc`; la actualización de contexto quedó en `c845eea`. La rama de funcionalidad también está publicada.
 - Cambio: se guarda una copia del tablero antes de cada trasvase válido; deshacer restaura ese estado y reiniciar restaura la disposición original de la partida actual. La victoria exige que cada botella con líquido esté llena, tenga un color y esté cerrada; las vacías se ignoran. El diálogo permite deshacer la jugada ganadora, repetir con una disposición nueva bajo la configuración vigente o cambiar la configuración.
 - Verificación: revisión estática del historial, reinicio, condición de victoria y acciones del diálogo; `node --check` del JavaScript extraído y `git diff --check` sin errores. No se hizo comprobación manual en navegador; queda incluida en T7.
-- Próximo paso: proponer T6 según `PLAN.md`.
+- Próximo paso: integrar T6 y abordar T7 según `PLAN.md`.
