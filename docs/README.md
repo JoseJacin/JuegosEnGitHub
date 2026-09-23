@@ -16,4 +16,5 @@ Cada funcionalidad nueva o cambio relevante debe comenzar como propuesta basada 
 
 - [`propuestas/008_entrada_y_configuracion.md`](propuestas/008_entrada_y_configuracion.md): entrada y configuración.
 - [`propuestas/009_generador_resoluble.md`](propuestas/009_generador_resoluble.md): generador inicial resoluble.
-- [`propuestas/011_botella_vacia_reserva.md`](propuestas/011_botella_vacia_reserva.md): botella vacía de reserva al inicio.
+- [`propuestas/011_botella_vacia_reserva.md`](propuestas/011_botella_vacia_reserva.md): propuesta descartada de botella vacía inicial.
+- [`propuestas/012_vacias_intermedias_y_victoria.md`](propuestas/012_vacias_intermedias_y_victoria.md): aclaración del estado inicial y las botellas vacías durante la partida.

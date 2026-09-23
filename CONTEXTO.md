@@ -18,12 +18,12 @@ Proyecto personal para publicar una colección de juegos web estáticos con GitH
 
 ## Estado actual
 
-- La entrada raíz (`index.html`), el catálogo (`menu/index.html`), la pantalla de configuración y el generador de partidas de Botellas y líquidos están implementados en `main`.
+- La entrada raíz (`index.html`), el catálogo (`menu/index.html`), la pantalla de configuración y el generador de partidas de Botellas y líquidos están implementados en `main`; se corrige en `feature/012_vacias-durante-partida` una interpretación equivocada sobre botellas vacías al inicio.
 - Repositorio local inicializado en la rama `main`, conectado al remoto público `https://github.com/JoseJacin/JuegosEnGitHub.git`.
 - `main` y las ramas de trabajo están publicadas en GitHub. La guía de agentes/SDD está integrada en `main` y publicada desde `feature/007_guia_agentes_sdd`.
 - Las reglas del juego de botellas están aprobadas; el plan jerárquico está en `PLAN.md`.
-- T1, T2 y T3 están integradas en `main`. La revisión actual cambia el estado inicial de T3 para dejar una botella vacía, manteniendo las demás parcialmente llenas y una solución conocida por construcción. El juego aún no implementa trasvases interactivos (T4).
-- Las propuestas están en `docs/propuestas/008_entrada_y_configuracion.md`, `docs/propuestas/009_generador_resoluble.md` y `docs/propuestas/011_botella_vacia_reserva.md`.
+- T1, T2 y T3 están integradas en `main`. La aclaración vigente mantiene todas las botellas parcialmente llenas al inicio; una o más pueden quedar vacías tras los movimientos y al ganar se ignoran si las demás botellas con líquido están completas, ordenadas y cerradas. El juego aún no implementa trasvases interactivos (T4).
+- Las propuestas están en `docs/propuestas/008_entrada_y_configuracion.md`, `docs/propuestas/009_generador_resoluble.md`, `docs/propuestas/011_botella_vacia_reserva.md` (descartada) y `docs/propuestas/012_vacias_intermedias_y_victoria.md`.
 - GitHub CLI (`gh`) tiene un token inválido; los pushes de esta tarea se completaron mediante la autenticación configurada para Git.
 - La configuración de GitHub Pages sigue pendiente.
 
@@ -35,9 +35,8 @@ Proyecto personal para publicar una colección de juegos web estáticos con GitH
 
 ## Estado de Git al cerrar este bloque
 
-- Rama actual: `main`, sincronizada con `origin/main`. Las ramas de T3 `feature/009_t3_generador_resoluble`, `feature/010_t3_capas_mezcladas` y `feature/011_t3_botella_reserva` están publicadas.
-- Commits del cambio de reserva: implementación `0e6c5ea`; fusión en `main` `af75c5e`.
-- Decisión: cada partida empieza con exactamente una botella vacía de reserva. Las restantes empiezan con líquido y al menos un espacio libre; las combinaciones incompatibles se explican en la validación.
+- Rama actual: `feature/012_vacias-durante-partida`, creada desde `main` actualizado; cambios locales pendientes de revisión, commit, fusión y publicación.
+- Decisión: ninguna botella empieza vacía ni llena. Los trasvases pueden vaciar botellas; la victoria ignora cualquier botella vacía si todas las demás están llenas, ordenadas y cerradas.
 - La distribución conserva objetivos por color y puede mezclar varias capas en una botella, siguiendo la referencia visual; algunas pueden quedar monocromáticas.
 - Verificación: `git diff --check` sin errores y revisión del diff. No se ejecutaron pruebas automatizadas ni comprobación manual en navegador.
 
