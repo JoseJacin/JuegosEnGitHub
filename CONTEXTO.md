@@ -58,12 +58,19 @@ Proyecto personal para publicar una colección de juegos web estáticos con GitH
 - Decisión: intentar la búsqueda hasta 15 veces al iniciar; si todas fallan, conservar el mensaje de error existente.
 - Verificación: `node --check` del bloque JavaScript y `git diff --check`; revisión del límite de 15 intentos y del mensaje final.
 
-## Bloque 017 — representación de capas contiguas
+## Bloque 017 — primera corrección visual (insuficiente)
 
 - Rama: `feature/017_capas_liquido_contiguas`.
-- Estado: integrado en `main` mediante `b06347e` y publicado en `origin`; rama de trabajo publicada.
-- Decisión: el espacio libre se dibuja arriba y las capas de líquido se mantienen contiguas, respetando el orden de abajo hacia arriba del modelo.
-- Verificación: revisión del código y diff; pendiente comprobación visual en navegador.
-- Próximo paso: comprobar visualmente las botellas en navegador cuando se realice la revisión manual del juego.
+- Estado: integrado, pero la captura posterior mostró que no resolvió la representación correcta de las unidades.
+- Decisión: se reemplaza el reparto flex por una cuadrícula de unidades explícitas en el bloque 018.
+- Verificación: revisión del código y diff; la captura del usuario confirmó que el primer ajuste era insuficiente.
+
+## Bloque 018 — representar cada unidad con una celda
+
+- Rama: `feature/018_unidades_visuales_botellas`.
+- Estado: corregido y verificado visualmente en navegador local.
+- Decisión: cada botella usa una fila por unidad de capacidad; los bloques se colocan en filas consecutivas en orden explícito, dejando arriba las unidades vacías.
+- Verificación: tablero local con capacidad 6. Las capas ocupan celdas consecutivas desde el fondo y los huecos quedan arriba; los niveles visibles coinciden con las etiquetas. `git diff --check` sin errores.
+- Próximo paso: integrar en `main` y publicar la rama de trabajo.
 
 Al retomar, revisar primero `PLAN.md` y el estado real del repositorio; mantener este archivo actualizado al cerrar tareas.
