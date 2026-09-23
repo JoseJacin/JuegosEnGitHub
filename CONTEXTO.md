@@ -81,4 +81,12 @@ Proyecto personal para publicar una colección de juegos web estáticos con GitH
 - Verificación: revisión estática de que los porcentajes de altura y posición se calculan desde las unidades acumuladas; `git diff --check` sin errores. No se hizo otra revisión en navegador, según la indicación del usuario.
 - Próximo paso: revisión visual por parte del usuario en su navegador.
 
+## Bloque 020 — diagnóstico copiable
+
+- Rama: `feature/020_diagnostico_botellas`.
+- Estado: modo de diagnóstico implementado; pendiente integración en `main`.
+- Decisión: el botón del tablero copia un resumen local por botella con capacidad, nivel, geometría esperada y real por capa, espacio superior/inferior y huecos medidos. Si el portapapeles falla, deja el texto visible y seleccionado.
+- Verificación: revisión estática del informe y `git diff --check`; no se usó el navegador, según indicación del usuario.
+- Próximo paso: integrar y publicar; el usuario puede pegar el informe resultante para localizar cualquier espacio restante.
+
 Al retomar, revisar primero `PLAN.md` y el estado real del repositorio; mantener este archivo actualizado al cerrar tareas.
