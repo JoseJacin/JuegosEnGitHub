@@ -18,7 +18,7 @@ Proyecto personal para publicar una colección de juegos web estáticos con GitH
 
 ## Estado actual
 
-- La entrada raíz (`index.html`), el catálogo (`menu/index.html`), la pantalla de configuración y el generador de partidas de Botellas y líquidos están implementados en `main`; se amplía en `feature/013_colores-repetidos-objetivos` el cálculo de objetivos para permitir colores repetidos en varias botellas completas.
+- La entrada raíz (`index.html`), el catálogo (`menu/index.html`), la pantalla de configuración y el generador de partidas de Botellas y líquidos están implementados en `main`.
 - Repositorio local inicializado en la rama `main`, conectado al remoto público `https://github.com/JoseJacin/JuegosEnGitHub.git`.
 - `main` y las ramas de trabajo están publicadas en GitHub. La guía de agentes/SDD está integrada en `main` y publicada desde `feature/007_guia_agentes_sdd`.
 - Las reglas del juego de botellas están aprobadas; el plan jerárquico está en `PLAN.md`.
@@ -35,7 +35,8 @@ Proyecto personal para publicar una colección de juegos web estáticos con GitH
 
 ## Estado de Git al cerrar este bloque
 
-- Rama actual: `feature/013_colores-repetidos-objetivos`, creada desde `main` actualizado; cambios locales pendientes de revisión, commit, fusión y publicación.
+- Rama actual: `main`, sincronizada con `origin/main`. La rama de trabajo `feature/013_colores-repetidos-objetivos` está publicada.
+- Commits del ajuste de objetivos: implementación `5df160b`; fusión en `main` `83d5d9f`.
 - Decisiones: ninguna botella empieza vacía ni llena; cualquier número de botellas vacías se ignora al ganar. El volumen objetivo se reparte en tantas botellas completas como sea necesario y los colores pueden repetirse.
 - La disposición puede mezclar varias capas en una botella, siguiendo la referencia visual; algunas pueden quedar monocromáticas.
 - Verificación: `git diff --check` sin errores y revisión del diff. No se ejecutaron pruebas automatizadas ni comprobación manual en navegador.
