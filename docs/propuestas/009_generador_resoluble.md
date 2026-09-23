@@ -16,7 +16,7 @@ La pantalla de configuración no puede iniciar partidas. Incorporar el modelo de
 ## Requisitos y decisiones
 
 - Respetar las reglas de [`../../juegos/botellas-y-liquidos/README.md`](../../juegos/botellas-y-liquidos/README.md) y los límites de configuración definidos en T2.
-- La solución se conoce por construcción: se parte de botellas objetivo completas y se distribuyen capas mediante movimientos inversos a trasvases válidos. Cada color tiene un volumen igual a la capacidad de una botella objetivo.
+- La solución se conoce por construcción: se parte de botellas objetivo completas y se distribuyen capas mediante movimientos inversos a trasvases válidos. El volumen de cada color equivale a la suma de capacidades de una o varias botellas objetivo; un color puede repetirse.
 - Todas las botellas comienzan con entre 1 y capacidad−1 unidades. Las botellas vacías solo aparecen tras movimientos o al final. Algunas botellas pueden contener varios colores en capas; otras pueden resultar monocromáticas.
 - El tablero inicial presenta filas de botellas en el orden configurado. La aleatoriedad incluye capacidades compatibles, reparto de cantidades y orden de colores.
 

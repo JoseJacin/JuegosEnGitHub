@@ -63,12 +63,12 @@ Cada parte funcional tendrá su propio directorio. Un juego pequeño podrá impl
 
 - [x] T3.1 Representar cada botella con capacidad, contenido por capas y estado abierto/tapado.
 - [x] T3.2 Crear capacidades iguales o asignar capacidades distintas según la configuración.
-- [x] T3.3 Calcular automáticamente las cantidades de cada color para que puedan terminar en botellas llenas del mismo color.
+- [x] T3.3 Calcular automáticamente las cantidades de cada color y permitir que un color complete varias botellas.
 - [x] T3.4 Generar una disposición aleatoria cuya solución se conozca o pueda garantizarse.
 - [x] T3.5 Garantizar que al inicio ninguna botella esté vacía ni llena: cada una debe tener al menos una unidad y un espacio libre.
 - [x] T3.6 Admitir tableros de hasta 60 botellas respetando colores, capacidades y cantidades.
 
-**Hecho cuando:** cada configuración admitida genera una partida aleatoria resoluble, con el estado inicial descrito en las reglas: todas las botellas parcialmente llenas. El generador designa una botella objetivo por color y asigna a ese color un volumen igual a la capacidad de su objetivo; la disposición puede incluir varias capas de colores distintos en una botella. Las botellas vacías se permiten durante la partida y al ganar.
+**Hecho cuando:** cada configuración admitida genera una partida aleatoria resoluble, con todas las botellas parcialmente llenas al inicio. El generador elige suficientes botellas objetivo para contener todo el líquido; los colores pueden repetirse entre objetivos, y puede haber botellas vacías durante la partida y al ganar.
 
 ### T4 — Implementar selección y trasvase
 

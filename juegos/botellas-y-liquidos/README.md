@@ -25,7 +25,7 @@ Organizar todos los líquidos por color. La partida se gana únicamente cuando c
 11. Al comenzar, ninguna botella está vacía ni llena: cada una contiene al menos una unidad y tiene al menos una unidad de capacidad libre. Las botellas vacías pueden aparecer como resultado de los trasvases.
 12. Toda partida generada debe tener solución. La disposición es aleatoria.
 13. Para mover líquido, se selecciona primero la botella de origen y después la de destino: con clic en ordenador o toque en móvil. Volver a seleccionar el origen lo deselecciona.
-14. El juego calcula automáticamente la cantidad de líquido de cada color para que pueda quedar distribuida en botellas llenas. El usuario configura el número de colores, no la cantidad de unidades por color.
+14. El juego calcula automáticamente la cantidad de líquido de cada color y cuántas botellas completas tendrá cada color. Si hacen falta más botellas objetivo que colores configurados, los colores se repiten y pueden completar varias botellas cada uno. El usuario configura el número de colores, no la cantidad de unidades por color.
 15. Al ganar, se muestra un mensaje con dos opciones: repetir con la misma configuración (generando una nueva disposición aleatoria) o cambiar la configuración.
 
 ## Configuración del código
