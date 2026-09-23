@@ -23,7 +23,7 @@ Proyecto personal para publicar una colección de juegos web estáticos con GitH
 - `main` y las ramas de trabajo están publicadas en GitHub. La guía de agentes/SDD está integrada en `main` y publicada desde `feature/007_guia_agentes_sdd`.
 - Las reglas del juego de botellas están aprobadas; el plan jerárquico está en `PLAN.md`.
 - T1–T5 están integradas en `main`. Cada botella empieza parcialmente llena y con al menos dos colores distintos; la capacidad 2 no es válida para iniciar. T4 permite selección, cancelación y trasvase de capas, y tapa automáticamente las botellas completadas. T5 añade historial, deshacer, reinicio y victoria.
-- T6 está implementada en `feature/024_estilo_visual_accesibilidad`: tablero adaptable con desplazamiento horizontal cuando hace falta, botellas identificadas visualmente, estados más claros y descripciones accesibles de capas y colores. Pendiente de revisión e integración.
+- T6 está implementada e integrada en `main` mediante `d12497c` y `cce71fb`: tablero adaptable con desplazamiento horizontal cuando hace falta, botellas identificadas visualmente, estados más claros y descripciones accesibles de capas y colores. La rama `feature/024_estilo_visual_accesibilidad` queda pendiente de publicar.
 - Las propuestas están en `docs/propuestas/008_entrada_y_configuracion.md`, `docs/propuestas/009_generador_resoluble.md`, `docs/propuestas/011_botella_vacia_reserva.md` (descartada), `docs/propuestas/012_vacias_intermedias_y_victoria.md` y `docs/propuestas/014_dos_colores_por_botella.md`.
 - GitHub CLI (`gh`) tiene un token inválido; los pushes de esta tarea se completaron mediante la autenticación configurada para Git.
 - La configuración de GitHub Pages sigue pendiente.
@@ -92,11 +92,11 @@ Proyecto personal para publicar una colección de juegos web estáticos con GitH
 ## Bloque 024 — estilo visual y accesibilidad
 
 - Rama: `feature/024_estilo_visual_accesibilidad`.
-- Estado: propuesta 024 aprobada e implementación preparada; pendiente revisión e integración.
+- Estado: completado e integrado en `main` mediante `d12497c` y `cce71fb`; publicación de ramas pendiente.
 - Cambio: estilos refinados para el tema oscuro; tablero de ancho adaptable con desplazamiento horizontal y acceso por teclado; controles reorganizados en móvil; identificación visible de cada botella y estados más claros; las etiquetas de lector de pantalla anuncian unidades, colores, capacidad y estado.
 - Decisión: conservar un ancho mínimo de columna para mantener legibles tableros grandes; el usuario puede desplazarse horizontalmente cuando el ancho de pantalla no alcance.
 - Verificación: revisión estática del cambio y `git diff --check`; no se hizo comprobación manual en navegador.
-- Próximo paso: revisión final de T6 e integración; luego abordar T7 (GitHub Pages).
+- Próximo paso: publicar las ramas y abordar T7 (GitHub Pages).
 
 Al retomar, revisar primero `PLAN.md` y el estado real del repositorio; mantener este archivo actualizado al cerrar tareas.
 
