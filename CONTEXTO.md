@@ -35,7 +35,8 @@ Proyecto personal para publicar una colección de juegos web estáticos con GitH
 
 ## Estado de Git al cerrar este bloque
 
-- Rama actual: `feature/009_t3_generador_resoluble`, creada desde `main` actualizado; T3 está implementada localmente y pendiente de commit, fusión y publicación.
+- Rama actual: `main`, sincronizada con `origin/main`. La rama `feature/009_t3_generador_resoluble` también está publicada.
+- Commits: implementación `d9611e8`; fusión en `main` `873a57b`.
 - Verificación del bloque: `git diff --check` sin errores y revisión del diff. No se ejecutaron pruebas automatizadas ni comprobación manual en navegador.
 - Decisión: el generador asigna a cada color una botella objetivo cuya capacidad iguala el volumen total de ese color. Todas las botellas comienzan parcialmente llenas y contienen un solo color; los donantes pueden vaciarse en la botella objetivo para resolver.
 
