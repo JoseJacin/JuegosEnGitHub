@@ -29,15 +29,14 @@ Proyecto personal para publicar una colección de juegos web estáticos con GitH
 
 ## Próximos pasos sugeridos
 
-1. Revisar los cambios de T1/T2, completar el flujo Git documentado y publicar la rama.
-2. Continuar con T3: generar partidas resolubles respetando la asignación de capacidades que valida la pantalla.
-3. Seguir las dependencias y criterios de finalización de las tareas restantes del plan.
-4. Activar GitHub Pages y validar las rutas publicadas al completar T7.
+1. Continuar con T3: generar partidas resolubles respetando la asignación de capacidades que valida la pantalla.
+2. Seguir las dependencias y criterios de finalización de las tareas restantes del plan.
+3. Activar GitHub Pages y validar las rutas publicadas al completar T7.
 
 ## Estado de Git al cerrar este bloque
 
-- Rama: `feature/008_t1_t2_entrada_configuracion`, creada desde `main` sincronizada con `origin/main`.
-- Cambios locales: propuesta aprobada, entrada, catálogo, configuración y actualización de documentación; pendientes de revisión final, commit, fusión y publicación.
+- Rama actual: `feature/008_t1_t2_entrada_configuracion`, sincronizada con la fusión en `main`; `main` también está limpio y sincronizado con `origin/main`.
+- Commits: implementación `09b7c40`; fusión en `main` `bfbb8b5`. Ambas ramas están publicadas en `origin`.
 - Decisión: T2 valida que existe una asignación de capacidades con volumen suficiente para respetar el estado inicial y completar colores. T3 debe escoger una asignación compatible y generar una disposición resoluble antes de habilitar «Empezar».
 
 Al retomar, revisar primero `PLAN.md` y el estado real del repositorio; mantener este archivo actualizado al cerrar tareas.
