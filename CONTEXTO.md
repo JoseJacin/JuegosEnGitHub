@@ -60,8 +60,9 @@ Colección de juegos web estáticos publicada en GitHub Pages. El primer juego, 
 - Se reduce la separación entre filas; el indicador de llenado y el check se centran dentro del vidrio.
 - Los errores de destino lleno y color distinto muestran «Botella llena» y «Color no coincidente» con iconos breves en el estado de movimiento.
 - Se redujo el espacio entre botones sin cambiar sus áreas táctiles.
-- Rama: `feature/028_tablero_movil_compacto`. No se ejecutaron pruebas ni comprobación en navegador.
-- Próximo paso: revisar el diff e integrar en `main`.
+- Integrado y publicado en `main` (`540be5f`); `feature/028_tablero_movil_compacto` también está publicada.
+- No se ejecutaron pruebas ni comprobación en navegador.
+- Próximo paso: elegir el siguiente cambio o juego.
 
 ## Estado de Git al cerrar
 
