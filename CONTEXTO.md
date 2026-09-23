@@ -44,9 +44,10 @@ Proyecto personal para publicar una colección de juegos web estáticos con GitH
 
 ## Bloque 015 — validación determinista
 
-- Rama: `feature/015_validacion_determinista`.
-- Estado: implementación y documentación preparadas; verificación local completada, pendiente commit, fusión y publicación.
+- Rama de trabajo: `feature/015_validacion_determinista`, publicada en `origin`.
+- Estado: completado e integrado en `main` mediante `374f9a6` y `25ceb69`; `main` publicado.
 - Decisión: la compatibilidad se calcula por existencia mediante búsqueda determinista; el generador aún elige al azar entre objetivos compatibles.
-- Verificación: `node --check` del bloque JavaScript, `git diff --check` y comprobación de que los valores de las capturas se aceptan siempre; los casos de capacidad 2 y sin botella extra se rechazan.
+- Verificación: `node --check` del bloque JavaScript, `git diff --check` y comprobación de que los valores de las capturas se aceptan siempre; los casos de capacidad 2 y sin botella extra se rechazan. Sin verificación manual en navegador.
+- Próximo paso: continuar con T4 según `PLAN.md`.
 
 Al retomar, revisar primero `PLAN.md` y el estado real del repositorio; mantener este archivo actualizado al cerrar tareas.
