@@ -35,4 +35,4 @@ Colección de juegos web estáticos publicada en GitHub Pages. El primer juego, 
 
 ## Estado de Git al cerrar
 
-Se está trabajando en `feature/025_publicacion_github_pages`, creada desde `main` actualizado. La propuesta inicial está guardada en el commit `4ddb045`; quedan por confirmar las actualizaciones de documentación e integrar la rama. Revisar `git status --short --branch` antes de continuar.
+La rama `feature/025_publicacion_github_pages` está publicada en `origin`; incluye la propuesta `4ddb045` y la documentación de cierre `48ac90b`. Los cambios de T7 ya están integrados y publicados en `main`. Al cerrar, dejar el árbol limpio en `main` sincronizada con `origin/main`.
