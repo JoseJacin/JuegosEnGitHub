@@ -20,3 +20,9 @@ Las propuestas completadas o descartadas anteriores a la 030 se han archivado en
 
 - [`propuestas/030_respetar_safe_area_ios.md`](propuestas/030_respetar_safe_area_ios.md): respetar zonas seguras (Safe Area) en iOS y Dynamic Island.
 - [`propuestas/031_ajustes_visuales_y_limpieza_propuestas.md`](propuestas/031_ajustes_visuales_y_limpieza_propuestas.md): aviso compacto de botella cerrada, selección sin borde verde y limpieza de propuestas.
+- [`propuestas/032_contador_movimientos.md`](propuestas/032_contador_movimientos.md): contador de movimientos en el tablero.
+- [`propuestas/033_record_local.md`](propuestas/033_record_local.md): récord local de mínimo de movimientos en `localStorage`.
+- [`propuestas/034_pista_hint.md`](propuestas/034_pista_hint.md): botón de pista que resalta un trasvase posible.
+- [`propuestas/035_compartir_resultado.md`](propuestas/035_compartir_resultado.md): copiar resultado al portapapeles con emojis al ganar.
+- [`propuestas/036_animacion_vertido.md`](propuestas/036_animacion_vertido.md): animación de vertido con transición CSS.
+- [`propuestas/037_modo_daltonico.md`](propuestas/037_modo_daltonico.md): modo daltónico con patrones CSS superpuestos en los líquidos.
