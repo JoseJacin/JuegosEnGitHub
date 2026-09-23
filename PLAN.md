@@ -121,6 +121,16 @@ Cada parte funcional tendrá su propio directorio. Un juego pequeño podrá impl
 
 **Hecho cuando:** el tablero prioriza el juego, la configuración concentra el resumen y las vistas son compactas y accesibles. Cambios registrados en la propuesta [026](docs/propuestas/026_interfaz_partida_catalogo.md). La comprobación interactiva en navegador no estuvo disponible en esta sesión.
 
+### T9 — Compactar estado y configuración; simplificar acceso desde el catálogo
+
+- [x] T9.1 Sustituir el mensaje de selección y el título de partida por un estado compacto de cantidad y color, conservando el anuncio accesible.
+- [x] T9.2 Alinear las acciones a la derecha y mostrar dos opciones de configuración por fila.
+- [x] T9.3 Quitar textos positivos redundantes y reservar los mensajes para errores de configuración o generación agotada.
+- [x] T9.4 Simplificar el catálogo y corregir la introducción de configuración.
+- [x] T9.5 Registrar la propuesta y revisar el diff.
+
+**Hecho cuando:** la partida, configuración y catálogo reflejan los cambios aprobados sin alterar las reglas. Cambios registrados en la propuesta [027](docs/propuestas/027_interfaz_compacta.md).
+
 ## Dependencias y orden sugerido
 
 1. T1 y T2 preparan navegación y opciones de partida.
