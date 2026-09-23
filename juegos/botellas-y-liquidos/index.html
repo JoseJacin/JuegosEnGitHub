@@ -31,6 +31,18 @@
     .status.error { border-color: #ff9d91; background: #352321; }
     button { margin-top: 1rem; background: var(--accent); border-color: var(--accent); color: #102019; font-weight: 800; cursor: pointer; }
     button:disabled { cursor: not-allowed; opacity: .7; }
+    .board { margin-top: 1.5rem; padding: clamp(1rem, 4vw, 2rem); border: 1px solid var(--line); border-radius: 1.2rem; background: var(--panel); }
+    .board-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .75rem; }
+    .board-head h2 { margin: 0; }
+    .board-head button { margin: 0; }
+    .bottles { display: grid; gap: 1.25rem .75rem; margin-top: 1.5rem; }
+    .bottle { display: grid; justify-items: center; gap: .4rem; min-width: 0; }
+    .glass { display: flex; flex-direction: column-reverse; width: min(100%, 4rem); height: 8rem; overflow: hidden; border: 3px solid #a9c1ca; border-top: 0; border-radius: 0 0 1rem 1rem; background: #101820; box-shadow: inset 0 0 0 1px #ffffff12; }
+    .liquid { flex: 1 0 0; min-height: 0; }
+    .empty-space { flex: 1 0 0; min-height: 0; }
+    .bottle-meta { color: var(--muted); font-size: .8rem; text-align: center; }
+    .bottle.done .glass { border-color: var(--accent); }
+    .bottle.done::after { content: '✓ Completada'; color: var(--accent); font-size: .75rem; }
     [hidden] { display: none !important; }
   </style>
 </head>
@@ -39,7 +51,7 @@
     <a class="back" href="../../menu/">← Menú de juegos</a>
     <p class="eyebrow">Juego de lógica</p>
     <h1>Botellas y líquidos</h1>
-    <p class="lead">Prepara un reto a tu medida. Puedes revisar y cambiar estos valores antes de empezar; el tablero se generará cuando esté lista la generación de partidas.</p>
+    <p class="lead">Prepara un reto a tu medida. Puedes revisar y cambiar estos valores antes de empezar.</p>
 
     <form id="settings" novalidate>
       <fieldset>
@@ -73,10 +85,15 @@
         <h2 id="summaryTitle">Tu configuración</h2>
         <p id="summaryText"></p>
         <p id="validation" class="status" role="status"></p>
-        <button id="start" type="button" disabled>Empezar</button>
-        <p id="startNote" class="hint">El inicio de partida estará disponible al implementar la generación resoluble (T3).</p>
+        <button id="start" type="button">Empezar</button>
+        <p id="startNote" class="hint">Cada partida se genera con una solución posible.</p>
       </section>
     </form>
+    <section id="game" class="board" aria-labelledby="gameTitle" hidden>
+      <div class="board-head"><h2 id="gameTitle">Tu partida</h2><button id="editSettings" type="button">Cambiar configuración</button></div>
+      <p id="gameSummary" class="muted" aria-live="polite"></p>
+      <div id="bottles" class="bottles" aria-label="Tablero de botellas"></div>
+    </section>
   </main>
   <script>
     // CONFIGURACIÓN INICIAL: valores predeterminados y límites acordados del juego.
@@ -174,11 +191,126 @@
 
       summaryText.textContent = `${total} botellas (${rows} ${rows === 1 ? 'fila' : 'filas'} de ${columns}), ${colors} colores y capacidad ${enabled ? `variable con ${sizeCount} tamaños` : `${maxCapacity} unidades en todas las botellas`}.`;
       validation.classList.toggle('error', messages.length > 0);
-      validation.textContent = messages.length ? messages.join(' ') : 'Hay una asignación de capacidades que permite respetar el estado inicial y reservar capacidad completa para cada color. El generador de T3 deberá escoger una asignación compatible y producir la disposición resoluble.';
-      document.querySelector('#start').disabled = true;
+      validation.textContent = messages.length ? messages.join(' ') : 'La configuración permite crear una partida resoluble con todas las botellas parcialmente llenas.';
+      document.querySelector('#start').disabled = messages.length > 0;
     }
 
     form.addEventListener('change', update);
+    const COLORS = ['#e87575', '#66b8e8', '#efc15e', '#aa83e0', '#62c88b', '#ed83bd'];
+    const bottleGrid = document.querySelector('#bottles');
+
+    function shuffled(values) {
+      const result = [...values];
+      for (let i = result.length - 1; i > 0; i -= 1) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [result[i], result[j]] = [result[j], result[i]];
+      }
+      return result;
+    }
+
+    function compatibleGroups(capacities, colorCount) {
+      for (let attempt = 0; attempt < 500; attempt += 1) {
+        const goalIndexes = shuffled(capacities.map((_, i) => i)).slice(0, colorCount);
+        const goals = goalIndexes.map((index) => ({ index, target: capacities[index], indexes: [index] }));
+        const remaining = shuffled(capacities.map((_, i) => i).filter((i) => !goalIndexes.includes(i)));
+        let possible = true;
+        for (const index of remaining) {
+          const maxUnits = capacities[index] - 1;
+          const choices = shuffled(goals.filter((group) => group.indexes.length < group.target && group.indexes.reduce((sum, i) => sum + capacities[i] - 1, 0) + maxUnits >= group.target));
+          if (!choices.length) { possible = false; break; }
+          choices[0].indexes.push(index);
+        }
+        if (possible && goals.every((group) => group.indexes.length <= group.target && group.indexes.reduce((sum, i) => sum + capacities[i] - 1, 0) >= group.target)) return goals;
+      }
+      return null;
+    }
+
+    function chooseCapacities(total, maxCapacity, variable, sizeCount, colors) {
+      if (!variable) {
+        const capacities = Array(total).fill(maxCapacity);
+        const groups = compatibleGroups(capacities, colors);
+        return groups ? { capacities, groups } : null;
+      }
+      const sizeSets = [];
+      function chooseSizes(next, chosen) {
+        if (chosen.length === sizeCount) { sizeSets.push(chosen); return; }
+        for (let size = next; size <= maxCapacity; size += 1) chooseSizes(size + 1, [...chosen, size]);
+      }
+      chooseSizes(2, []);
+      for (let attempt = 0; attempt < 5000; attempt += 1) {
+        const sizes = shuffled(sizeSets)[0];
+        if (sizes.length > total) continue;
+        const capacities = shuffled([...sizes, ...Array.from({ length: total - sizes.length }, () => sizes[Math.floor(Math.random() * sizes.length)])]);
+        const groups = compatibleGroups(capacities, colors);
+        if (groups) return { capacities, groups };
+      }
+      return null;
+    }
+
+    function makeGame() {
+      const columns = Number(fields.columns.value);
+      const rows = Number(fields.rows.value);
+      const total = columns * rows;
+      const colors = Number(fields.colors.value);
+      const maxCapacity = Number(fields.maxCapacity.value);
+      const plan = chooseCapacities(total, maxCapacity, fields.differentCapacities.checked, Number(fields.sizeCount.value), colors);
+      if (!plan) {
+        validation.classList.add('error');
+        validation.textContent = 'No se encontró una asignación resoluble para esta combinación. Cambia la configuración e inténtalo de nuevo.';
+        return;
+      }
+      const { capacities, groups } = plan;
+      const bottles = Array(total);
+      groups.forEach((group, colorIndex) => {
+        const color = COLORS[colorIndex];
+        const shuffledIndexes = shuffled(group.indexes);
+        const amounts = shuffledIndexes.map((index) => ({ index, amount: 1, remaining: capacities[index] - 2 }));
+        let left = group.target - amounts.length;
+        for (const item of shuffled(amounts)) {
+          const add = Math.min(item.remaining, left);
+          item.amount += add;
+          left -= add;
+        }
+        for (const item of amounts) bottles[item.index] = { capacity: capacities[item.index], layers: [{ color, units: item.amount }], open: true, goalColor: color };
+      });
+      const palette = shuffled(COLORS.slice(0, colors));
+      const ordered = shuffled(bottles.map((bottle) => ({ ...bottle, layers: bottle.layers.map((layer) => ({ ...layer, color: palette[COLORS.indexOf(layer.color)] })) })));
+      renderGame(ordered, columns, rows, colors);
+    }
+
+    function renderGame(bottles, columns, rows, colors) {
+      bottleGrid.replaceChildren();
+      bottleGrid.style.gridTemplateColumns = `repeat(${columns}, minmax(2.5rem, 1fr))`;
+      bottles.forEach((bottle, index) => {
+        const item = document.createElement('div');
+        item.className = 'bottle';
+        const glass = document.createElement('div');
+        glass.className = 'glass';
+        glass.setAttribute('aria-label', `Botella ${index + 1}: ${bottle.layers[0].units} de ${bottle.capacity} unidades`);
+        const liquid = document.createElement('span');
+        liquid.className = 'liquid';
+        liquid.style.flexGrow = String(bottle.layers[0].units);
+        liquid.style.background = bottle.layers[0].color;
+        const emptySpace = document.createElement('span');
+        emptySpace.className = 'empty-space';
+        emptySpace.style.flexGrow = String(bottle.capacity - bottle.layers[0].units);
+        glass.append(liquid, emptySpace);
+        const meta = document.createElement('span');
+        meta.className = 'bottle-meta';
+        meta.textContent = `${bottle.layers[0].units}/${bottle.capacity}`;
+        item.append(glass, meta);
+        bottleGrid.append(item);
+      });
+      document.querySelector('#gameSummary').textContent = `${bottles.length} botellas · ${colors} colores · ${rows} ${rows === 1 ? 'fila' : 'filas'}. Todas las botellas empiezan parcialmente llenas; las cantidades de cada color permiten completar una botella objetivo.`;
+      form.hidden = true;
+      document.querySelector('#game').hidden = false;
+    }
+
+    document.querySelector('#start').addEventListener('click', makeGame);
+    document.querySelector('#editSettings').addEventListener('click', () => {
+      document.querySelector('#game').hidden = true;
+      form.hidden = false;
+    });
     update();
   </script>
 </body>

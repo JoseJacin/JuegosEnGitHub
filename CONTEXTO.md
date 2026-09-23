@@ -18,25 +18,25 @@ Proyecto personal para publicar una colección de juegos web estáticos con GitH
 
 ## Estado actual
 
-- La entrada raíz (`index.html`), el catálogo (`menu/index.html`) y la pantalla de configuración de Botellas y líquidos ya están implementados en `feature/008_t1_t2_entrada_configuracion`.
+- La entrada raíz (`index.html`), el catálogo (`menu/index.html`), la pantalla de configuración y el generador de partidas de Botellas y líquidos están implementados en `feature/009_t3_generador_resoluble`.
 - Repositorio local inicializado en la rama `main`, conectado al remoto público `https://github.com/JoseJacin/JuegosEnGitHub.git`.
 - `main` y las ramas de trabajo están publicadas en GitHub. La guía de agentes/SDD está integrada en `main` y publicada desde `feature/007_guia_agentes_sdd`.
 - Las reglas del juego de botellas están aprobadas; el plan jerárquico está en `PLAN.md`.
-- T1 y T2 están implementadas en la rama actual. La configuración valida opciones y capacidad suficiente, y mantiene desactivado el inicio hasta que T3 añada el generador.
-- La propuesta aprobada de este bloque está en `docs/propuestas/008_entrada_y_configuracion.md`.
+- T1, T2 y T3 están implementadas en la rama actual. «Empezar» genera capacidades compatibles, volúmenes por color con una botella objetivo por color y un tablero aleatorio donde todas las botellas empiezan parcialmente llenas. La distribución generada es monocromática por botella para dejar una solución directa conocida; el juego aún no implementa trasvases (T4).
+- Las propuestas de los bloques están en `docs/propuestas/008_entrada_y_configuracion.md` y `docs/propuestas/009_generador_resoluble.md`.
 - GitHub CLI (`gh`) tiene un token inválido; los pushes de esta tarea se completaron mediante la autenticación configurada para Git.
 - La configuración de GitHub Pages sigue pendiente.
 
 ## Próximos pasos sugeridos
 
-1. Continuar con T3: generar partidas resolubles respetando la asignación de capacidades que valida la pantalla.
+1. Continuar con T4: selección de botellas y trasvases según las reglas aprobadas.
 2. Seguir las dependencias y criterios de finalización de las tareas restantes del plan.
 3. Activar GitHub Pages y validar las rutas publicadas al completar T7.
 
 ## Estado de Git al cerrar este bloque
 
-- Rama actual: `feature/008_t1_t2_entrada_configuracion`, sincronizada con la fusión en `main`; `main` también está limpio y sincronizado con `origin/main`.
-- Commits: implementación `09b7c40`; fusión en `main` `bfbb8b5`. Ambas ramas están publicadas en `origin`.
-- Decisión: T2 valida que existe una asignación de capacidades con volumen suficiente para respetar el estado inicial y completar colores. T3 debe escoger una asignación compatible y generar una disposición resoluble antes de habilitar «Empezar».
+- Rama actual: `feature/009_t3_generador_resoluble`, creada desde `main` actualizado; T3 está implementada localmente y pendiente de commit, fusión y publicación.
+- Verificación del bloque: `git diff --check` sin errores y revisión del diff. No se ejecutaron pruebas automatizadas ni comprobación manual en navegador.
+- Decisión: el generador asigna a cada color una botella objetivo cuya capacidad iguala el volumen total de ese color. Todas las botellas comienzan parcialmente llenas y contienen un solo color; los donantes pueden vaciarse en la botella objetivo para resolver.
 
 Al retomar, revisar primero `PLAN.md` y el estado real del repositorio; mantener este archivo actualizado al cerrar tareas.
