@@ -44,4 +44,4 @@ Colección de juegos web estáticos publicada en GitHub Pages. El primer juego, 
 
 ## Estado de Git al cerrar
 
-La rama `feature/026_interfaz_partida_catalogo` parte de `main` actualizado. Al cerrar, revisar diff y estado, crear commit(s), integrar en `main` y publicar las ramas según `COMANDOS.md`. `.history/` es un archivo local ajeno al cambio y debe quedar fuera del commit.
+Los cambios de 026 están integrados en `main` y publicados en `origin/main` (`3ab9acd`); la rama `feature/026_interfaz_partida_catalogo` también está publicada. El árbol de trabajo está en `main`. `.history/` es un archivo local ajeno al cambio y debe quedar fuera del commit.
