@@ -31,13 +31,12 @@ Proyecto personal para publicar una colección de juegos web estáticos con GitH
 
 ## Próximos pasos sugeridos
 
-1. Publicar `main` y `feature/023_historial_reinicio_victoria` en `origin`.
-2. Abordar T6: estilo visual, adaptación móvil y accesibilidad.
-3. Activar GitHub Pages y validar las rutas publicadas al completar T7.
+1. Abordar T6: estilo visual, adaptación móvil y accesibilidad.
+2. Activar GitHub Pages y validar las rutas publicadas al completar T7.
 
 ## Estado de Git al cerrar este bloque
 
-- Rama actual: `main`, sincronizada con `origin/main`; `feature/014_dos_colores_por_botella` también está publicada.
+- Rama actual: `main`, sincronizada con `origin/main`; `feature/023_historial_reinicio_victoria` está publicada en `origin`.
 - Commits del ajuste de objetivos: implementación `5df160b`; fusión en `main` `83d5d9f`.
 - Decisiones: ninguna botella empieza vacía ni llena; cualquier número de botellas vacías se ignora al ganar. El volumen objetivo se reparte en tantas botellas completas como sea necesario y los colores pueden repetirse.
 - La especificación vigente está en `juegos/botellas-y-liquidos/README.md`; la propuesta 014 registra el cambio que exige dos colores distintos en cada botella inicial.
@@ -111,7 +110,7 @@ Al retomar, revisar primero `PLAN.md` y el estado real del repositorio; mantener
 ## Bloque 023 — historial, reinicio y victoria
 
 - Rama: `feature/023_historial_reinicio_victoria`.
-- Estado: integrado en `main` mediante `8097553` y `97cf0bc`; publicación pendiente.
+- Estado: integrado y publicado en `main` mediante `8097553` y `97cf0bc`; la actualización de contexto quedó en `c845eea`. La rama de funcionalidad también está publicada.
 - Cambio: se guarda una copia del tablero antes de cada trasvase válido; deshacer restaura ese estado y reiniciar restaura la disposición original de la partida actual. La victoria exige que cada botella con líquido esté llena, tenga un color y esté cerrada; las vacías se ignoran. El diálogo permite deshacer la jugada ganadora, repetir con una disposición nueva bajo la configuración vigente o cambiar la configuración.
 - Verificación: revisión estática del historial, reinicio, condición de victoria y acciones del diálogo; `node --check` del JavaScript extraído y `git diff --check` sin errores. No se hizo comprobación manual en navegador; queda incluida en T7.
-- Próximo paso: publicar las ramas y continuar con T6.
+- Próximo paso: proponer T6 según `PLAN.md`.
