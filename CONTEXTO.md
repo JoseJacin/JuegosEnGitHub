@@ -27,6 +27,7 @@ Proyecto personal para publicar una colección de juegos web estáticos con GitH
 - GitHub CLI (`gh`) tiene un token inválido; los pushes de esta tarea se completaron mediante la autenticación configurada para Git.
 - La configuración de GitHub Pages sigue pendiente.
 - Se corrigió la validación de Botellas y líquidos para que no use una búsqueda aleatoria al decidir si la configuración es compatible; propuesta 015 en rama `feature/015_validacion_determinista`.
+- La búsqueda del plan al pulsar «Empezar» reintenta hasta 15 veces antes de mostrar un error; el cambio está en la propuesta 016.
 
 ## Próximos pasos sugeridos
 
@@ -49,5 +50,12 @@ Proyecto personal para publicar una colección de juegos web estáticos con GitH
 - Decisión: la compatibilidad se calcula por existencia mediante búsqueda determinista; el generador aún elige al azar entre objetivos compatibles.
 - Verificación: `node --check` del bloque JavaScript, `git diff --check` y comprobación de que los valores de las capturas se aceptan siempre; los casos de capacidad 2 y sin botella extra se rechazan. Sin verificación manual en navegador.
 - Próximo paso: continuar con T4 según `PLAN.md`.
+
+## Bloque 016 — reintentos de generación
+
+- Rama: `feature/016_reintentos_generacion`.
+- Estado: implementación y documentación preparadas; sintaxis y diff verificados, pendiente commit, fusión y publicación.
+- Decisión: intentar la búsqueda hasta 15 veces al iniciar; si todas fallan, conservar el mensaje de error existente.
+- Verificación: `node --check` del bloque JavaScript y `git diff --check`; revisión del límite de 15 intentos y del mensaje final.
 
 Al retomar, revisar primero `PLAN.md` y el estado real del repositorio; mantener este archivo actualizado al cerrar tareas.
