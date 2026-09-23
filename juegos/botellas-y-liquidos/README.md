@@ -22,7 +22,7 @@ Organizar todos los líquidos por color. La partida se gana únicamente cuando c
 8. Cuando una botella está llena con un único color, se tapa automáticamente y se considera completada. Una botella tapada no puede recibir más líquido.
 9. La partida se gana únicamente cuando todas las botellas no vacías están llenas al 100 % y contienen un solo color. Las botellas vacías no impiden ganar.
 10. El jugador puede deshacer movimientos y reiniciar la partida.
-11. Al comenzar, ninguna botella está vacía ni llena: cada una contiene al menos una unidad y tiene al menos una unidad de capacidad libre.
+11. Al comenzar, hay una botella vacía de reserva. Las demás contienen al menos una unidad y conservan al menos una unidad de capacidad libre; ninguna empieza llena.
 12. Toda partida generada debe tener solución. La disposición es aleatoria.
 13. Para mover líquido, se selecciona primero la botella de origen y después la de destino: con clic en ordenador o toque en móvil. Volver a seleccionar el origen lo deselecciona.
 14. El juego calcula automáticamente la cantidad de líquido de cada color para que pueda quedar distribuida en botellas llenas. El usuario configura el número de colores, no la cantidad de unidades por color.
