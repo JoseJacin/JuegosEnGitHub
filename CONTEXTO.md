@@ -24,7 +24,7 @@ Colección de juegos web estáticos publicada en GitHub Pages. El primer juego, 
 
 ## Bloque 025 — publicación y revisión manual
 
-- Propuesta: `docs/propuestas/025_publicacion_github_pages.md`.
+- Propuesta: 025 (archivada en el historial de Git).
 - GitHub Pages se configuró para publicar la rama `main` desde la raíz del repositorio.
 - URL: [https://josejacin.github.io/JuegosEnGitHub/](https://josejacin.github.io/JuegosEnGitHub/).
 - La ejecución inicial de `pages-build-deployment` terminó correctamente. La página raíz abrió el menú; la ruta directa del juego cargó la configuración.
@@ -35,7 +35,7 @@ Colección de juegos web estáticos publicada en GitHub Pages. El primer juego, 
 
 ## Bloque 026 — interfaz de partida y catálogo
 
-- Propuesta aprobada e implementada: `docs/propuestas/026_interfaz_partida_catalogo.md`.
+- Propuesta 026 aprobada e implementada (archivada en el historial de Git).
 - Las botellas completadas se colocan al principio según orden de finalización; la identidad estable conserva selección, historial, deshacer y reinicio.
 - Se añadió corcho visual, se retiraron números visibles, las cuatro acciones de partida usan iconos con nombres accesibles y el resumen queda en configuración.
 - Catálogo y juego tienen encabezados consistentes; el CSS reduce espacios en móvil y mantiene desplazamiento horizontal para tableros anchos.
@@ -44,7 +44,7 @@ Colección de juegos web estáticos publicada en GitHub Pages. El primer juego, 
 
 ## Bloque 027 — compactar la partida y simplificar el catálogo
 
-- Propuesta aprobada e implementada: `docs/propuestas/027_interfaz_compacta.md`.
+- Propuesta 027 aprobada e implementada (archivada en el historial de Git).
 - La selección de origen ya no muestra el mensaje explicativo; el resultado del trasvase muestra cantidad y muestra cuadrada del color, con anuncio accesible descriptivo.
 - Se quitó el título «Tu partida», el texto positivo de validación y la nota de generación. El mensaje de generación solo se muestra en errores tras agotar sus intentos.
 - Las acciones quedan alineadas a la derecha; los campos de configuración usan dos columnas. El catálogo usa «Acceder» y ya no enlaza «Volver a la entrada».
@@ -55,7 +55,7 @@ Colección de juegos web estáticos publicada en GitHub Pages. El primer juego, 
 
 ## Bloque 028 — tablero compacto para pantallas pequeñas
 
-- Propuesta aprobada e implementada: `docs/propuestas/028_tablero_movil_compacto.md`.
+- Propuesta 028 aprobada e implementada (archivada en el historial de Git).
 - La cuadrícula ocupa el ancho disponible sin imponer un ancho mínimo por botella; el corcho respeta el ancho de su celda.
 - Se reduce la separación entre filas; el indicador de llenado y el check se centran dentro del vidrio.
 - Los errores de destino lleno y color distinto muestran «Botella llena» y «Color no coincidente» con iconos breves en el estado de movimiento.
@@ -66,7 +66,7 @@ Colección de juegos web estáticos publicada en GitHub Pages. El primer juego, 
 
 ## Bloque 029 — modo aplicación (PWA) y pantallas sin scroll vertical
 
-- Propuesta aprobada e implementada: `docs/propuestas/029_modo_app_y_tablero_sin_scroll.md`.
+- Propuesta 029 aprobada e implementada (archivada en el historial de Git).
 - Se creó `manifest.json` y los iconos en `imagenes/` (SVG y PNGs de 192x192 y 512x512) para permitir instalación como app en iPhone y Android en modo `standalone`.
 - Se añadieron metadatos `apple-mobile-web-app-*` y `viewport-fit=cover` en `index.html`, `menu/index.html` y el juego.
 - Se compactó la vista de configuración (`#settings`) para que quepa en pantalla móvil sin scroll vertical.
@@ -81,6 +81,15 @@ Colección de juegos web estáticos publicada en GitHub Pages. El primer juego, 
 - Se descontaron las zonas seguras en el cálculo adaptativo de altura de las botellas en móvil para mantener la partida de 6 filas dentro de la pantalla sin scroll vertical.
 - Próximo paso: verificar en iPhone y elegir la siguiente funcionalidad o juego.
 
+## Bloque 031 — ajustes visuales y limpieza de propuestas
+
+- Propuesta aprobada e implementada: `docs/propuestas/031_ajustes_visuales_y_limpieza_propuestas.md`.
+- Los mensajes de botella cerrada (origen y destino) ahora usan `setMoveError('Botella cerrada', '✕')`, igual que «Botella llena» y «Color no coincidente».
+- Se eliminó el `box-shadow` verde perimetral de `.bottle.selected`; la selección se distingue únicamente con el fondo sutil y el contorno blanco sobre el vidrio.
+- Las propuestas `008`–`029` se eliminaron del árbol de trabajo; permanecen en el historial de Git. Solo quedan `030` y `031` en `docs/propuestas/`.
+- `docs/README.md`, `PLAN.md` y `CONTEXTO.md` se actualizaron para eliminar los enlaces rotos.
+- Próximo paso: verificar en navegador y publicar en `main`.
+
 ## Estado de Git al cerrar
 
-Los cambios de 030 se integraron en `main` y se publicaron en `origin/main`; la rama `feature/030_respetar_safe_area_ios` también queda publicada. `.history/` es un archivo local ajeno al cambio y debe quedar fuera del commit.
+Los cambios de 031 están en la rama `feature/031_ajustes_visuales_y_limpieza_propuestas`, pendientes de revisar, fusionar en `main` y publicar en `origin/main`. `.history/` es un archivo local ajeno al cambio y debe quedar fuera del commit.

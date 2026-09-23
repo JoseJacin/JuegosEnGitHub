@@ -64,7 +64,7 @@
     .bottle[role="button"] { cursor: pointer; border-radius: .5rem; }
     .bottle:hover { background: #ffffff08; }
     .bottle:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
-    .bottle.selected { background: #82d8a01c; box-shadow: inset 0 0 0 1px var(--accent); }
+    .bottle.selected { background: #82d8a01c; }
     .bottle.selected .glass { outline: 2px solid #f4f6f7; outline-offset: 2px; }
     .bottle.closed .glass { border-color: var(--accent); box-shadow: inset 0 0 0 2px var(--accent), 0 0 1rem #82d8a044; }
     .cork { position: relative; z-index: 2; width: min(100%, 3.8rem); height: .68rem; margin-bottom: -0.68rem; border: 1px solid #7a492b; border-radius: .12rem .12rem .35rem .35rem; background: linear-gradient(90deg, #744226, #c88b54 45%, #8b5732); box-shadow: inset 0 .12rem #e4b17a55, 0 .1rem .18rem #0008; }
@@ -632,7 +632,7 @@
       if (!chosen) return;
       if (selectedBottle === null) {
         if (!chosen.open || !chosen.layers.length) {
-          setMoveStatus(!chosen.open ? 'Esa botella está cerrada y no puede ser origen.' : 'Esa botella está vacía y no puede ser origen.', true);
+          setMoveError(!chosen.open ? 'Botella cerrada' : 'Botella vacía', '✕');
           return;
         }
         selectedBottle = bottleId;
@@ -665,7 +665,7 @@
       }
       if (!chosen.open) {
         clearSelection();
-        setMoveStatus('La botella de destino está cerrada.', true);
+        setMoveError('Botella cerrada', '✕');
         return;
       }
       const destinationTop = chosen.layers[chosen.layers.length - 1];
