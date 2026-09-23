@@ -22,8 +22,8 @@ Proyecto personal para publicar una colección de juegos web estáticos con GitH
 - Repositorio local inicializado en la rama `main`, conectado al remoto público `https://github.com/JoseJacin/JuegosEnGitHub.git`.
 - `main` y las ramas de trabajo están publicadas en GitHub. La guía de agentes/SDD está integrada en `main` y publicada desde `feature/007_guia_agentes_sdd`.
 - Las reglas del juego de botellas están aprobadas; el plan jerárquico está en `PLAN.md`.
-- T1, T2 y T3 están integradas en `main`. Todas las botellas comienzan parcialmente llenas; los trasvases pueden dejar vacías una o varias, y al ganar se ignoran si las demás están completas, ordenadas y cerradas. El número de botellas objetivo puede superar los colores configurados: los colores se repiten cuando hace falta. El juego aún no implementa trasvases interactivos (T4).
-- Las propuestas están en `docs/propuestas/008_entrada_y_configuracion.md`, `docs/propuestas/009_generador_resoluble.md`, `docs/propuestas/011_botella_vacia_reserva.md` (descartada) y `docs/propuestas/012_vacias_intermedias_y_victoria.md`.
+- T1, T2 y T3 están integradas en `main`. El cambio pendiente en `feature/014_dos_colores_por_botella` garantiza al menos dos colores distintos en cada botella inicial y descarta configuraciones con capacidad 2. Todas las botellas empiezan parcialmente llenas; los trasvases pueden dejar vacías una o varias, que se ignoran al ganar si las demás están completas, ordenadas y cerradas. El juego aún no implementa trasvases interactivos (T4).
+- Las propuestas están en `docs/propuestas/008_entrada_y_configuracion.md`, `docs/propuestas/009_generador_resoluble.md`, `docs/propuestas/011_botella_vacia_reserva.md` (descartada), `docs/propuestas/012_vacias_intermedias_y_victoria.md` y `docs/propuestas/014_dos_colores_por_botella.md`.
 - GitHub CLI (`gh`) tiene un token inválido; los pushes de esta tarea se completaron mediante la autenticación configurada para Git.
 - La configuración de GitHub Pages sigue pendiente.
 
@@ -35,10 +35,11 @@ Proyecto personal para publicar una colección de juegos web estáticos con GitH
 
 ## Estado de Git al cerrar este bloque
 
-- Rama actual: `main`, sincronizada con `origin/main`. La rama de trabajo `feature/013_colores-repetidos-objetivos` está publicada.
+- Rama actual: `feature/014_dos_colores_por_botella`, creada desde `main` y pendiente de revisión, commit e integración.
 - Commits del ajuste de objetivos: implementación `5df160b`; fusión en `main` `83d5d9f`.
 - Decisiones: ninguna botella empieza vacía ni llena; cualquier número de botellas vacías se ignora al ganar. El volumen objetivo se reparte en tantas botellas completas como sea necesario y los colores pueden repetirse.
-- La disposición puede mezclar varias capas en una botella, siguiendo la referencia visual; algunas pueden quedar monocromáticas.
+- La disposición puede mezclar varias capas en cada botella, siguiendo la referencia visual; ninguna empieza monocromática.
+- Decisión nueva: al iniciar, cada botella debe tener al menos dos colores distintos; capacidad 2 no lo permite y se bloquea.
 - Verificación: `git diff --check` sin errores y revisión del diff. No se ejecutaron pruebas automatizadas ni comprobación manual en navegador.
 
 Al retomar, revisar primero `PLAN.md` y el estado real del repositorio; mantener este archivo actualizado al cerrar tareas.
