@@ -111,6 +111,16 @@ Cada parte funcional tendrá su propio directorio. Un juego pequeño podrá impl
 
 **Hecho cuando:** el menú y el juego están accesibles desde la URL pública de GitHub Pages y los flujos principales funcionan. Verificación manual y publicación registradas en la propuesta [025](docs/propuestas/025_publicacion_github_pages.md).
 
+### T8 — Centrar la interfaz en la partida y compactar el catálogo
+
+- [x] T8.1 Colocar botellas completadas al inicio en orden de finalización, conservando identidad, historial y reinicio.
+- [x] T8.2 Añadir corcho visual, quitar números visibles y conservar estado accesible.
+- [x] T8.3 Sustituir las acciones de partida por iconos accesibles y ajustar tamaños para móvil.
+- [x] T8.4 Añadir encabezados coherentes y dejar el resumen de configuración fuera de la partida.
+- [x] T8.5 Revisar los estilos adaptables, teclado y código; registrar el límite de revisión visual interactiva.
+
+**Hecho cuando:** el tablero prioriza el juego, la configuración concentra el resumen y las vistas son compactas y accesibles. Cambios registrados en la propuesta [026](docs/propuestas/026_interfaz_partida_catalogo.md). La comprobación interactiva en navegador no estuvo disponible en esta sesión.
+
 ## Dependencias y orden sugerido
 
 1. T1 y T2 preparan navegación y opciones de partida.

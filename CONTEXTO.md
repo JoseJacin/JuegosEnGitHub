@@ -15,7 +15,7 @@ Colección de juegos web estáticos publicada en GitHub Pages. El primer juego, 
 
 ## Estado actual
 
-- T1–T7 están completadas. GitHub Pages publica desde `main` en la raíz; ejecución `pages-build-deployment` completada correctamente.
+- T1–T8 están completadas. GitHub Pages publica desde `main` en la raíz; ejecución `pages-build-deployment` completada correctamente.
 - La entrada raíz redirige al catálogo. El menú y la página del juego cargan bajo `/JuegosEnGitHub/`.
 - Verificación manual pública: configuración uniforme de 8 botellas, 4 colores y capacidad 4; trasvase válido; deshacer; reinicio; victoria; deshacer la jugada ganadora; repetir con una disposición nueva.
 - También se generó un tablero de 60 botellas con capacidades distintas de 3, 4, 5 y 6 unidades, cuatro tamaños y seis colores. Se verificó que todas empiezan parcialmente llenas y se hizo un trasvase que llenó una botella de capacidad 3.
@@ -33,6 +33,15 @@ Colección de juegos web estáticos publicada en GitHub Pages. El primer juego, 
 - No se modificó lógica ni reglas durante la tarea.
 - Próximo paso: elegir el siguiente juego o mejora del catálogo y crear una propuesta SDD correspondiente.
 
+## Bloque 026 — interfaz de partida y catálogo
+
+- Propuesta aprobada e implementada: `docs/propuestas/026_interfaz_partida_catalogo.md`.
+- Las botellas completadas se colocan al principio según orden de finalización; la identidad estable conserva selección, historial, deshacer y reinicio.
+- Se añadió corcho visual, se retiraron números visibles, las cuatro acciones de partida usan iconos con nombres accesibles y el resumen queda en configuración.
+- Catálogo y juego tienen encabezados consistentes; el CSS reduce espacios en móvil y mantiene desplazamiento horizontal para tableros anchos.
+- Se revisaron cambios y sintaxis, pero no se pudo hacer comprobación interactiva en navegador porque no había superficie de navegador disponible.
+- Próximo paso: elegir el siguiente juego o mejora del catálogo y crear una propuesta SDD correspondiente.
+
 ## Estado de Git al cerrar
 
-La rama `feature/025_publicacion_github_pages` está publicada en `origin`; incluye la propuesta `4ddb045` y la documentación de cierre `48ac90b`. Los cambios de T7 ya están integrados y publicados en `main`. Al cerrar, dejar el árbol limpio en `main` sincronizada con `origin/main`.
+La rama `feature/026_interfaz_partida_catalogo` parte de `main` actualizado. Al cerrar, revisar diff y estado, crear commit(s), integrar en `main` y publicar las ramas según `COMANDOS.md`. `.history/` es un archivo local ajeno al cambio y debe quedar fuera del commit.
