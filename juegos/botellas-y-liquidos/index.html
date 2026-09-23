@@ -99,7 +99,8 @@
     // CONFIGURACIÓN INICIAL: valores predeterminados y límites acordados del juego.
     const CONFIG = Object.freeze({
       defaults: { columns: 4, rows: 2, colors: 4, maxCapacity: 4, differentCapacities: false, sizeCount: 2 },
-      limits: { columns: [2, 10], rows: [1, 6], colors: [2, 6], maxCapacity: [2, 6], sizeCount: [2, 4] }
+      limits: { columns: [2, 10], rows: [1, 6], colors: [2, 6], maxCapacity: [2, 6], sizeCount: [2, 4] },
+      generationAttempts: 15
     });
 
     const form = document.querySelector('#settings');
@@ -348,7 +349,10 @@
       const total = columns * rows;
       const colors = Number(fields.colors.value);
       const maxCapacity = Number(fields.maxCapacity.value);
-      const capacityPlan = pendingGamePlan || findCapacityPlan(total, maxCapacity, fields.differentCapacities.checked, Number(fields.sizeCount.value), colors);
+      let capacityPlan = pendingGamePlan;
+      for (let attempt = 0; !capacityPlan && attempt < CONFIG.generationAttempts; attempt += 1) {
+        capacityPlan = findCapacityPlan(total, maxCapacity, fields.differentCapacities.checked, Number(fields.sizeCount.value), colors);
+      }
       if (!capacityPlan) {
         validation.classList.add('error');
         validation.textContent = 'No se encontró una asignación resoluble para esta combinación. Cambia la configuración e inténtalo de nuevo.';
