@@ -22,7 +22,7 @@ Proyecto personal para publicar una colección de juegos web estáticos con GitH
 - Repositorio local inicializado en la rama `main`, conectado al remoto público `https://github.com/JoseJacin/JuegosEnGitHub.git`.
 - `main` y las ramas de trabajo están publicadas en GitHub. La guía de agentes/SDD está integrada en `main` y publicada desde `feature/007_guia_agentes_sdd`.
 - Las reglas del juego de botellas están aprobadas; el plan jerárquico está en `PLAN.md`.
-- T1, T2 y T3 están integradas en `main`. Cada botella empieza parcialmente llena y con al menos dos colores distintos; la capacidad 2 no es válida para iniciar. T4 está implementada en la rama de trabajo actual, pendiente de integración. Las botellas vacías se ignoran al ganar si las demás están completas, ordenadas y cerradas.
+- T1, T2, T3 y T4 están integradas en `main`. Cada botella empieza parcialmente llena y con al menos dos colores distintos; la capacidad 2 no es válida para iniciar. T4 permite selección, cancelación y trasvase de capas, y tapa automáticamente las botellas completadas. Las botellas vacías se ignoran al ganar si las demás están completas, ordenadas y cerradas.
 - Las propuestas están en `docs/propuestas/008_entrada_y_configuracion.md`, `docs/propuestas/009_generador_resoluble.md`, `docs/propuestas/011_botella_vacia_reserva.md` (descartada), `docs/propuestas/012_vacias_intermedias_y_victoria.md` y `docs/propuestas/014_dos_colores_por_botella.md`.
 - GitHub CLI (`gh`) tiene un token inválido; los pushes de esta tarea se completaron mediante la autenticación configurada para Git.
 - La configuración de GitHub Pages sigue pendiente.
@@ -102,8 +102,8 @@ Al retomar, revisar primero `PLAN.md` y el estado real del repositorio; mantener
 ## Bloque 022 — selección y trasvases
 
 - Rama: `feature/022_trasvases_interactivos`.
-- Estado: implementación y documentación preparadas; pendientes revisión final, commit e integración.
+- Estado: completado e integrado en `main` mediante `ec81ffe`; rama de trabajo publicada.
 - Decisión: la botella completada se representa cerrada y se excluye de selección como origen o destino. Los intentos inválidos cancelan la selección, preservan los líquidos y explican el motivo.
 - Cambio: selección/cancelación con clic o toque, validación del movimiento, trasvase de la capa superior hasta el espacio disponible, cierre automático y mensajes accesibles. Se incluyen Enter y Espacio para activar botellas enfocadas.
 - Verificación: `node --check` del JavaScript extraído y `git diff --check` sin errores; no se abrió el navegador.
-- Próximo paso: cerrar T4, después abordar T5 (historial, reinicio y victoria).
+- Próximo paso: abordar T5 (historial, reinicio y victoria) según `PLAN.md`.
