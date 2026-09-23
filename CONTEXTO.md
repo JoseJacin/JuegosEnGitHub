@@ -58,4 +58,12 @@ Proyecto personal para publicar una colección de juegos web estáticos con GitH
 - Decisión: intentar la búsqueda hasta 15 veces al iniciar; si todas fallan, conservar el mensaje de error existente.
 - Verificación: `node --check` del bloque JavaScript y `git diff --check`; revisión del límite de 15 intentos y del mensaje final.
 
+## Bloque 017 — representación de capas contiguas
+
+- Rama: `feature/017_capas_liquido_contiguas`.
+- Estado: corregido el orden de dibujo en el HTML; pendiente revisión visual y cierre Git.
+- Decisión: el espacio libre se dibuja arriba y las capas de líquido se mantienen contiguas, respetando el orden de abajo hacia arriba del modelo.
+- Verificación: revisión del código y diff; pendiente comprobación visual en navegador.
+- Próximo paso: revisar visualmente las botellas y luego integrar el cambio.
+
 Al retomar, revisar primero `PLAN.md` y el estado real del repositorio; mantener este archivo actualizado al cerrar tareas.
