@@ -49,8 +49,9 @@ Colección de juegos web estáticos publicada en GitHub Pages. El primer juego, 
 - Se quitó el título «Tu partida», el texto positivo de validación y la nota de generación. El mensaje de generación solo se muestra en errores tras agotar sus intentos.
 - Las acciones quedan alineadas a la derecha; los campos de configuración usan dos columnas. El catálogo usa «Acceder» y ya no enlaza «Volver a la entrada».
 - La introducción corregida está bajo «Configuración de partida».
-- Rama: `feature/027_interfaz_compacta`. Diff revisado; `git diff --check` pasó. No se ejecutaron pruebas ni comprobación en navegador.
-- Próximo paso: integrar en `main` y publicar según `COMANDOS.md`.
+- El cambio se integró en `main` y está publicado en `origin/main` (`3127904`); `feature/027_interfaz_compacta` también está publicada.
+- Diff revisado; `git diff --check` pasó. No se ejecutaron pruebas ni comprobación en navegador.
+- Próximo paso: elegir el siguiente cambio o juego.
 
 ## Estado de Git al cerrar
 
