@@ -8,9 +8,9 @@ Publicar una colección de juegos web estáticos con GitHub Pages. La entrada pr
 
 - Repositorio público: `JoseJacin/JuegosEnGitHub`.
 - Rama principal: `main`; el remoto `origin` está configurado.
-- GitHub Pages todavía no está activado.
+- GitHub Pages está activo y publica `main` desde la raíz: [josejacin.github.io/JuegosEnGitHub](https://josejacin.github.io/JuegosEnGitHub/).
 - La presentación y las reglas de Botellas y líquidos están acordadas en [`juegos/botellas-y-liquidos/README.md`](juegos/botellas-y-liquidos/README.md).
-- Aún no hay páginas ni código de juego implementados.
+- El catálogo y Botellas y líquidos están implementados y publicados.
 
 ## Estructura prevista
 
@@ -103,13 +103,13 @@ Cada parte funcional tendrá su propio directorio. Un juego pequeño podrá impl
 
 ### T7 — Publicar y verificar en GitHub Pages
 
-- [ ] T7.1 Configurar GitHub Pages para publicar desde `main` en la carpeta acordada.
-- [ ] T7.2 Revisar manualmente menú, configuración, movimientos, deshacer, reinicio, victoria y repetición.
-- [ ] T7.3 Revisar al menos una configuración uniforme y otra de capacidades distintas, incluyendo un tablero grande.
-- [ ] T7.4 Comprobar carga directa de las páginas y recursos desde la URL de Pages.
-- [ ] T7.5 Actualizar README y CONTEXTO con la URL y el estado publicado.
+- [x] T7.1 Configurar GitHub Pages para publicar desde `main` en la carpeta acordada.
+- [x] T7.2 Revisar manualmente menú, configuración, movimientos, deshacer, reinicio, victoria y repetición.
+- [x] T7.3 Revisar al menos una configuración uniforme y otra de capacidades distintas, incluyendo un tablero grande.
+- [x] T7.4 Comprobar carga directa de las páginas y recursos desde la URL de Pages.
+- [x] T7.5 Actualizar README y CONTEXTO con la URL y el estado publicado.
 
-**Hecho cuando:** el menú y el juego están accesibles desde la URL pública de GitHub Pages y los flujos principales funcionan.
+**Hecho cuando:** el menú y el juego están accesibles desde la URL pública de GitHub Pages y los flujos principales funcionan. Verificación manual y publicación registradas en la propuesta [025](docs/propuestas/025_publicacion_github_pages.md).
 
 ## Dependencias y orden sugerido
 

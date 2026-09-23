@@ -1,6 +1,6 @@
 # Propuesta: publicar y verificar el sitio en GitHub Pages
 
-**Estado:** Aprobada
+**Estado:** Implementada
 **Fecha:** 2026-09-23
 **Responsable:** Usuario y agente Codex
 
@@ -22,19 +22,19 @@ El sitio y el juego están implementados, pero GitHub Pages aún no está activa
 
 ## Criterios de aceptación
 
-- [ ] GitHub Pages publica desde `main` y la raíz del repositorio.
-- [ ] La página pública abre el catálogo y carga directamente la configuración/juego y sus recursos.
-- [ ] Se revisan manualmente los flujos de menú, configuración, movimientos, deshacer, reinicio, victoria y repetición.
-- [ ] Se revisan una partida uniforme, otra con capacidades distintas y un tablero grande.
-- [ ] `README.md`, `PLAN.md` y `CONTEXTO.md` indican la URL y el estado real de publicación y verificación.
+- [x] GitHub Pages publica desde `main` y la raíz del repositorio.
+- [x] La página pública abre el catálogo y carga directamente la configuración/juego y sus recursos.
+- [x] Se revisan manualmente los flujos de menú, configuración, movimientos, deshacer, reinicio, victoria y repetición.
+- [x] Se revisan una partida uniforme, otra con capacidades distintas y un tablero grande.
+- [x] `README.md`, `PLAN.md` y `CONTEXTO.md` indican la URL y el estado real de publicación y verificación.
 
 ## Tareas
 
-- [ ] Comprobar disponibilidad/configuración actual de GitHub Pages y habilitar la fuente acordada.
-- [ ] Publicar la rama integrada y esperar a que Pages sirva el sitio.
-- [ ] Revisar rutas y flujos desde navegador público.
-- [ ] Actualizar documentación, revisar diff y registrar el estado Git.
+- [x] Comprobar disponibilidad/configuración actual de GitHub Pages y habilitar la fuente acordada.
+- [x] Esperar a que Pages publicara el contenido de `main`.
+- [x] Revisar rutas y flujos desde navegador público.
+- [x] Actualizar documentación, revisar diff y registrar el estado Git.
 
 ## Riesgos, dependencias y preguntas
 
-La publicación depende de permisos de administración del repositorio y de la disponibilidad de GitHub Pages. Si los permisos o el entorno impiden activar Pages, registrar el error y dejar el cambio local preparado. Ninguno adicional.
+GitHub Pages quedó activo después de la primera compilación automática. La página raíz redirige a `/menu/`; el juego y sus estilos/lógica integrados cargan directamente bajo el prefijo `/JuegosEnGitHub/`. Verificación manual registrada en esta propuesta. Ninguno adicional.
