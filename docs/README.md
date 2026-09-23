@@ -27,3 +27,4 @@ Cada funcionalidad nueva o cambio relevante debe comenzar como propuesta basada 
 - [`propuestas/023_historial_reinicio_victoria.md`](propuestas/023_historial_reinicio_victoria.md): deshacer, reiniciar y completar una partida.
 - [`propuestas/024_estilo_visual_accesibilidad.md`](propuestas/024_estilo_visual_accesibilidad.md): estilo visual, adaptación y accesibilidad.
 - [`propuestas/025_publicacion_github_pages.md`](propuestas/025_publicacion_github_pages.md): publicación y verificación manual en GitHub Pages.
+- [`propuestas/026_interfaz_partida_catalogo.md`](propuestas/026_interfaz_partida_catalogo.md): ordenar botellas completadas y enfocar/compactar las vistas de partida y catálogo.
