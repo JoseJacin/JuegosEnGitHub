@@ -15,7 +15,7 @@
     :root { color-scheme: dark; --bg: #101821; --panel: #1b2833; --text: #f4f6f7; --muted: #b6c2ca; --accent: #82d8a0; --line: #40515d; }
     * { box-sizing: border-box; }
     body { margin: 0; min-height: 100vh; min-height: 100dvh; color: var(--text); background: radial-gradient(ellipse at 50% -20%, #29423d, var(--bg) 60%); font: 16px/1.5 system-ui, sans-serif; }
-    main { width: min(100% - 2rem, 1200px); margin: auto; padding: 1.5rem 0 2.5rem; }
+    main { width: min(100% - 2rem, 1200px); margin: auto; padding: max(1.5rem, env(safe-area-inset-top)) max(1rem, env(safe-area-inset-right)) max(2.5rem, env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-left)); }
     a { color: var(--accent); text-underline-offset: .2em; }
     .site-header { display: flex; align-items: center; justify-content: space-between; gap: 1.25rem; margin-bottom: 1.25rem; padding: .85rem 1.15rem; border: 1px solid var(--line); border-radius: 1rem; background: #1b2833dc; }
     .site-brand { color: var(--accent); font-size: .9rem; font-weight: 800; letter-spacing: .08em; text-decoration: none; text-transform: uppercase; }
@@ -78,12 +78,12 @@
     .move-status.error { color: #ffb0a6; }
     @media (max-width: 600px) {
       body { height: 100dvh; max-height: 100dvh; overflow: hidden; overscroll-behavior: none; }
-      main { width: min(100% - .8rem, 1200px); height: 100dvh; max-height: 100dvh; padding: .35rem 0 .45rem; display: flex; flex-direction: column; }
+      main { width: 100%; max-width: 1200px; height: 100dvh; max-height: 100dvh; padding: max(.35rem, env(safe-area-inset-top)) max(.4rem, env(safe-area-inset-right)) max(.45rem, env(safe-area-inset-bottom)) max(.4rem, env(safe-area-inset-left)); display: flex; flex-direction: column; }
       .site-header { gap: .5rem; margin-bottom: .35rem; padding: .35rem .55rem; flex: 0 0 auto; }
       .site-brand { font-size: .68rem; }
       .site-heading p { font-size: .56rem; }
       .site-heading h1 { font-size: clamp(1.1rem, 4.8vw, 1.35rem); }
-      .back { padding: .25rem .45rem; font-size: .78rem; }
+      .back { min-height: 36px; display: inline-flex; align-items: center; padding: .25rem .5rem; font-size: .78rem; }
       form#settings { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; justify-content: space-between; padding: .55rem .65rem; border-radius: .8rem; overflow-y: auto; }
       legend { margin-bottom: .25rem; font-size: .98rem; }
       .lead { margin: 0 0 .3rem; font-size: .78rem; line-height: 1.25; }
@@ -107,7 +107,7 @@
       .icon-button svg { width: 1.05rem; height: 1.05rem; }
       .bottles-scroll { flex: 1 1 auto; min-height: 0; margin-top: .3rem; overflow-x: auto; overflow-y: hidden; display: flex; align-items: center; }
       .bottles { gap: .15rem .15rem; padding: .1rem 0; height: 100%; align-content: center; }
-      .glass { width: min(100%, 3.1rem); height: clamp(3.2rem, calc((100dvh - 8.8rem) / var(--bottle-rows, 6) - 0.45rem), 5.25rem); }
+      .glass { width: min(100%, 3.1rem); height: clamp(2.9rem, calc((100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 8.8rem) / var(--bottle-rows, 6) - 0.45rem), 5.25rem); }
       .cork { width: min(100%, 3.1rem); height: .55rem; margin-bottom: -0.55rem; }
       .bottle-meta { font-size: clamp(.5rem, 2.2vw, .65rem); padding: .04rem .12rem; }
       .victory-dialog { max-height: calc(100dvh - 2rem); overflow-y: auto; }

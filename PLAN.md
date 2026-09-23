@@ -150,6 +150,15 @@ Cada parte funcional tendrá su propio directorio. Un juego pequeño podrá impl
 
 **Hecho cuando:** la web se puede instalar como aplicación móvil en iPhone y Android abriendo en modo standalone, y tanto la configuración como la partida de hasta 6 filas caben al 100 % de la pantalla sin scroll vertical. Cambios registrados en la propuesta [029](docs/propuestas/029_modo_app_y_tablero_sin_scroll.md).
 
+### T12 — Respetar zonas seguras (Safe Area) en iOS y Dynamic Island
+
+- [x] T12.1 Aplicar reglas de `env(safe-area-inset-*)` al contenedor `main` en `juegos/botellas-y-liquidos/index.html` y en `menu/index.html`.
+- [x] T12.2 Despejar la cabecera y el botón «← Menú» para que queden por debajo del área física de la Dynamic Island y la barra de estado.
+- [x] T12.3 Descontar los insets de zona segura en el cálculo de altura de las botellas para mantener la partida libre de scroll vertical.
+- [x] T12.4 Actualizar la propuesta, el plan y el contexto de continuidad.
+
+**Hecho cuando:** en iPhone con Dynamic Island / notch, la cabecera y el botón de volver son totalmente accesibles sin solapamiento, y el juego y catálogo respetan las zonas seguras sin scroll indeseado. Cambios registrados en la propuesta [030](docs/propuestas/030_respetar_safe_area_ios.md).
+
 ## Dependencias y orden sugerido
 
 1. T1 y T2 preparan navegación y opciones de partida.

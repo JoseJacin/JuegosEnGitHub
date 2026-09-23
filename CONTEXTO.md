@@ -73,6 +73,14 @@ Colección de juegos web estáticos publicada en GitHub Pages. El primer juego, 
 - Se ajustó el tablero de juego (`#game`) a `100dvh` y se redujo ligeramente la altura base de las botellas haciéndola adaptativa mediante `--bottle-rows`, garantizando que hasta 6 filas de botellas quepan íntegramente en pantalla sin scroll vertical.
 - Próximo paso: verificar flujos en móvil y elegir el siguiente juego o mejora del catálogo.
 
+## Bloque 030 — respetar zonas seguras (Safe Area) en iOS y Dynamic Island
+
+- Propuesta aprobada e implementada: `docs/propuestas/030_respetar_safe_area_ios.md`.
+- Se aplicó `padding: max(..., env(safe-area-inset-*))` en el contenedor `main` de `juegos/botellas-y-liquidos/index.html` y `menu/index.html`.
+- La cabecera superior y el botón «← Menú» se despejan por completo de la Dynamic Island, notch y barra de estado de iOS.
+- Se descontaron las zonas seguras en el cálculo adaptativo de altura de las botellas en móvil para mantener la partida de 6 filas dentro de la pantalla sin scroll vertical.
+- Próximo paso: verificar en iPhone y elegir la siguiente funcionalidad o juego.
+
 ## Estado de Git al cerrar
 
-Los cambios de 029 se integraron en `main` y se publicaron en `origin/main`; la rama `feature/029_modo_app_y_tablero_sin_scroll` también queda publicada. `.history/` es un archivo local ajeno al cambio y debe quedar fuera del commit.
+Los cambios de 030 se integraron en `main` y se publicaron en `origin/main`; la rama `feature/030_respetar_safe_area_ios` también queda publicada. `.history/` es un archivo local ajeno al cambio y debe quedar fuera del commit.
