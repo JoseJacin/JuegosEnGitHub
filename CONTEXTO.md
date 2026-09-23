@@ -90,3 +90,11 @@ Proyecto personal para publicar una colección de juegos web estáticos con GitH
 - Próximo paso: el usuario puede pulsar «Copiar diagnóstico» y pegar el informe aquí para localizar cualquier espacio restante.
 
 Al retomar, revisar primero `PLAN.md` y el estado real del repositorio; mantener este archivo actualizado al cerrar tareas.
+
+## Bloque 021 — conteo de unidades iniciales
+
+- Rama: `feature/021_unidades_iniciales_colores`.
+- Hallazgo: el diagnóstico del usuario medía `gaps=[0]`, pero varias capas tenían color `undefined`. `retainedLeft` restaba una unidad por botella objetivo, aunque cada botella ya parte con dos unidades base. Esto añadía una unidad de más por objetivo y agotaba antes la lista de colores.
+- Cambio: el cálculo ahora descuenta las dos unidades base; se omiten distribuciones si el número de unidades o los colores no concuerdan.
+- Verificación: `git diff --check` limpio y revisión estática de los conteos. No se abrió el navegador, según preferencia del usuario.
+- Estado Git: cambios preparados en la rama de trabajo; pendientes de commit e integración.

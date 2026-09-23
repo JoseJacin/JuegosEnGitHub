@@ -22,3 +22,4 @@ Cada funcionalidad nueva o cambio relevante debe comenzar como propuesta basada 
 - [`propuestas/015_validacion_determinista.md`](propuestas/015_validacion_determinista.md): validación estable de las configuraciones de partida.
 - [`propuestas/016_reintentos_generacion.md`](propuestas/016_reintentos_generacion.md): reintentos al buscar una partida resoluble.
 - [`propuestas/020_diagnostico_botellas.md`](propuestas/020_diagnostico_botellas.md): diagnóstico local copiable de capas y huecos visibles.
+- [`propuestas/021_corregir_conteo_unidades_iniciales.md`](propuestas/021_corregir_conteo_unidades_iniciales.md): corregir unidades excedentes que producían capas sin color.

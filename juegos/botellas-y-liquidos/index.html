@@ -291,7 +291,7 @@
 
       const retainedTotal = lowerRetained + Math.floor(Math.random() * (upperRetained - lowerRetained + 1));
       const retained = goals.map((goal) => ({ ...goal, units: 2, room: goal.capacity - 3 }));
-      let retainedLeft = retainedTotal - goalCount;
+      let retainedLeft = retainedTotal - retained.length * 2;
       for (const goal of shuffled(retained)) {
         const add = Math.min(goal.room, retainedLeft);
         goal.units += add;
@@ -376,6 +376,7 @@
       let assigned = null;
       for (let attempt = 0; attempt < 500; attempt += 1) {
         const colorUnits = shuffled([...remainingByColor].flatMap(([color, units]) => Array(units).fill(color)));
+        if (colorUnits.length !== slots.length || colorUnits.some((color) => !color)) continue;
         const candidate = new Map(bottles.map((_, index) => [index, new Map()]));
         slots.forEach((index, slot) => {
           const counts = candidate.get(index);
