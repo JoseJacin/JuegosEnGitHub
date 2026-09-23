@@ -18,11 +18,11 @@ Proyecto personal para publicar una colección de juegos web estáticos con GitH
 
 ## Estado actual
 
-- La entrada raíz (`index.html`), el catálogo (`menu/index.html`), la pantalla de configuración y el generador de partidas de Botellas y líquidos están implementados en `main`.
+- La entrada raíz (`index.html`), el catálogo (`menu/index.html`), la pantalla de configuración y el generador de partidas de Botellas y líquidos están implementados en `main`; se amplía en `feature/013_colores-repetidos-objetivos` el cálculo de objetivos para permitir colores repetidos en varias botellas completas.
 - Repositorio local inicializado en la rama `main`, conectado al remoto público `https://github.com/JoseJacin/JuegosEnGitHub.git`.
 - `main` y las ramas de trabajo están publicadas en GitHub. La guía de agentes/SDD está integrada en `main` y publicada desde `feature/007_guia_agentes_sdd`.
 - Las reglas del juego de botellas están aprobadas; el plan jerárquico está en `PLAN.md`.
-- T1, T2 y T3 están integradas en `main`. La aclaración vigente mantiene todas las botellas parcialmente llenas al inicio; una o más pueden quedar vacías tras los movimientos y al ganar se ignoran si las demás botellas con líquido están completas, ordenadas y cerradas. El juego aún no implementa trasvases interactivos (T4).
+- T1, T2 y T3 están integradas en `main`. Todas las botellas comienzan parcialmente llenas; los trasvases pueden dejar vacías una o varias, y al ganar se ignoran si las demás están completas, ordenadas y cerradas. El número de botellas objetivo puede superar los colores configurados: los colores se repiten cuando hace falta. El juego aún no implementa trasvases interactivos (T4).
 - Las propuestas están en `docs/propuestas/008_entrada_y_configuracion.md`, `docs/propuestas/009_generador_resoluble.md`, `docs/propuestas/011_botella_vacia_reserva.md` (descartada) y `docs/propuestas/012_vacias_intermedias_y_victoria.md`.
 - GitHub CLI (`gh`) tiene un token inválido; los pushes de esta tarea se completaron mediante la autenticación configurada para Git.
 - La configuración de GitHub Pages sigue pendiente.
@@ -35,10 +35,9 @@ Proyecto personal para publicar una colección de juegos web estáticos con GitH
 
 ## Estado de Git al cerrar este bloque
 
-- Rama actual: `main`, sincronizada con `origin/main`. La rama de corrección `feature/012_vacias-durante-partida` está publicada.
-- Commit de corrección: implementación `fe95c8d`; fusión en `main` `de8f3c6`.
-- Decisión: ninguna botella empieza vacía ni llena. Los trasvases pueden vaciar botellas; la victoria ignora cualquier botella vacía si todas las demás están llenas, ordenadas y cerradas.
-- La distribución conserva objetivos por color y puede mezclar varias capas en una botella, siguiendo la referencia visual; algunas pueden quedar monocromáticas.
+- Rama actual: `feature/013_colores-repetidos-objetivos`, creada desde `main` actualizado; cambios locales pendientes de revisión, commit, fusión y publicación.
+- Decisiones: ninguna botella empieza vacía ni llena; cualquier número de botellas vacías se ignora al ganar. El volumen objetivo se reparte en tantas botellas completas como sea necesario y los colores pueden repetirse.
+- La disposición puede mezclar varias capas en una botella, siguiendo la referencia visual; algunas pueden quedar monocromáticas.
 - Verificación: `git diff --check` sin errores y revisión del diff. No se ejecutaron pruebas automatizadas ni comprobación manual en navegador.
 
 Al retomar, revisar primero `PLAN.md` y el estado real del repositorio; mantener este archivo actualizado al cerrar tareas.

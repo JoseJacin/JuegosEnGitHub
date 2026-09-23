@@ -18,6 +18,8 @@ La propuesta 011 interpretó erróneamente que una botella vacía debía estar p
 - Al inicio, todas las botellas contienen líquido y tienen al menos una unidad de capacidad libre.
 - Durante la partida, cualquier número de botellas puede quedar vacío como resultado de los trasvases.
 - La victoria exige que todas las botellas con líquido estén llenas, contengan un solo color y estén cerradas. Las botellas vacías se ignoran.
+- El número configurado de colores no limita el número de botellas objetivo: si hace falta, un color puede completar varias botellas.
+- El generador calcula los volúmenes de los colores y el número de botellas objetivo para que todas las botellas tengan líquido al inicio, queden parcialmente llenas y la disposición siga siendo resoluble.
 - Mantener el generador de partidas resolubles y la mezcla aleatoria de colores.
 
 ## Criterios de aceptación
@@ -26,6 +28,7 @@ La propuesta 011 interpretó erróneamente que una botella vacía debía estar p
 - [x] La validación vuelve a comprobar que cada botella inicia parcialmente llena.
 - [x] La especificación diferencia el estado inicial del estado durante la partida y la condición de victoria.
 - [x] Las botellas vacías no bloquean la victoria.
+- [x] Un color puede repetirse en varias botellas objetivo cuando se necesita para repartir el volumen.
 
 ## Tareas
 
