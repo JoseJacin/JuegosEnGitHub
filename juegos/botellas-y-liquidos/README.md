@@ -14,7 +14,7 @@ Organizar todos los líquidos por color. La partida se gana únicamente cuando c
 
 1. La partida contiene varias botellas, algunas con capas de líquidos de diferentes colores.
 2. Antes de empezar, el usuario puede ver y modificar la configuración: de 2 a 10 botellas por fila, de 1 a 6 filas, de 2 a 6 colores distintos y capacidad máxima de 2 a 6 unidades por botella. El total de botellas se obtiene multiplicando filas por botellas por fila.
-3. Una casilla permite activar capacidades distintas. Desactivada, todas las botellas tienen la capacidad seleccionada; activada, las capacidades se asignan al azar entre 2 unidades y el máximo seleccionado. El jugador elige cuántos tamaños distintos habrá, entre 2 y 4, limitado por las capacidades disponibles.
+3. Una casilla permite activar capacidades distintas. Desactivada, todas las botellas tienen la capacidad seleccionada; activada, las capacidades se asignan al azar entre 3 unidades y el máximo seleccionado. El jugador elige cuántos tamaños distintos habrá, entre 2 y 4, limitado por las capacidades disponibles. La capacidad 2 no es compatible con el requisito de mezcla inicial.
 4. Solo se puede verter desde una botella abierta que contenga líquido.
 5. Se vierte toda la capa continua de color que está en la parte superior de la botella de origen, hasta donde permita la capacidad libre del destino.
 6. El destino debe estar abierto y tener capacidad disponible. Si está vacío, puede recibir líquido de cualquier color; si ya contiene líquido, su capa superior debe ser del mismo color que el líquido que se vierte.
@@ -22,7 +22,7 @@ Organizar todos los líquidos por color. La partida se gana únicamente cuando c
 8. Cuando una botella está llena con un único color, se tapa automáticamente y se considera completada. Una botella tapada no puede recibir más líquido.
 9. La partida se gana únicamente cuando todas las botellas con líquido están llenas al 100 %, contienen un solo color y están cerradas. Puede haber botellas vacías durante la partida o al ganar; no impiden la victoria.
 10. El jugador puede deshacer movimientos y reiniciar la partida.
-11. Al comenzar, ninguna botella está vacía ni llena: cada una contiene al menos una unidad y tiene al menos una unidad de capacidad libre. Las botellas vacías pueden aparecer como resultado de los trasvases.
+11. Al comenzar, ninguna botella está vacía ni llena: cada una contiene al menos dos unidades, de al menos dos colores distintos, y tiene al menos una unidad de capacidad libre. Las botellas vacías pueden aparecer como resultado de los trasvases.
 12. Toda partida generada debe tener solución. La disposición es aleatoria.
 13. Para mover líquido, se selecciona primero la botella de origen y después la de destino: con clic en ordenador o toque en móvil. Volver a seleccionar el origen lo deselecciona.
 14. El juego calcula automáticamente la cantidad de líquido de cada color y cuántas botellas completas tendrá cada color. Si hacen falta más botellas objetivo que colores configurados, los colores se repiten y pueden completar varias botellas cada uno. El usuario configura el número de colores, no la cantidad de unidades por color.

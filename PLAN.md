@@ -52,8 +52,8 @@ Cada parte funcional tendrá su propio directorio. Un juego pequeño podrá impl
 
 - [x] T2.1 Crear la página del juego en `juegos/botellas-y-liquidos/`.
 - [x] T2.2 Agrupar las variables y valores iniciales de configuración en una sección u objeto claramente identificado en el código.
-- [x] T2.3 Permitir configurar botellas por fila (2–10), filas (1–6), colores (2–6) y capacidad máxima (2–6 unidades).
-- [x] T2.4 Añadir la opción de capacidades distintas y la selección de 2–4 tamaños, limitada por los tamaños disponibles hasta el máximo elegido.
+- [x] T2.3 Permitir configurar botellas por fila (2–10), filas (1–6), colores (2–6) y capacidad máxima (2–6 unidades). La validación de T3 excluye capacidad 2 porque no permite dos colores por botella con espacio libre.
+- [x] T2.4 Añadir la opción de capacidades distintas y la selección de 2–4 tamaños, limitada por los tamaños disponibles desde 3 hasta el máximo elegido.
 - [x] T2.5 Mostrar la configuración antes de empezar y permitir editarla.
 - [x] T2.6 Validar límites y combinaciones sin capacidad suficiente y explicar ajustes necesarios. El botón de inicio queda desactivado hasta que T3 incorpore el generador; este deberá seleccionar una asignación de capacidades compatible y generar una disposición resoluble.
 
@@ -65,10 +65,10 @@ Cada parte funcional tendrá su propio directorio. Un juego pequeño podrá impl
 - [x] T3.2 Crear capacidades iguales o asignar capacidades distintas según la configuración.
 - [x] T3.3 Calcular automáticamente las cantidades de cada color y permitir que un color complete varias botellas.
 - [x] T3.4 Generar una disposición aleatoria cuya solución se conozca o pueda garantizarse.
-- [x] T3.5 Garantizar que al inicio ninguna botella esté vacía ni llena: cada una debe tener al menos una unidad y un espacio libre.
+- [x] T3.5 Garantizar que al inicio ninguna botella esté vacía ni llena: cada una debe tener al menos dos colores distintos y un espacio libre.
 - [x] T3.6 Admitir tableros de hasta 60 botellas respetando colores, capacidades y cantidades.
 
-**Hecho cuando:** cada configuración admitida genera una partida aleatoria resoluble, con todas las botellas parcialmente llenas al inicio. El generador elige suficientes botellas objetivo para contener todo el líquido; los colores pueden repetirse entre objetivos, y puede haber botellas vacías durante la partida y al ganar.
+**Hecho cuando:** cada configuración admitida genera una partida aleatoria resoluble, con todas las botellas parcialmente llenas y con al menos dos colores al inicio. El generador elige suficientes botellas objetivo para contener todo el líquido; los colores pueden repetirse entre objetivos, y puede haber botellas vacías durante la partida y al ganar.
 
 ### T4 — Implementar selección y trasvase
 
