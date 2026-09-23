@@ -31,3 +31,4 @@ Cada funcionalidad nueva o cambio relevante debe comenzar como propuesta basada 
 - [`propuestas/027_interfaz_compacta.md`](propuestas/027_interfaz_compacta.md): compactar el estado de la partida, la configuración y la entrada desde el catálogo.
 - [`propuestas/028_tablero_movil_compacto.md`](propuestas/028_tablero_movil_compacto.md): ajustar el tablero, las botellas y sus avisos para filas compactas en móvil.
 - [`propuestas/029_modo_app_y_tablero_sin_scroll.md`](propuestas/029_modo_app_y_tablero_sin_scroll.md): modo aplicación móvil instalable (PWA) y pantallas de configuración y partida sin scroll vertical.
+- [`propuestas/030_respetar_safe_area_ios.md`](propuestas/030_respetar_safe_area_ios.md): respetar zonas seguras (Safe Area) en iOS y Dynamic Island.
