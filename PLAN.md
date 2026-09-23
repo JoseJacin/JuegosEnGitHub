@@ -40,22 +40,22 @@ Cada parte funcional tendrá su propio directorio. Un juego pequeño podrá impl
 
 ### T1 — Preparar la entrada del sitio y el catálogo
 
-- [ ] T1.1 Crear la entrada raíz que lleve al menú y funcione en la URL de GitHub Pages.
-- [ ] T1.2 Crear `menu/index.html` dentro de su directorio.
-- [ ] T1.3 Mostrar en el menú el catálogo de juegos y una tarjeta para Botellas y líquidos.
-- [ ] T1.4 Marcar como «Próximamente» los juegos sin página y activar el enlace cuando el juego esté disponible.
-- [ ] T1.5 Comprobar las rutas relativas usando el prefijo del repositorio.
+- [x] T1.1 Crear la entrada raíz que lleve al menú y funcione en la URL de GitHub Pages.
+- [x] T1.2 Crear `menu/index.html` dentro de su directorio.
+- [x] T1.3 Mostrar en el menú el catálogo de juegos y una tarjeta para Botellas y líquidos.
+- [x] T1.4 Marcar como «Próximamente» los juegos sin página y activar el enlace cuando el juego esté disponible.
+- [x] T1.5 Comprobar que las rutas relativas conservan sus destinos bajo el prefijo `/JuegosEnGitHub/`.
 
 **Hecho cuando:** la URL publicada abre el menú y sus enlaces llevan a los juegos con rutas correctas.
 
 ### T2 — Crear la pantalla de configuración de Botellas y líquidos
 
-- [ ] T2.1 Crear la página del juego en `juegos/botellas-y-liquidos/`.
-- [ ] T2.2 Agrupar las variables y valores iniciales de configuración en una sección u objeto claramente identificado en el código.
-- [ ] T2.3 Permitir configurar botellas por fila (2–10), filas (1–6), colores (2–6) y capacidad máxima (2–6 unidades).
-- [ ] T2.4 Añadir la opción de capacidades distintas y la selección de 2–4 tamaños, limitada por los tamaños disponibles hasta el máximo elegido.
-- [ ] T2.5 Mostrar la configuración antes de empezar y permitir editarla.
-- [ ] T2.6 Validar límites y combinaciones para que ninguna opción genere una configuración inválida; si no se puede generar una partida resoluble, explicar qué ajuste se necesita antes de empezar.
+- [x] T2.1 Crear la página del juego en `juegos/botellas-y-liquidos/`.
+- [x] T2.2 Agrupar las variables y valores iniciales de configuración en una sección u objeto claramente identificado en el código.
+- [x] T2.3 Permitir configurar botellas por fila (2–10), filas (1–6), colores (2–6) y capacidad máxima (2–6 unidades).
+- [x] T2.4 Añadir la opción de capacidades distintas y la selección de 2–4 tamaños, limitada por los tamaños disponibles hasta el máximo elegido.
+- [x] T2.5 Mostrar la configuración antes de empezar y permitir editarla.
+- [x] T2.6 Validar límites y combinaciones sin capacidad suficiente y explicar ajustes necesarios. El botón de inicio queda desactivado hasta que T3 incorpore el generador; este deberá seleccionar una asignación de capacidades compatible y generar una disposición resoluble.
 
 **Hecho cuando:** todas las opciones acordadas se ven antes de empezar, se pueden cambiar y la configuración resultante respeta sus límites.
 
