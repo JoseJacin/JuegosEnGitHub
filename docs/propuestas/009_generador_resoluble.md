@@ -4,6 +4,8 @@
 **Fecha:** 2026-09-23
 **Responsable:** Codex
 
+> Esta propuesta registra la primera versión del generador. Para las reglas vigentes, consulta el README del juego y las aclaraciones posteriores en las propuestas 012 y 014.
+
 ## Problema y objetivo
 
 La pantalla de configuración no puede iniciar partidas. Incorporar el modelo de botella y un generador que respete la configuración y produzca una disposición resoluble con el estado inicial acordado.
@@ -17,7 +19,7 @@ La pantalla de configuración no puede iniciar partidas. Incorporar el modelo de
 
 - Respetar las reglas de [`../../juegos/botellas-y-liquidos/README.md`](../../juegos/botellas-y-liquidos/README.md) y los límites de configuración definidos en T2.
 - La solución se conoce por construcción: se parte de botellas objetivo completas y se distribuyen capas mediante movimientos inversos a trasvases válidos. El volumen de cada color equivale a la suma de capacidades de una o varias botellas objetivo; un color puede repetirse.
-- Todas las botellas comienzan con entre 1 y capacidad−1 unidades. Las botellas vacías solo aparecen tras movimientos o al final. Algunas botellas pueden contener varios colores en capas; otras pueden resultar monocromáticas.
+- Regla inicial vigente: todas las botellas contienen al menos dos colores distintos, al menos dos unidades y menos unidades que su capacidad. La capacidad 2 no admite partidas válidas. Las aclaraciones posteriores ajustan este requisito.
 - El tablero inicial presenta filas de botellas en el orden configurado. La aleatoriedad incluye capacidades compatibles, reparto de cantidades y orden de colores.
 
 ## Criterios de aceptación

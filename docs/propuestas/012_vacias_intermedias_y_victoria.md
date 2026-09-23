@@ -21,6 +21,7 @@ La propuesta 011 interpretó erróneamente que una botella vacía debía estar p
 - El número configurado de colores no limita el número de botellas objetivo: si hace falta, un color puede completar varias botellas.
 - El generador calcula los volúmenes de los colores y el número de botellas objetivo para que todas las botellas tengan líquido al inicio, queden parcialmente llenas y la disposición siga siendo resoluble.
 - Mantener el generador de partidas resolubles y la mezcla aleatoria de colores.
+- La mezcla mínima exigida en cada botella inicial se consolidó después en la propuesta 014.
 
 ## Criterios de aceptación
 
