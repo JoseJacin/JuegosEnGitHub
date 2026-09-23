@@ -58,13 +58,12 @@
     .bottle.selected { background: #82d8a01c; box-shadow: inset 0 0 0 1px var(--accent); }
     .bottle.selected .glass { outline: 2px solid #f4f6f7; outline-offset: 2px; }
     .bottle.closed .glass { border-color: var(--accent); box-shadow: inset 0 0 0 2px var(--accent), 0 0 1rem #82d8a044; }
-    .cork { position: relative; z-index: 2; width: 1.35rem; height: .72rem; margin-bottom: -.25rem; border: 1px solid #7a492b; border-radius: .35rem .35rem .12rem .12rem; background: linear-gradient(90deg, #744226, #c88b54 45%, #8b5732); box-shadow: inset 0 .12rem #e4b17a55, 0 .1rem .18rem #0008; }
-    .cork::after { position: absolute; right: -.18rem; bottom: -.08rem; left: -.18rem; height: .16rem; border: 1px solid #8f5b35; border-radius: .2rem; background: #b87945; content: ''; }
-    .bottle.closed .bottle-meta, .bottle.done::after { color: var(--accent); }
+    .cork { position: relative; z-index: 2; width: 3.75rem; height: .72rem; margin-bottom: -0.75rem; border: 1px solid #7a492b; border-radius: .12rem .12rem .35rem .35rem; background: linear-gradient(90deg, #744226, #c88b54 45%, #8b5732); box-shadow: inset 0 .12rem #e4b17a55, 0 .1rem .18rem #0008; }
+    .cork::before { position: absolute; right: -.18rem; bottom: 0.32rem; left: -.18rem; height: .16rem; border: 1px solid #8f5b35; border-radius: .2rem; background: #b87945; content: ''; }
+    .bottle.closed .bottle-meta { color: var(--accent); }
     .glass { position: relative; width: min(100%, 4rem); height: 8rem; overflow: hidden; border: 3px solid #a9c1ca; border-top: 0; border-radius: 0 0 1rem 1rem; background: linear-gradient(90deg, #101820, #1b2833 48%, #101820); box-shadow: inset 0 0 0 1px #ffffff12; }
     .liquid { position: absolute; right: 0; left: 0; }
     .bottle-meta { color: var(--muted); font-size: .8rem; text-align: center; font-variant-numeric: tabular-nums; }
-    .bottle.done::after { content: '✓ Completada'; font-size: .7rem; text-align: center; }
     .move-status { min-height: 1.5em; }
     .move-status.error { color: #ffb0a6; }
     @media (max-width: 600px) {
@@ -87,7 +86,6 @@
       .bottles { grid-template-columns: repeat(var(--bottle-columns), minmax(3.2rem, 1fr)); width: max(100%, calc(var(--bottle-columns) * 3.75rem)); gap: .75rem .3rem; }
       .glass { width: min(100%, 3.25rem); height: 6.25rem; }
       .bottle-meta { font-size: .7rem; }
-      .bottle.done::after { font-size: .62rem; }
       .victory-dialog { max-height: calc(100dvh - 2rem); overflow-y: auto; }
       .victory-dialog button { width: 100%; }
     }
@@ -541,7 +539,7 @@
         }
         const meta = document.createElement('span');
         meta.className = 'bottle-meta';
-        meta.textContent = bottle.layers.length ? `${bottle.layers.reduce((sum, layer) => sum + layer.units, 0)}/${bottle.capacity}${bottle.open ? '' : ' · Cerrada'}` : `Vacía · ${bottle.capacity}`;
+        meta.textContent = bottle.layers.length ? `${bottle.layers.reduce((sum, layer) => sum + layer.units, 0)}/${bottle.capacity}${bottle.open ? '' : ' · ✓'}` : `Vacía · ${bottle.capacity}`;
         item.append(glass, meta);
         bottleGrid.append(item);
       });
