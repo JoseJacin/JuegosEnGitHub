@@ -38,11 +38,18 @@
     .diagnostic-report { max-height: 16rem; overflow: auto; padding: .75rem; border: 1px solid var(--line); border-radius: .5rem; background: #101820; color: var(--muted); font: .78rem/1.45 ui-monospace, monospace; white-space: pre-wrap; overflow-wrap: anywhere; }
     .bottles { display: grid; gap: 1.25rem .75rem; margin-top: 1.5rem; }
     .bottle { display: grid; justify-items: center; gap: .4rem; min-width: 0; }
+    .bottle[role="button"] { cursor: pointer; border-radius: .5rem; }
+    .bottle:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
+    .bottle.selected .glass { outline: 3px solid #f4f6f7; outline-offset: 3px; }
+    .bottle.closed .glass { box-shadow: inset 0 0 0 2px var(--accent), 0 0 1rem #82d8a044; }
+    .bottle.closed .bottle-meta { color: var(--accent); }
     .glass { position: relative; width: min(100%, 4rem); height: 8rem; overflow: hidden; border: 3px solid #a9c1ca; border-top: 0; border-radius: 0 0 1rem 1rem; background: #101820; box-shadow: inset 0 0 0 1px #ffffff12; }
     .liquid { position: absolute; right: 0; left: 0; }
     .bottle-meta { color: var(--muted); font-size: .8rem; text-align: center; }
     .bottle.done .glass { border-color: var(--accent); }
     .bottle.done::after { content: '✓ Completada'; color: var(--accent); font-size: .75rem; }
+    .move-status { min-height: 1.5em; }
+    .move-status.error { color: #ffb0a6; }
     [hidden] { display: none !important; }
   </style>
 </head>
@@ -94,6 +101,7 @@
       <p id="diagnosticsStatus" class="muted" aria-live="polite" hidden></p>
       <pre id="diagnosticReport" class="diagnostic-report" tabindex="0" aria-label="Diagnóstico para copiar" hidden></pre>
       <p id="gameSummary" class="muted" aria-live="polite"></p>
+      <p id="moveStatus" class="move-status" role="status" aria-live="polite"></p>
       <div id="bottles" class="bottles" aria-label="Tablero de botellas"></div>
     </section>
   </main>
@@ -115,6 +123,8 @@
     const validation = document.querySelector('#validation');
     const sizeCountSelect = fields.sizeCount;
     let pendingGamePlan = null;
+    let currentBottles = [];
+    let selectedBottle = null;
 
     function selectGoalBottles(capacities, colorCount) {
       const total = capacities.length;
@@ -397,16 +407,23 @@
     }
 
     function renderGame(bottles, columns, rows, colors) {
+      currentBottles = bottles;
+      selectedBottle = null;
       bottleGrid.replaceChildren();
       bottleGrid.style.gridTemplateColumns = `repeat(${columns}, minmax(2.5rem, 1fr))`;
       bottles.forEach((bottle, index) => {
         const item = document.createElement('div');
-        item.className = 'bottle';
+        item.className = `bottle${bottle.open ? '' : ' closed done'}`;
+        item.setAttribute('role', 'button');
+        item.tabIndex = 0;
+        item.dataset.index = String(index);
+        item.setAttribute('aria-pressed', 'false');
         const glass = document.createElement('div');
         glass.className = 'glass';
         glass.dataset.capacity = String(bottle.capacity);
         const contents = bottle.layers.map((layer) => `${layer.units} unidad${layer.units === 1 ? '' : 'es'}`).join(', ');
-        glass.setAttribute('aria-label', bottle.layers.length ? `Botella ${index + 1}: ${contents} de ${bottle.capacity} unidades, con ${bottle.layers.length} capa${bottle.layers.length === 1 ? '' : 's'}` : `Botella ${index + 1}: vacía, capacidad ${bottle.capacity}`);
+        const description = bottle.layers.length ? `Botella ${index + 1}: ${contents} de ${bottle.capacity} unidades, con ${bottle.layers.length} capa${bottle.layers.length === 1 ? '' : 's'}${bottle.open ? '' : ', completada y cerrada'}` : `Botella ${index + 1}: vacía, capacidad ${bottle.capacity}`;
+        item.setAttribute('aria-label', description);
         let bottomUnits = 0;
         const liquids = bottle.layers.map((layer) => {
           const liquid = document.createElement('span');
@@ -422,13 +439,90 @@
         glass.append(...liquids);
         const meta = document.createElement('span');
         meta.className = 'bottle-meta';
-        meta.textContent = bottle.layers.length ? `${bottle.layers.reduce((sum, layer) => sum + layer.units, 0)}/${bottle.capacity}` : `Vacía · ${bottle.capacity}`;
+        meta.textContent = bottle.layers.length ? `${bottle.layers.reduce((sum, layer) => sum + layer.units, 0)}/${bottle.capacity}${bottle.open ? '' : ' · Cerrada'}` : `Vacía · ${bottle.capacity}`;
         item.append(glass, meta);
         bottleGrid.append(item);
       });
       document.querySelector('#gameSummary').textContent = `${bottles.length} botellas · ${colors} colores · ${rows} ${rows === 1 ? 'fila' : 'filas'}. Todas empiezan parcialmente llenas; durante la partida pueden quedar vacías. Los colores pueden repetirse en varias botellas objetivo.`;
+      setMoveStatus('Selecciona una botella con líquido para empezar a verter.', false);
       form.hidden = true;
       document.querySelector('#game').hidden = false;
+    }
+
+    function setMoveStatus(message, isError) {
+      const status = document.querySelector('#moveStatus');
+      status.textContent = message;
+      status.classList.toggle('error', isError);
+    }
+
+    function clearSelection() {
+      selectedBottle = null;
+      bottleGrid.querySelectorAll('.bottle.selected').forEach((item) => {
+        item.classList.remove('selected');
+        item.setAttribute('aria-pressed', 'false');
+      });
+    }
+
+    function handleBottleChoice(index) {
+      const chosen = currentBottles[index];
+      if (!chosen) return;
+      if (selectedBottle === null) {
+        if (!chosen.open || !chosen.layers.length) {
+          setMoveStatus(!chosen.open ? 'Esa botella está cerrada y no puede ser origen.' : 'Esa botella está vacía y no puede ser origen.', true);
+          return;
+        }
+        selectedBottle = index;
+        const item = bottleGrid.querySelector(`[data-index="${index}"]`);
+        item.classList.add('selected');
+        item.setAttribute('aria-pressed', 'true');
+        setMoveStatus(`Botella ${index + 1} seleccionada. Elige el destino o vuelve a tocarla para cancelar.`, false);
+        return;
+      }
+
+      if (selectedBottle === index) {
+        clearSelection();
+        setMoveStatus('Selección cancelada.', false);
+        return;
+      }
+
+      const sourceIndex = selectedBottle;
+      const source = currentBottles[sourceIndex];
+      const sourceTop = source.layers[source.layers.length - 1];
+      const occupied = chosen.layers.reduce((sum, layer) => sum + layer.units, 0);
+      const free = chosen.capacity - occupied;
+      if (!source.open || !sourceTop) {
+        clearSelection();
+        setMoveStatus('El origen ya no contiene líquido abierto.', true);
+        return;
+      }
+      if (!chosen.open) {
+        clearSelection();
+        setMoveStatus('La botella de destino está cerrada.', true);
+        return;
+      }
+      if (free <= 0) {
+        clearSelection();
+        setMoveStatus('La botella de destino está llena.', true);
+        return;
+      }
+      const destinationTop = chosen.layers[chosen.layers.length - 1];
+      if (destinationTop && destinationTop.color !== sourceTop.color) {
+        clearSelection();
+        setMoveStatus('Solo puedes verter sobre el mismo color o en una botella vacía.', true);
+        return;
+      }
+
+      const moved = Math.min(sourceTop.units, free);
+      sourceTop.units -= moved;
+      if (sourceTop.units === 0) source.layers.pop();
+      if (destinationTop) destinationTop.units += moved;
+      else chosen.layers.push({ color: sourceTop.color, units: moved });
+      const destinationUnits = chosen.layers.reduce((sum, layer) => sum + layer.units, 0);
+      if (destinationUnits === chosen.capacity && chosen.layers.length === 1) chosen.open = false;
+      clearSelection();
+      renderGame(currentBottles, Number(fields.columns.value), Number(fields.rows.value), Number(fields.colors.value));
+      const closedMessage = chosen.open ? '' : ` La botella ${index + 1} se ha completado y cerrado.`;
+      setMoveStatus(`Se han vertido ${moved} unidad${moved === 1 ? '' : 'es'} en la botella ${index + 1}.${closedMessage}`, false);
     }
 
     function diagnosticReportText() {
@@ -495,6 +589,17 @@
     }
 
     document.querySelector('#start').addEventListener('click', makeGame);
+    bottleGrid.addEventListener('click', (event) => {
+      const item = event.target.closest('.bottle[data-index]');
+      if (item) handleBottleChoice(Number(item.dataset.index));
+    });
+    bottleGrid.addEventListener('keydown', (event) => {
+      if (event.key !== 'Enter' && event.key !== ' ') return;
+      const item = event.target.closest('.bottle[data-index]');
+      if (!item) return;
+      event.preventDefault();
+      handleBottleChoice(Number(item.dataset.index));
+    });
     document.querySelector('#copyDiagnostics').addEventListener('click', copyDiagnostics);
     document.querySelector('#editSettings').addEventListener('click', () => {
       document.querySelector('#game').hidden = true;

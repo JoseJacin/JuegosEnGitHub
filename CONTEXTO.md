@@ -22,7 +22,7 @@ Proyecto personal para publicar una colección de juegos web estáticos con GitH
 - Repositorio local inicializado en la rama `main`, conectado al remoto público `https://github.com/JoseJacin/JuegosEnGitHub.git`.
 - `main` y las ramas de trabajo están publicadas en GitHub. La guía de agentes/SDD está integrada en `main` y publicada desde `feature/007_guia_agentes_sdd`.
 - Las reglas del juego de botellas están aprobadas; el plan jerárquico está en `PLAN.md`.
-- T1, T2 y T3 están integradas en `main`. Cada botella empieza parcialmente llena y con al menos dos colores distintos; la capacidad 2 no es válida para iniciar. Los trasvases pueden dejar vacías una o varias, que se ignoran al ganar si las demás están completas, ordenadas y cerradas. El juego aún no implementa trasvases interactivos (T4).
+- T1, T2 y T3 están integradas en `main`. Cada botella empieza parcialmente llena y con al menos dos colores distintos; la capacidad 2 no es válida para iniciar. T4 está implementada en la rama de trabajo actual, pendiente de integración. Las botellas vacías se ignoran al ganar si las demás están completas, ordenadas y cerradas.
 - Las propuestas están en `docs/propuestas/008_entrada_y_configuracion.md`, `docs/propuestas/009_generador_resoluble.md`, `docs/propuestas/011_botella_vacia_reserva.md` (descartada), `docs/propuestas/012_vacias_intermedias_y_victoria.md` y `docs/propuestas/014_dos_colores_por_botella.md`.
 - GitHub CLI (`gh`) tiene un token inválido; los pushes de esta tarea se completaron mediante la autenticación configurada para Git.
 - La configuración de GitHub Pages sigue pendiente.
@@ -49,7 +49,7 @@ Proyecto personal para publicar una colección de juegos web estáticos con GitH
 - Estado: completado e integrado en `main` mediante `374f9a6` y `25ceb69`; `main` publicado.
 - Decisión: la compatibilidad se calcula por existencia mediante búsqueda determinista; el generador aún elige al azar entre objetivos compatibles.
 - Verificación: `node --check` del bloque JavaScript, `git diff --check` y comprobación de que los valores de las capturas se aceptan siempre; los casos de capacidad 2 y sin botella extra se rechazan. Sin verificación manual en navegador.
-- Próximo paso: continuar con T4 según `PLAN.md`.
+- Próximo paso: continuar con T5 según `PLAN.md`.
 
 ## Bloque 016 — reintentos de generación
 
@@ -97,4 +97,13 @@ Al retomar, revisar primero `PLAN.md` y el estado real del repositorio; mantener
 - Hallazgo: el diagnóstico del usuario medía `gaps=[0]`, pero varias capas tenían color `undefined`. `retainedLeft` restaba una unidad por botella objetivo, aunque cada botella ya parte con dos unidades base. Esto añadía una unidad de más por objetivo y agotaba antes la lista de colores.
 - Cambio: el cálculo ahora descuenta las dos unidades base; se omiten distribuciones si el número de unidades o los colores no concuerdan.
 - Verificación: `git diff --check` limpio y revisión estática de los conteos. No se abrió el navegador, según preferencia del usuario.
-- Estado Git: cambios preparados en la rama de trabajo; pendientes de commit e integración.
+- Estado Git: integrado en `main` mediante `f2bb504`; rama de trabajo publicada.
+
+## Bloque 022 — selección y trasvases
+
+- Rama: `feature/022_trasvases_interactivos`.
+- Estado: implementación y documentación preparadas; pendientes revisión final, commit e integración.
+- Decisión: la botella completada se representa cerrada y se excluye de selección como origen o destino. Los intentos inválidos cancelan la selección, preservan los líquidos y explican el motivo.
+- Cambio: selección/cancelación con clic o toque, validación del movimiento, trasvase de la capa superior hasta el espacio disponible, cierre automático y mensajes accesibles. Se incluyen Enter y Espacio para activar botellas enfocadas.
+- Verificación: `node --check` del JavaScript extraído y `git diff --check` sin errores; no se abrió el navegador.
+- Próximo paso: cerrar T4, después abordar T5 (historial, reinicio y victoria).
