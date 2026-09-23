@@ -22,7 +22,7 @@ Proyecto personal para publicar una colección de juegos web estáticos con GitH
 - Repositorio local inicializado en la rama `main`, conectado al remoto público `https://github.com/JoseJacin/JuegosEnGitHub.git`.
 - `main` y las ramas de trabajo están publicadas en GitHub. La guía de agentes/SDD está integrada en `main` y publicada desde `feature/007_guia_agentes_sdd`.
 - Las reglas del juego de botellas están aprobadas; el plan jerárquico está en `PLAN.md`.
-- T1, T2, T3 y T4 están integradas en `main`. Cada botella empieza parcialmente llena y con al menos dos colores distintos; la capacidad 2 no es válida para iniciar. T4 permite selección, cancelación y trasvase de capas, y tapa automáticamente las botellas completadas. Las botellas vacías se ignoran al ganar si las demás están completas, ordenadas y cerradas.
+- T1, T2, T3 y T4 están integradas en `main`; T5 está implementada en `feature/023_historial_reinicio_victoria`, pendiente de integrar. Cada botella empieza parcialmente llena y con al menos dos colores distintos; la capacidad 2 no es válida para iniciar. T4 permite selección, cancelación y trasvase de capas, y tapa automáticamente las botellas completadas. T5 añade historial, deshacer, reinicio y victoria.
 - Las propuestas están en `docs/propuestas/008_entrada_y_configuracion.md`, `docs/propuestas/009_generador_resoluble.md`, `docs/propuestas/011_botella_vacia_reserva.md` (descartada), `docs/propuestas/012_vacias_intermedias_y_victoria.md` y `docs/propuestas/014_dos_colores_por_botella.md`.
 - GitHub CLI (`gh`) tiene un token inválido; los pushes de esta tarea se completaron mediante la autenticación configurada para Git.
 - La configuración de GitHub Pages sigue pendiente.
@@ -31,8 +31,8 @@ Proyecto personal para publicar una colección de juegos web estáticos con GitH
 
 ## Próximos pasos sugeridos
 
-1. Continuar con T4: selección de botellas y trasvases según las reglas aprobadas.
-2. Seguir las dependencias y criterios de finalización de las tareas restantes del plan.
+1. Integrar y publicar T5 después de revisar su diff.
+2. Abordar T6: estilo visual, adaptación móvil y accesibilidad.
 3. Activar GitHub Pages y validar las rutas publicadas al completar T7.
 
 ## Estado de Git al cerrar este bloque
@@ -49,7 +49,7 @@ Proyecto personal para publicar una colección de juegos web estáticos con GitH
 - Estado: completado e integrado en `main` mediante `374f9a6` y `25ceb69`; `main` publicado.
 - Decisión: la compatibilidad se calcula por existencia mediante búsqueda determinista; el generador aún elige al azar entre objetivos compatibles.
 - Verificación: `node --check` del bloque JavaScript, `git diff --check` y comprobación de que los valores de las capturas se aceptan siempre; los casos de capacidad 2 y sin botella extra se rechazan. Sin verificación manual en navegador.
-- Próximo paso: continuar con T5 según `PLAN.md`.
+- Próximo paso: T5 se completó después de este bloque; continuar con T6 según `PLAN.md`.
 
 ## Bloque 016 — reintentos de generación
 
@@ -107,3 +107,11 @@ Al retomar, revisar primero `PLAN.md` y el estado real del repositorio; mantener
 - Cambio: selección/cancelación con clic o toque, validación del movimiento, trasvase de la capa superior hasta el espacio disponible, cierre automático y mensajes accesibles. Se incluyen Enter y Espacio para activar botellas enfocadas.
 - Verificación: `node --check` del JavaScript extraído y `git diff --check` sin errores; no se abrió el navegador.
 - Próximo paso: abordar T5 (historial, reinicio y victoria) según `PLAN.md`.
+
+## Bloque 023 — historial, reinicio y victoria
+
+- Rama: `feature/023_historial_reinicio_victoria`.
+- Estado: implementación y documentación listas para revisión e integración.
+- Cambio: se guarda una copia del tablero antes de cada trasvase válido; deshacer restaura ese estado y reiniciar restaura la disposición original de la partida actual. La victoria exige que cada botella con líquido esté llena, tenga un color y esté cerrada; las vacías se ignoran. El diálogo permite deshacer la jugada ganadora, repetir con una disposición nueva bajo la configuración vigente o cambiar la configuración.
+- Verificación: revisión estática del historial, reinicio, condición de victoria y acciones del diálogo; `node --check` del JavaScript extraído y `git diff --check` sin errores. No se hizo comprobación manual en navegador; queda incluida en T7.
+- Próximo paso: revisar el diff, integrar T5 en `main` y continuar con T6.

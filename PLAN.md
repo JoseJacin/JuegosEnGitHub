@@ -84,13 +84,13 @@ Cada parte funcional tendrá su propio directorio. Un juego pequeño podrá impl
 
 ### T5 — Añadir historial, reinicio y final de partida
 
-- [ ] T5.1 Guardar los estados necesarios para deshacer cada movimiento válido.
-- [ ] T5.2 Permitir deshacer y volver al estado inicial de la disposición actual.
-- [ ] T5.3 Detectar la victoria cuando todas las botellas con líquido estén llenas al 100 %, con un único color y cerradas; las botellas vacías no impedirán ganar.
-- [ ] T5.4 Mostrar el mensaje de victoria con opciones de repetir con la misma configuración o cambiarla.
-- [ ] T5.5 Al repetir, generar una nueva disposición aleatoria con los valores de configuración actuales.
+- [x] T5.1 Guardar los estados necesarios para deshacer cada movimiento válido.
+- [x] T5.2 Permitir deshacer y volver al estado inicial de la disposición actual.
+- [x] T5.3 Detectar la victoria cuando todas las botellas con líquido estén llenas al 100 %, con un único color y cerradas; las botellas vacías no impedirán ganar.
+- [x] T5.4 Mostrar el mensaje de victoria con opciones de repetir con la misma configuración o cambiarla.
+- [x] T5.5 Al repetir, generar una nueva disposición aleatoria con los valores de configuración actuales.
 
-**Hecho cuando:** deshacer, reiniciar, victoria y repetición respetan la partida actual y las reglas acordadas.
+**Hecho cuando:** deshacer, reiniciar, victoria y repetición respetan la partida actual y las reglas acordadas. Implementado en la propuesta [023](docs/propuestas/023_historial_reinicio_victoria.md).
 
 ### T6 — Aplicar el estilo visual y adaptar la interfaz
 

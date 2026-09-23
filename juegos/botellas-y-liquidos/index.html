@@ -35,6 +35,11 @@
     .board-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .75rem; }
     .board-head h2 { margin: 0; }
     .board-head button { margin: 0; }
+    .game-actions { display: flex; flex-wrap: wrap; gap: .75rem; }
+    .game-actions button { margin: 0; }
+    .victory-dialog { width: min(100% - 2rem, 28rem); padding: 1.5rem; border: 1px solid var(--accent); border-radius: 1rem; background: var(--panel); color: var(--text); }
+    .victory-dialog::backdrop { background: #071015cc; }
+    .victory-dialog h2 { margin-top: 0; }
     .diagnostic-report { max-height: 16rem; overflow: auto; padding: .75rem; border: 1px solid var(--line); border-radius: .5rem; background: #101820; color: var(--muted); font: .78rem/1.45 ui-monospace, monospace; white-space: pre-wrap; overflow-wrap: anywhere; }
     .bottles { display: grid; gap: 1.25rem .75rem; margin-top: 1.5rem; }
     .bottle { display: grid; justify-items: center; gap: .4rem; min-width: 0; }
@@ -97,12 +102,19 @@
       </section>
     </form>
     <section id="game" class="board" aria-labelledby="gameTitle" hidden>
-      <div class="board-head"><h2 id="gameTitle">Tu partida</h2><button id="copyDiagnostics" type="button">Copiar diagnóstico</button><button id="editSettings" type="button">Cambiar configuración</button></div>
+      <div class="board-head"><h2 id="gameTitle">Tu partida</h2><div class="game-actions"><button id="undo" type="button" disabled>Deshacer</button><button id="restart" type="button">Reiniciar</button><button id="copyDiagnostics" type="button">Copiar diagnóstico</button><button id="editSettings" type="button">Cambiar configuración</button></div></div>
       <p id="diagnosticsStatus" class="muted" aria-live="polite" hidden></p>
       <pre id="diagnosticReport" class="diagnostic-report" tabindex="0" aria-label="Diagnóstico para copiar" hidden></pre>
       <p id="gameSummary" class="muted" aria-live="polite"></p>
       <p id="moveStatus" class="move-status" role="status" aria-live="polite"></p>
       <div id="bottles" class="bottles" aria-label="Tablero de botellas"></div>
+      <dialog id="victoryDialog" class="victory-dialog" aria-labelledby="victoryTitle" aria-describedby="victoryMessage">
+        <h2 id="victoryTitle">¡Partida completada!</h2>
+        <p id="victoryMessage">Todas las botellas con líquido están ordenadas.</p>
+        <button id="undoVictory" type="button">Deshacer última jugada</button>
+        <button id="repeatGame" type="button" autofocus>Jugar de nuevo</button>
+        <button id="changeAfterWin" type="button">Cambiar configuración</button>
+      </dialog>
     </section>
   </main>
   <script>
@@ -125,6 +137,35 @@
     let pendingGamePlan = null;
     let currentBottles = [];
     let selectedBottle = null;
+    let initialBottles = [];
+    let moveHistory = [];
+    let gameConfig = null;
+    let gameWon = false;
+
+    function copyBottles(bottles) {
+      return bottles.map((bottle) => ({ ...bottle, layers: bottle.layers.map((layer) => ({ ...layer })) }));
+    }
+
+    function updateUndoButton() {
+      document.querySelector('#undo').disabled = moveHistory.length === 0;
+    }
+
+    function isVictory() {
+      return currentBottles.every((bottle) => {
+        if (!bottle.layers.length) return true;
+        const units = bottle.layers.reduce((sum, layer) => sum + layer.units, 0);
+        return units === bottle.capacity && bottle.layers.length === 1 && !bottle.open;
+      });
+    }
+
+    function finishIfWon() {
+      if (!isVictory()) return;
+      gameWon = true;
+      clearSelection();
+      updateUndoButton();
+      document.querySelector('#moveStatus').textContent = '¡Victoria! Todas las botellas con líquido están completas.';
+      document.querySelector('#victoryDialog').showModal();
+    }
 
     function selectGoalBottles(capacities, colorCount) {
       const total = capacities.length;
@@ -403,15 +444,20 @@
       for (let index = 0; index < total; index += 1) {
         bottles[index].layers = shuffled([...assigned.get(index)]).map(([color, units]) => ({ color, units }));
       }
-      renderGame(shuffled(bottles), columns, rows, colors);
+      gameConfig = { columns, rows, colors };
+      currentBottles = shuffled(bottles);
+      initialBottles = copyBottles(currentBottles);
+      moveHistory = [];
+      gameWon = false;
+      document.querySelector('#victoryDialog').close();
+      renderGame();
     }
 
-    function renderGame(bottles, columns, rows, colors) {
-      currentBottles = bottles;
+    function renderGame() {
       selectedBottle = null;
       bottleGrid.replaceChildren();
-      bottleGrid.style.gridTemplateColumns = `repeat(${columns}, minmax(2.5rem, 1fr))`;
-      bottles.forEach((bottle, index) => {
+      bottleGrid.style.gridTemplateColumns = `repeat(${gameConfig.columns}, minmax(2.5rem, 1fr))`;
+      currentBottles.forEach((bottle, index) => {
         const item = document.createElement('div');
         item.className = `bottle${bottle.open ? '' : ' closed done'}`;
         item.setAttribute('role', 'button');
@@ -443,10 +489,11 @@
         item.append(glass, meta);
         bottleGrid.append(item);
       });
-      document.querySelector('#gameSummary').textContent = `${bottles.length} botellas · ${colors} colores · ${rows} ${rows === 1 ? 'fila' : 'filas'}. Todas empiezan parcialmente llenas; durante la partida pueden quedar vacías. Los colores pueden repetirse en varias botellas objetivo.`;
-      setMoveStatus('Selecciona una botella con líquido para empezar a verter.', false);
+      document.querySelector('#gameSummary').textContent = `${currentBottles.length} botellas · ${gameConfig.colors} colores · ${gameConfig.rows} ${gameConfig.rows === 1 ? 'fila' : 'filas'}. Todas empiezan parcialmente llenas; durante la partida pueden quedar vacías. Los colores pueden repetirse en varias botellas objetivo.`;
+      updateUndoButton();
       form.hidden = true;
       document.querySelector('#game').hidden = false;
+      setMoveStatus('Selecciona una botella con líquido para empezar a verter.', false);
     }
 
     function setMoveStatus(message, isError) {
@@ -464,6 +511,7 @@
     }
 
     function handleBottleChoice(index) {
+      if (gameWon) return;
       const chosen = currentBottles[index];
       if (!chosen) return;
       if (selectedBottle === null) {
@@ -512,17 +560,47 @@
         return;
       }
 
+      moveHistory.push(copyBottles(currentBottles));
+      updateUndoButton();
       const moved = Math.min(sourceTop.units, free);
+      const movedColor = sourceTop.color;
       sourceTop.units -= moved;
       if (sourceTop.units === 0) source.layers.pop();
       if (destinationTop) destinationTop.units += moved;
-      else chosen.layers.push({ color: sourceTop.color, units: moved });
+      else chosen.layers.push({ color: movedColor, units: moved });
       const destinationUnits = chosen.layers.reduce((sum, layer) => sum + layer.units, 0);
       if (destinationUnits === chosen.capacity && chosen.layers.length === 1) chosen.open = false;
       clearSelection();
-      renderGame(currentBottles, Number(fields.columns.value), Number(fields.rows.value), Number(fields.colors.value));
+      renderGame();
       const closedMessage = chosen.open ? '' : ` La botella ${index + 1} se ha completado y cerrado.`;
       setMoveStatus(`Se han vertido ${moved} unidad${moved === 1 ? '' : 'es'} en la botella ${index + 1}.${closedMessage}`, false);
+      finishIfWon();
+    }
+
+    function undoMove() {
+      if (!moveHistory.length) return;
+      gameWon = false;
+      document.querySelector('#victoryDialog').close();
+      currentBottles = moveHistory.pop();
+      renderGame();
+      setMoveStatus('Se ha deshecho el último movimiento.', false);
+      updateUndoButton();
+    }
+
+    function restartGame() {
+      if (!initialBottles.length) return;
+      currentBottles = copyBottles(initialBottles);
+      moveHistory = [];
+      gameWon = false;
+      document.querySelector('#victoryDialog').close();
+      renderGame();
+      setMoveStatus('Partida reiniciada a su disposición inicial.', false);
+    }
+
+    function showSettings() {
+      document.querySelector('#victoryDialog').close();
+      document.querySelector('#game').hidden = true;
+      form.hidden = false;
     }
 
     function diagnosticReportText() {
@@ -589,6 +667,11 @@
     }
 
     document.querySelector('#start').addEventListener('click', makeGame);
+    document.querySelector('#undo').addEventListener('click', undoMove);
+    document.querySelector('#undoVictory').addEventListener('click', undoMove);
+    document.querySelector('#restart').addEventListener('click', restartGame);
+    document.querySelector('#repeatGame').addEventListener('click', makeGame);
+    document.querySelector('#changeAfterWin').addEventListener('click', showSettings);
     bottleGrid.addEventListener('click', (event) => {
       const item = event.target.closest('.bottle[data-index]');
       if (item) handleBottleChoice(Number(item.dataset.index));
@@ -602,8 +685,7 @@
     });
     document.querySelector('#copyDiagnostics').addEventListener('click', copyDiagnostics);
     document.querySelector('#editSettings').addEventListener('click', () => {
-      document.querySelector('#game').hidden = true;
-      form.hidden = false;
+      showSettings();
     });
     update();
   </script>
