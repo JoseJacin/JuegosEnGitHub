@@ -61,9 +61,9 @@ Proyecto personal para publicar una colección de juegos web estáticos con GitH
 ## Bloque 017 — representación de capas contiguas
 
 - Rama: `feature/017_capas_liquido_contiguas`.
-- Estado: corregido el orden de dibujo en el HTML; pendiente revisión visual y cierre Git.
+- Estado: integrado en `main` mediante `b06347e` y publicado en `origin`; rama de trabajo publicada.
 - Decisión: el espacio libre se dibuja arriba y las capas de líquido se mantienen contiguas, respetando el orden de abajo hacia arriba del modelo.
 - Verificación: revisión del código y diff; pendiente comprobación visual en navegador.
-- Próximo paso: revisar visualmente las botellas y luego integrar el cambio.
+- Próximo paso: comprobar visualmente las botellas en navegador cuando se realice la revisión manual del juego.
 
 Al retomar, revisar primero `PLAN.md` y el estado real del repositorio; mantener este archivo actualizado al cerrar tareas.
