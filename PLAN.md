@@ -131,6 +131,15 @@ Cada parte funcional tendrá su propio directorio. Un juego pequeño podrá impl
 
 **Hecho cuando:** la partida, configuración y catálogo reflejan los cambios aprobados sin alterar las reglas. Cambios registrados en la propuesta [027](docs/propuestas/027_interfaz_compacta.md).
 
+### T10 — Ajustar el tablero para pantallas pequeñas
+
+- [x] T10.1 Hacer que las diez columnas quepan en el ancho disponible y reducir la separación entre filas.
+- [x] T10.2 Mantener el corcho dentro del ancho y mover el estado y el check al centro del vidrio.
+- [x] T10.3 Mostrar los errores de botella llena y color no coincidente en el estado de movimiento.
+- [x] T10.4 Reducir la separación de los controles y documentar el cambio.
+
+**Hecho cuando:** el tablero compacto y sus mensajes muestran los estados aprobados sin cambiar las reglas. Cambios registrados en la propuesta [028](docs/propuestas/028_tablero_movil_compacto.md).
+
 ## Dependencias y orden sugerido
 
 1. T1 y T2 preparan navegación y opciones de partida.
