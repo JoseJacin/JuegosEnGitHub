@@ -71,7 +71,7 @@ Proyecto personal para publicar una colección de juegos web estáticos con GitH
 - Estado: corregido y verificado visualmente en navegador local.
 - Decisión: cada botella usa una fila por unidad de capacidad; los bloques se colocan en filas consecutivas en orden explícito, dejando arriba las unidades vacías.
 - Verificación: tablero local con capacidad 6. Las capas ocupan celdas consecutivas desde el fondo y los huecos quedan arriba; los niveles visibles coinciden con las etiquetas. `git diff --check` sin errores.
-- Integración: merge en `main`; rama de trabajo pendiente de publicar en `origin`.
-- Próximo paso: publicar `main` y la rama de trabajo.
+- Integración: fusionado y publicado en `main`; rama de trabajo también publicada en `origin`.
+- Próximo paso: continuar T4 según `PLAN.md`.
 
 Al retomar, revisar primero `PLAN.md` y el estado real del repositorio; mantener este archivo actualizado al cerrar tareas.
