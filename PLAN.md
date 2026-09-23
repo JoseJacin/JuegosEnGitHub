@@ -94,12 +94,12 @@ Cada parte funcional tendrá su propio directorio. Un juego pequeño podrá impl
 
 ### T6 — Aplicar el estilo visual y adaptar la interfaz
 
-- [ ] T6.1 Usar la imagen como referencia: fondo oscuro, botellas en filas, líquidos por capas y marcas verdes en las completadas.
-- [ ] T6.2 Mostrar de forma legible capacidad, colores, selección y estado tapado de cada botella.
-- [ ] T6.3 Adaptar el tablero y la configuración a ordenador y móvil, incluidos tableros grandes.
-- [ ] T6.4 Asegurar que controles e información sigan siendo utilizables con teclado y lector de pantalla cuando corresponda.
+- [x] T6.1 Usar la imagen como referencia: fondo oscuro, botellas en filas, líquidos por capas y marcas verdes en las completadas.
+- [x] T6.2 Mostrar de forma legible capacidad, colores, selección y estado tapado de cada botella.
+- [x] T6.3 Adaptar el tablero y la configuración a ordenador y móvil, incluidos tableros grandes.
+- [x] T6.4 Asegurar que controles e información sigan siendo utilizables con teclado y lector de pantalla cuando corresponda.
 
-**Hecho cuando:** el juego se entiende visualmente y se puede usar en tamaños de pantalla habituales sin perder controles o información.
+**Hecho cuando:** el juego se entiende visualmente y se puede usar en tamaños de pantalla habituales sin perder controles o información. Implementado en la propuesta [024](docs/propuestas/024_estilo_visual_accesibilidad.md).
 
 ### T7 — Publicar y verificar en GitHub Pages
 
