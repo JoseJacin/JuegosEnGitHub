@@ -72,13 +72,13 @@ Cada parte funcional tendrá su propio directorio. Un juego pequeño podrá impl
 
 ### T4 — Implementar selección y trasvase
 
-- [ ] T4.1 Seleccionar origen y destino con clic en ordenador y toque en móvil.
-- [ ] T4.2 Permitir cancelar la selección tocando/clicando otra vez el origen.
-- [ ] T4.3 Validar que el origen tenga líquido y esté abierto, y que origen y destino sean botellas distintas.
-- [ ] T4.4 Permitir verter en una botella abierta vacía o sobre el mismo color superior, siempre que haya capacidad.
-- [ ] T4.5 Verter la capa continua superior hasta donde permita el espacio libre del destino.
-- [ ] T4.6 Tapar automáticamente las botellas llenas con un único color e impedir nuevos trasvases hacia ellas.
-- [ ] T4.7 Dar una respuesta visual clara al intentar un movimiento no válido.
+- [x] T4.1 Seleccionar origen y destino con clic en ordenador y toque en móvil.
+- [x] T4.2 Permitir cancelar la selección tocando/clicando otra vez el origen.
+- [x] T4.3 Validar que el origen tenga líquido y esté abierto, y que origen y destino sean botellas distintas.
+- [x] T4.4 Permitir verter en una botella abierta vacía o sobre el mismo color superior, siempre que haya capacidad.
+- [x] T4.5 Verter la capa continua superior hasta donde permita el espacio libre del destino.
+- [x] T4.6 Tapar automáticamente las botellas llenas con un único color e impedir nuevos trasvases hacia ellas.
+- [x] T4.7 Dar una respuesta visual clara al intentar un movimiento no válido.
 
 **Hecho cuando:** todos los movimientos siguen las reglas y funcionan igual mediante ratón y pantalla táctil.
 

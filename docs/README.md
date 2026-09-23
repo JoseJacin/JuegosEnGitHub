@@ -23,3 +23,4 @@ Cada funcionalidad nueva o cambio relevante debe comenzar como propuesta basada 
 - [`propuestas/016_reintentos_generacion.md`](propuestas/016_reintentos_generacion.md): reintentos al buscar una partida resoluble.
 - [`propuestas/020_diagnostico_botellas.md`](propuestas/020_diagnostico_botellas.md): diagnóstico local copiable de capas y huecos visibles.
 - [`propuestas/021_corregir_conteo_unidades_iniciales.md`](propuestas/021_corregir_conteo_unidades_iniciales.md): corregir unidades excedentes que producían capas sin color.
+- [`propuestas/022_trasvases_interactivos.md`](propuestas/022_trasvases_interactivos.md): seleccionar botellas y trasvasar capas según las reglas aprobadas.
