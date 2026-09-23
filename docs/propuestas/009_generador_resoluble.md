@@ -17,13 +17,13 @@ La pantalla de configuración no puede iniciar partidas. Incorporar el modelo de
 
 - Respetar las reglas de [`../../juegos/botellas-y-liquidos/README.md`](../../juegos/botellas-y-liquidos/README.md) y los límites de configuración definidos en T2.
 - La solución se conoce por construcción: se parte de botellas objetivo completas y se distribuyen capas mediante movimientos inversos a trasvases válidos. Cada color tiene un volumen igual a la capacidad de una botella objetivo.
-- Cada botella comienza con entre 1 y capacidad−1 unidades. Algunas botellas pueden contener varios colores en capas; otras pueden resultar monocromáticas.
+- Cada botella con líquido comienza con entre 1 y capacidad−1 unidades. La regla vigente añade una botella vacía de reserva, según la propuesta [`011_botella_vacia_reserva.md`](011_botella_vacia_reserva.md). Algunas botellas con líquido pueden contener varios colores en capas; otras pueden resultar monocromáticas.
 - El tablero inicial presenta filas de botellas en el orden configurado. La aleatoriedad incluye capacidades compatibles, reparto de cantidades y orden de colores.
 
 ## Criterios de aceptación
 
 - [x] «Empezar» genera y muestra una partida según la configuración actual.
-- [x] Toda botella tiene capacidad válida, contenido y estado abierto; ninguna empieza vacía ni llena.
+- [x] Toda botella tiene capacidad válida y estado abierto; exactamente una empieza vacía y ninguna empieza llena.
 - [x] Los volúmenes por color permiten completar botellas objetivo llenas y la partida es resoluble por construcción; las capas mezcladas se muestran en el tablero.
 - [x] El generador trabaja con hasta 60 botellas y respeta número de colores y capacidades.
 - [x] La propuesta, el plan y CONTEXTO reflejan el resultado del bloque.
