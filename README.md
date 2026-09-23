@@ -1,6 +1,6 @@
 # JuegosEnGitHub
 
-Colección de juegos web sencillos, publicados con GitHub Pages. La página principal será un catálogo que enlaza con cada juego. Los juegos se ejecutan en el navegador y, en esta primera etapa, no guardan estadísticas ni necesitan servidor.
+Colección de juegos web sencillos, publicada con GitHub Pages. La página principal es un catálogo que enlaza con cada juego. Los juegos se ejecutan en el navegador y, en esta primera etapa, no guardan estadísticas ni necesitan servidor.
 
 ## Estructura
 
@@ -14,8 +14,8 @@ Colección de juegos web sencillos, publicados con GitHub Pages. La página prin
 
 ## Desarrollo y publicación
 
-El sitio se servirá como contenido estático. La ruta de publicación y los enlaces internos deben funcionar bajo el subdirectorio del repositorio que utiliza GitHub Pages (por ejemplo, `/<nombre-del-repositorio>/`). La configuración de GitHub Pages se hará cuando exista el repositorio remoto.
+El sitio se publica como contenido estático desde la raíz de `main`. La ruta pública es [josejacin.github.io/JuegosEnGitHub](https://josejacin.github.io/JuegosEnGitHub/); la entrada redirige al menú y los enlaces internos conservan el prefijo del repositorio.
 
 ## Estado
 
-Documentación y estructura inicial. Las guías de agentes/SDD están preparadas; el menú y los juegos aún no están implementados. Consulta [`CONTEXTO.md`](CONTEXTO.md) para continuar.
+El menú y Botellas y líquidos están publicados. La configuración y los flujos principales se verificaron manualmente en la URL pública. Consulta [`PLAN.md`](PLAN.md) y [`CONTEXTO.md`](CONTEXTO.md) para el estado y los siguientes pasos.
