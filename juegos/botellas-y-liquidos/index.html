@@ -208,28 +208,40 @@
       return result;
     }
 
-    function compatibleGroups(capacities, colorCount) {
-      for (let attempt = 0; attempt < 500; attempt += 1) {
-        const goalIndexes = shuffled(capacities.map((_, i) => i)).slice(0, colorCount);
-        const goals = goalIndexes.map((index) => ({ index, target: capacities[index], indexes: [index] }));
-        const remaining = shuffled(capacities.map((_, i) => i).filter((i) => !goalIndexes.includes(i)));
-        let possible = true;
-        for (const index of remaining) {
-          const maxUnits = capacities[index] - 1;
-          const choices = shuffled(goals.filter((group) => group.indexes.length < group.target && group.indexes.reduce((sum, i) => sum + capacities[i] - 1, 0) + maxUnits >= group.target));
-          if (!choices.length) { possible = false; break; }
-          choices[0].indexes.push(index);
-        }
-        if (possible && goals.every((group) => group.indexes.length <= group.target && group.indexes.reduce((sum, i) => sum + capacities[i] - 1, 0) >= group.target)) return goals;
+    function makeColorPlan(capacities, colorCount) {
+      const goals = capacities.map((capacity, index) => ({ capacity, index })).sort((a, b) => a.capacity - b.capacity).slice(0, colorCount);
+      const goalIndexes = new Set(goals.map((goal) => goal.index));
+      const extras = capacities.map((_, index) => index).filter((index) => !goalIndexes.has(index));
+      const totalUnits = goals.reduce((sum, goal) => sum + goal.capacity, 0);
+      const extraCapacity = extras.reduce((sum, index) => sum + capacities[index] - 1, 0);
+      const lowerRetained = Math.max(colorCount, totalUnits - extraCapacity);
+      const upperRetained = Math.min(totalUnits - colorCount, totalUnits - extras.length);
+      if (lowerRetained > upperRetained) return null;
+
+      const retainedTotal = lowerRetained + Math.floor(Math.random() * (upperRetained - lowerRetained + 1));
+      const retained = goals.map((goal) => ({ ...goal, units: 1, room: goal.capacity - 2 }));
+      let retainedLeft = retainedTotal - colorCount;
+      for (const goal of shuffled(retained)) {
+        const add = Math.min(goal.room, retainedLeft);
+        goal.units += add;
+        retainedLeft -= add;
       }
-      return null;
+
+      const extraFill = extras.map((index) => ({ index, units: 1, room: capacities[index] - 2 }));
+      let extraLeft = totalUnits - retainedTotal - extras.length;
+      for (const bottle of shuffled(extraFill)) {
+        const add = Math.min(bottle.room, extraLeft);
+        bottle.units += add;
+        extraLeft -= add;
+      }
+      if (retainedLeft || extraLeft) return null;
+      return { goals, retained, extras, extraFill, goalIndexes };
     }
 
     function chooseCapacities(total, maxCapacity, variable, sizeCount, colors) {
       if (!variable) {
         const capacities = Array(total).fill(maxCapacity);
-        const groups = compatibleGroups(capacities, colors);
-        return groups ? { capacities, groups } : null;
+        return makeColorPlan(capacities, colors) ? capacities : null;
       }
       const sizeSets = [];
       function chooseSizes(next, chosen) {
@@ -241,8 +253,7 @@
         const sizes = shuffled(sizeSets)[0];
         if (sizes.length > total) continue;
         const capacities = shuffled([...sizes, ...Array.from({ length: total - sizes.length }, () => sizes[Math.floor(Math.random() * sizes.length)])]);
-        const groups = compatibleGroups(capacities, colors);
-        if (groups) return { capacities, groups };
+        if (makeColorPlan(capacities, colors)) return capacities;
       }
       return null;
     }
@@ -253,29 +264,38 @@
       const total = columns * rows;
       const colors = Number(fields.colors.value);
       const maxCapacity = Number(fields.maxCapacity.value);
-      const plan = chooseCapacities(total, maxCapacity, fields.differentCapacities.checked, Number(fields.sizeCount.value), colors);
-      if (!plan) {
+      const capacities = chooseCapacities(total, maxCapacity, fields.differentCapacities.checked, Number(fields.sizeCount.value), colors);
+      if (!capacities) {
         validation.classList.add('error');
         validation.textContent = 'No se encontró una asignación resoluble para esta combinación. Cambia la configuración e inténtalo de nuevo.';
         return;
       }
-      const { capacities, groups } = plan;
-      const bottles = Array(total);
-      groups.forEach((group, colorIndex) => {
-        const color = COLORS[colorIndex];
-        const shuffledIndexes = shuffled(group.indexes);
-        const amounts = shuffledIndexes.map((index) => ({ index, amount: 1, remaining: capacities[index] - 2 }));
-        let left = group.target - amounts.length;
-        for (const item of shuffled(amounts)) {
-          const add = Math.min(item.remaining, left);
-          item.amount += add;
-          left -= add;
-        }
-        for (const item of amounts) bottles[item.index] = { capacity: capacities[item.index], layers: [{ color, units: item.amount }], open: true, goalColor: color };
-      });
+      const plan = makeColorPlan(capacities, colors);
       const palette = shuffled(COLORS.slice(0, colors));
-      const ordered = shuffled(bottles.map((bottle) => ({ ...bottle, layers: bottle.layers.map((layer) => ({ ...layer, color: palette[COLORS.indexOf(layer.color)] })) })));
-      renderGame(ordered, columns, rows, colors);
+      const bottles = Array.from({ length: total }, (_, index) => ({ capacity: capacities[index], layers: [], open: true, goalColor: null }));
+      const goalColors = shuffled(palette);
+      const remainingByColor = new Map();
+      plan.goals.forEach((goal, colorIndex) => {
+        const color = goalColors[colorIndex];
+        const retained = plan.retained.find((item) => item.index === goal.index).units;
+        bottles[goal.index].layers = [{ color, units: retained }];
+        bottles[goal.index].goalColor = color;
+        remainingByColor.set(color, goal.capacity - retained);
+      });
+
+      const slots = shuffled(plan.extraFill.flatMap((item) => Array(item.units).fill(item.index)));
+      const colorUnits = shuffled([...remainingByColor].flatMap(([color, units]) => Array(units).fill(color)));
+      const assigned = new Map(plan.extras.map((index) => [index, new Map()]));
+      slots.forEach((index, slot) => {
+        const color = colorUnits[slot];
+        const counts = assigned.get(index);
+        counts.set(color, (counts.get(color) || 0) + 1);
+      });
+      const colorOrder = shuffled(palette);
+      for (const index of plan.extras) {
+        bottles[index].layers = colorOrder.filter((color) => assigned.get(index).has(color)).map((color) => ({ color, units: assigned.get(index).get(color) }));
+      }
+      renderGame(shuffled(bottles), columns, rows, colors);
     }
 
     function renderGame(bottles, columns, rows, colors) {
@@ -286,18 +306,22 @@
         item.className = 'bottle';
         const glass = document.createElement('div');
         glass.className = 'glass';
-        glass.setAttribute('aria-label', `Botella ${index + 1}: ${bottle.layers[0].units} de ${bottle.capacity} unidades`);
-        const liquid = document.createElement('span');
-        liquid.className = 'liquid';
-        liquid.style.flexGrow = String(bottle.layers[0].units);
-        liquid.style.background = bottle.layers[0].color;
+        const contents = bottle.layers.map((layer) => `${layer.units} unidad${layer.units === 1 ? '' : 'es'}`).join(', ');
+        glass.setAttribute('aria-label', `Botella ${index + 1}: ${contents} de ${bottle.capacity} unidades, con ${bottle.layers.length} capa${bottle.layers.length === 1 ? '' : 's'}`);
+        const liquids = bottle.layers.map((layer) => {
+          const liquid = document.createElement('span');
+          liquid.className = 'liquid';
+          liquid.style.flexGrow = String(layer.units);
+          liquid.style.background = layer.color;
+          return liquid;
+        });
         const emptySpace = document.createElement('span');
         emptySpace.className = 'empty-space';
-        emptySpace.style.flexGrow = String(bottle.capacity - bottle.layers[0].units);
-        glass.append(liquid, emptySpace);
+        emptySpace.style.flexGrow = String(bottle.capacity - bottle.layers.reduce((sum, layer) => sum + layer.units, 0));
+        glass.append(...liquids, emptySpace);
         const meta = document.createElement('span');
         meta.className = 'bottle-meta';
-        meta.textContent = `${bottle.layers[0].units}/${bottle.capacity}`;
+        meta.textContent = `${bottle.layers.reduce((sum, layer) => sum + layer.units, 0)}/${bottle.capacity}`;
         item.append(glass, meta);
         bottleGrid.append(item);
       });

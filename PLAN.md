@@ -68,7 +68,7 @@ Cada parte funcional tendrá su propio directorio. Un juego pequeño podrá impl
 - [x] T3.5 Garantizar que al inicio ninguna botella esté vacía ni llena: cada una debe tener al menos una unidad y un espacio libre.
 - [x] T3.6 Admitir tableros de hasta 60 botellas respetando colores, capacidades y cantidades.
 
-**Hecho cuando:** cada configuración admitida genera una partida aleatoria resoluble, con el estado inicial descrito en las reglas. El generador designa una botella objetivo por color y asigna a ese color un volumen igual a la capacidad de su objetivo; las botellas del grupo empiezan parcialmente llenas y contienen solo ese color.
+**Hecho cuando:** cada configuración admitida genera una partida aleatoria resoluble, con el estado inicial descrito en las reglas. El generador designa una botella objetivo por color y asigna a ese color un volumen igual a la capacidad de su objetivo; la disposición puede incluir varias capas de colores distintos en una botella y todas empiezan parcialmente llenas.
 
 ### T4 — Implementar selección y trasvase
 
