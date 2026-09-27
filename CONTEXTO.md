@@ -18,13 +18,15 @@
 ## Notas del entorno de agentes
 
 - La sesión revisada de Bionic usa Qwen2.5 7B Instruct 4bit. En una investigación anterior aceptó una tarea de pruebas unitarias que no figuraba en el `PLAN.md` actual y dio por existente una carpeta `tests/` sin verificarla. Para una tarea nueva, abrir una sesión separada y pedir que contraste el plan con `docs/README.md`, las propuestas aprobadas y los archivos reales.
-- `.continue/rules/` contiene reglas específicas de Continue; no asumir que Bionic las carga automáticamente. Bionic puede gestionar habilidades desde sus propios ajustes.
+- `.continue/rules/01_documentacion_proyecto.md` contiene las reglas de Continue para el modo Agent, Chat y Edit. No se aplica al autocompletado.
+- `.agents/skills/juegosengithub/SKILL.md` contiene las instrucciones para asistentes compatibles con habilidades. Bionic requiere importarla desde Ajustes > Habilidades > Instalar una habilidad; su activación no quedó verificada en esta sesión.
 - Una nota local del 25-09-2026 registra Continue configurado con LM Studio en `localhost:1234` y `qwen2.5-coder-14b-instruct`, con contexto de 8192. En esa fecha el servidor local no respondía; comprobar su estado antes de usar Continue.
-- El directorio local `.continue/` está sin seguimiento de Git y queda fuera de este cambio documental.
+- Twinny está instalado en VS Code y usa LM Studio/Qwen2.5-Coder 7B Instruct MLX para FIM y autocompletado. Su plantilla `system.hbs` es global; las instrucciones del repositorio deben adjuntarse mediante el prompt del chat.
 
 ## Estado de Git al cerrar este bloque
 
-- Rama de trabajo: `feature/038_alinear_documentacion`.
-- Cambio: alinear el plan, el índice de propuestas, la especificación del juego, las instrucciones y este resumen.
-- No se modificó código funcional del sitio.
-- Próximo paso de producto: implementar la propuesta 032 en `feature/032_contador_movimientos` después de integrar este bloque documental.
+- El bloque 038 de alineación documental está fusionado y publicado en `main` (`e257d7f`).
+- Rama de trabajo: `feature/039_configurar_agentes_locales`.
+- Este bloque prepara la habilidad de proyecto para Bionic, las reglas de Continue y la plantilla global de Twinny; no modifica código funcional del sitio.
+- Twinny quedó configurado globalmente. Continue lee la regla del repositorio. En Bionic falta importar manualmente la carpeta `.agents/skills/juegosengithub` en Ajustes > Habilidades.
+- Próximo paso de producto: implementar la propuesta 032 en `feature/032_contador_movimientos`.
