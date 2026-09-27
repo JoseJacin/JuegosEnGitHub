@@ -1,6 +1,6 @@
 # Propuesta 043: Generación automática de casos y tableros visuales para Murdoku
 
-**Estado:** En revisión
+**Estado:** Aprobada
 **Fecha:** 2026-09-27
 **Responsable:**
 
@@ -38,7 +38,7 @@ El resultado será una experiencia propia para uso personal. El sitio sigue sien
 4. **Semilla reproducible.** La misma semilla y versión del generador deben recrear el mismo caso; debe poder compartirse o repetirse una partida mediante su identificador/semilla.
 5. **Configuración de partida.** El jugador podrá elegir cantidad de cuadrículas y personajes entre opciones compatibles. Los rangos, tamaños admitidos y reglas para combinarlos se definirán en la especificación.
 6. **Variación entre partidas.** Al iniciar una partida nueva, el generador producirá otra semilla y volverá a generar la disposición del tablero y el caso. Repetir/compartir una partida conservará su semilla y versión de generador. Evitará repetir exactamente la partida anterior cuando haya más de un candidato válido disponible.
-7. **Dificultad medible.** Se deberá proponer una forma verificable de clasificar dificultad (tamaño y métricas del proceso de resolución, entre otras), evitando etiquetar dificultad basándose solo en la cantidad de pistas.
+7. **Dificultad medible.** Se clasificará mediante una combinación de tamaño/personajes y esfuerzo de deducción medido por un solucionador explicable: tipos de reglas activadas, encadenamiento y profundidad de implicaciones. El tamaño solo no decide la categoría: el catálogo observado contiene, por ejemplo, tableros 9×9 fáciles y medios. El creador describe los expertos como largos y procura que los pasos sigan siendo justos y explicables; no publica umbrales numéricos. Los umbrales propios se calibrarán con pruebas de juego y casos generados.
 8. **Interacción entendible.** Personas y casillas proporcionan tooltips contextuales con información útil. Los mismos datos estarán disponibles sin hover, mediante foco/teclado y controles apropiados para táctil.
 9. **Preferencias.** Antes de decidir su implementación, se catalogarán las opciones básica y avanzada de la referencia y se propondrá subconjunto de primera versión, valores iniciales, persistencia local y comportamiento responsivo. No se exige paridad completa.
 10. **Arte.** Se desarrollará una dirección visual propia y se especificarán los recursos originales necesarios. No se extraerán ni reutilizarán assets del sitio de referencia.
@@ -61,7 +61,7 @@ El resultado será una experiencia propia para uso personal. El sitio sigue sien
 
 ## Tareas
 
-- [ ] Revisar esta propuesta y confirmar el alcance de generación visual y lógica.
+- [x] Revisar esta propuesta y confirmar el alcance de generación visual y lógica.
 - [ ] Crear `README.md`, `PLAN.md` y `CONTEXTO.md` de Murdoku después de aprobar el alcance.
 - [ ] Formalizar reglas, tipos de pistas, roles, regiones, objetos, adyacencia, ocupabilidad y condición de resolución; revisar contradicciones antes de aprobarlas.
 - [ ] Diseñar representación y algoritmo de generación de geometría/recintos/tablero visual con semillas reproducibles.
@@ -77,4 +77,5 @@ El resultado será una experiencia propia para uso personal. El sitio sigue sien
 - Los casos de tamaño experto son costosos de resolver en el navegador; conviene empezar con tamaños reducidos y perfilar antes de escalar.
 - Las reglas exactas de una versión propia (incluido qué significa recinto, adyacencia, roles y pistas válidas) quedan por definir en la especificación y no se presuponen a partir de un nivel observado.
 - La semilla garantiza repetibilidad solo dentro de una versión de algoritmo identificada; debe guardarse también su versión.
+- Las etiquetas de dificultad observadas no parecen ser un baremo universal basado en tamaño: el catálogo online presenta solapamientos de dimensiones entre categorías. La propuesta medirá la dificultad lógica y usará el tamaño como factor adicional, con calibración propia.
 - Referencias consultadas para estudiar reglas y dinámica: [caso oficial de zoológico](https://murdoku.com/pdf/the-zoo-bw.pdf) y [solución publicada](https://murdoku.com/pdf/the-zoo-solution.pdf). La propuesta no adopta literalmente su contenido.
