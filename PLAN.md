@@ -8,7 +8,7 @@ Mantener una colección de juegos web estáticos publicada con GitHub Pages. Est
 
 - Repositorio: `JoseJacin/JuegosEnGitHub`; rama principal `main` y publicación desde la raíz mediante GitHub Pages.
 - El catálogo y Botellas y líquidos están implementados y publicados.
-- La estructura de planificación por juego quedó establecida en la propuesta [042](docs/propuestas/042_planes_y_contextos_por_juego.md).
+- La estructura de planificación por juego quedó establecida en T23; la propuesta 042 se completó y su archivo se retiró del árbol de trabajo (se conserva en el historial de Git).
 - El alcance de Murdoku está aprobado en [043](juegos/murdoku/propuestas/043_murdoku_generacion_visual.md). Su [especificación funcional](juegos/murdoku/README.md) y [guía técnica propuesta del generador](juegos/murdoku/GUIA_MOTOR_GENERACION.md) están en revisión; no hay implementación.
 - Botellas y líquidos conserva mejoras aprobadas pendientes (propuestas [032–037](juegos/botellas-y-liquidos/propuestas/README.md)); no se cancelan ni se mezclan con el trabajo del nuevo juego. Su estado y dependencias están en el [plan del juego](juegos/botellas-y-liquidos/PLAN.md).
 
@@ -31,7 +31,7 @@ Mantener una colección de juegos web estáticos publicada con GitHub Pages. Est
 - [x] T23.3 Actualizar instrucciones, índices y enlaces documentales.
 - [x] T23.4 Revisar referencias y registrar la secuencia: reorganización documental, propuesta del nuevo juego y luego trabajo según planes aprobados.
 
-**Hecho cuando:** cada juego tiene fuentes de verdad y continuidad independientes; los documentos generales no duplican su estado; el backlog aprobado sigue visible y sus dependencias se conservan. Implementado en la [propuesta 042](docs/propuestas/042_planes_y_contextos_por_juego.md).
+**Hecho cuando:** cada juego tiene fuentes de verdad y continuidad independientes; los documentos generales no duplican su estado; el backlog aprobado sigue visible y sus dependencias se conservan. T23 está implementada; la propuesta 042 está archivada en el historial de Git.
 
 ## Secuencia acordada
 

@@ -1,13 +1,8 @@
 # Propuestas de Botellas y líquidos
 
-Las propuestas de este directorio describen cambios específicos del juego. Se crean a partir de la plantilla común [`../../../docs/plantillas/propuesta.md`](../../../docs/plantillas/propuesta.md). Para cambios transversales al sitio o compartidos entre juegos, consulta [`../../../docs/propuestas/`](../../../docs/propuestas/).
+Las propuestas de este directorio describen cambios específicos del juego. Se crean a partir de la plantilla común [`../../../docs/plantillas/propuesta.md`](../../../docs/plantillas/propuesta.md). Para cambios transversales al sitio o compartidos entre juegos, consulta el [índice común](../../../docs/propuestas/README.md).
 
-## Implementadas
-
-- [038 — Separar estructura, estilos y lógica](038_refactor_botellas_archivos.md)
-- [041 — Refactor interno de HTML, CSS y JavaScript](041_refactor_codigo.md)
-- [030 — Respetar zonas seguras en iOS](030_respetar_safe_area_ios.md)
-- [031 — Ajustes visuales y limpieza](031_ajustes_visuales_y_limpieza_propuestas.md)
+Las propuestas completadas 030, 031, 038 y 041 se retiraron del árbol de trabajo para mantener aquí solo el backlog activo. Sus documentos siguen disponibles en el historial de Git; sus resultados están resumidos en [`PLAN.md`](../PLAN.md) y [`CONTEXTO.md`](../CONTEXTO.md).
 
 ## Aprobadas pendientes
 
