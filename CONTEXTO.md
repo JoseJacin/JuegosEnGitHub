@@ -25,5 +25,6 @@
 - La propuesta 043 se integró en `main` mediante merge `18db52d`.
 - La rama `feature/044_especificacion_funcional_murdoku` se integró en `main` mediante merge `0137a07` (especificación y plan en borrador).
 - La rama `feature/045_guia_motor_generacion_murdoku` se integró en `main` mediante merge `a1c078d` (guía técnica detallada del generador).
-- Rama actual: `main`; reglas y guía técnica siguen en revisión, sin código de Murdoku.
+- La rama `feature/046_archivar_propuestas_finalizadas` se integró en `main` mediante merge `4e9b8aa`; seis propuestas completadas se retiraron del árbol y se conservaron en el historial de Git.
+- Rama actual: `main`; reglas y guía técnica de Murdoku siguen en revisión, sin código.
 - Próximo paso: revisar/aprobar reglas y guía técnica antes de iniciar implementación.

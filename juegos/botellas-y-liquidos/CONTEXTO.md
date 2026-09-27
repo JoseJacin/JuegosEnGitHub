@@ -25,6 +25,7 @@ Este documento registra solo la continuidad de este juego. La continuidad genera
 
 ## Registro histórico del trabajo previo
 
+- La rama `feature/046_archivar_propuestas_finalizadas` se integró en `main` mediante merge `4e9b8aa`. Las propuestas implementadas 030, 031, 038 y 041 se retiraron del árbol; sus archivos siguen en el historial de Git.
 - La rama `feature/041_refactor_botellas_codigo` se integró en `main` y ambas ramas se publicaron en `origin`. Commit de implementación: `8b8429f`; merge en `main`: `78b0c1e`.
 
 ## Prioridad actual
