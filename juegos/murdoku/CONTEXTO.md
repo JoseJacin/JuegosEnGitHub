@@ -21,6 +21,6 @@ Revisar `README.md` §13 y resolver decisiones abiertas. No implementar hasta ap
 
 ## Git
 
-- Rama actual: `feature/044_especificacion_funcional_murdoku`, creada desde `main` actualizado tras integrar propuesta 043.
-- Último merge en main: propuesta aprobada 043, commit de merge `18db52d`.
-- Este bloque añade solo documentación de especificación, plan y continuidad; no incluye código de juego.
+- La especificación, el plan y el contexto se integraron desde `feature/044_especificacion_funcional_murdoku` en `main` con merge `0137a07`.
+- Propuesta 043 integrada previamente mediante merge `18db52d`.
+- La rama 044 está publicada y cerrada por integración. Este bloque añade solo documentación; no incluye código de juego.

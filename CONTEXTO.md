@@ -23,6 +23,6 @@
 ## Estado de Git al cerrar este bloque
 
 - La propuesta 043 se integró en `main` mediante merge `18db52d`.
-- Rama actual: `feature/044_especificacion_funcional_murdoku`, creada desde `main` tras esa integración.
-- En esta rama se prepara el borrador funcional del juego; no se ha implementado código.
-- Próximo paso: revisar y aprobar las reglas y decisiones abiertas antes de iniciar tareas de implementación.
+- La rama `feature/044_especificacion_funcional_murdoku` se integró en `main` mediante merge `0137a07` (especificación y plan en borrador).
+- Rama actual: `main`; la rama de trabajo 044 está publicada en `origin` y cerrada por integración.
+- No se ha implementado código. Próximo paso: revisar las decisiones abiertas de la especificación antes de iniciar tareas de implementación; preparar aparte una guía de arquitectura del generador tras aprobar su esquema.
