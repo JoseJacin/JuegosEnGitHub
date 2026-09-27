@@ -62,7 +62,7 @@ El resultado será una experiencia propia para uso personal. El sitio sigue sien
 ## Tareas
 
 - [x] Revisar esta propuesta y confirmar el alcance de generación visual y lógica.
-- [ ] Crear `README.md`, `PLAN.md` y `CONTEXTO.md` de Murdoku después de aprobar el alcance.
+- [x] Crear borradores de `README.md`, `PLAN.md` y `CONTEXTO.md` de Murdoku tras aprobar el alcance; las reglas del README siguen pendientes de aprobación.
 - [ ] Formalizar reglas, tipos de pistas, roles, regiones, objetos, adyacencia, ocupabilidad y condición de resolución; revisar contradicciones antes de aprobarlas.
 - [ ] Diseñar representación y algoritmo de generación de geometría/recintos/tablero visual con semillas reproducibles.
 - [ ] Diseñar el modelo de restricciones, generación de solución y pistas, solucionador de unicidad y clasificación de dificultad.

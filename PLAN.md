@@ -9,7 +9,7 @@ Mantener una colección de juegos web estáticos publicada con GitHub Pages. Est
 - Repositorio: `JoseJacin/JuegosEnGitHub`; rama principal `main` y publicación desde la raíz mediante GitHub Pages.
 - El catálogo y Botellas y líquidos están implementados y publicados.
 - La estructura de planificación por juego quedó establecida en la propuesta [042](docs/propuestas/042_planes_y_contextos_por_juego.md).
-- El alcance de Murdoku está aprobado en [043](juegos/murdoku/propuestas/043_murdoku_generacion_visual.md). Se prepara su especificación funcional detallada antes de implementar.
+- El alcance de Murdoku está aprobado en [043](juegos/murdoku/propuestas/043_murdoku_generacion_visual.md). Su [especificación funcional](juegos/murdoku/README.md) y [plan de juego](juegos/murdoku/PLAN.md) están en borrador/revisión; no hay implementación.
 - Botellas y líquidos conserva mejoras aprobadas pendientes (propuestas [032–037](juegos/botellas-y-liquidos/propuestas/README.md)); no se cancelan ni se mezclan con el trabajo del nuevo juego. Su estado y dependencias están en el [plan del juego](juegos/botellas-y-liquidos/PLAN.md).
 
 ## Estructura documental
@@ -36,7 +36,7 @@ Mantener una colección de juegos web estáticos publicada con GitHub Pages. Est
 ## Secuencia acordada
 
 1. Completar y publicar esta reorganización documental (T23).
-2. Formalizar las reglas y el diseño funcional de Murdoku según la propuesta aprobada [043](juegos/murdoku/propuestas/043_murdoku_generacion_visual.md); revisar esa especificación antes de implementar.
+2. Revisar y aprobar el borrador funcional de Murdoku ([reglas](juegos/murdoku/README.md), [plan](juegos/murdoku/PLAN.md)) conforme al alcance aprobado [043](juegos/murdoku/propuestas/043_murdoku_generacion_visual.md); después, implementar según sus fases.
 3. Continuar los juegos desde sus planes específicos y actualizar el plan general cuando el trabajo afecte al sitio o cambie prioridades.
 
 La prioridad de Murdoku no elimina las propuestas aprobadas 032–037 de Botellas y líquidos. Se mantienen pendientes para priorización posterior; las dependencias T14 → T15/T17 siguen definidas en su plan.
