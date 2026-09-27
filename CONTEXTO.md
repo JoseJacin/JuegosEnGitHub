@@ -5,7 +5,7 @@
 - El sitio está publicado en [GitHub Pages](https://josejacin.github.io/JuegosEnGitHub/); el catálogo y Botellas y líquidos están disponibles.
 - El plan raíz registra solo decisiones y trabajo transversal. Cada juego mantiene su propio [plan](juegos/botellas-y-liquidos/PLAN.md) y [contexto](juegos/botellas-y-liquidos/CONTEXTO.md).
 - La organización documental por juego está implementada según la [propuesta 042](docs/propuestas/042_planes_y_contextos_por_juego.md).
-- La propuesta [043 de Murdoku](juegos/murdoku/propuestas/043_murdoku_generacion_visual.md) está aprobada. El borrador de [reglas](juegos/murdoku/README.md), [plan](juegos/murdoku/PLAN.md) y [contexto](juegos/murdoku/CONTEXTO.md) ya está preparado; las decisiones funcionales pendientes figuran en el README §13. No hay código implementado.
+- La propuesta [043 de Murdoku](juegos/murdoku/propuestas/043_murdoku_generacion_visual.md) está aprobada. El borrador de [reglas](juegos/murdoku/README.md), [plan](juegos/murdoku/PLAN.md), [contexto](juegos/murdoku/CONTEXTO.md) y [guía técnica del generador](juegos/murdoku/GUIA_MOTOR_GENERACION.md) está preparado para revisión; no hay código implementado.
 
 ## Fuentes de verdad
 
@@ -24,5 +24,5 @@
 
 - La propuesta 043 se integró en `main` mediante merge `18db52d`.
 - La rama `feature/044_especificacion_funcional_murdoku` se integró en `main` mediante merge `0137a07` (especificación y plan en borrador).
-- Rama actual: `main`; la rama de trabajo 044 está publicada en `origin` y cerrada por integración.
-- No se ha implementado código. Próximo paso: revisar las decisiones abiertas de la especificación antes de iniciar tareas de implementación; preparar aparte una guía de arquitectura del generador tras aprobar su esquema.
+- Rama actual: `feature/045_guia_motor_generacion_murdoku`; se prepara el diseño técnico del generador, sin código.
+- Próximo paso: revisar/aprobar reglas y guía técnica antes de iniciar implementación.

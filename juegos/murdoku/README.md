@@ -3,6 +3,7 @@
 **Estado:** Borrador detallado para revisión; no implementar hasta que se aprueben las reglas marcadas como propuestas.
 **Propuesta de alcance aprobada:** [043](propuestas/043_murdoku_generacion_visual.md).
 **Plan de trabajo:** [PLAN.md](PLAN.md).
+**Diseño técnico propuesto para el generador:** [GUIA_MOTOR_GENERACION.md](GUIA_MOTOR_GENERACION.md).
 
 Este documento será la fuente de verdad de las reglas cuando el usuario apruebe este borrador. La implementación debe seguirlo literalmente. Si una regla es ambigua, debe detenerse y solicitar una decisión; no completar huecos inventando mecánicas.
 
