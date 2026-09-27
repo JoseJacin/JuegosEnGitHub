@@ -31,4 +31,4 @@ Este documento registra solo la continuidad de este juego. La continuidad genera
 
 - Siguiente iniciativa general: preparar la propuesta de Murdoku.
 - Siguiente tarea de este juego cuando se retome su backlog: propuesta 032 en `feature/032_contador_movimientos`.
-- Esta reorganización documental se está integrando desde `feature/042_planes_contexto_por_juego`.
+- La rama `feature/042_planes_contexto_por_juego` se integró en `main` (commit `a93aae0`, merge `d18fbad`); pendiente de publicación en `origin`.

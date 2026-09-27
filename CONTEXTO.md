@@ -22,5 +22,6 @@
 
 ## Estado de Git al cerrar este bloque
 
-- Trabajo documental de la propuesta 042 en `feature/042_planes_contexto_por_juego`.
-- Pendiente cerrar el bloque con revisión, commit, integración y publicación según `COMANDOS.md`.
+- La rama `feature/042_planes_contexto_por_juego` está integrada en `main`.
+- Commit de implementación: `a93aae0`; merge en `main`: `d18fbad`.
+- Publicación en `origin` pendiente al cerrar este bloque.
