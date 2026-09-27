@@ -8,9 +8,9 @@ description: Apply the JuegosEnGitHub repository workflow when answering project
 ## Fuentes y comprobación
 
 - Lee `AGENTS.md` y `COMANDOS.md` antes de trabajar. Para saber el estado o el siguiente paso, consulta además `PLAN.md`, `CONTEXTO.md` y `docs/README.md`.
-- Sigue las referencias locales pertinentes: propuestas aprobadas, reglas del juego y README relacionados. Usa las reglas en `juegos/<id>/README.md` como autoridad sobre la mecánica.
+- Sigue las referencias locales pertinentes: plan general `PLAN.md`, plan y contexto `juegos/<id>/PLAN.md` y `juegos/<id>/CONTEXTO.md`, propuestas aprobadas y README relacionados. Usa las reglas en `juegos/<id>/README.md` como autoridad sobre la mecánica.
 - Inspecciona Git y los archivos actuales. No tomes una afirmación del usuario, una conversación anterior o `CONTEXTO.md` como prueba de que existe una tarea, carpeta, archivo o función.
-- Compara el plan con las propuestas aprobadas. Si discrepan, señala la diferencia; identifica el siguiente paso por estado y dependencias documentadas.
+- Compara el plan general y los planes de los juegos pertinentes con sus propuestas aprobadas. Si discrepan, señala la diferencia; identifica el siguiente paso por estado y dependencias documentadas.
 - Busca código en las extensiones reales del repositorio. JavaScript y CSS pueden estar integrados en `.html`.
 - Respalda conclusiones con rutas y encabezados concretos. No inventes datos; separa hechos observados de inferencias.
 
