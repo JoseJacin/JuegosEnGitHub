@@ -4,7 +4,7 @@
 
 - Colección estática publicada en GitHub Pages: [josejacin.github.io/JuegosEnGitHub](https://josejacin.github.io/JuegosEnGitHub/).
 - El catálogo y Botellas y líquidos están implementados y publicados. Las reglas vigentes del juego están en [`juegos/botellas-y-liquidos/README.md`](juegos/botellas-y-liquidos/README.md).
-- T1–T13 y T20 están completadas. La propuesta 038 separó la página de Botellas y líquidos en HTML, CSS y JavaScript sin cambiar sus reglas. Las propuestas 032–037 siguen aprobadas y pendientes en `juegos/botellas-y-liquidos/propuestas/`; la siguiente es T14, contador de movimientos (propuesta 032).
+- T1–T13 y T20–T22 están completadas. La propuesta 038 separó HTML, CSS y JavaScript; la propuesta 041 consolidó lógica duplicada y referencias DOM, y mejoró el formato sin cambiar las reglas. Las propuestas 032–037 siguen aprobadas y pendientes en `juegos/botellas-y-liquidos/propuestas/`; la siguiente es T14, contador de movimientos (propuesta 032).
 - T15 (récord local) y T17 (compartir resultado) dependen de T14. T16, T18 y T19 son independientes; revisar el plan para el orden acordado.
 
 ## Reorganización de propuestas (completada)
@@ -29,7 +29,8 @@
 - Una nota local del 25-09-2026 registra Continue configurado con LM Studio en `localhost:1234` y `qwen2.5-coder-14b-instruct`, con contexto de 8192. En esa fecha el servidor local no respondía; comprobar su estado antes de usar Continue.
 - Twinny está instalado en VS Code y usa LM Studio/Qwen2.5-Coder 7B Instruct MLX para FIM y autocompletado. Su plantilla `system.hbs` es global; las instrucciones del repositorio deben adjuntarse mediante el prompt del chat.
 
-## Estado de Git al iniciar este bloque
+## Estado de Git al cerrar este bloque
 
-- Rama observada: `main` (`92dcd7d`), alineada con `origin/main`.
-- Siguiente tarea de producto, tras integrar la reorganización documental: implementar la propuesta 032 en `feature/032_contador_movimientos`.
+- Rama de trabajo: `feature/041_refactor_botellas_codigo`, creada desde `main` actualizado (`8a02f98`).
+- Cambios de la propuesta 041 revisados localmente; falta cerrar el flujo Git descrito en `COMANDOS.md`.
+- Siguiente tarea de producto: implementar la propuesta 032 en `feature/032_contador_movimientos`.

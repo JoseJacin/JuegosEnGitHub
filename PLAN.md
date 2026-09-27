@@ -11,7 +11,7 @@ Publicar una colección de juegos web estáticos con GitHub Pages. La entrada pr
 - GitHub Pages está activo y publica `main` desde la raíz: [josejacin.github.io/JuegosEnGitHub](https://josejacin.github.io/JuegosEnGitHub/).
 - La presentación y las reglas de Botellas y líquidos están acordadas en [`juegos/botellas-y-liquidos/README.md`](juegos/botellas-y-liquidos/README.md).
 - El catálogo y Botellas y líquidos están implementados y publicados.
-- T1–T13 están completadas. T20 (refactor de la estructura de archivos de Botellas y líquidos, propuesta 038) también está completada. La siguiente tarea pendiente es T14, propuesta 032; las propuestas 032–037 de Botellas y líquidos siguen aprobadas y pendientes de implementación.
+- T1–T13, T20–T22 están completadas. T22 registra el refactor interno de Botellas y líquidos (propuesta 041). La siguiente tarea pendiente es T14, propuesta 032; las propuestas 032–037 de Botellas y líquidos siguen aprobadas y pendientes de implementación.
 
 ## Estructura prevista
 
@@ -186,6 +186,15 @@ Cada parte funcional tendrá su propio directorio. Un juego pequeño podrá impl
 - [x] T21.3 Revisar, confirmar, fusionar y publicar el cambio.
 
 **Hecho cuando:** cada juego tiene sus propias propuestas e índice, los cambios transversales siguen en `docs/propuestas/` y el plan conserva los estados y dependencias. Alcance en la [propuesta transversal 039](docs/propuestas/039_propuestas_por_juego.md).
+
+### T22 — Refactor interno de Botellas y líquidos
+
+- [x] T22.1 Consolidar el cálculo de combinaciones factibles usado por validación y generación.
+- [x] T22.2 Agrupar las referencias a los elementos de interfaz y reutilizarlas.
+- [x] T22.3 Mejorar la lectura del formato HTML y CSS sin cambiar la presentación.
+- [x] T22.4 Revisar los recursos relativos y actualizar propuesta, índice y contexto.
+
+**Hecho cuando:** se reduce la duplicación y mejora la lectura de los tres archivos, manteniendo reglas y comportamiento. Alcance en la [propuesta 041](juegos/botellas-y-liquidos/propuestas/041_refactor_codigo.md).
 
 ### T14 — Contador de movimientos
 
