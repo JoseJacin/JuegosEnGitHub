@@ -31,6 +31,6 @@
 
 ## Estado de Git al cerrar este bloque
 
-- Rama de trabajo: `feature/041_refactor_botellas_codigo`, creada desde `main` actualizado (`8a02f98`).
-- Cambios de la propuesta 041 revisados localmente; falta cerrar el flujo Git descrito en `COMANDOS.md`.
+- La rama `feature/041_refactor_botellas_codigo` se integró en `main` y ambas ramas se publicaron en `origin`.
+- Commit de implementación: `8b8429f`; merge en `main`: `78b0c1e`.
 - Siguiente tarea de producto: implementar la propuesta 032 en `feature/032_contador_movimientos`.
