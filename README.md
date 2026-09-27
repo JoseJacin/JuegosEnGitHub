@@ -1,14 +1,14 @@
 # JuegosEnGitHub
 
-Colección de juegos web sencillos, publicada con GitHub Pages. La página principal es un catálogo que enlaza con cada juego. Los juegos se ejecutan en el navegador; actualmente no guardan estadísticas ni necesitan servidor. Las mejoras locales aprobadas se describen en [`PLAN.md`](PLAN.md).
+Colección de juegos web sencillos, publicada con GitHub Pages. La página principal es un catálogo que enlaza con cada juego. Los juegos se ejecutan en el navegador; actualmente no guardan estadísticas ni necesitan servidor. El plan general está en [`PLAN.md`](PLAN.md); las tareas y la continuidad de cada juego se documentan dentro de su carpeta.
 
 ## Estructura
 
 - [`menu/`](menu/README.md): página de inicio y catálogo de juegos.
 - [`juegos/`](juegos/README.md): directorio de los juegos, cada uno aislado en su propia carpeta.
 - [`imagenes/`](imagenes/): recursos gráficos de referencia y del proyecto.
-- [`PLAN.md`](PLAN.md): fases y decisiones de implementación.
-- [`CONTEXTO.md`](CONTEXTO.md): resumen de continuidad para futuras conversaciones.
+- [`PLAN.md`](PLAN.md): decisiones y prioridades generales del sitio.
+- [`CONTEXTO.md`](CONTEXTO.md): continuidad general del sitio.
 - [`AGENTS.md`](AGENTS.md) y [`COMANDOS.md`](COMANDOS.md): instrucciones para agentes y comandos del proyecto.
 - [`docs/`](docs/README.md): índice de documentación SDD y plantilla de propuestas.
 
@@ -18,4 +18,4 @@ El sitio se publica como contenido estático desde la raíz de `main`. La ruta p
 
 ## Estado
 
-El menú y Botellas y líquidos están publicados. La configuración y los flujos principales se verificaron manualmente en la URL pública. Consulta [`PLAN.md`](PLAN.md) y [`CONTEXTO.md`](CONTEXTO.md) para el estado y los siguientes pasos.
+El menú y Botellas y líquidos están publicados. La configuración y los flujos principales se verificaron manualmente en la URL pública. Consulta [`PLAN.md`](PLAN.md) para el estado general y el `PLAN.md` y `CONTEXTO.md` de cada juego para sus tareas y continuidad.

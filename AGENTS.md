@@ -4,13 +4,13 @@
 
 - Lee `AGENTS.md` y `COMANDOS.md` antes de cambiar el proyecto.
 - Usa los archivos del repositorio como fuente de verdad; no supongas decisiones que no estén documentadas.
-- `PLAN.md` define el alcance y el orden de trabajo. Las propuestas específicas viven en `juegos/<id>/propuestas/`; las propuestas transversales, en `docs/propuestas/`. La especificación de cada juego en su carpeta define sus reglas. Si hay una contradicción, señálala y no cambies las reglas por iniciativa propia.
+- `PLAN.md` registra el alcance y orden generales del sitio. `juegos/<id>/PLAN.md` define las tareas y dependencias de cada juego; su `CONTEXTO.md` guarda su continuidad. Las propuestas específicas viven en `juegos/<id>/propuestas/`; las transversales, en `docs/propuestas/`. La especificación de cada juego en su carpeta define sus reglas. Si hay una contradicción, señálala y no cambies las reglas por iniciativa propia.
 - Respeta la estructura existente y las convenciones descritas en los `README.md`.
-- Mantén `CONTEXTO.md` actualizado al cerrar un bloque de trabajo, incluyendo rama, estado, decisiones y próximos pasos.
+- Mantén actualizado el `CONTEXTO.md` del ámbito afectado al cerrar un bloque: el de raíz para cambios del sitio y el de cada juego para sus cambios, incluyendo rama, estado, decisiones y próximos pasos. Actualiza ambos si el cambio afecta a los dos ámbitos.
 
 ## Consultas de estado y continuidad
 
-- Para responder qué queda por hacer, inspecciona el `PLAN.md` y el estado actual de Git; no deduzcas pendientes del historial de conversaciones ni de un resumen antiguo.
+- Para responder qué queda por hacer, inspecciona el `PLAN.md` de raíz, los planes de los juegos pertinentes y el estado actual de Git; no deduzcas pendientes del historial de conversaciones ni de un resumen antiguo.
 - Compara el plan con las propuestas aprobadas enlazadas desde `docs/README.md` y los índices de cada juego. Si hay propuestas aprobadas que aún no aparecen en el plan, indícalo como discrepancia y usa sus dependencias documentadas para identificar el siguiente paso.
 - Si una petición presupone una tarea, archivo, carpeta o función, compruébalo en el repositorio antes de aceptarlo. Si no existe o contradice las fuentes de verdad, señala la discrepancia.
 - Busca código en las extensiones presentes en el repositorio. En particular, el JavaScript y CSS pueden estar integrados en archivos `.html`; no concluyas que no hay funciones solo por no encontrar `.js` o `.ts`.

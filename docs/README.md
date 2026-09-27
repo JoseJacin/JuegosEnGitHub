@@ -1,14 +1,15 @@
 # Documentación de producto y SDD
 
-Este directorio reúne las propuestas de cambio. Los documentos existentes en la raíz y en cada juego siguen siendo las fuentes de verdad del proyecto.
+Este directorio reúne las propuestas de cambio transversales y los índices. Las fuentes de verdad generales viven en la raíz; las de cada juego, dentro de su carpeta.
 
 ## Documentos principales
 
 - [`../AGENTS.md`](../AGENTS.md): instrucciones para agentes y flujo de especificación.
 - [`../COMANDOS.md`](../COMANDOS.md): comandos locales, Git y publicación.
-- [`../PLAN.md`](../PLAN.md): fases, tareas, dependencias y estado general.
-- [`../CONTEXTO.md`](../CONTEXTO.md): estado breve para retomar el trabajo.
-- [`../juegos/botellas-y-liquidos/README.md`](../juegos/botellas-y-liquidos/README.md): especificación aprobada del primer juego.
+- [`../PLAN.md`](../PLAN.md): decisiones y prioridades generales del sitio.
+- [`../CONTEXTO.md`](../CONTEXTO.md): continuidad general del sitio.
+- [`../juegos/README.md`](../juegos/README.md): convención de estructura de juegos.
+- [Botellas y líquidos](../juegos/botellas-y-liquidos/README.md): reglas aprobadas; [plan](../juegos/botellas-y-liquidos/PLAN.md) y [contexto](../juegos/botellas-y-liquidos/CONTEXTO.md) propios.
 
 ## Propuestas
 
@@ -17,6 +18,7 @@ Cada funcionalidad nueva o cambio relevante debe comenzar como propuesta basada 
 ### Propuestas transversales
 
 - [`propuestas/039_propuestas_por_juego.md`](propuestas/039_propuestas_por_juego.md): organizar las propuestas por juego o como cambios transversales.
+- [`propuestas/042_planes_y_contextos_por_juego.md`](propuestas/042_planes_y_contextos_por_juego.md): mantener plan y contexto independientes para cada juego.
 
 ### Botellas y líquidos
 
