@@ -1,6 +1,6 @@
 # JuegosEnGitHub
 
-Colección de juegos web sencillos, publicada con GitHub Pages. La página principal es un catálogo que enlaza con cada juego. Los juegos se ejecutan en el navegador y, en esta primera etapa, no guardan estadísticas ni necesitan servidor.
+Colección de juegos web sencillos, publicada con GitHub Pages. La página principal es un catálogo que enlaza con cada juego. Los juegos se ejecutan en el navegador; actualmente no guardan estadísticas ni necesitan servidor. Las mejoras locales aprobadas se describen en [`PLAN.md`](PLAN.md).
 
 ## Estructura
 

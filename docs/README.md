@@ -16,10 +16,13 @@ Cada funcionalidad nueva o cambio relevante debe comenzar como propuesta basada 
 
 Las propuestas completadas o descartadas anteriores a la 030 se han archivado en el historial de Git (rama `main`, commits anteriores a `feature/031_ajustes_visuales_y_limpieza_propuestas`).
 
-### Propuestas vigentes
+### Propuestas implementadas recientes
 
 - [`propuestas/030_respetar_safe_area_ios.md`](propuestas/030_respetar_safe_area_ios.md): respetar zonas seguras (Safe Area) en iOS y Dynamic Island.
 - [`propuestas/031_ajustes_visuales_y_limpieza_propuestas.md`](propuestas/031_ajustes_visuales_y_limpieza_propuestas.md): aviso compacto de botella cerrada, selección sin borde verde y limpieza de propuestas.
+
+### Propuestas aprobadas pendientes de implementación
+
 - [`propuestas/032_contador_movimientos.md`](propuestas/032_contador_movimientos.md): contador de movimientos en el tablero.
 - [`propuestas/033_record_local.md`](propuestas/033_record_local.md): récord local de mínimo de movimientos en `localStorage`.
 - [`propuestas/034_pista_hint.md`](propuestas/034_pista_hint.md): botón de pista que resalta un trasvase posible.

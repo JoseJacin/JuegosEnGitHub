@@ -38,4 +38,4 @@ El menú de configuración y la partida seguirán un estilo parecido a la imagen
 
 ## Estado
 
-Definición y decisiones de diseño consolidadas. La pantalla de configuración está implementada; la generación de partidas y la lógica de juego siguen pendientes según `PLAN.md`.
+Especificación vigente de las reglas de Botellas y líquidos. El juego y su configuración están implementados y publicados; las mejoras posteriores se gestionan como propuestas enlazadas desde [`../../docs/README.md`](../../docs/README.md) y se incorporan al plan cuando se aprueban.
