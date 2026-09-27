@@ -24,4 +24,4 @@
 
 - La rama `feature/042_planes_contexto_por_juego` está integrada en `main`.
 - Commit de implementación: `a93aae0`; merge en `main`: `d18fbad`.
-- Publicación en `origin` pendiente al cerrar este bloque.
+- `main` y `feature/042_planes_contexto_por_juego` están publicadas en `origin`.
