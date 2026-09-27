@@ -9,7 +9,7 @@ Mantener una colección de juegos web estáticos publicada con GitHub Pages. Est
 - Repositorio: `JoseJacin/JuegosEnGitHub`; rama principal `main` y publicación desde la raíz mediante GitHub Pages.
 - El catálogo y Botellas y líquidos están implementados y publicados.
 - La estructura de planificación por juego quedó establecida en la propuesta [042](docs/propuestas/042_planes_y_contextos_por_juego.md).
-- La siguiente iniciativa acordada es preparar una propuesta para el nuevo juego Murdoku. Su especificación e implementación aún no están aprobadas.
+- La propuesta de Murdoku está redactada y pendiente de revisión/aprobación: [043](juegos/murdoku/propuestas/043_murdoku_generacion_visual.md). Especificación e implementación aún no están aprobadas.
 - Botellas y líquidos conserva mejoras aprobadas pendientes (propuestas [032–037](juegos/botellas-y-liquidos/propuestas/README.md)); no se cancelan ni se mezclan con el trabajo del nuevo juego. Su estado y dependencias están en el [plan del juego](juegos/botellas-y-liquidos/PLAN.md).
 
 ## Estructura documental
@@ -36,7 +36,7 @@ Mantener una colección de juegos web estáticos publicada con GitHub Pages. Est
 ## Secuencia acordada
 
 1. Completar y publicar esta reorganización documental (T23).
-2. Redactar y aprobar una propuesta para Murdoku, incluyendo reglas originales, alcance, criterios y tareas antes de implementarlo.
+2. Revisar y aprobar la propuesta [043 de Murdoku](juegos/murdoku/propuestas/043_murdoku_generacion_visual.md), que incluye generación lógica y visual del tablero, antes de redactar reglas definitivas o implementar.
 3. Continuar los juegos desde sus planes específicos y actualizar el plan general cuando el trabajo afecte al sitio o cambie prioridades.
 
 La prioridad de Murdoku no elimina las propuestas aprobadas 032–037 de Botellas y líquidos. Se mantienen pendientes para priorización posterior; las dependencias T14 → T15/T17 siguen definidas en su plan.

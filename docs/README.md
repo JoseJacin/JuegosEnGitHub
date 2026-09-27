@@ -10,6 +10,7 @@ Este directorio reúne las propuestas de cambio transversales y los índices. La
 - [`../CONTEXTO.md`](../CONTEXTO.md): continuidad general del sitio.
 - [`../juegos/README.md`](../juegos/README.md): convención de estructura de juegos.
 - [Botellas y líquidos](../juegos/botellas-y-liquidos/README.md): reglas aprobadas; [plan](../juegos/botellas-y-liquidos/PLAN.md) y [contexto](../juegos/botellas-y-liquidos/CONTEXTO.md) propios.
+- [Murdoku](../juegos/murdoku/propuestas/README.md): propuesta inicial en revisión; todavía no tiene reglas aprobadas ni implementación.
 
 ## Propuestas
 
