@@ -11,7 +11,7 @@ Publicar una colección de juegos web estáticos con GitHub Pages. La entrada pr
 - GitHub Pages está activo y publica `main` desde la raíz: [josejacin.github.io/JuegosEnGitHub](https://josejacin.github.io/JuegosEnGitHub/).
 - La presentación y las reglas de Botellas y líquidos están acordadas en [`juegos/botellas-y-liquidos/README.md`](juegos/botellas-y-liquidos/README.md).
 - El catálogo y Botellas y líquidos están implementados y publicados.
-- T1–T13 están completadas. Las propuestas 032–037 están aprobadas y pendientes de implementación; la primera es T14, propuesta 032.
+- T1–T13 están completadas. T20 (refactor de la estructura de archivos de Botellas y líquidos, propuesta 038) también está completada. La siguiente tarea pendiente es T14, propuesta 032; las propuestas 032–037 siguen aprobadas y pendientes de implementación.
 
 ## Estructura prevista
 
@@ -169,6 +169,16 @@ Cada parte funcional tendrá su propio directorio. Un juego pequeño podrá impl
 
 **Hecho cuando:** los mensajes de botella cerrada son compactos con icono, la selección no muestra borde verde, y el directorio de propuestas solo contiene las dos últimas. Cambios registrados en la propuesta [031](docs/propuestas/031_ajustes_visuales_y_limpieza_propuestas.md).
 
+### T20 — Separar estructura, estilos y lógica de Botellas y líquidos
+
+- [x] T20.1 Extraer el CSS integrado a `juegos/botellas-y-liquidos/styles.css`.
+- [x] T20.2 Extraer el JavaScript integrado a `juegos/botellas-y-liquidos/game.js`.
+- [x] T20.3 Enlazar los archivos con rutas relativas desde `index.html`, manteniendo el sitio estático.
+- [x] T20.4 Actualizar la especificación del juego, el índice de propuestas y este contexto.
+- [x] T20.5 Revisar el diff y confirmar que no se añaden dependencias ni cambios de reglas.
+
+**Hecho cuando:** HTML, CSS y JavaScript están en archivos separados, el juego conserva su comportamiento y los recursos siguen usando rutas compatibles con GitHub Pages. Alcance aprobado por adelantado e implementado en la [propuesta 038](docs/propuestas/038_refactor_botellas_archivos.md).
+
 ### T14 — Contador de movimientos
 
 - [ ] T14.1 Incrementar el contador solo después de un trasvase válido.
@@ -228,7 +238,8 @@ Cada parte funcional tendrá su propio directorio. Un juego pequeño podrá impl
 4. T5 depende de los movimientos de T4.
 5. T6 puede avanzar junto con T1–T5, ajustándose al comportamiento real.
 6. T7 depende de que T1–T6 estén completos.
-7. T15 y T17 dependen de T14; T16, T18 y T19 son independientes. Se mantiene el orden de propuestas como secuencia de trabajo inicial.
+7. T20 es un refactor transversal completado antes de continuar las mejoras pendientes.
+8. T14 es la siguiente tarea pendiente. T15 y T17 dependen de T14; T16, T18 y T19 son independientes. Se mantiene el orden de propuestas como secuencia de trabajo inicial.
 
 ## Decisiones vigentes
 
