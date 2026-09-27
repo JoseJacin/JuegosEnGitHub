@@ -46,4 +46,4 @@ El menú de configuración y la partida seguirán un estilo parecido a la imagen
 
 ## Estado
 
-Especificación vigente de las reglas de Botellas y líquidos. El juego y su configuración están implementados y publicados; las mejoras posteriores se gestionan como propuestas enlazadas desde [`../../docs/README.md`](../../docs/README.md) y se incorporan al plan cuando se aprueban.
+Especificación vigente de las reglas de Botellas y líquidos. El juego y su configuración están implementados y publicados; las mejoras posteriores se gestionan en [`propuestas/`](propuestas/) y se incorporan al plan cuando se aprueban. El índice general está en [`../../docs/README.md`](../../docs/README.md).
