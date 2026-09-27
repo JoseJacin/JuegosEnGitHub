@@ -410,9 +410,10 @@ Estas preguntas deben cerrarse revisando este documento; ningún LLM de implemen
 1. Leer `../../AGENTS.md`, `../../COMANDOS.md`, este `README.md`, `PLAN.md`, `CONTEXTO.md` y la tarea enlazada desde el plan antes de cambiar código.
 2. Este `README.md` es la autoridad funcional. No copiar detalles de Murdoku ni inventar texto, reglas o valores abiertos.
 3. Hacer solo la tarea y criterios marcados; respetar dependencias y no mezclar fases.
-4. Si el código existente contradice una regla, detener esa parte y describir el conflicto en `CONTEXTO.md`; no cambiar la regla por iniciativa propia.
-5. Separar generador determinista, modelo de dominio, solucionador, calificador, estado de jugador, interfaz, preferencias y renderizado visual.
-6. El dibujo nunca determina ocupabilidad o región; esos datos proceden del modelo.
-7. Todo caso que se muestre pasó validación de modelo, validez de solución, unicidad y plantilla de texto.
-8. Mantener actualización del plan y contexto al cerrar cada tarea, describir comprobaciones realmente ejecutadas y dejar branch/commit/pendientes claros.
-9. Usar assets propios identificados por clave; no incorporar recursos de sitios de referencia.
+4. Las subtareas del plan son deliberadamente pequeñas. Si una requiere varios comportamientos o no cabe en una sesión breve, proponer subtareas nuevas numeradas antes de implementar ese bloque.
+5. Si el código existente contradice una regla, detener esa parte y describir el conflicto en `CONTEXTO.md`; no cambiar la regla por iniciativa propia.
+6. Separar generador determinista, modelo de dominio, solucionador, calificador, estado de jugador, interfaz, preferencias y renderizado visual.
+7. El dibujo nunca determina ocupabilidad o región; esos datos proceden del modelo.
+8. Todo caso que se muestre pasó validación de modelo, validez de solución, unicidad y plantilla de texto.
+9. Mantener actualización del plan y contexto al cerrar cada tarea, describir comprobaciones realmente ejecutadas y dejar branch/commit/pendientes claros.
+10. Usar assets propios identificados por clave; no incorporar recursos de sitios de referencia.

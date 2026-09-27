@@ -4,7 +4,7 @@
 
 - Propuesta de alcance [043](propuestas/043_murdoku_generacion_visual.md) aprobada e integrada en `main`.
 - Especificación detallada [`README.md`](README.md) en borrador para revisión; aún contiene decisiones abiertas en §13.
-- Plan por tareas [`PLAN.md`](PLAN.md); no hay implementación ni assets.
+- Plan por tareas [`PLAN.md`](PLAN.md) desglosado en 12 bloques y subtareas cortas numeradas (0.1, 0.2, …, 11.14), con dependencias y criterios de cierre; no hay implementación ni assets.
 - No se han iniciado pruebas o perfilado de código.
 
 ## Decisiones recogidas
