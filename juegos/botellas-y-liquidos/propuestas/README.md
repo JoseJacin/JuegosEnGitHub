@@ -5,6 +5,7 @@ Las propuestas de este directorio describen cambios específicos del juego. Se c
 ## Implementadas
 
 - [038 — Separar estructura, estilos y lógica](038_refactor_botellas_archivos.md)
+- [041 — Refactor interno de HTML, CSS y JavaScript](041_refactor_codigo.md)
 - [030 — Respetar zonas seguras en iOS](030_respetar_safe_area_ios.md)
 - [031 — Ajustes visuales y limpieza](031_ajustes_visuales_y_limpieza_propuestas.md)
 

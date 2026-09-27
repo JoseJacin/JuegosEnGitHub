@@ -17,7 +17,10 @@
   <main>
     <header class="site-header">
       <span class="site-brand">Juegos</span>
-      <div class="site-heading"><p>Juego de lógica</p><h1>Botellas y líquidos</h1></div>
+      <div class="site-heading">
+        <p>Juego de lógica</p>
+        <h1>Botellas y líquidos</h1>
+      </div>
       <a class="back" href="../../menu/">← Menú</a>
     </header>
 
@@ -41,7 +44,10 @@
         </div>
         <label class="check" for="differentCapacities">
           <input id="differentCapacities" name="differentCapacities" type="checkbox">
-          <span>Usar capacidades distintas <span class="hint">(se asignarán tamaños al azar entre 3 y el máximo elegido)</span></span>
+          <span>
+            Usar capacidades distintas
+            <span class="hint">(se asignarán tamaños al azar entre 3 y el máximo elegido)</span>
+          </span>
         </label>
         <div id="sizesControl" class="grid" hidden>
           <label class="control" for="sizeCount">Número de tamaños distintos
@@ -58,12 +64,37 @@
       </section>
     </form>
     <section id="game" class="board" aria-label="Partida de Botellas y líquidos" hidden>
-      <div class="board-head"><p id="moveStatus" class="move-status" role="status" aria-live="polite"></p><div class="game-actions" role="group" aria-label="Acciones de la partida">
-        <button id="undo" class="icon-button" type="button" aria-label="Deshacer" title="Deshacer" disabled><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M9 14 4 9l5-5"/><path d="M4 9h9a7 7 0 0 1 0 14h-2"/></svg></button>
-        <button id="restart" class="icon-button" type="button" aria-label="Reiniciar" title="Reiniciar"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20 7v5h-5"/><path d="M20 12a8 8 0 1 0 1 4"/></svg></button>
-        <button id="copyDiagnostics" class="icon-button" type="button" aria-label="Copiar diagnóstico" title="Copiar diagnóstico"><svg aria-hidden="true" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h2"/><path d="M11 13h6M11 17h6"/></svg></button>
-        <button id="editSettings" class="icon-button" type="button" aria-label="Cambiar configuración" title="Cambiar configuración"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></svg></button>
-      </div></div>
+      <div class="board-head">
+        <p id="moveStatus" class="move-status" role="status" aria-live="polite"></p>
+        <div class="game-actions" role="group" aria-label="Acciones de la partida">
+          <button id="undo" class="icon-button" type="button" aria-label="Deshacer" title="Deshacer" disabled>
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path d="M9 14 4 9l5-5"/>
+              <path d="M4 9h9a7 7 0 0 1 0 14h-2"/>
+            </svg>
+          </button>
+          <button id="restart" class="icon-button" type="button" aria-label="Reiniciar" title="Reiniciar">
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path d="M20 7v5h-5"/>
+              <path d="M20 12a8 8 0 1 0 1 4"/>
+            </svg>
+          </button>
+          <button id="copyDiagnostics" class="icon-button" type="button" aria-label="Copiar diagnóstico" title="Copiar diagnóstico">
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <rect x="8" y="8" width="12" height="13" rx="2"/>
+              <path d="M16 8V5a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h2"/>
+              <path d="M11 13h6M11 17h6"/>
+            </svg>
+          </button>
+          <button id="editSettings" class="icon-button" type="button" aria-label="Cambiar configuración" title="Cambiar configuración">
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path d="M4 7h9M17 7h3M4 17h3M11 17h9"/>
+              <circle cx="15" cy="7" r="2"/>
+              <circle cx="9" cy="17" r="2"/>
+            </svg>
+          </button>
+        </div>
+      </div>
       <p id="diagnosticsStatus" class="muted" aria-live="polite" hidden></p>
       <pre id="diagnosticReport" class="diagnostic-report" tabindex="0" aria-label="Diagnóstico para copiar" hidden></pre>
       <div class="bottles-scroll" role="region" aria-label="Tablero de botellas; desplázate horizontalmente si hace falta" tabindex="0">
