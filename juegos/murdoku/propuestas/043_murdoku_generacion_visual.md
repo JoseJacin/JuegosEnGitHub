@@ -15,6 +15,8 @@ El resultado será una experiencia propia para uso personal. El sitio sigue sien
 - Incluye:
   - Definir y documentar las reglas originales del juego de deducción, sus pistas, restricciones espaciales, ocupación de celdas y condición de resolución.
   - Diseñar una generación determinista mediante semilla que produzca tanto la solución/caso como un tablero visual coherente con sus reglas.
+  - Crear una disposición nueva en cada partida: distribución y forma de las salas, terreno, objetos y demás elementos variarán según la semilla, dentro de los límites de validez y legibilidad.
+  - Permitir configurar el tamaño del tablero (cantidad de cuadrículas) y la cantidad de personajes, con rangos y combinaciones válidas por definir en la especificación.
   - Generar tableros con regiones conectadas y legibles, límites visuales, terreno, objetos y ocupantes previstos por el modelo; excluir de la colocación las celdas que el modelo declare no ocupables.
   - Derivar las pistas de una solución generada y verificar con un solucionador que el caso tiene exactamente una solución; descartar y volver a generar candidatos ambiguos o inválidos.
   - Definir una progresión inicial de tamaño/dificultad, empezando por un tablero pequeño validable y dejando prevista su ampliación a tableros grandes.
@@ -34,18 +36,21 @@ El resultado será una experiencia propia para uso personal. El sitio sigue sien
 2. **Coherencia entre capas.** La geometría de regiones, sus etiquetas/identidades, los obstáculos y objetos, las celdas ocupables y las pistas deben compartir un modelo de datos único; ninguna pista puede referirse a un elemento que no exista en el tablero.
 3. **Solución garantizada.** El generador conserva una solución testigo, deriva pistas de ella y ejecuta un solucionador de restricciones para aceptar solo casos con exactamente una solución. Los detalles de rendimiento, límites de reintentos y política de fallo se resolverán en diseño técnico.
 4. **Semilla reproducible.** La misma semilla y versión del generador deben recrear el mismo caso; debe poder compartirse o repetirse una partida mediante su identificador/semilla.
-5. **Dificultad medible.** Se deberá proponer una forma verificable de clasificar dificultad (tamaño y métricas del proceso de resolución, entre otras), evitando etiquetar dificultad basándose solo en la cantidad de pistas.
-6. **Interacción entendible.** Personas y casillas proporcionan tooltips contextuales con información útil. Los mismos datos estarán disponibles sin hover, mediante foco/teclado y controles apropiados para táctil.
-7. **Preferencias.** Antes de decidir su implementación, se catalogarán las opciones básica y avanzada de la referencia y se propondrá subconjunto de primera versión, valores iniciales, persistencia local y comportamiento responsivo. No se exige paridad completa.
-8. **Arte.** Se desarrollará una dirección visual propia y se especificarán los recursos originales necesarios. No se extraerán ni reutilizarán assets del sitio de referencia.
-9. **Arquitectura del sitio.** Archivos estáticos con rutas relativas compatibles con raíz local y prefijo GitHub Pages; sin servidor requerido en primera versión.
-10. **Especificación antes de código.** Tras aprobar esta propuesta, crear los documentos propios del juego (`README.md`, `PLAN.md`, `CONTEXTO.md`) y aprobar reglas detalladas antes de implementar la generación.
+5. **Configuración de partida.** El jugador podrá elegir cantidad de cuadrículas y personajes entre opciones compatibles. Los rangos, tamaños admitidos y reglas para combinarlos se definirán en la especificación.
+6. **Variación entre partidas.** Al iniciar una partida nueva, el generador producirá otra semilla y volverá a generar la disposición del tablero y el caso. Repetir/compartir una partida conservará su semilla y versión de generador. Evitará repetir exactamente la partida anterior cuando haya más de un candidato válido disponible.
+7. **Dificultad medible.** Se deberá proponer una forma verificable de clasificar dificultad (tamaño y métricas del proceso de resolución, entre otras), evitando etiquetar dificultad basándose solo en la cantidad de pistas.
+8. **Interacción entendible.** Personas y casillas proporcionan tooltips contextuales con información útil. Los mismos datos estarán disponibles sin hover, mediante foco/teclado y controles apropiados para táctil.
+9. **Preferencias.** Antes de decidir su implementación, se catalogarán las opciones básica y avanzada de la referencia y se propondrá subconjunto de primera versión, valores iniciales, persistencia local y comportamiento responsivo. No se exige paridad completa.
+10. **Arte.** Se desarrollará una dirección visual propia y se especificarán los recursos originales necesarios. No se extraerán ni reutilizarán assets del sitio de referencia.
+11. **Arquitectura del sitio.** Archivos estáticos con rutas relativas compatibles con raíz local y prefijo GitHub Pages; sin servidor requerido en primera versión.
+12. **Especificación antes de código.** Tras aprobar esta propuesta, crear los documentos propios del juego (`README.md`, `PLAN.md`, `CONTEXTO.md`) y aprobar reglas detalladas antes de implementar la generación.
 
 ## Criterios de aceptación
 
 - [ ] La especificación del juego describe reglas, vocabulario y límites sin depender de los textos o casos de la referencia.
 - [ ] El diseño del generador representa en un modelo coherente la geometría visual, regiones, elementos/obstáculos, ocupabilidad, personajes, pistas y solución.
 - [ ] La generación visual produce tableros legibles y reproducibles por semilla; la geometría generada es válida según reglas aprobadas.
+- [ ] Una partida nueva vuelve a generar la disposición de salas, sus formas, objetos y terreno; el jugador puede elegir cantidad de cuadrículas y personajes dentro de combinaciones válidas.
 - [ ] Cada caso aceptado tiene una solución conocida y el solucionador confirma que es la única.
 - [ ] Casos inválidos, sin solución o ambiguos se rechazan de forma controlada sin bloquear la interfaz.
 - [ ] Las clases de dificultad y su criterio están documentados y pueden comprobarse.
