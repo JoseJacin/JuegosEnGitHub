@@ -154,7 +154,7 @@ El sitio debe funcionar como archivos estáticos bajo la ruta de proyecto de Git
 - [x] T12.3 Descontar los insets de zona segura en el cálculo de altura de las botellas para mantener la partida libre de scroll vertical.
 - [x] T12.4 Actualizar la propuesta, el plan y el contexto de continuidad.
 
-**Hecho cuando:** en iPhone con Dynamic Island / notch, la cabecera y el botón de volver son totalmente accesibles sin solapamiento, y el juego y catálogo respetan las zonas seguras sin scroll indeseado. Cambios registrados en la propuesta [030](propuestas/030_respetar_safe_area_ios.md).
+**Hecho cuando:** en iPhone con Dynamic Island / notch, la cabecera y el botón de volver son totalmente accesibles sin solapamiento, y el juego y catálogo respetan las zonas seguras sin scroll indeseado. Propuesta 030 completada y archivada en el historial de Git.
 
 ### T13 — Ajustes visuales y limpieza de propuestas
 
@@ -163,7 +163,7 @@ El sitio debe funcionar como archivos estáticos bajo la ruta de proyecto de Git
 - [x] T13.3 Eliminar las propuestas `008`–`029` de `docs/propuestas/`, conservando las dos últimas (`030` y `031`).
 - [x] T13.4 Actualizar `docs/README.md`, `PLAN.md` y `CONTEXTO.md` para evitar enlaces rotos.
 
-**Hecho cuando:** los mensajes de botella cerrada son compactos con icono, la selección no muestra borde verde, y el directorio de propuestas del juego contiene las dos últimas propuestas de ese momento. Cambios registrados en la propuesta [031](propuestas/031_ajustes_visuales_y_limpieza_propuestas.md).
+**Hecho cuando:** los mensajes de botella cerrada son compactos con icono, la selección no muestra borde verde, y el directorio de propuestas del juego contiene las dos últimas propuestas de ese momento. Propuesta 031 completada y archivada en el historial de Git.
 
 ### T20 — Separar estructura, estilos y lógica de Botellas y líquidos
 
@@ -173,7 +173,7 @@ El sitio debe funcionar como archivos estáticos bajo la ruta de proyecto de Git
 - [x] T20.4 Actualizar la especificación del juego, el índice de propuestas y este contexto.
 - [x] T20.5 Revisar el diff y confirmar que no se añaden dependencias ni cambios de reglas.
 
-**Hecho cuando:** HTML, CSS y JavaScript están en archivos separados, el juego conserva su comportamiento y los recursos siguen usando rutas compatibles con GitHub Pages. Alcance aprobado por adelantado e implementado en la [propuesta 038](propuestas/038_refactor_botellas_archivos.md).
+**Hecho cuando:** HTML, CSS y JavaScript están en archivos separados, el juego conserva su comportamiento y los recursos siguen usando rutas compatibles con GitHub Pages. Propuesta 038 completada y archivada en el historial de Git.
 
 ### T21 — Separar propuestas por juego
 
@@ -181,7 +181,7 @@ El sitio debe funcionar como archivos estáticos bajo la ruta de proyecto de Git
 - [x] T21.2 Trasladar las propuestas de Botellas y líquidos y actualizar referencias, índices y documentación.
 - [x] T21.3 Revisar, confirmar, fusionar y publicar el cambio.
 
-**Hecho cuando:** cada juego tiene sus propias propuestas e índice, los cambios transversales siguen en `docs/propuestas/` y el plan conserva los estados y dependencias. Alcance en la [propuesta transversal 039](../../docs/propuestas/039_propuestas_por_juego.md).
+**Hecho cuando:** cada juego tiene sus propias propuestas e índice, los cambios transversales siguen en `docs/propuestas/` y el plan conserva los estados y dependencias. Propuesta transversal 039 completada y archivada en el historial de Git.
 
 ### T22 — Refactor interno de Botellas y líquidos
 
@@ -190,7 +190,7 @@ El sitio debe funcionar como archivos estáticos bajo la ruta de proyecto de Git
 - [x] T22.3 Mejorar la lectura del formato HTML y CSS sin cambiar la presentación.
 - [x] T22.4 Revisar los recursos relativos y actualizar propuesta, índice y contexto.
 
-**Hecho cuando:** se reduce la duplicación y mejora la lectura de los tres archivos, manteniendo reglas y comportamiento. Alcance en la [propuesta 041](propuestas/041_refactor_codigo.md).
+**Hecho cuando:** se reduce la duplicación y mejora la lectura de los tres archivos, manteniendo reglas y comportamiento. Propuesta 041 completada y archivada en el historial de Git.
 
 ### T14 — Contador de movimientos
 

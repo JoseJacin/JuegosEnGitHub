@@ -6,13 +6,13 @@ Este documento registra solo la continuidad de este juego. La continuidad genera
 
 - Colección estática publicada en GitHub Pages: [josejacin.github.io/JuegosEnGitHub](https://josejacin.github.io/JuegosEnGitHub/).
 - El juego está implementado y publicado. Sus reglas vigentes están en [`README.md`](README.md).
-- T1–T13 y T20–T22 están completadas. La propuesta 038 separó HTML, CSS y JavaScript; la propuesta 041 consolidó lógica duplicada y referencias DOM, y mejoró el formato sin cambiar las reglas. Las propuestas 032–037 siguen aprobadas y pendientes en `propuestas/`. T14 (contador de movimientos, propuesta 032) es la siguiente del backlog de este juego, pero queda pospuesta mientras la prioridad general es preparar la propuesta de Murdoku. Consulta [`../../PLAN.md`](../../PLAN.md) para la secuencia del sitio.
+- T1–T13 y T20–T22 están completadas. Las propuestas 030, 031, 038 y 041 se implementaron; sus archivos se retiraron del árbol de trabajo y permanecen en el historial de Git. La propuesta transversal 039 también está completada y archivada. Las propuestas 032–037 siguen aprobadas y pendientes en `propuestas/`. T14 (contador de movimientos, propuesta 032) es la siguiente del backlog de este juego, pero queda pospuesta mientras la prioridad general es preparar Murdoku. Consulta [`../../PLAN.md`](../../PLAN.md) para la secuencia del sitio.
 - T15 (récord local) y T17 (compartir resultado) dependen de T14. T16, T18 y T19 son independientes; revisar el plan para el orden acordado.
 
 ## Reorganización de propuestas (completada)
 
 - Las propuestas 030–038 se han movido a `propuestas/`, que ahora tiene su propio índice. Las propuestas transversales permanecen en `../../docs/propuestas/`; la plantilla compartida sigue en `../../docs/plantillas/`.
-- La propuesta 039 documenta la convención de propuestas por juego. La propuesta 042 establece planes y contextos independientes por juego.
+- La propuesta 039 estableció la convención de propuestas por juego; la 042 estableció planes y contextos independientes. Ambas están completadas, retiradas del árbol de trabajo y conservadas en el historial de Git.
 - Rama de trabajo `feature/039_propuestas_por_juego` integrada en `main` y publicada en `origin`. Commit de implementación: `5c9f7d7`; merge en `main`: `39758ed`.
 
 ## Fuentes de verdad

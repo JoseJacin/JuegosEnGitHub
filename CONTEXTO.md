@@ -4,7 +4,7 @@
 
 - El sitio está publicado en [GitHub Pages](https://josejacin.github.io/JuegosEnGitHub/); el catálogo y Botellas y líquidos están disponibles.
 - El plan raíz registra solo decisiones y trabajo transversal. Cada juego mantiene su propio [plan](juegos/botellas-y-liquidos/PLAN.md) y [contexto](juegos/botellas-y-liquidos/CONTEXTO.md).
-- La organización documental por juego está implementada según la [propuesta 042](docs/propuestas/042_planes_y_contextos_por_juego.md).
+- La organización documental por juego está implementada (T23); la propuesta 042 completada se retiró del árbol de trabajo y se conserva en el historial de Git.
 - La propuesta [043 de Murdoku](juegos/murdoku/propuestas/043_murdoku_generacion_visual.md) está aprobada. El borrador de [reglas](juegos/murdoku/README.md), [plan](juegos/murdoku/PLAN.md), [contexto](juegos/murdoku/CONTEXTO.md) y [guía técnica del generador](juegos/murdoku/GUIA_MOTOR_GENERACION.md) está preparado para revisión; no hay código implementado.
 
 ## Fuentes de verdad
