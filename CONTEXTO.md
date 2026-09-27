@@ -7,11 +7,11 @@
 - T1–T13 y T20 están completadas. La propuesta 038 separó la página de Botellas y líquidos en HTML, CSS y JavaScript sin cambiar sus reglas. Las propuestas 032–037 siguen aprobadas y pendientes en `juegos/botellas-y-liquidos/propuestas/`; la siguiente es T14, contador de movimientos (propuesta 032).
 - T15 (récord local) y T17 (compartir resultado) dependen de T14. T16, T18 y T19 son independientes; revisar el plan para el orden acordado.
 
-## Reorganización de propuestas (en curso)
+## Reorganización de propuestas (completada)
 
 - Las propuestas 030–038 se han movido a `juegos/botellas-y-liquidos/propuestas/`, que ahora tiene su propio índice. Las propuestas transversales permanecen en `docs/propuestas/`; la plantilla compartida sigue en `docs/plantillas/`.
 - La propuesta 039 documenta la convención. Los enlaces de índice, plan y especificación están actualizados.
-- Rama de trabajo: `feature/039_propuestas_por_juego`, creada desde `main` (`92dcd7d`). Próximo paso: revisar y confirmar, fusionar y publicar.
+- Rama de trabajo `feature/039_propuestas_por_juego` integrada en `main` y publicada en `origin`. Commit de implementación: `5c9f7d7`; merge en `main`: `39758ed`.
 
 ## Fuentes de verdad
 

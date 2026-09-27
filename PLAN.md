@@ -183,7 +183,7 @@ Cada parte funcional tendrá su propio directorio. Un juego pequeño podrá impl
 
 - [x] T21.1 Crear `juegos/<id>/propuestas/` e índice para las propuestas de cada juego.
 - [x] T21.2 Trasladar las propuestas de Botellas y líquidos y actualizar referencias, índices y documentación.
-- [ ] T21.3 Revisar, confirmar, fusionar y publicar el cambio.
+- [x] T21.3 Revisar, confirmar, fusionar y publicar el cambio.
 
 **Hecho cuando:** cada juego tiene sus propias propuestas e índice, los cambios transversales siguen en `docs/propuestas/` y el plan conserva los estados y dependencias. Alcance en la [propuesta transversal 039](docs/propuestas/039_propuestas_por_juego.md).
 

@@ -1,6 +1,6 @@
 # Propuesta: separar propuestas por juego
 
-**Estado:** Aprobada
+**Estado:** Implementada
 **Fecha:** 2026-09-27
 **Responsable:**
 
@@ -31,7 +31,7 @@ Las propuestas de distintos juegos se mezclan en un único directorio. Organizar
 
 - [x] Crear la carpeta de propuestas de Botellas y líquidos y mover las propuestas existentes.
 - [x] Actualizar la documentación del índice, las convenciones, el plan y la continuidad.
-- [ ] Crear rama, revisar, confirmar, fusionar en `main` y publicar según el flujo Git.
+- [x] Crear rama, revisar, confirmar, fusionar en `main` y publicar según el flujo Git.
 
 ## Riesgos, dependencias y preguntas
 
