@@ -2,7 +2,7 @@
 
 ## Objetivo
 
-Publicar una colección de juegos web estáticos con GitHub Pages. La entrada principal será un menú con enlaces a cada juego. En la primera etapa no habrá cuentas, estadísticas remotas ni servidor.
+Publicar una colección de juegos web estáticos con GitHub Pages. La entrada principal será un menú con enlaces a cada juego. En la primera etapa no habrá cuentas, backend ni estadísticas remotas; las mejoras locales aprobadas se definen en propuestas específicas.
 
 ## Estado del proyecto
 
@@ -11,6 +11,7 @@ Publicar una colección de juegos web estáticos con GitHub Pages. La entrada pr
 - GitHub Pages está activo y publica `main` desde la raíz: [josejacin.github.io/JuegosEnGitHub](https://josejacin.github.io/JuegosEnGitHub/).
 - La presentación y las reglas de Botellas y líquidos están acordadas en [`juegos/botellas-y-liquidos/README.md`](juegos/botellas-y-liquidos/README.md).
 - El catálogo y Botellas y líquidos están implementados y publicados.
+- T1–T13 están completadas. Las propuestas 032–037 están aprobadas y pendientes de implementación; la primera es T14, propuesta 032.
 
 ## Estructura prevista
 
@@ -168,6 +169,57 @@ Cada parte funcional tendrá su propio directorio. Un juego pequeño podrá impl
 
 **Hecho cuando:** los mensajes de botella cerrada son compactos con icono, la selección no muestra borde verde, y el directorio de propuestas solo contiene las dos últimas. Cambios registrados en la propuesta [031](docs/propuestas/031_ajustes_visuales_y_limpieza_propuestas.md).
 
+### T14 — Contador de movimientos
+
+- [ ] T14.1 Incrementar el contador solo después de un trasvase válido.
+- [ ] T14.2 Reducirlo al deshacer un movimiento.
+- [ ] T14.3 Reiniciarlo al iniciar o reiniciar una partida.
+- [ ] T14.4 Mostrarlo junto a las acciones del tablero y adaptar su tamaño a móvil.
+- [ ] T14.5 Crear la rama `feature/032_contador_movimientos`, revisar y confirmar el cambio, fusionarlo en `main` y publicarlo.
+
+**Hecho cuando:** el contador refleja los trasvases válidos, los deshacer y los reinicios sin romper la cabecera en móvil. Alcance aprobado en la [propuesta 032](docs/propuestas/032_contador_movimientos.md).
+
+### T15 — Récord local
+
+- [ ] T15.1 Guardar y consultar el mínimo de movimientos por configuración en `localStorage`, tolerando errores de acceso.
+- [ ] T15.2 Comparar el resultado al ganar y actualizar el diálogo de victoria.
+- [ ] T15.3 Crear la rama `feature/033_record_local`, revisar y confirmar el cambio, fusionarlo en `main` y publicarlo.
+
+**Hecho cuando:** el récord se crea y mejora según los criterios aprobados, y el juego sigue funcionando si `localStorage` no está disponible. Depende de T14; alcance en la [propuesta 033](docs/propuestas/033_record_local.md).
+
+### T16 — Pista de movimiento
+
+- [ ] T16.1 Encontrar una pareja origen-destino válida y resaltarla temporalmente.
+- [ ] T16.2 Cancelar selección activa antes de mostrar la pista y avisar si no hay movimientos.
+- [ ] T16.3 Añadir botón accesible y deshabilitarlo tras ganar.
+- [ ] T16.4 Crear la rama `feature/034_pista_hint`, revisar y confirmar el cambio, fusionarlo en `main` y publicarlo.
+
+**Hecho cuando:** la pista resalta un movimiento legal sin ejecutarlo y no interfiere con selección ni victoria. Alcance en la [propuesta 034](docs/propuestas/034_pista_hint.md).
+
+### T17 — Compartir resultado
+
+- [ ] T17.1 Construir un resumen con colores completados, movimientos y URL del juego.
+- [ ] T17.2 Copiarlo al portapapeles con alternativa manual cuando la API no esté disponible.
+- [ ] T17.3 Crear la rama `feature/035_compartir_resultado`, revisar y confirmar el cambio, fusionarlo en `main` y publicarlo.
+
+**Hecho cuando:** el diálogo de victoria permite copiar un resultado con emojis correctos y ofrece el fallback aprobado. Depende de T14; alcance en la [propuesta 035](docs/propuestas/035_compartir_resultado.md).
+
+### T18 — Animación de vertido
+
+- [ ] T18.1 Revisar el renderizado actual y determinar cómo animar las capas sin retrasar movimientos.
+- [ ] T18.2 Aplicar la transición respetando `prefers-reduced-motion` y comprobarla en móvil.
+- [ ] T18.3 Crear la rama `feature/036_animacion_vertido`, revisar y confirmar el cambio, fusionarlo en `main` y publicarlo.
+
+**Hecho cuando:** el vertido tiene una transición suave, se desactiva con movimiento reducido y no bloquea la interacción. Alcance en la [propuesta 036](docs/propuestas/036_animacion_vertido.md).
+
+### T19 — Modo daltónico / alto contraste
+
+- [ ] T19.1 Definir patrones distinguibles en escala de grises para los colores del juego.
+- [ ] T19.2 Añadir un control accesible y aplicar/restaurar su preferencia local.
+- [ ] T19.3 Crear la rama `feature/037_modo_daltonico`, revisar y confirmar el cambio, fusionarlo en `main` y publicarlo.
+
+**Hecho cuando:** los líquidos se distinguen por patrón sin depender del color, la preferencia persiste y las reglas de juego no cambian. Alcance en la [propuesta 037](docs/propuestas/037_modo_daltonico.md).
+
 ## Dependencias y orden sugerido
 
 1. T1 y T2 preparan navegación y opciones de partida.
@@ -176,11 +228,12 @@ Cada parte funcional tendrá su propio directorio. Un juego pequeño podrá impl
 4. T5 depende de los movimientos de T4.
 5. T6 puede avanzar junto con T1–T5, ajustándose al comportamiento real.
 6. T7 depende de que T1–T6 estén completos.
+7. T15 y T17 dependen de T14; T16, T18 y T19 son independientes. Se mantiene el orden de propuestas como secuencia de trabajo inicial.
 
 ## Decisiones vigentes
 
 - Publicación estática con GitHub Pages.
-- Sin estadísticas persistentes ni backend en la primera versión.
+- Sin cuentas, backend ni estadísticas remotas en la primera versión. Las propuestas aprobadas pueden añadir almacenamiento local en el dispositivo.
 - Un directorio por parte funcional y por juego.
 - Reglas aprobadas en `juegos/botellas-y-liquidos/README.md`; ese documento es la fuente de verdad para la mecánica.
 - La referencia gráfica existente está en `imagenes/Juego de botellas y líquidos.png`.
