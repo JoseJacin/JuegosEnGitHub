@@ -1,6 +1,6 @@
 # Plan de Murdoku
 
-Este plan convierte el alcance aprobado en entregas pequeñas para que cada una se pueda implementar, revisar y revertir por separado. Las reglas funcionales están en [`README.md`](README.md), todavía en borrador; la propuesta de alcance aprobada es [043](propuestas/043_murdoku_generacion_visual.md). El plan general del sitio está en [`../../PLAN.md`](../../PLAN.md).
+Este plan convierte el alcance aprobado en entregas pequeñas para que cada una se pueda implementar, revisar y revertir por separado. Las reglas funcionales están en [`README.md`](README.md), todavía en borrador; el diseño técnico propuesto del generador está en [`GUIA_MOTOR_GENERACION.md`](GUIA_MOTOR_GENERACION.md); la propuesta de alcance aprobada es [043](propuestas/043_murdoku_generacion_visual.md). El plan general del sitio está en [`../../PLAN.md`](../../PLAN.md).
 
 ## Objetivo
 
@@ -43,8 +43,10 @@ Generar y jugar casos originales de deducción en cuadrículas configurables. Ca
 - [ ] **0.10** Acordar presupuesto inicial de generación y comportamiento al agotar reintentos.
 - [ ] **0.11** Incorporar las decisiones acordadas al [`README.md`](README.md).
 - [ ] **0.12** Cambiar el estado de la especificación a aprobada y actualizar contexto.
+- [ ] **0.13** Revisar la arquitectura y algoritmos propuestos en [`GUIA_MOTOR_GENERACION.md`](GUIA_MOTOR_GENERACION.md).
+- [ ] **0.14** Resolver sus decisiones técnicas pendientes (PRNG, intentos, presupuestos, ranking y partición) y marcar la guía como aprobada.
 
-**Hecho cuando:** las reglas que condicionan el modelo, las combinaciones de configuración, las pistas y la primera versión están decididas en `README.md`.
+**Hecho cuando:** las reglas y decisiones que condicionan el modelo están aprobadas en `README.md`, y los contratos/algoritmos técnicos que bloquean la primera generación están aprobados en `GUIA_MOTOR_GENERACION.md`.
 
 ### 1. Crear el modelo de datos y validar configuración
 

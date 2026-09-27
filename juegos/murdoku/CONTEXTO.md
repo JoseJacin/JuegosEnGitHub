@@ -5,6 +5,7 @@
 - Propuesta de alcance [043](propuestas/043_murdoku_generacion_visual.md) aprobada e integrada en `main`.
 - Especificación detallada [`README.md`](README.md) en borrador para revisión; aún contiene decisiones abiertas en §13.
 - Plan por tareas [`PLAN.md`](PLAN.md) desglosado en 12 bloques y subtareas cortas numeradas (0.1, 0.2, …, 11.14), con dependencias y criterios de cierre; no hay implementación ni assets.
+- Guía técnica del generador [`GUIA_MOTOR_GENERACION.md`](GUIA_MOTOR_GENERACION.md) en revisión; detalla contratos, algoritmo, semillas, mapa, objetos, testigo, pistas, unicidad, dificultad, fallos y criterios para implementación por LLM local.
 - No se han iniciado pruebas o perfilado de código.
 
 ## Decisiones recogidas
@@ -17,10 +18,12 @@
 
 ## Siguiente paso
 
-Revisar `README.md` §13 y resolver decisiones abiertas. No implementar hasta aprobar el documento y reflejar la aprobación en este contexto y el plan.
+Revisar `README.md` §13 y `GUIA_MOTOR_GENERACION.md` §18; resolver decisiones funcionales y técnicas abiertas. No implementar el motor hasta aprobar reglas y arquitectura y reflejar la aprobación en este contexto y el plan.
 
 ## Git
 
 - La especificación, el plan y el contexto se integraron desde `feature/044_especificacion_funcional_murdoku` en `main` con merge `0137a07`.
 - Propuesta 043 integrada previamente mediante merge `18db52d`.
 - La rama 044 está publicada y cerrada por integración. Este bloque añade solo documentación; no incluye código de juego.
+- Rama actual: `feature/045_guia_motor_generacion_murdoku`, creada desde `main` tras el merge 044.
+- La guía técnica todavía no está aprobada y no se ha implementado el motor.
