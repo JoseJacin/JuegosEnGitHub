@@ -24,5 +24,6 @@
 
 - La propuesta 043 se integró en `main` mediante merge `18db52d`.
 - La rama `feature/044_especificacion_funcional_murdoku` se integró en `main` mediante merge `0137a07` (especificación y plan en borrador).
-- Rama actual: `feature/045_guia_motor_generacion_murdoku`; se prepara el diseño técnico del generador, sin código.
+- La rama `feature/045_guia_motor_generacion_murdoku` se integró en `main` mediante merge `a1c078d` (guía técnica detallada del generador).
+- Rama actual: `main`; reglas y guía técnica siguen en revisión, sin código de Murdoku.
 - Próximo paso: revisar/aprobar reglas y guía técnica antes de iniciar implementación.

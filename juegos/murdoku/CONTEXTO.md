@@ -25,5 +25,6 @@ Revisar `README.md` §13 y `GUIA_MOTOR_GENERACION.md` §18; resolver decisiones 
 - La especificación, el plan y el contexto se integraron desde `feature/044_especificacion_funcional_murdoku` en `main` con merge `0137a07`.
 - Propuesta 043 integrada previamente mediante merge `18db52d`.
 - La rama 044 está publicada y cerrada por integración. Este bloque añade solo documentación; no incluye código de juego.
-- Rama actual: `feature/045_guia_motor_generacion_murdoku`, creada desde `main` tras el merge 044.
+- La rama `feature/045_guia_motor_generacion_murdoku` se integró en `main` mediante merge `a1c078d`.
+- Rama actual: `main`.
 - La guía técnica todavía no está aprobada y no se ha implementado el motor.
