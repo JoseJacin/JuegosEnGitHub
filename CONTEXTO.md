@@ -19,14 +19,15 @@
 
 - La sesión revisada de Bionic usa Qwen2.5 7B Instruct 4bit. En una investigación anterior aceptó una tarea de pruebas unitarias que no figuraba en el `PLAN.md` actual y dio por existente una carpeta `tests/` sin verificarla. Para una tarea nueva, abrir una sesión separada y pedir que contraste el plan con `docs/README.md`, las propuestas aprobadas y los archivos reales.
 - `.continue/rules/01_documentacion_proyecto.md` contiene las reglas de Continue para el modo Agent, Chat y Edit. No se aplica al autocompletado.
-- `.agents/skills/juegosengithub/SKILL.md` contiene las instrucciones para asistentes compatibles con habilidades. Bionic requiere importarla desde Ajustes > Habilidades > Instalar una habilidad; su activación no quedó verificada en esta sesión.
+- `.agents/skills/juegosengithub/SKILL.md` contiene las instrucciones para asistentes compatibles con habilidades. El usuario confirmó que ya la importó en Bionic.
 - Una nota local del 25-09-2026 registra Continue configurado con LM Studio en `localhost:1234` y `qwen2.5-coder-14b-instruct`, con contexto de 8192. En esa fecha el servidor local no respondía; comprobar su estado antes de usar Continue.
 - Twinny está instalado en VS Code y usa LM Studio/Qwen2.5-Coder 7B Instruct MLX para FIM y autocompletado. Su plantilla `system.hbs` es global; las instrucciones del repositorio deben adjuntarse mediante el prompt del chat.
 
 ## Estado de Git al cerrar este bloque
 
 - El bloque 038 de alineación documental está fusionado y publicado en `main` (`e257d7f`).
-- Rama de trabajo: `feature/039_configurar_agentes_locales`.
-- Este bloque prepara la habilidad de proyecto para Bionic, las reglas de Continue y la plantilla global de Twinny; no modifica código funcional del sitio.
-- Twinny quedó configurado globalmente. Continue lee la regla del repositorio. En Bionic falta importar manualmente la carpeta `.agents/skills/juegosengithub` en Ajustes > Habilidades.
+- El bloque 039 de configuración de asistentes está fusionado y publicado en `main` (`3d0a079`).
+- Rama de trabajo de esta actualización: `feature/040_confirmar_importacion_bionic`.
+- Bionic ya tiene importada la habilidad según confirma el usuario. Twinny quedó configurado globalmente y Continue lee la regla del repositorio.
+- No se modificó código funcional del sitio.
 - Próximo paso de producto: implementar la propuesta 032 en `feature/032_contador_movimientos`.
