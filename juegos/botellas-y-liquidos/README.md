@@ -32,6 +32,14 @@ Organizar todos los líquidos por color. La partida se gana únicamente cuando c
 
 Todas las variables de configuración del juego deberán estar agrupadas en una sección diferenciada del código, en vez de repartirse entre la lógica y la interfaz.
 
+La página se organiza en tres archivos estáticos dentro de este directorio:
+
+- `index.html`: estructura y controles de la interfaz.
+- `styles.css`: presentación y adaptación visual.
+- `game.js`: configuración y lógica del juego.
+
+No se usa un sistema de componentes ni un proceso de compilación. Si otras páginas llegan a compartir interfaz o comportamiento, evaluar su reutilización en una propuesta aparte.
+
 ## Presentación visual
 
 El menú de configuración y la partida seguirán un estilo parecido a la imagen de referencia: fondo oscuro, filas de botellas con líquidos de colores y marcas verdes para las botellas completadas. Al ganar, aparecerá un mensaje de victoria con las opciones de repetir o cambiar la configuración.

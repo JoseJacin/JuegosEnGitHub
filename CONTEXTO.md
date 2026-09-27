@@ -4,7 +4,7 @@
 
 - Colección estática publicada en GitHub Pages: [josejacin.github.io/JuegosEnGitHub](https://josejacin.github.io/JuegosEnGitHub/).
 - El catálogo y Botellas y líquidos están implementados y publicados. Las reglas vigentes del juego están en [`juegos/botellas-y-liquidos/README.md`](juegos/botellas-y-liquidos/README.md).
-- T1–T13 están completadas. Las propuestas 032–037 están aprobadas y ya aparecen en [`PLAN.md`](PLAN.md); la siguiente es T14, contador de movimientos (propuesta 032).
+- T1–T13 y T20 están completadas. La propuesta 038 separó la página de Botellas y líquidos en HTML, CSS y JavaScript sin cambiar sus reglas. Las propuestas 032–037 siguen aprobadas y pendientes; la siguiente es T14, contador de movimientos (propuesta 032).
 - T15 (récord local) y T17 (compartir resultado) dependen de T14. T16, T18 y T19 son independientes; revisar el plan para el orden acordado.
 
 ## Fuentes de verdad
@@ -25,9 +25,6 @@
 
 ## Estado de Git al cerrar este bloque
 
-- El bloque 038 de alineación documental está fusionado y publicado en `main` (`e257d7f`).
-- El bloque 039 de configuración de asistentes está fusionado y publicado en `main` (`3d0a079`).
-- Rama de trabajo de esta actualización: `feature/040_confirmar_importacion_bionic`.
-- Bionic ya tiene importada la habilidad según confirma el usuario. Twinny quedó configurado globalmente y Continue lee la regla del repositorio.
-- No se modificó código funcional del sitio.
-- Próximo paso de producto: implementar la propuesta 032 en `feature/032_contador_movimientos`.
+- Rama de trabajo: `feature/038_refactor_botellas_archivos`, creada desde `main` (`87faece`).
+- Cambio actual: extracción de CSS y JavaScript de Botellas y líquidos, documentada en la propuesta 038.
+- Próximo paso de producto, una vez integrado este bloque: implementar la propuesta 032 en `feature/032_contador_movimientos`.

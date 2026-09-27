@@ -18,6 +18,7 @@ Las propuestas completadas o descartadas anteriores a la 030 se han archivado en
 
 ### Propuestas implementadas recientes
 
+- [`propuestas/038_refactor_botellas_archivos.md`](propuestas/038_refactor_botellas_archivos.md): separar estructura, estilos y lógica de Botellas y líquidos.
 - [`propuestas/030_respetar_safe_area_ios.md`](propuestas/030_respetar_safe_area_ios.md): respetar zonas seguras (Safe Area) en iOS y Dynamic Island.
 - [`propuestas/031_ajustes_visuales_y_limpieza_propuestas.md`](propuestas/031_ajustes_visuales_y_limpieza_propuestas.md): aviso compacto de botella cerrada, selección sin borde verde y limpieza de propuestas.
 
