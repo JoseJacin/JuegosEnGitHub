@@ -11,7 +11,7 @@ Publicar una colección de juegos web estáticos con GitHub Pages. La entrada pr
 - GitHub Pages está activo y publica `main` desde la raíz: [josejacin.github.io/JuegosEnGitHub](https://josejacin.github.io/JuegosEnGitHub/).
 - La presentación y las reglas de Botellas y líquidos están acordadas en [`juegos/botellas-y-liquidos/README.md`](juegos/botellas-y-liquidos/README.md).
 - El catálogo y Botellas y líquidos están implementados y publicados.
-- T1–T13 están completadas. T20 (refactor de la estructura de archivos de Botellas y líquidos, propuesta 038) también está completada. La siguiente tarea pendiente es T14, propuesta 032; las propuestas 032–037 siguen aprobadas y pendientes de implementación.
+- T1–T13 están completadas. T20 (refactor de la estructura de archivos de Botellas y líquidos, propuesta 038) también está completada. La siguiente tarea pendiente es T14, propuesta 032; las propuestas 032–037 de Botellas y líquidos siguen aprobadas y pendientes de implementación.
 
 ## Estructura prevista
 
@@ -158,7 +158,7 @@ Cada parte funcional tendrá su propio directorio. Un juego pequeño podrá impl
 - [x] T12.3 Descontar los insets de zona segura en el cálculo de altura de las botellas para mantener la partida libre de scroll vertical.
 - [x] T12.4 Actualizar la propuesta, el plan y el contexto de continuidad.
 
-**Hecho cuando:** en iPhone con Dynamic Island / notch, la cabecera y el botón de volver son totalmente accesibles sin solapamiento, y el juego y catálogo respetan las zonas seguras sin scroll indeseado. Cambios registrados en la propuesta [030](docs/propuestas/030_respetar_safe_area_ios.md).
+**Hecho cuando:** en iPhone con Dynamic Island / notch, la cabecera y el botón de volver son totalmente accesibles sin solapamiento, y el juego y catálogo respetan las zonas seguras sin scroll indeseado. Cambios registrados en la propuesta [030](juegos/botellas-y-liquidos/propuestas/030_respetar_safe_area_ios.md).
 
 ### T13 — Ajustes visuales y limpieza de propuestas
 
@@ -167,7 +167,7 @@ Cada parte funcional tendrá su propio directorio. Un juego pequeño podrá impl
 - [x] T13.3 Eliminar las propuestas `008`–`029` de `docs/propuestas/`, conservando las dos últimas (`030` y `031`).
 - [x] T13.4 Actualizar `docs/README.md`, `PLAN.md` y `CONTEXTO.md` para evitar enlaces rotos.
 
-**Hecho cuando:** los mensajes de botella cerrada son compactos con icono, la selección no muestra borde verde, y el directorio de propuestas solo contiene las dos últimas. Cambios registrados en la propuesta [031](docs/propuestas/031_ajustes_visuales_y_limpieza_propuestas.md).
+**Hecho cuando:** los mensajes de botella cerrada son compactos con icono, la selección no muestra borde verde, y el directorio de propuestas del juego contiene las dos últimas propuestas de ese momento. Cambios registrados en la propuesta [031](juegos/botellas-y-liquidos/propuestas/031_ajustes_visuales_y_limpieza_propuestas.md).
 
 ### T20 — Separar estructura, estilos y lógica de Botellas y líquidos
 
@@ -177,7 +177,15 @@ Cada parte funcional tendrá su propio directorio. Un juego pequeño podrá impl
 - [x] T20.4 Actualizar la especificación del juego, el índice de propuestas y este contexto.
 - [x] T20.5 Revisar el diff y confirmar que no se añaden dependencias ni cambios de reglas.
 
-**Hecho cuando:** HTML, CSS y JavaScript están en archivos separados, el juego conserva su comportamiento y los recursos siguen usando rutas compatibles con GitHub Pages. Alcance aprobado por adelantado e implementado en la [propuesta 038](docs/propuestas/038_refactor_botellas_archivos.md).
+**Hecho cuando:** HTML, CSS y JavaScript están en archivos separados, el juego conserva su comportamiento y los recursos siguen usando rutas compatibles con GitHub Pages. Alcance aprobado por adelantado e implementado en la [propuesta 038](juegos/botellas-y-liquidos/propuestas/038_refactor_botellas_archivos.md).
+
+### T21 — Separar propuestas por juego
+
+- [x] T21.1 Crear `juegos/<id>/propuestas/` e índice para las propuestas de cada juego.
+- [x] T21.2 Trasladar las propuestas de Botellas y líquidos y actualizar referencias, índices y documentación.
+- [ ] T21.3 Revisar, confirmar, fusionar y publicar el cambio.
+
+**Hecho cuando:** cada juego tiene sus propias propuestas e índice, los cambios transversales siguen en `docs/propuestas/` y el plan conserva los estados y dependencias. Alcance en la [propuesta transversal 039](docs/propuestas/039_propuestas_por_juego.md).
 
 ### T14 — Contador de movimientos
 
@@ -187,7 +195,7 @@ Cada parte funcional tendrá su propio directorio. Un juego pequeño podrá impl
 - [ ] T14.4 Mostrarlo junto a las acciones del tablero y adaptar su tamaño a móvil.
 - [ ] T14.5 Crear la rama `feature/032_contador_movimientos`, revisar y confirmar el cambio, fusionarlo en `main` y publicarlo.
 
-**Hecho cuando:** el contador refleja los trasvases válidos, los deshacer y los reinicios sin romper la cabecera en móvil. Alcance aprobado en la [propuesta 032](docs/propuestas/032_contador_movimientos.md).
+**Hecho cuando:** el contador refleja los trasvases válidos, los deshacer y los reinicios sin romper la cabecera en móvil. Alcance aprobado en la [propuesta 032](juegos/botellas-y-liquidos/propuestas/032_contador_movimientos.md).
 
 ### T15 — Récord local
 
@@ -195,7 +203,7 @@ Cada parte funcional tendrá su propio directorio. Un juego pequeño podrá impl
 - [ ] T15.2 Comparar el resultado al ganar y actualizar el diálogo de victoria.
 - [ ] T15.3 Crear la rama `feature/033_record_local`, revisar y confirmar el cambio, fusionarlo en `main` y publicarlo.
 
-**Hecho cuando:** el récord se crea y mejora según los criterios aprobados, y el juego sigue funcionando si `localStorage` no está disponible. Depende de T14; alcance en la [propuesta 033](docs/propuestas/033_record_local.md).
+**Hecho cuando:** el récord se crea y mejora según los criterios aprobados, y el juego sigue funcionando si `localStorage` no está disponible. Depende de T14; alcance en la [propuesta 033](juegos/botellas-y-liquidos/propuestas/033_record_local.md).
 
 ### T16 — Pista de movimiento
 
@@ -204,7 +212,7 @@ Cada parte funcional tendrá su propio directorio. Un juego pequeño podrá impl
 - [ ] T16.3 Añadir botón accesible y deshabilitarlo tras ganar.
 - [ ] T16.4 Crear la rama `feature/034_pista_hint`, revisar y confirmar el cambio, fusionarlo en `main` y publicarlo.
 
-**Hecho cuando:** la pista resalta un movimiento legal sin ejecutarlo y no interfiere con selección ni victoria. Alcance en la [propuesta 034](docs/propuestas/034_pista_hint.md).
+**Hecho cuando:** la pista resalta un movimiento legal sin ejecutarlo y no interfiere con selección ni victoria. Alcance en la [propuesta 034](juegos/botellas-y-liquidos/propuestas/034_pista_hint.md).
 
 ### T17 — Compartir resultado
 
@@ -212,7 +220,7 @@ Cada parte funcional tendrá su propio directorio. Un juego pequeño podrá impl
 - [ ] T17.2 Copiarlo al portapapeles con alternativa manual cuando la API no esté disponible.
 - [ ] T17.3 Crear la rama `feature/035_compartir_resultado`, revisar y confirmar el cambio, fusionarlo en `main` y publicarlo.
 
-**Hecho cuando:** el diálogo de victoria permite copiar un resultado con emojis correctos y ofrece el fallback aprobado. Depende de T14; alcance en la [propuesta 035](docs/propuestas/035_compartir_resultado.md).
+**Hecho cuando:** el diálogo de victoria permite copiar un resultado con emojis correctos y ofrece el fallback aprobado. Depende de T14; alcance en la [propuesta 035](juegos/botellas-y-liquidos/propuestas/035_compartir_resultado.md).
 
 ### T18 — Animación de vertido
 
@@ -220,7 +228,7 @@ Cada parte funcional tendrá su propio directorio. Un juego pequeño podrá impl
 - [ ] T18.2 Aplicar la transición respetando `prefers-reduced-motion` y comprobarla en móvil.
 - [ ] T18.3 Crear la rama `feature/036_animacion_vertido`, revisar y confirmar el cambio, fusionarlo en `main` y publicarlo.
 
-**Hecho cuando:** el vertido tiene una transición suave, se desactiva con movimiento reducido y no bloquea la interacción. Alcance en la [propuesta 036](docs/propuestas/036_animacion_vertido.md).
+**Hecho cuando:** el vertido tiene una transición suave, se desactiva con movimiento reducido y no bloquea la interacción. Alcance en la [propuesta 036](juegos/botellas-y-liquidos/propuestas/036_animacion_vertido.md).
 
 ### T19 — Modo daltónico / alto contraste
 
@@ -228,7 +236,7 @@ Cada parte funcional tendrá su propio directorio. Un juego pequeño podrá impl
 - [ ] T19.2 Añadir un control accesible y aplicar/restaurar su preferencia local.
 - [ ] T19.3 Crear la rama `feature/037_modo_daltonico`, revisar y confirmar el cambio, fusionarlo en `main` y publicarlo.
 
-**Hecho cuando:** los líquidos se distinguen por patrón sin depender del color, la preferencia persiste y las reglas de juego no cambian. Alcance en la [propuesta 037](docs/propuestas/037_modo_daltonico.md).
+**Hecho cuando:** los líquidos se distinguen por patrón sin depender del color, la preferencia persiste y las reglas de juego no cambian. Alcance en la [propuesta 037](juegos/botellas-y-liquidos/propuestas/037_modo_daltonico.md).
 
 ## Dependencias y orden sugerido
 
@@ -246,5 +254,6 @@ Cada parte funcional tendrá su propio directorio. Un juego pequeño podrá impl
 - Publicación estática con GitHub Pages.
 - Sin cuentas, backend ni estadísticas remotas en la primera versión. Las propuestas aprobadas pueden añadir almacenamiento local en el dispositivo.
 - Un directorio por parte funcional y por juego.
+- Las propuestas específicas viven en `juegos/<id>/propuestas/`; las transversales del sitio permanecen en `docs/propuestas/`.
 - Reglas aprobadas en `juegos/botellas-y-liquidos/README.md`; ese documento es la fuente de verdad para la mecánica.
 - La referencia gráfica existente está en `imagenes/Juego de botellas y líquidos.png`.

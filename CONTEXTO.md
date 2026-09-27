@@ -4,8 +4,14 @@
 
 - Colección estática publicada en GitHub Pages: [josejacin.github.io/JuegosEnGitHub](https://josejacin.github.io/JuegosEnGitHub/).
 - El catálogo y Botellas y líquidos están implementados y publicados. Las reglas vigentes del juego están en [`juegos/botellas-y-liquidos/README.md`](juegos/botellas-y-liquidos/README.md).
-- T1–T13 y T20 están completadas. La propuesta 038 separó la página de Botellas y líquidos en HTML, CSS y JavaScript sin cambiar sus reglas. Las propuestas 032–037 siguen aprobadas y pendientes; la siguiente es T14, contador de movimientos (propuesta 032).
+- T1–T13 y T20 están completadas. La propuesta 038 separó la página de Botellas y líquidos en HTML, CSS y JavaScript sin cambiar sus reglas. Las propuestas 032–037 siguen aprobadas y pendientes en `juegos/botellas-y-liquidos/propuestas/`; la siguiente es T14, contador de movimientos (propuesta 032).
 - T15 (récord local) y T17 (compartir resultado) dependen de T14. T16, T18 y T19 son independientes; revisar el plan para el orden acordado.
+
+## Reorganización de propuestas (en curso)
+
+- Las propuestas 030–038 se han movido a `juegos/botellas-y-liquidos/propuestas/`, que ahora tiene su propio índice. Las propuestas transversales permanecen en `docs/propuestas/`; la plantilla compartida sigue en `docs/plantillas/`.
+- La propuesta 039 documenta la convención. Los enlaces de índice, plan y especificación están actualizados.
+- Rama de trabajo: `feature/039_propuestas_por_juego`, creada desde `main` (`92dcd7d`). Próximo paso: revisar y confirmar, fusionar y publicar.
 
 ## Fuentes de verdad
 
@@ -23,8 +29,7 @@
 - Una nota local del 25-09-2026 registra Continue configurado con LM Studio en `localhost:1234` y `qwen2.5-coder-14b-instruct`, con contexto de 8192. En esa fecha el servidor local no respondía; comprobar su estado antes de usar Continue.
 - Twinny está instalado en VS Code y usa LM Studio/Qwen2.5-Coder 7B Instruct MLX para FIM y autocompletado. Su plantilla `system.hbs` es global; las instrucciones del repositorio deben adjuntarse mediante el prompt del chat.
 
-## Estado de Git al cerrar este bloque
+## Estado de Git al iniciar este bloque
 
-- Rama de trabajo: `feature/038_refactor_botellas_archivos`, creada desde `main` (`87faece`).
-- Cambio actual: extracción de CSS y JavaScript de Botellas y líquidos, documentada en la propuesta 038.
-- Próximo paso de producto, una vez integrado este bloque: implementar la propuesta 032 en `feature/032_contador_movimientos`.
+- Rama observada: `main` (`92dcd7d`), alineada con `origin/main`.
+- Siguiente tarea de producto, tras integrar la reorganización documental: implementar la propuesta 032 en `feature/032_contador_movimientos`.

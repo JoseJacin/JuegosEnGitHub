@@ -12,21 +12,16 @@ Este directorio reúne las propuestas de cambio. Los documentos existentes en la
 
 ## Propuestas
 
-Cada funcionalidad nueva o cambio relevante debe comenzar como propuesta basada en [`plantillas/propuesta.md`](plantillas/propuesta.md). Una vez aprobada, su alcance y criterios guían la implementación. Si una propuesta pasa a ser una especificación mantenida, enlázala desde aquí y señala claramente cuál es la fuente de verdad.
+Cada funcionalidad nueva o cambio relevante debe comenzar como propuesta basada en [`plantillas/propuesta.md`](plantillas/propuesta.md). Las propuestas específicas de un juego se guardan en `juegos/<id>/propuestas/`; las que afectan al sitio o a varios juegos permanecen en `docs/propuestas/`. Una vez aprobada, la propuesta guía su implementación. Si pasa a ser una especificación mantenida, enlázala desde aquí y señala cuál es la fuente de verdad.
 
-Las propuestas completadas o descartadas anteriores a la 030 se han archivado en el historial de Git (rama `main`, commits anteriores a `feature/031_ajustes_visuales_y_limpieza_propuestas`).
+### Propuestas transversales
 
-### Propuestas implementadas recientes
+- [`propuestas/039_propuestas_por_juego.md`](propuestas/039_propuestas_por_juego.md): organizar las propuestas por juego o como cambios transversales.
 
-- [`propuestas/038_refactor_botellas_archivos.md`](propuestas/038_refactor_botellas_archivos.md): separar estructura, estilos y lógica de Botellas y líquidos.
-- [`propuestas/030_respetar_safe_area_ios.md`](propuestas/030_respetar_safe_area_ios.md): respetar zonas seguras (Safe Area) en iOS y Dynamic Island.
-- [`propuestas/031_ajustes_visuales_y_limpieza_propuestas.md`](propuestas/031_ajustes_visuales_y_limpieza_propuestas.md): aviso compacto de botella cerrada, selección sin borde verde y limpieza de propuestas.
+### Botellas y líquidos
 
-### Propuestas aprobadas pendientes de implementación
+El índice y las propuestas de este juego están en [`../juegos/botellas-y-liquidos/propuestas/`](../juegos/botellas-y-liquidos/propuestas/README.md).
 
-- [`propuestas/032_contador_movimientos.md`](propuestas/032_contador_movimientos.md): contador de movimientos en el tablero.
-- [`propuestas/033_record_local.md`](propuestas/033_record_local.md): récord local de mínimo de movimientos en `localStorage`.
-- [`propuestas/034_pista_hint.md`](propuestas/034_pista_hint.md): botón de pista que resalta un trasvase posible.
-- [`propuestas/035_compartir_resultado.md`](propuestas/035_compartir_resultado.md): copiar resultado al portapapeles con emojis al ganar.
-- [`propuestas/036_animacion_vertido.md`](propuestas/036_animacion_vertido.md): animación de vertido con transición CSS.
-- [`propuestas/037_modo_daltonico.md`](propuestas/037_modo_daltonico.md): modo daltónico con patrones CSS superpuestos en los líquidos.
+Implementadas recientemente: [038 — separar HTML, estilos y lógica](../juegos/botellas-y-liquidos/propuestas/038_refactor_botellas_archivos.md), [030 — zonas seguras en iOS](../juegos/botellas-y-liquidos/propuestas/030_respetar_safe_area_ios.md) y [031 — ajustes visuales y limpieza](../juegos/botellas-y-liquidos/propuestas/031_ajustes_visuales_y_limpieza_propuestas.md).
+
+Aprobadas pendientes: [032 — contador de movimientos](../juegos/botellas-y-liquidos/propuestas/032_contador_movimientos.md), [033 — récord local](../juegos/botellas-y-liquidos/propuestas/033_record_local.md), [034 — pista](../juegos/botellas-y-liquidos/propuestas/034_pista_hint.md), [035 — compartir resultado](../juegos/botellas-y-liquidos/propuestas/035_compartir_resultado.md), [036 — animación de vertido](../juegos/botellas-y-liquidos/propuestas/036_animacion_vertido.md) y [037 — modo daltónico](../juegos/botellas-y-liquidos/propuestas/037_modo_daltonico.md).
