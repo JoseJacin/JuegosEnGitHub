@@ -2,6 +2,10 @@
 
 El sitio es estático y actualmente no requiere instalar dependencias.
 
+## Permisos Git en entornos restringidos
+
+El sandbox puede permitir editar archivos del proyecto y, a la vez, montar `.git` como solo lectura. Las operaciones de consulta (`status`, `diff`, `log`, `branch`) no necesitan escribir metadatos; `fetch`, `pull`, cambios de rama y operaciones de publicación sí. Ejecuta estas últimas mediante el mecanismo de escalación/autorización del entorno desde el primer intento. Si aparece `Unable to create .../.git/index.lock: Operation not permitted`, la causa es el límite del sandbox: no es un lock abandonado ni se arregla cambiando permisos del repositorio. No repitas la orden normal ni borres locks manualmente; solicita/usa la autorización disponible y repite la operación.
+
 ## Inspección
 
 ```sh
@@ -32,6 +36,8 @@ git diff
 Prueba las rutas desde la raíz del sitio y bajo el prefijo `/JuegosEnGitHub/`, que es el subdirectorio usado por GitHub Pages para este repositorio. No uses rutas absolutas desde `/` para recursos internos.
 
 ## Flujo de rama
+
+Ejecuta las órdenes mutantes de este flujo con escalación/autorización cuando el entorno restrinja `.git` (véase la sección anterior).
 
 ```sh
 git switch main

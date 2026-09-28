@@ -35,7 +35,9 @@
 
 ## Git
 
-- Para cada cambio aprobado, parte de `main` actualizado y crea `feature/<id>_<descripcion>`.
+- Antes de cambiar archivos, comprueba `git status`; parte de `main` actualizado y crea `feature/<id>_<descripcion>`.
+- En entornos con sandbox, `.git` puede estar protegido aunque el árbol de trabajo sea escribible. Ejecuta desde el principio con escalación/autorización del entorno toda operación que escriba metadatos Git (`fetch`, `pull`, `switch`/`checkout` que cambien rama, `add`, `commit`, `merge`, `push`). Las consultas (`status`, `diff`, `log`, `branch`) pueden ejecutarse sin escalación.
+- Si una operación mutante falla por permiso al escribir `.git`, no repitas la misma orden sin escalación: conserva los cambios de archivos, informa de la causa y vuelve a ejecutarla por el mecanismo de autorización del entorno. No intentes corregir permisos de `.git` a mano.
 - Haz commits pequeños y atómicos con mensajes que describan el cambio.
 - Revisa `git status` y el diff antes de confirmar.
 - Al completar la tarea, fusiona la rama de funcionalidad en `main` y publica las ramas necesarias en `origin`.
