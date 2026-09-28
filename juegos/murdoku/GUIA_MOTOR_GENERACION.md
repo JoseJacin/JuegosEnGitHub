@@ -361,7 +361,12 @@ ClueAtom
 RenderedClue
   templateKey
   args: IDs/enteros/localized labels
-  emphasisTokens[]
+  emphasisTokens[]: {
+    tokenId,
+    templateSlot,                 // semantic slot, not substring offsets
+    target: PERSON | OBJECT_TYPE | OBJECT_INSTANCE | ROOM | ROW | COLUMN
+    targetIdOrCoordinate
+  }
 ```
 
 El `kind` debe existir tanto en la unión de tipos como en `ConstraintSolver`, `HumanStepSolver`, validador de pistas, plantilla española y tooltips. Añadir una familia de pista es una tarea coordinada y pequeña; no se añade completando solo una de esas capas.
@@ -405,7 +410,11 @@ No se exige encontrar el conjunto mínimo absoluto de pistas. Ese problema aumen
 
 - Los IDs se resuelven a etiquetas visibles después de seleccionar la plantilla.
 - Las reglas cardinales (norte/una fila al norte/dos filas al norte) deben tener frases distintas y prueba de dirección.
-- Resaltar personas, objetos, salas, filas y columnas desde `emphasisTokens`, no parseando palabras de la frase.
+- Las expresiones destacadas en negrita son controles interactivos accesibles (botón o control equivalente) con `tokenId` y destino tipado en `emphasisTokens`; el `templateSlot` identifica el argumento semántico de la plantilla. No usar índices de caracteres ni buscar palabras en la frase renderizada: la negrita cambia de posición al localizar y la palabra puede ser ambigua.
+- Un `OBJECT_TYPE` resuelve todas las celdas cubiertas por todas las instancias visibles de ese tipo (p. ej. todas las sillas); un `OBJECT_INSTANCE` resuelve solo la huella de esa instancia; `ROOM`, `ROW` y `COLUMN` resuelven sus celdas respectivas.
+- Un `PERSON` resuelve únicamente la colocación actual en `PlayerState`. Si no está colocada, no hay celdas que resaltar. Nunca resolver personas desde `Solution`, `Witness` ni dominios candidatos.
+- Al entrar el puntero o el foco de teclado en un token, mostrar un resaltado temporal y retirarlo al salir; al clic/toque/Enter/Espacio, fijarlo hasta activar el mismo token otra vez, activar otro token o pulsar Escape. Si el foco/hover temporal termina mientras hay un token fijado, restaurar el fijado.
+- Este resaltado es una vista de referencia, no una acción del puzzle: no cambia colocaciones, X, notas, historial ni validación. Debe distinguirse sin depender solo del color y no revelar la solución.
 - Validar que cada plantilla se puede renderizar en español y no contiene `undefined`, ID crudo o término de otro idioma.
 - Si una plantilla no cabe en tarjeta pequeña, permitir expansión/tooltip; no omitir condiciones.
 

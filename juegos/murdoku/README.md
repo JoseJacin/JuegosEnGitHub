@@ -310,7 +310,9 @@ El juego presenta al jugador nivel objetivo, no una falsa precisión de dificult
 
 **Celda:** fila/columna, nombre de sala, terreno/superficie, elemento que ocupa la celda, ocupable sí/no, personaje colocado y notas. El tooltip nunca revela solución ni deduce el culpable antes del envío.
 
-Los tooltips aparecen con hover de ratón y foco de teclado; deben retrasar/posicionar la aparición para no tapar controles o pistas. En táctil se accede con toque secundario/pulsación o panel de información. Las palabras clave resaltadas en una pista enlazan semánticamente con personas, objetos, salas, filas y columnas; el color no puede ser el único indicador.
+Los tooltips aparecen con hover de ratón y foco de teclado; deben retrasar/posicionar la aparición para no tapar controles o pistas. En táctil se accede con toque secundario/pulsación o panel de información.
+
+Las palabras o expresiones destacadas en negrita dentro de una pista son interactivas. Al pasar el ratón sobre ellas o darles foco de teclado, el tablero resalta las casillas correspondientes a su significado; al seleccionarlas con clic, toque o teclado, el resaltado queda fijado hasta deseleccionar el término, seleccionar otro o pulsar Escape. Por ejemplo, al activar «silla» en «Era la única persona sentada en una silla», se resaltan todas las celdas que contienen sillas. El vínculo se define por datos semánticos de la pista, nunca buscando palabras en la frase traducida. Objetos por tipo resaltan todas sus instancias; una instancia concreta, su huella; una sala, sus celdas; una fila o columna, sus celdas; una persona, solo su colocación actual del jugador, si existe. Una persona sin colocar no resalta su solución. El resaltado no altera colocaciones, X ni notas, no revela dominios candidatos ni la solución; debe distinguirse también sin depender solo del color.
 
 ## 9. Preferencias catalogadas y alcance propuesto
 
