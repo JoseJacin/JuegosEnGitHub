@@ -28,5 +28,5 @@
 - La rama `feature/045_guia_motor_generacion_murdoku` se integró en `main` mediante merge `a1c078d` (guía técnica detallada del generador).
 - La rama `feature/046_archivar_propuestas_finalizadas` se integró en `main` mediante merge `4e9b8aa`; seis propuestas completadas se retiraron del árbol y se conservaron en el historial de Git.
 - Rama actual: `main`; reglas y guía técnica de Murdoku siguen en revisión, sin código.
-- Rama actual al cerrar la corrección del flujo Git: pendiente de confirmar tras integrar `feature/051_documentar_permisos_git`; el trabajo consiste solo en aclaraciones a `AGENTS.md`, `COMANDOS.md` y este contexto.
+- Las instrucciones para trabajar con `.git` protegido por sandbox se integraron en `main` mediante merge `b3cf8e6`; la rama `feature/051_documentar_permisos_git` está publicada.
 - Próximo paso: revisar/aprobar reglas y guía técnica antes de iniciar implementación.
