@@ -178,9 +178,34 @@ Si el usuario altera los números sugeridos, se conserva su configuración y el 
 - «Compartir» codifica o enlaza `generatorVersion`, `rulesVersion`, semilla y configuración. Esa tupla restaura el mismo mapa, reglas activas y subconjunto de pistas. Si la URL resulta demasiado larga, usar un identificador compacto solo si es reversible localmente; no depender de un servidor.
 - La semilla controla también el orden y la selección de familias, pistas, argumentos y reglas de escenario; el mismo `generatorVersion`, configuración, catálogo/reglas versionados y semilla reconstruyen el mismo subconjunto y tablero.
 - Una pista entra en el sorteo solo si su familia está implementada y el escenario contiene todos los tipos de entidad que requiere. La selección aleatoria nunca permite saltarse el mínimo de pistas ni la validación de verdad, dificultad y solución única.
-- La cantidad mínima por partida deberá estar definida como número de pistas visibles y/o átomos independientes, además de la cobertura mínima por sospechoso; la cifra y unidad siguen pendientes en §13.
+- El mínimo inicial propuesto está en §4.4: `ceil(1,5 × P)` átomos lógicos visibles, sujeto a calibración. No se confunde el recuento de átomos con el de tarjetas/frases.
 - La aleatoriedad debe provenir de un PRNG con semilla, nunca de `Math.random()` sin inicialización reproducible dentro del generador.
 - Registrar `generatorVersion`; si cambia, la misma semilla puede tener un resultado nuevo solo si la versión también cambia.
+
+### 4.4 Suelo inicial propuesto para la cantidad de pistas
+
+Además de cubrir a todos los sospechosos con al menos un átomo cada uno, se propone que la selección final contenga como mínimo:
+
+```text
+minimumClueAtoms(P) = ceil(3 * P / 2)
+```
+
+`P` incluye a la víctima. El conteo incluye los átomos lógicos visibles en pistas de persona, globales y de escenario, también la pista tipada de la víctima. No incluye reglas estructurales permanentes del juego (por ejemplo, restricciones de ocupación del tablero) salvo que se presenten explícitamente como una pista.
+
+| Personas `P` | Átomos visibles mínimos propuestos |
+|---:|---:|
+| 4 | 6 |
+| 6 | 9 |
+| 8 | 12 |
+| 10 | 15 |
+| 12 | 18 |
+| 16 | 24 |
+
+El contador usa hojas del AST, no tarjetas ni operadores de agrupación: `AND(A,B)` y `OR_INCLUSIVE(A,B)` cuentan dos átomos; `NOT(A)` cuenta uno; una afirmación tipada `COUNT_EXACTLY(...)` cuenta uno. Así, una misma condición no cambia de peso por el diseño visual de la tarjeta. Cada sospechoso debe conservar al menos un átomo dirigido a él, aunque el suelo total se alcance principalmente mediante pistas globales.
+
+Este es un **suelo de cantidad**, no una fórmula de dificultad: el clasificador pedagógico decide el nivel por las deducciones necesarias. La unicidad o el nivel objetivo pueden exigir más pistas que el suelo. El generador solo acepta el caso cuando cumple simultáneamente cobertura, suelo, verdad, nivel solicitado y solución única. Si no lo consigue dentro del presupuesto, informa de que no encontró un caso; no reduce el suelo ni cambia `N`, `P` o el nivel silenciosamente.
+
+La cifra es una propuesta inicial para la primera calibración, no un dato extraído de Murdoku. Puede ajustarse tras revisar un corpus de semillas y resolver casos manualmente. Si cambia la regla de conteo o la salida determinista, incrementar la versión pertinente del generador/reglas.
 
 ## 5. Modelo de datos lógico
 
@@ -499,7 +524,7 @@ Estas preguntas deben cerrarse revisando este documento; ningún LLM de implemen
 8. Cerrar el catálogo original inicial (tema, salas, tipos de objeto, nombres, personajes y retratos) y licencias/forma de creación de arte.
 9. Determinar presupuesto de generación, reintentos y clasificación cuando la dificultad solicitada no se encuentre.
 10. Decidir el orden de activación por fases del repertorio completo: operadores del MVP y versiones posteriores. No quitar una familia observada del alcance objetivo sin una decisión explícita.
-11. Definir el mínimo de pistas por partida y su unidad de cuenta (tarjetas/frases, pistas lógicas o átomos), y confirmar si se exige variedad mínima de familias además de al menos una pista por sospechoso.
+11. Revisar y aprobar o ajustar el suelo de `ceil(3 × P / 2)` átomos lógicos propuesto en §4.4; confirmar si se exige además una cantidad mínima de familias distintas.
 
 ## 14. Instrucciones para agentes de implementación
 

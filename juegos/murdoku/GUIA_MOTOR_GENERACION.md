@@ -413,7 +413,7 @@ Procedimiento recomendado:
 
 1. Filtrar el catálogo completo por familias ya implementadas y por compatibilidad del escenario, mapa, objetos y atributos de personajes.
 2. Derivar candidatos verdaderos en el testigo y agruparlos por ámbito (`PERSON`, `GLOBAL`, `SCENARIO`) y familia.
-3. Elegir con el PRNG un subconjunto aleatorio reproducible que cubra a todos los sospechosos y cumpla el mínimo acordado de pistas. Aplicar cualquier cuota de diversidad de familias solo si fue aprobada.
+3. Elegir con el PRNG un subconjunto aleatorio reproducible que cubra a todos los sospechosos y alcance el suelo inicial propuesto en `README.md` §4.4: `ceil(3 * P / 2)` átomos visibles. Aplicar una cuota de familias distintas solo si se aprueba.
 4. Ejecutar `countUpToTwo` con el subconjunto.
 5. Si devuelve 0, un predicado contradice al testigo: registrar defecto y rechazar el caso.
 6. Si devuelve 2, añadir candidatos verdaderos elegidos aleatoriamente del conjunto todavía disponible y volver a contar; no reemplazar el sorteo por una selección fija dependiente del orden de la lista.
@@ -421,7 +421,7 @@ Procedimiento recomendado:
 8. Una vez única, se permite reducir una pista solo si se conserva el mínimo total, la cobertura requerida por personaje y cualquier variedad mínima aprobada.
 9. Ejecutar validación de verdad, cobertura, mínimo, dificultad y unicidad sobre la selección final.
 
-La cantidad mínima exacta y la unidad que se cuenta (tarjeta visible, definición lógica o átomo del AST) siguen pendientes en `README.md` §13. Hasta acordarlas, mantener la cobertura propuesta de al menos un átomo por sospechoso, sin inventar un mínimo global numérico. No se exige encontrar el conjunto mínimo matemático: basta un subconjunto aleatorio válido, único y por encima del mínimo acordado.
+La fórmula de §4.4 es una propuesta inicial pendiente de aprobación y calibración, no un baremo del referente. Cuenta hojas lógicas del AST según esa sección, no tarjetas. Mientras se revisa, usarla como objetivo de diseño y mantener al menos un átomo dirigido a cada sospechoso; cualquier implementación queda bloqueada hasta aprobar la regla. No se exige encontrar el conjunto mínimo matemático: basta un subconjunto aleatorio válido, único y por encima del suelo aprobado.
 
 ### 9.4 Plantillas legibles
 

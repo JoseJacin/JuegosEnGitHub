@@ -46,7 +46,7 @@ Generar y jugar casos originales de deducción en cuadrículas configurables. Ca
 - [ ] **0.13** Revisar la arquitectura y algoritmos propuestos en [`GUIA_MOTOR_GENERACION.md`](GUIA_MOTOR_GENERACION.md).
 - [ ] **0.14** Resolver sus decisiones técnicas pendientes (PRNG, intentos, presupuestos, ranking y partición) y marcar la guía como aprobada.
 - [ ] **0.15** Revisar la matriz de familias observadas en `README.md` §3.3; conservarlas todas en el repertorio objetivo, decidir el orden de activación (MVP/fases posteriores) y definir la semántica de `O`, negación, conteos y reglas de escenario antes de sortearlas.
-- [ ] **0.16** Definir el mínimo de pistas de cada partida y si se cuenta por tarjeta visible, definición lógica o átomo; confirmar si además de cubrir cada sospechoso se exige una variedad mínima de familias.
+- [ ] **0.16** Revisar y aprobar o ajustar el suelo inicial `ceil(3 × P / 2)` átomos visibles propuesto en `README.md` §4.4; confirmar si se exige además una cantidad mínima de familias distintas y calibrar el umbral con casos resueltos.
 
 **Hecho cuando:** las reglas y decisiones que condicionan el modelo están aprobadas en `README.md`, el repertorio objetivo contiene todas las familias observadas con activación por fases, el mínimo de pistas está definido y los contratos/algoritmos técnicos que bloquean la primera generación están aprobados en `GUIA_MOTOR_GENERACION.md`.
 
@@ -369,7 +369,7 @@ Generar y jugar casos originales de deducción en cuadrículas configurables. Ca
 - [ ] **12.19** Comparar la familia con el inventario observado sin copiar frase, personajes, escenario ni arte.
 - [ ] **12.20** Actualizar `README.md`, esta guía y `CONTEXTO.md` con el estado validado de la familia.
 - [ ] **12.21** Filtrar el catálogo completo por compatibilidad de escenario y sortear un subconjunto de candidatos con el flujo PRNG de pistas.
-- [ ] **12.22** Asegurar que la selección aleatoria cubra los sospechosos y el mínimo total aprobado antes de comprobar unicidad.
+- [ ] **12.22** Asegurar que la selección aleatoria cubra los sospechosos y alcance el suelo de átomos aprobado (propuesta inicial en `README.md` §4.4) antes de comprobar unicidad.
 - [ ] **12.23** Mantener la selección aleatoria al añadir/reducir pistas; toda decisión debe ser reproducible y respetar mínimo, cobertura y dificultad.
 - [ ] **12.24** Comprobar que familias de escenario (por ejemplo, hoyos o recintos con roles) solo se sortean si el modelo del tablero define sus entidades y reglas.
 - [ ] **12.25** Implementar pertenencia exacta, exclusión y alternativas de región (`ROOM_IS`, `ROOM_NOT`, `ROOM_IN_SET`).

@@ -8,7 +8,7 @@
 - Guía técnica del generador [`GUIA_MOTOR_GENERACION.md`](GUIA_MOTOR_GENERACION.md) en revisión; detalla contratos, algoritmo, semillas, mapa, objetos, testigo, pistas, unicidad, dificultad, fallos y criterios para implementación por LLM local.
 - Se incorporó el análisis de las capturas de referencia en `README.md` §§3.3 y 7.4, `GUIA_MOTOR_GENERACION.md` §§9.5 y 11.3 y `PLAN.md` tareas 0.15, 1.15–1.16, 5.25, 7.18–7.24 y bloque 12. Incluye ámbitos PERSON/GLOBAL/SCENARIO, taxonomía de operadores, perfiles cualitativos de dificultad y límites de la evidencia.
 - El usuario confirma que todas las familias observadas deben formar parte del repertorio objetivo; cada partida usa un subconjunto elegido de forma aleatoria, no todas las familias a la vez. El sorteo es determinista con la semilla y versiones, condicionado a la compatibilidad del escenario, y debe respetar unicidad, dificultad y mínimo.
-- Sigue pendiente la cifra/unidad del mínimo global de pistas. La propuesta existente de una pista lógica por sospechoso se conserva, pero no se toma como equivalente al mínimo total que pidió el usuario.
+- Propuesta inicial de mínimo total: `ceil(3 × P / 2)` átomos lógicos visibles, incluyendo la pista de víctima y contando hojas del AST; además, al menos un átomo dirigido a cada sospechoso. El usuario pidió que el mínimo sea escalable y delegó proponerlo; falta que revise/apruebe o ajuste la fórmula y su calibración. No es una cifra extraída del referente.
 - La muestra aportada abarca tableros 5×5–16×16 y enseña pistas de posición, región, vecindad, relaciones, negación, composición, conteo y reglas de escenario. Las capturas no muestran etiquetas de nivel vinculables a cada caso ni baremos numéricos; no permiten deducir umbrales oficiales. La dificultad propia queda sujeta a solver pedagógico y calibración.
 - No se han iniciado pruebas o perfilado de código.
 
@@ -26,7 +26,7 @@
 
 ## Siguiente paso
 
-Revisar `README.md` §§3.3, 4.3 y 13, `PLAN.md` tareas 0.15–0.16 y bloque 12, y `GUIA_MOTOR_GENERACION.md` §§5, 9.2–9.3 y 18. Definir el mínimo total de pistas y su unidad; resolver las decisiones funcionales (semántica de alternativa/conteo) y técnicas restantes. No implementar el motor hasta aprobar reglas y arquitectura y reflejar la aprobación en este contexto y el plan.
+Revisar `README.md` §§3.3, 4.3–4.4 y 13, `PLAN.md` tareas 0.15–0.16 y bloque 12, y `GUIA_MOTOR_GENERACION.md` §§5, 9.2–9.3 y 18. Aprobar o ajustar el suelo propuesto y su unidad; resolver las decisiones funcionales (semántica de alternativa/conteo) y técnicas restantes. No implementar el motor hasta aprobar reglas y arquitectura y reflejar la aprobación en este contexto y el plan.
 
 ## Git
 
