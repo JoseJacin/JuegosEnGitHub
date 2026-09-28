@@ -27,5 +27,6 @@ Revisar `README.md` §13 y `GUIA_MOTOR_GENERACION.md` §18; resolver decisiones 
 - Propuesta 043 integrada previamente mediante merge `18db52d`.
 - La rama 044 está publicada y cerrada por integración. Este bloque añade solo documentación; no incluye código de juego.
 - La rama `feature/045_guia_motor_generacion_murdoku` se integró en `main` mediante merge `a1c078d`.
-- Rama actual: `feature/047_resaltado_semiotico_pistas`, creada desde `main` para documentar el resaltado interactivo semántico de términos de pista.
+- La rama `feature/047_resaltado_semiotico_pistas` se integró en `main` mediante merge `8cb0ba4`.
+- Rama actual: `main`.
 - La guía técnica todavía no está aprobada y no se ha implementado el motor.
