@@ -8,6 +8,7 @@ Este documento registra solo la continuidad de este juego. La continuidad genera
 - El juego está implementado y publicado. Sus reglas vigentes están en [`README.md`](README.md).
 - T1–T13 y T20–T22 están completadas. Las propuestas 030, 031, 038 y 041 se implementaron; sus archivos se retiraron del árbol de trabajo y permanecen en el historial de Git. La propuesta transversal 039 también está completada y archivada. Las propuestas 032–037 siguen aprobadas y pendientes en `propuestas/`. T14 (contador de movimientos, propuesta 032) es la siguiente del backlog de este juego, pero queda pospuesta mientras la prioridad general es preparar Murdoku. Consulta [`../../PLAN.md`](../../PLAN.md) para la secuencia del sitio.
 - T15 (récord local) y T17 (compartir resultado) dependen de T14. T16, T18 y T19 son independientes; revisar el plan para el orden acordado.
+- En la rama `feature/052_detalle_propuestas_botellas` se amplió la guía de implementación de las propuestas pendientes 032–037 para que un modelo local pueda seguir puntos de integración, estado, casos límite y comprobaciones. La propuesta 037 se ajustó a seis patrones porque las reglas y el código vigentes admiten como máximo seis colores; no se amplió el alcance del juego. Esta revisión documental no implementa las propuestas ni cambia su estado aprobado/pendiente.
 
 ## Reorganización de propuestas (completada)
 
@@ -32,4 +33,5 @@ Este documento registra solo la continuidad de este juego. La continuidad genera
 
 - Siguiente iniciativa general: preparar la propuesta de Murdoku.
 - Siguiente tarea de este juego cuando se retome su backlog: propuesta 032 en `feature/032_contador_movimientos`.
+- Tras integrar esta revisión documental, continuar con la propuesta 032; 033 y 035 mantienen la dependencia de T14, mientras que 034, 036 y 037 son independientes según el plan.
 - La rama `feature/042_planes_contexto_por_juego` se integró en `main` (commit `a93aae0`, merge `d18fbad`) y ambas ramas están publicadas en `origin`.
