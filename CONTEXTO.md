@@ -19,6 +19,7 @@
 
 - `.continue/rules/01_documentacion_proyecto.md` contiene instrucciones de Continue; `.agents/skills/juegosengithub/SKILL.md` adapta el flujo para asistentes compatibles con skills.
 - Notas previas registraron Continue con LM Studio y Twinny con modelos locales. Esos datos describen la configuración del entorno en septiembre de 2026; comprobar disponibilidad antes de depender de ellos.
+- En el entorno Codex actual el árbol de trabajo es escribible, pero `.git` puede estar protegido por el sandbox. Por ello, las operaciones que mutan metadatos Git deben ejecutarse mediante escalación/autorización; el flujo y el mensaje de error conocido están documentados en `AGENTS.md` y `COMANDOS.md`. No modificar permisos del repositorio para sortear el sandbox.
 
 ## Estado de Git al cerrar este bloque
 
@@ -27,4 +28,5 @@
 - La rama `feature/045_guia_motor_generacion_murdoku` se integró en `main` mediante merge `a1c078d` (guía técnica detallada del generador).
 - La rama `feature/046_archivar_propuestas_finalizadas` se integró en `main` mediante merge `4e9b8aa`; seis propuestas completadas se retiraron del árbol y se conservaron en el historial de Git.
 - Rama actual: `main`; reglas y guía técnica de Murdoku siguen en revisión, sin código.
+- Rama actual al cerrar la corrección del flujo Git: pendiente de confirmar tras integrar `feature/051_documentar_permisos_git`; el trabajo consiste solo en aclaraciones a `AGENTS.md`, `COMANDOS.md` y este contexto.
 - Próximo paso: revisar/aprobar reglas y guía técnica antes de iniciar implementación.
