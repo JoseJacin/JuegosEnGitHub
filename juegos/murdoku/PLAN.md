@@ -280,8 +280,14 @@ Generar y jugar casos originales de deducción en cuadrículas configurables. Ca
 - [ ] **9.29** Mostrar y retirar el resaltado temporal con hover de ratón y foco de teclado.
 - [ ] **9.30** Fijar/retirar el resaltado mediante clic, toque, Enter/Espacio y Escape.
 - [ ] **9.31** Comprobar visualmente las transiciones y verificar que no cambian estado de juego ni revelan la solución.
+- [ ] **9.32** Dibujar el contorno azul de `roomId` al pasar el puntero por una celda.
+- [ ] **9.33** Construir el contorno siguiendo los bordes exteriores de estancias irregulares.
+- [ ] **9.34** Resaltar en blanco la celda activa ocupable y en rojo la no ocupable.
+- [ ] **9.35** Reutilizar el feedback al enfocar con teclado o activar una celda táctil.
+- [ ] **9.36** Mantener la clasificación de ocupabilidad aunque ya haya una persona colocada.
+- [ ] **9.37** Componer contorno, ocupabilidad y pista resaltada; comprobar que no se tapan y que el estado no depende solo del color.
 
-**Hecho cuando:** tooltips y términos destacados de pistas están disponibles por ratón, teclado y táctil; cada resaltado corresponde al dato semántico visible y no modifica ni revela estado interno; preferencias fallidas no impiden jugar.
+**Hecho cuando:** tooltips, términos destacados y feedback de celda/estancia están disponibles por ratón, teclado y táctil; cada resaltado corresponde al dato semántico visible y no modifica ni revela estado interno; preferencias fallidas no impiden jugar.
 
 ### 10. Crear arte original y adaptar el tablero
 

@@ -303,6 +303,14 @@ isCellOccupiable(cell, objectInstances, terrainCatalog, rulesVersion)
 
 No mantener una copia distinta en el HTML, en el generador de pistas y en la capa de dibujo. El validador debe comprobar que `Cell.occupiable` coincide con el resultado de la función. Un objeto visual que cubre varias celdas debe declarar si ocupa toda la huella o permite pararse en alguna celda concreta; esa regla de catálogo debe estar documentada por tipo.
 
+### 7.4 Feedback al recorrer el tablero
+
+- El hover de una celda obtiene su `roomId` y destaca en azul el contorno completo de esa estancia. En regiones de forma irregular, dibujar solo los segmentos exteriores de las celdas de la estancia: no añadir líneas azules sobre bordes internos compartidos por celdas de la misma estancia.
+- La celda activa usa blanco cuando `isCellOccupiable(...)` es `true` y rojo cuando es `false`. Consultar el atributo estático del tablero; no tratar una persona ya colocada como terreno no ocupable.
+- Aplicar el mismo feedback al foco de teclado y a la celda activa del flujo táctil. Al salir del hover/foco o cambiar la celda activa, restaurar el estado previo del tablero.
+- Estos estilos son una previsualización y no cambian el estado del jugador. El color debe acompañarse de contorno/patrón accesible o del dato textual equivalente.
+- Componer estas capas con el resaltado semántico de pistas sin ocultar el límite azul, el estado de ocupabilidad ni el destino de la pista.
+
 ## 8. Solución testigo y combinación de posiciones
 
 ### 8.1 Elección de posiciones

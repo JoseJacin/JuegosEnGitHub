@@ -295,6 +295,8 @@ El juego presenta al jugador nivel objetivo, no una falsa precisión de dificult
 - Panel de pistas/personajes y tablero visual en el espacio principal; herramientas separadas del mapa.
 - Una selección de carta identifica a la persona activa y su pista. La carta de víctima está claramente identificada.
 - Seleccionar personaje y luego celda coloca al personaje. Ratón y toque siguen el mismo flujo; arrastre opcional, nunca único medio.
+- Al pasar el puntero sobre una celda se dibuja en azul el contorno de toda su estancia (`roomId`). La celda bajo el puntero se resalta en blanco si el terreno/objeto permite colocar personas y en rojo si no lo permite. Este estado es una ayuda de lectura, no un error ni una colocación.
+- El mismo feedback aparece al enfocar una celda con teclado y al seleccionarla en el flujo táctil. La ocupabilidad es una propiedad estática del tablero; que una persona ya esté colocada en la celda no cambia su clasificación.
 - Seleccionar un personaje ya colocado y seleccionar otra celda lo mueve; `Deshacer` restaura el estado anterior.
 - Tocar/clicar la persona colocada o elegir borrador y celda quita la colocación según modo; no perder la nota X salvo que el jugador la reemplace de manera clara.
 - X seleccionada + celda vacía alterna la marca X; X no sustituye una colocación sin aviso. `Auto-X` opcional marca como descartadas las demás celdas de la fila/columna cuando se coloca persona y retira esas X al deshacer/quitar esa colocación si fueron autogeneradas. Mantener marcas manuales separadas internamente.
@@ -313,6 +315,8 @@ El juego presenta al jugador nivel objetivo, no una falsa precisión de dificult
 Los tooltips aparecen con hover de ratón y foco de teclado; deben retrasar/posicionar la aparición para no tapar controles o pistas. En táctil se accede con toque secundario/pulsación o panel de información.
 
 Las palabras o expresiones destacadas en negrita dentro de una pista son interactivas. Al pasar el ratón sobre ellas o darles foco de teclado, el tablero resalta las casillas correspondientes a su significado; al seleccionarlas con clic, toque o teclado, el resaltado queda fijado hasta deseleccionar el término, seleccionar otro o pulsar Escape. Por ejemplo, al activar «silla» en «Era la única persona sentada en una silla», se resaltan todas las celdas que contienen sillas. El vínculo se define por datos semánticos de la pista, nunca buscando palabras en la frase traducida. Objetos por tipo resaltan todas sus instancias; una instancia concreta, su huella; una sala, sus celdas; una fila o columna, sus celdas; una persona, solo su colocación actual del jugador, si existe. Una persona sin colocar no resalta su solución. El resaltado no altera colocaciones, X ni notas, no revela dominios candidatos ni la solución; debe distinguirse también sin depender solo del color.
+
+El contorno azul de la estancia, el estado blanco/rojo de ocupabilidad y el resaltado semántico de términos de pista son capas visuales distintas; al coincidir, se deben poder distinguir sin que una oculte a las otras. El blanco y el rojo no pueden ser la única forma de comunicar ocupabilidad: conservar el texto/tooltip «ocupable» o «no ocupable» y un patrón/contorno distinguible.
 
 ## 9. Preferencias catalogadas y alcance propuesto
 
