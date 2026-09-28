@@ -97,6 +97,48 @@ Todas las pistas se almacenan como datos con una clave de plantilla y argumentos
 - Cada sospechoso recibe al menos un átomo de pista; la víctima usa una pista estándar de víctima. Puede haber una regla global sencilla. No se admite que la carta de una persona quede vacía.
 - Para una versión inicial, evitar pistas que dependan de género gramatical de un personaje, pronombres ambiguos o identificar dos elementos con el mismo nombre.
 
+### 3.3 Taxonomía observada en las capturas de referencia
+
+Las capturas enviadas por el usuario muestran una colección de tableros de 5×5 a 16×16. Se ve una capa de **pistas generales** aplicables al puzzle completo y una tarjeta por sospechoso que identifica al sujeto de una pista; la víctima lleva una tarjeta de rol especial. Por tanto, el modelo no puede tratar todas las pistas como “una frase por personaje”: debe poder representar restricciones de tablero sin persona sujeto y reglas que afectan a varias entidades. Esta sección registra **formas de razonamiento observadas**, no reglas que debamos copiar ni una lista de contenido para reproducir. Los ejemplos están resumidos; los nombres, escenarios, textos y recursos visuales del juego propio serán originales.
+
+| Familia observada | Qué expresa | Ejemplos de forma (parafraseados) | Representación propia candidata |
+|---|---|---|---|
+| Pertenencia a región | Estar en una habitación/zona nombrada o quedar fuera de ella. | «Está en el taller»; «no estaba en el jardín». | `ROOM_IS`, `ROOM_NOT`, `ROOM_IN_SET` |
+| Coordenada y borde | Fila/columna exacta, primera/última, o estar en un borde. | «En la quinta columna»; «en la última columna». | `ROW_IS`, `COLUMN_IS`, `ON_BOARD_EDGE` |
+| Desplazamiento cardinal | Relación de orden o distancia en filas/columnas. | «Una fila al norte»; «dos columnas al este»; «más al sur que X». | `ROW_OFFSET`, `COLUMN_OFFSET`, `DIRECTIONAL_ORDER` |
+| Vecindad con objeto | Una persona está junto a, sobre, sentada en, o no junto a un elemento. | Junto a planta/árbol/estante; sobre alfombra/charco; sentada en silla; no junto a mesa. | `ADJACENT_TO_OBJECT`, `ON_OBJECT`, `SITTING_AT_OBJECT`, negaciones explícitas |
+| Vecindad o relación entre personas | Comparar posiciones o compartir/no compartir zona con alguien. | Junto a una persona; al norte de ella; sola con X; alguien estaba con X. | `ADJACENT_TO_PERSON`, `DIRECTIONAL_ORDER`, `SAME_ROOM_AS`, `ALONE_WITH` |
+| Atributo único / cardinalidad | Afirmar una única persona que cumple un patrón o un número exacto. | Única persona sentada en silla; exactamente dos personas sentadas en silla. | `UNIQUE_MATCH`, `COUNT_EXACTLY` |
+| Presencia y ausencia en una zona | Cuantificar personas de cierta clase dentro de un recinto. | Ninguna zona vacía; ninguna zona con exactamente una persona; había una mujer en su zona. | `ROOM_COUNT`, `ROOM_COUNT_NOT`, `ZONE_HAS_ATTRIBUTE` |
+| Conjunción | Se deben cumplir varias condiciones a la vez. | «Estaba en el recinto y no junto al objeto»; víctima/asesino solos en un lugar. | `AND` sobre átomos tipados |
+| Alternativa | Una u otra condición es válida. | «En el coche o en la cama»; «en una fila superior o en una inferior». | `OR` tipado con semántica inclusiva/exclusiva definida |
+| Exclusión o negación | Descarta una posibilidad explícitamente. | «No estaba en X»; «no estaba junto a Y»; «no es el forajido». | `NOT` tipado; no inferirlo desde redacción libre |
+| Comparación o conteo entre entidades | Comparar valores asignados a regiones/zonas o a personajes. | Un hoyo tiene número par/impar de ocupantes; una zona contiene al menos una persona de cierta categoría. | `COUNT_PARITY`, `COUNT_MIN`, `COMPARE_COUNTS` |
+| Regla de escenario | Una regla global define categorías, permisos o atributos propios del escenario. | Cuidadores frente a visitantes; recintos con mínimo de cuidadores; forajido y objeto/animal; hoyos de golf. | `ScenarioRule` versionada, compuesta de predicados reutilizables |
+
+Las pistas pueden tener distintos ámbitos: `PERSON` (una carta dirigida a una persona), `GLOBAL` (restricción general sobre el caso) o `SCENARIO` (regla declarativa aplicable a un tema). El ámbito es independiente de la familia lógica: una cuenta puede ser global, una negación puede estar en una carta y una regla de rol puede restringir varias zonas. No duplicar una pista global en todas las tarjetas para simular su alcance.
+
+La tabla es un **inventario de expresividad**, no un compromiso de incluir todas las familias en la primera versión. La sección 3.1 delimita el vocabulario base candidato. Alternativas, cardinalidad avanzada y reglas de escenario necesitan decisiones explícitas, AST, plantillas, evaluadores y pasos pedagógicos antes de poder implementarse.
+
+#### Distinción semántica obligatoria
+
+- **Junto a** un objeto significa adyacencia de celdas; **sobre/en** un objeto significa ocupar una celda que ese objeto hace ocupable; **sentada en** es una relación con un tipo de asiento. No son sinónimos.
+- **En una zona** se refiere a pertenencia a una región etiquetada. **En el tablero** es una ubicación celular. Una zona podría contener subzonas o permitir solo determinados roles si una regla de escenario aprobada lo declara.
+- **Sola** debe indicar el universo de exclusión: sola en la habitación, sola con una persona concreta, o sola sin compañía bajo una regla global. El texto no puede quedar ambiguo.
+- **Exactamente `k`**, **al menos `k`**, **ninguno**, **único** y **par/impar** son operadores diferentes. No traducirlos todos a una cuenta aproximada.
+- **O** debe quedar definido como inclusivo (`A ∨ B`, ambas pueden ser ciertas) o exclusivo (`A XOR B`); la frase de interfaz debe concordar con esa elección.
+- **Norte/sur/este/oeste**, **una fila/columna al norte/este**, y **más al norte/este** tienen predicados distintos, definidos en §2.2.
+
+#### Procedencia y límites de la muestra
+
+Las capturas permiten constatar tamaños desde 5×5 hasta 16×16, tarjetas individuales, algunas pistas generales, recintos irregulares, objetos y reglas especiales en ciertos escenarios. No incluyen una etiqueta visible de nivel en cada captura ni una medición del proceso de resolución. Por tanto:
+
+1. No es posible atribuir de forma fiable cada familia a «Muy fácil», «Fácil», «Medio», «Difícil» o «Experto» con esta muestra.
+2. La cantidad de tarjetas/personajes y el tamaño del tablero son señales de carga, pero no prueban dificultad lógica.
+3. Que aparezcan operadores complejos en una captura no demuestra que sean requisito para la categoría Experto; pueden ser escenarios especiales seleccionados manualmente.
+4. Las capturas no permiten derivar umbrales numéricos oficiales, pesos ni un baremo universal.
+5. El clasificador propio debe basarse en qué técnicas justificadas necesita una solución y calibrarse con corpus y jugadores; los cinco rótulos serán categorías propias, no equivalencias afirmadas con el referente.
+
 ## 4. Configuración de partida
 
 El usuario configura cuadrícula y número de personas por separado. El nivel de dificultad se puede elegir como objetivo o dejar en «cualquiera».
@@ -178,7 +220,8 @@ Person
   clueIds: string[]
 
 Clue
-  id, subjectPersonId
+  id, scope, subjectPersonId?, scenarioRuleId?
+  expression: typed AST
   templateKey
   args: typed values                  // IDs and integers, never pre-rendered free text
   atomIds: string[]
@@ -192,6 +235,8 @@ DifficultyRating
   metrics: { gridSize, people, clueAtoms, ruleFamilies, maxReasoningDepth,
              forcedSteps, candidateEliminations, branchingRequired, solverNodes }
 ```
+
+`scope = PERSON` exige `subjectPersonId`; `GLOBAL` prohíbe ese sujeto y restringe el puzzle; `SCENARIO` exige una regla versionada referenciada por `scenarioRuleId`. La expresión tipada conserva la semántica y la plantilla solo presenta esa expresión. Una misma regla global se serializa una vez.
 
 **Nota de seguridad:** al ser una web estática, la solución calculada en el navegador no es secreto frente a alguien que inspeccione el código o memoria. Esto no afecta la experiencia normal y no se construirá seguridad de servidor para una colección personal. La interfaz nunca debe mostrar la solución antes de que el jugador la pida o complete el caso.
 
@@ -279,6 +324,42 @@ Cada paso guarda explicación con referencia a pista/regla, dominio previo, domi
 Los rangos entre paréntesis son presets orientativos, no umbrales. La definición cuantitativa se calibrará en una tarea del plan sobre un corpus de semillas, revisión manual y sesiones de juego. Registrar profundidad máxima, número de pasos, técnicas requeridas, dominio máximo/medio, número de candidatos eliminados y nodos de búsqueda solo como diagnóstico. **No** clasificar por nodos DFS únicamente.
 
 El juego presenta al jugador nivel objetivo, no una falsa precisión de dificultad absoluta. En modo personalizado se presenta tamaño/personas y, al terminar la generación, el nivel calculado.
+
+### 7.4 Cómo usar las familias de pistas al clasificar
+
+El clasificador no asigna puntos por palabras “difíciles” ni suma sinónimos como si fueran técnicas distintas. Mide el **trabajo de deducción requerido** en el caso completo. Cada candidato conserva, como mínimo, estas métricas separadas:
+
+1. **Carga de búsqueda:** tamaño `N`, personas `P`, ocupables por persona y candidatas iniciales. Solo informa del volumen visual y del espacio de búsqueda.
+2. **Complejidad de operador:** técnicas necesarias para resolver pistas espaciales, relaciones, negaciones, alternativas, cardinalidades y reglas globales. Un operador cuenta únicamente si el solver puede producir una explicación comprobable.
+3. **Interdependencia:** número de personas/regiones enlazadas en una cadena demostrada; distinguir una pista compuesta local de una cadena entre muchas cartas.
+4. **Reducción efectiva:** número de candidatas eliminadas y asignaciones forzadas. Registrarlo por técnica; el número bruto de átomos no basta.
+5. **Información global:** cuántas conclusiones exigen combinar recuentos o reglas de varias zonas, frente a pistas unary que fijan una posición directamente.
+6. **Explicabilidad:** si cada reducción necesaria tiene una prueba reproducible. Una instancia que solo se resuelve por búsqueda ciega no recibe automáticamente el rótulo experto.
+
+#### Progresión candidata para calibración propia
+
+Estos perfiles hacen operativos los nombres de nivel sin fingir que se conocen los baremos internos de Murdoku. Son hipótesis para corpus de calibración, no decisiones de diseño cerradas ni límites numéricos:
+
+| Nivel propio | Perfil de deducción que se buscará | Familias que podrían aparecer sin determinar por sí mismas el nivel |
+|---|---|---|
+| Muy fácil | La mayoría de personas se fijan por pistas directas y exclusiones inmediatas; poca dependencia entre cartas. | Región exacta, fila/columna, objeto directo, adyacencia simple. |
+| Fácil | Predominan deducciones directas; algunas relaciones de dos personas o negaciones sencillas. | `D0`/`D1`, casos aislados de `D2`. |
+| Medio | Hace falta combinar varias relaciones y resolver dependencias cortas entre personajes o zonas. | `D2`, conjunciones cortas y cardinalidad sencilla ya aprobada. |
+| Difícil | La resolución exige encadenamientos y combinar información local/global; el solver debe justificar cada paso. | Cardinalidad, negación y varias capas de `D2`/`D3`/`D4`. |
+| Experto | Interacción alta entre pistas y mapa; razonamiento largo pero demostrable, con varias cadenas y/o reglas de escenario soportadas. | Varias familias combinadas; alternativa o escenario solo si su semántica y explicación están implementadas. |
+
+No se deduce que una pista `COUNT_PARITY`, `OR` o `ScenarioRule` sea experta siempre, ni que una cuadrícula grande lo sea por tamaño. Una regla global sencilla puede reducir mucho la búsqueda; una pista de aspecto corto puede causar una cadena larga. La categoría se asigna al puzzle completo y al camino explicable seleccionado por una política determinista.
+
+#### Procedimiento de calibración que deberá seguir la implementación
+
+1. Congelar un corpus de semillas/configuraciones por versión de reglas y clasificador.
+2. Guardar las métricas y la secuencia explicada de cada caso, incluidas las generaciones rechazadas y su motivo.
+3. Revisar ejemplos representativos y casos frontera por nivel; explicar qué técnica cambia la clase.
+4. Hacer sesiones de resolución humana por tamaño/personas variados y anotar tiempo, errores y dificultad percibida como datos de calibración, no como verdad matemática.
+5. Ajustar pesos/umbrales en una versión de clasificador explícita; volver a ejecutar el corpus para detectar regresiones.
+6. Rechazar combinaciones no calibradas o presentarlas como «personalizadas»; no prometer cinco niveles válidos para toda combinación `N/P`.
+
+En ausencia de esos datos, solo se publican perfiles cualitativos y presets orientativos. No afirmar “el referente considera X difícil” a partir de las capturas.
 
 ## 8. Interfaz y acciones de juego
 
@@ -411,6 +492,7 @@ Estas preguntas deben cerrarse revisando este documento; ningún LLM de implemen
 7. Aprobar preferencias de primera versión, su persistencia y el alcance pospuesto de sliders visuales.
 8. Cerrar el catálogo original inicial (tema, salas, tipos de objeto, nombres, personajes y retratos) y licencias/forma de creación de arte.
 9. Determinar presupuesto de generación, reintentos y clasificación cuando la dificultad solicitada no se encuentre.
+10. Decidir qué operadores de la taxonomía observada pasan a MVP, cuáles quedan expresamente fuera y en qué orden se añadirán alternativas, conteos avanzados y reglas de escenario.
 
 ## 14. Instrucciones para agentes de implementación
 

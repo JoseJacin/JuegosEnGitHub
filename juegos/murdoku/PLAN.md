@@ -45,6 +45,7 @@ Generar y jugar casos originales de deducción en cuadrículas configurables. Ca
 - [ ] **0.12** Cambiar el estado de la especificación a aprobada y actualizar contexto.
 - [ ] **0.13** Revisar la arquitectura y algoritmos propuestos en [`GUIA_MOTOR_GENERACION.md`](GUIA_MOTOR_GENERACION.md).
 - [ ] **0.14** Resolver sus decisiones técnicas pendientes (PRNG, intentos, presupuestos, ranking y partición) y marcar la guía como aprobada.
+- [ ] **0.15** Revisar la matriz de familias observadas en `README.md` §3.3 y aprobar una lista concreta de MVP, pospuestas y excluidas. Definir explícitamente la semántica de `O`, negación, conteos y reglas de escenario antes de habilitarlas.
 
 **Hecho cuando:** las reglas y decisiones que condicionan el modelo están aprobadas en `README.md`, y los contratos/algoritmos técnicos que bloquean la primera generación están aprobados en `GUIA_MOTOR_GENERACION.md`.
 
@@ -66,6 +67,8 @@ Generar y jugar casos originales de deducción en cuadrículas configurables. Ca
 - [ ] **1.12** Validar que `P` esté dentro del rango aprobado y cumpla la relación con `N`.
 - [ ] **1.13** Validar que la dificultad solicitada sea una opción conocida.
 - [ ] **1.14** Mostrar un error de configuración legible para cada valor inválido.
+- [ ] **1.15** Añadir `scope` (`PERSON`, `GLOBAL`, `SCENARIO`) al tipo `Clue` sin confundirlo con la familia del predicado.
+- [ ] **1.16** Validar que `PERSON` tenga sujeto existente y que `GLOBAL`/`SCENARIO` usen el contrato de argumentos correspondiente.
 
 **Hecho cuando:** cada dato de dominio tiene un tipo claro, las decisiones no se esconden en el render y la configuración inválida no entra al generador.
 
@@ -158,6 +161,7 @@ Generar y jugar casos originales de deducción en cuadrículas configurables. Ca
 - [ ] **5.22** Detener búsqueda al encontrar dos soluciones.
 - [ ] **5.23** Devolver los estados cero, una o varias soluciones.
 - [ ] **5.24** Devolver métricas de búsqueda separadas del resultado lógico.
+- [ ] **5.25** Para cada predicado aprobado, distinguir evaluación completa de propagación parcial; devolver estado desconocido cuando no sea seguro eliminar candidatas.
 
 **Hecho cuando:** cualquier definición puede contarse hasta dos soluciones de forma reproducible, sin aceptar una solución parcial ni esconder contradicciones.
 
@@ -213,6 +217,13 @@ Generar y jugar casos originales de deducción en cuadrículas configurables. Ca
 - [ ] **7.15** Calibrar umbrales tras revisión de casos y partidas humanas.
 - [ ] **7.16** Versionar el clasificador para reproducir la misma etiqueta.
 - [ ] **7.17** Rechazar o informar configuración cuando no se logra el nivel solicitado.
+- [ ] **7.18** Registrar por separado carga del tablero (`N`, `P`, densidad) y coste lógico de deducción.
+- [ ] **7.19** Registrar familias de operador realmente necesarias, sin inferirlas solo de las pistas que aparecen.
+- [ ] **7.20** Contar relaciones demostradas entre cartas y profundidad de cadenas explicables.
+- [ ] **7.21** Marcar `UNRATABLE` cuando el solver exacto resuelve por búsqueda y el solver pedagógico no tiene una secuencia completa.
+- [ ] **7.22** Construir un corpus fijo de semillas por configuración y registrar resultados por `classifierVersion`.
+- [ ] **7.23** Revisar casos frontera por humanos y cambiar pesos/umbrales solo con versión de clasificador nueva.
+- [ ] **7.24** Comprobar que ninguna familia de pista ni tamaño por sí solos asignan nivel.
 
 **Hecho cuando:** nivel y pasos se pueden reproducir, explicar y calibrar; el tamaño o los nodos de búsqueda por sí solos no asignan categoría.
 
@@ -332,6 +343,33 @@ Generar y jugar casos originales de deducción en cuadrículas configurables. Ca
 
 **Hecho cuando:** cada configuración que se ofrezca genera un caso jugable, válido, único, explicable y responsivo en la publicación estática.
 
+### 12. Ampliar el vocabulario de pistas después del MVP
+
+**Dependencias:** tarea 0.15; README §3.3 aprobado; tareas 1, 5, 6 y 7 completadas para cada operador que se habilite. Este bloque es una ruta de expansión, no autorización para incluir todos los tipos en el MVP. Cada subgrupo requiere confirmación funcional si sus reglas siguen abiertas.
+
+- [ ] **12.1** Crear catálogo de predicados y registrar para cada uno el tipo de sujeto, argumentos, evaluación, plantilla y estado (MVP/futuro/excluido).
+- [ ] **12.2** Añadir matriz de verdad de pertenencia a zona, coordenada, adyacencia, ocupación, relación de personas, negación y cardinalidad.
+- [ ] **12.3** Revisar todos los términos con negrita de ejemplo y mapearlos a slots semánticos (persona, tipo/instancia de objeto, zona, fila/columna).
+- [ ] **12.4** Implementar solo los operadores que se hayan aprobado en el README; ignorar candidatos fuera de lista blanca.
+- [ ] **12.5** Comparar `ADJACENT_TO_OBJECT` con `ON_OBJECT` mediante ejemplos verdaderos y falsos.
+- [ ] **12.6** Comparar `ALONE_IN_ROOM` con `ALONE_WITH` y documentar la cantidad de personas excluidas.
+- [ ] **12.7** Verificar que las afirmaciones `EXACTLY`, `AT_LEAST`, `NONE`, `UNIQUE` y `PARITY` produzcan resultados distintos donde corresponde.
+- [ ] **12.8** Documentar las cuatro combinaciones de verdad de `OR_INCLUSIVE`; si se adopta XOR, documentar su tabla por separado.
+- [ ] **12.9** Limitar profundidad y cantidad de hijos en operadores compuestos según presupuesto aprobado.
+- [ ] **12.10** Documentar resultados esperados de evaluación completa para cada predicado con IDs válidos y referencias inexistentes.
+- [ ] **12.11** Añadir propagación parcial conservadora para el operador habilitado.
+- [ ] **12.12** Añadir generación reproducible de candidatos verdaderos al testigo.
+- [ ] **12.13** Añadir plantilla española y tokens semánticos interactivos para cada operador habilitado.
+- [ ] **12.14** Añadir un paso pedagógico que cite pistas/reglas y muestre por qué se reduce el dominio.
+- [ ] **12.15** Comprobar unicidad tras cada cambio de set de pistas y descartar resultado si encuentra dos soluciones.
+- [ ] **12.16** Medir coste de solver con corpus pequeño antes de habilitar el operador en tamaños mayores.
+- [ ] **12.17** Versionar esquema/reglas/clasificador si cambia la interpretación de partidas compartidas.
+- [ ] **12.18** Documentar ejemplos propios breves para todos los límites de cada operador.
+- [ ] **12.19** Comparar la familia con el inventario observado sin copiar frase, personajes, escenario ni arte.
+- [ ] **12.20** Actualizar `README.md`, esta guía y `CONTEXTO.md` con el estado validado de la familia.
+
+**Hecho cuando:** cada operador habilitado tiene semántica aprobada, predicado correcto, generación reproducible, explicación legible, validación de unicidad y una decisión explícita de nivel de disponibilidad.
+
 ## Dependencias generales
 
 ```text
@@ -347,6 +385,7 @@ Generar y jugar casos originales de deducción en cuadrículas configurables. Ca
             └── 10 (render)
 8 ── 9 (tooltips/ajustes/accesibilidad)
 1–10 ── 11 (integración y publicación)
+0.15 + capacidades base ── 12 (familias avanzadas, gated)
 ```
 
 Los bloques pueden dividirse todavía más durante implementación si una subtarea resulta mayor de lo previsto. Nunca marcar un bloque principal terminado mientras quede una subtarea necesaria sin aceptar.
@@ -355,6 +394,8 @@ Los bloques pueden dividirse todavía más durante implementación si una subtar
 
 - `N=5..16` y `P=4..N` siguen siendo valores propuestos, no reglas aprobadas.
 - Presets de nivel son orientativos y no sustituyen el clasificador de razonamiento.
+- Las capturas compartidas sirven para ampliar el inventario de operadores, pero no traen etiquetas de dificultad por caso; véase `README.md` §§3.3 y 7.4. No se deduce de ellas un baremo oficial.
+- Alternativas, cardinalidad avanzada y reglas de escenario permanecen bloqueadas hasta una decisión funcional y tareas completas del bloque 12.
 - Solo se implementan reglas y plantillas que aparezcan aprobadas en [`README.md`](README.md).
 - La solución se genera/valida en cliente para evitar backend; no se promete secreto frente a inspección del navegador.
 - Este trabajo no altera las propuestas pendientes de Botellas y líquidos ni sus dependencias.
