@@ -14,6 +14,7 @@
 - Tamaño de cuadrícula `N` y cantidad de personas `P` son controles separados; límites y regla de personas por fila/columna están pendientes de aprobación explícita.
 - El nivel depende del proceso de deducción y no del tamaño por sí solo. Catálogo consultado el 2026-09-27 mostró 9×9 tanto fácil como medio; dificultad se define con solver explicable y se calibra, sin atribuir baremos publicados.
 - Tooltips de personas y casillas, preferencias básicas/avanzadas, notas, X, deshacer, pista y enviar están documentados en el borrador.
+- Las palabras destacadas en las pistas tienen destinos semánticos: hover/foco muestra un resaltado temporal y selección lo fija; solo representa entidades visibles y nunca consulta la solución oculta. Detallado en `README.md` §8.3, `GUIA_MOTOR_GENERACION.md` §9.4 y tareas 9.25–9.31.
 - Arte, mapas, textos, personajes y pistas de nuestra versión serán originales.
 
 ## Siguiente paso
@@ -26,5 +27,5 @@ Revisar `README.md` §13 y `GUIA_MOTOR_GENERACION.md` §18; resolver decisiones 
 - Propuesta 043 integrada previamente mediante merge `18db52d`.
 - La rama 044 está publicada y cerrada por integración. Este bloque añade solo documentación; no incluye código de juego.
 - La rama `feature/045_guia_motor_generacion_murdoku` se integró en `main` mediante merge `a1c078d`.
-- Rama actual: `main`.
+- Rama actual: `feature/047_resaltado_semiotico_pistas`, creada desde `main` para documentar el resaltado interactivo semántico de términos de pista.
 - La guía técnica todavía no está aprobada y no se ha implementado el motor.

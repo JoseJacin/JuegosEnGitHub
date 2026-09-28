@@ -256,7 +256,7 @@ Generar y jugar casos originales de deducción en cuadrículas configurables. Ca
 - [ ] **9.5** Permitir abrir el tooltip de persona con foco de teclado.
 - [ ] **9.6** Permitir abrir información de celda con foco de teclado.
 - [ ] **9.7** Proveer alternativa táctil a ambos tooltips.
-- [ ] **9.8** Resaltar términos de pista por tipo semántico.
+- [ ] **9.8** Renderizar expresiones destacadas de las pistas como tokens semánticos interactivos.
 - [ ] **9.9** Añadir tema oscuro/claro.
 - [ ] **9.10** Añadir sonido y volumen.
 - [ ] **9.11** Añadir animaciones y respetar movimiento reducido.
@@ -273,8 +273,15 @@ Generar y jugar casos originales de deducción en cuadrículas configurables. Ca
 - [ ] **9.22** Añadir nombres accesibles y anuncios de cambio de estado.
 - [ ] **9.23** Comprobar que la información no depende solo del color.
 - [ ] **9.24** Añadir controles de sonido, foco y toque con etiquetas legibles.
+- [ ] **9.25** Asignar a cada expresión destacada un destino tipado desde el AST de la pista.
+- [ ] **9.26** Resolver `OBJECT_TYPE` a todas las celdas de sus instancias y `OBJECT_INSTANCE` a su huella.
+- [ ] **9.27** Resolver `ROOM`, `ROW` y `COLUMN` a sus celdas visibles correspondientes.
+- [ ] **9.28** Resolver `PERSON` desde la colocación actual del jugador; no consultar solución ni candidatos.
+- [ ] **9.29** Mostrar y retirar el resaltado temporal con hover de ratón y foco de teclado.
+- [ ] **9.30** Fijar/retirar el resaltado mediante clic, toque, Enter/Espacio y Escape.
+- [ ] **9.31** Comprobar visualmente las transiciones y verificar que no cambian estado de juego ni revelan la solución.
 
-**Hecho cuando:** información y acciones están disponibles por ratón, teclado y táctil; preferencias fallidas no impiden jugar.
+**Hecho cuando:** tooltips y términos destacados de pistas están disponibles por ratón, teclado y táctil; cada resaltado corresponde al dato semántico visible y no modifica ni revela estado interno; preferencias fallidas no impiden jugar.
 
 ### 10. Crear arte original y adaptar el tablero
 
