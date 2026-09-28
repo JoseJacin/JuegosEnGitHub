@@ -182,8 +182,8 @@ No mostrar una partida que solo “parece resoluble” porque existe el testigo 
 - Cada elección aleatoria usa un flujo PRNG con semilla. `Math.random()` no participa dentro del motor.
 - Fijar el orden de recorridos: celdas por fila y columna, personas por ID, pistas por clave/ID y empate de solver por reglas documentadas.
 - No usar fecha actual, idioma del navegador, orden de claves de un objeto sin normalizar ni resultado del render para decidir el caso.
-- La misma tupla `(seed, generatorVersion, rulesVersion, config)` produce la misma definición lógica en navegadores compatibles.
-- Un cambio que altere resultados incrementa `generatorVersion`; un cambio de reglas incrementa `rulesVersion`.
+- La misma tupla `(seed, generatorVersion, rulesVersion, config)` produce la misma definición lógica en navegadores compatibles, incluidos el subconjunto y orden de las pistas sorteadas.
+- Un cambio de algoritmo, catálogo de elementos/contenido o de decisiones aleatorias que altere el resultado incrementa `generatorVersion`; un cambio de significado de una pista o regla incrementa `rulesVersion`.
 - Los assets gráficos no deben influir en la geometría. Cambiar un retrato no altera salas ni pistas.
 
 ### 5.2 PRNG recomendado para la primera implementación
@@ -386,7 +386,7 @@ El `kind` debe existir tanto en la unión de tipos como en `ConstraintSolver`, `
 
 ### 9.2 Derivar candidatos verdaderos
 
-Para cada persona se construye una lista limitada de candidatos evaluando su solución:
+El catálogo objetivo es el inventario completo de familias de `README.md` §3.3. Para cada partida, filtrar el catálogo según las familias ya implementadas y el escenario. Una regla específica de un tema solo puede entrar si su tablero contiene la zona, objeto, atributo o rol que necesita. Para cada sujeto/ámbito compatible, construir una lista limitada de candidatos evaluando el testigo:
 
 - hechos unary: sala, fila/columna, objeto;
 - hechos binary: dirección relativa, adyacencia, relación de sala;
@@ -403,21 +403,25 @@ Un átomo candidato se admite si:
 
 No generar sinónimos aleatorios, texto libre ni pistas que mencionen coordenadas dibujadas que cambien al traducir.
 
+No confundir **todas las familias en el repertorio del juego** con **todas las familias en cada caso**. Cada caso lleva una muestra pseudoaleatoria. El flujo `clues` selecciona familias candidatas, argumentos y orden de modo determinista; semilla, configuración y versiones restauran la misma selección. Una familia todavía no implementada no puede salir sorteada.
+
 ### 9.3 Selección y reducción por unicidad
+
+El repertorio objetivo incluye las familias de `README.md` §3.3. El sorteo de cada partida toma pistas candidatas de todas las familias que estén implementadas y sean compatibles con el escenario elegido. No exige que cada puzzle contenga todas las familias: las reglas de golf no son candidatas en un escenario doméstico sin hoyos, por ejemplo. La selección se hace con el flujo PRNG de pistas, por lo que semilla, configuración, catálogo/reglas y versiones idénticas reproducen tanto la selección como el orden.
 
 Procedimiento recomendado:
 
-1. Crear un conjunto de pistas candidato con al menos un átomo para cada sospechoso y la carta de víctima aprobada.
-2. Ejecutar `countUpToTwo` con el conjunto completo.
-3. Si devuelve 0, un predicado contradice al testigo: registrar defecto y rechazar el caso.
-4. Si devuelve 2, sumar átomos verdaderos candidatos no usados, priorizando diversidad de familias y sujetos, y volver a contar.
-5. Si se agota el conjunto permitido sin unicidad, rechazar ese testigo/mapa y generar candidato nuevo.
-6. Una vez única, recorrer átomos en orden reproducible y probar quitar uno.
-7. Quitar el átomo solo si la unicidad se conserva y cada personaje sigue teniendo el mínimo de pistas que exija la regla aprobada.
-8. Detenerse dentro del presupuesto; el resultado restante sigue siendo único aunque no sea el conjunto mínimo matemático.
-9. Ejecutar de nuevo solución única, evaluación de verdad y cobertura de personajes sobre el conjunto final.
+1. Filtrar el catálogo completo por familias ya implementadas y por compatibilidad del escenario, mapa, objetos y atributos de personajes.
+2. Derivar candidatos verdaderos en el testigo y agruparlos por ámbito (`PERSON`, `GLOBAL`, `SCENARIO`) y familia.
+3. Elegir con el PRNG un subconjunto aleatorio reproducible que cubra a todos los sospechosos y cumpla el mínimo acordado de pistas. Aplicar cualquier cuota de diversidad de familias solo si fue aprobada.
+4. Ejecutar `countUpToTwo` con el subconjunto.
+5. Si devuelve 0, un predicado contradice al testigo: registrar defecto y rechazar el caso.
+6. Si devuelve 2, añadir candidatos verdaderos elegidos aleatoriamente del conjunto todavía disponible y volver a contar; no reemplazar el sorteo por una selección fija dependiente del orden de la lista.
+7. Si se agota el conjunto permitido sin alcanzar mínimo, unicidad o dificultad solicitada, rechazar el candidato y volver a generar dentro del presupuesto.
+8. Una vez única, se permite reducir una pista solo si se conserva el mínimo total, la cobertura requerida por personaje y cualquier variedad mínima aprobada.
+9. Ejecutar validación de verdad, cobertura, mínimo, dificultad y unicidad sobre la selección final.
 
-No se exige encontrar el conjunto mínimo absoluto de pistas. Ese problema aumentaría el coste y puede hacer que los tableros grandes tarden demasiado; basta un conjunto válido/único y una reducción limitada y determinista.
+La cantidad mínima exacta y la unidad que se cuenta (tarjeta visible, definición lógica o átomo del AST) siguen pendientes en `README.md` §13. Hasta acordarlas, mantener la cobertura propuesta de al menos un átomo por sospechoso, sin inventar un mínimo global numérico. No se exige encontrar el conjunto mínimo matemático: basta un subconjunto aleatorio válido, único y por encima del mínimo acordado.
 
 ### 9.4 Plantillas legibles
 
