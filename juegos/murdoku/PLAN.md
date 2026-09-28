@@ -45,9 +45,10 @@ Generar y jugar casos originales de deducción en cuadrículas configurables. Ca
 - [ ] **0.12** Cambiar el estado de la especificación a aprobada y actualizar contexto.
 - [ ] **0.13** Revisar la arquitectura y algoritmos propuestos en [`GUIA_MOTOR_GENERACION.md`](GUIA_MOTOR_GENERACION.md).
 - [ ] **0.14** Resolver sus decisiones técnicas pendientes (PRNG, intentos, presupuestos, ranking y partición) y marcar la guía como aprobada.
-- [ ] **0.15** Revisar la matriz de familias observadas en `README.md` §3.3 y aprobar una lista concreta de MVP, pospuestas y excluidas. Definir explícitamente la semántica de `O`, negación, conteos y reglas de escenario antes de habilitarlas.
+- [ ] **0.15** Revisar la matriz de familias observadas en `README.md` §3.3; conservarlas todas en el repertorio objetivo, decidir el orden de activación (MVP/fases posteriores) y definir la semántica de `O`, negación, conteos y reglas de escenario antes de sortearlas.
+- [ ] **0.16** Revisar y aprobar o ajustar el suelo inicial `ceil(3 × P / 2)` átomos visibles propuesto en `README.md` §4.4; confirmar si se exige además una cantidad mínima de familias distintas y calibrar el umbral con casos resueltos.
 
-**Hecho cuando:** las reglas y decisiones que condicionan el modelo están aprobadas en `README.md`, y los contratos/algoritmos técnicos que bloquean la primera generación están aprobados en `GUIA_MOTOR_GENERACION.md`.
+**Hecho cuando:** las reglas y decisiones que condicionan el modelo están aprobadas en `README.md`, el repertorio objetivo contiene todas las familias observadas con activación por fases, el mínimo de pistas está definido y los contratos/algoritmos técnicos que bloquean la primera generación están aprobados en `GUIA_MOTOR_GENERACION.md`.
 
 ### 1. Crear el modelo de datos y validar configuración
 
@@ -345,12 +346,12 @@ Generar y jugar casos originales de deducción en cuadrículas configurables. Ca
 
 ### 12. Ampliar el vocabulario de pistas después del MVP
 
-**Dependencias:** tarea 0.15; README §3.3 aprobado; tareas 1, 5, 6 y 7 completadas para cada operador que se habilite. Este bloque es una ruta de expansión, no autorización para incluir todos los tipos en el MVP. Cada subgrupo requiere confirmación funcional si sus reglas siguen abiertas.
+**Dependencias:** tareas 0.15 y 0.16; README §3.3 aprobado; tareas 1, 5, 6 y 7 completadas para cada operador que se habilite. El alcance objetivo es el repertorio completo de las familias observadas; se activa por fases y solo se sortean familias implementadas y compatibles con el escenario.
 
-- [ ] **12.1** Crear catálogo de predicados y registrar para cada uno el tipo de sujeto, argumentos, evaluación, plantilla y estado (MVP/futuro/excluido).
+- [ ] **12.1** Crear catálogo completo de predicados observados y registrar para cada uno sujeto, argumentos, evaluación, plantilla y fase prevista de activación.
 - [ ] **12.2** Añadir matriz de verdad de pertenencia a zona, coordenada, adyacencia, ocupación, relación de personas, negación y cardinalidad.
 - [ ] **12.3** Revisar todos los términos con negrita de ejemplo y mapearlos a slots semánticos (persona, tipo/instancia de objeto, zona, fila/columna).
-- [ ] **12.4** Implementar solo los operadores que se hayan aprobado en el README; ignorar candidatos fuera de lista blanca.
+- [ ] **12.4** Implementar operadores en el orden de fases aprobado; no excluir del repertorio objetivo ninguna familia observada sin resolución explícita.
 - [ ] **12.5** Comparar `ADJACENT_TO_OBJECT` con `ON_OBJECT` mediante ejemplos verdaderos y falsos.
 - [ ] **12.6** Comparar `ALONE_IN_ROOM` con `ALONE_WITH` y documentar la cantidad de personas excluidas.
 - [ ] **12.7** Verificar que las afirmaciones `EXACTLY`, `AT_LEAST`, `NONE`, `UNIQUE` y `PARITY` produzcan resultados distintos donde corresponde.
@@ -367,8 +368,21 @@ Generar y jugar casos originales de deducción en cuadrículas configurables. Ca
 - [ ] **12.18** Documentar ejemplos propios breves para todos los límites de cada operador.
 - [ ] **12.19** Comparar la familia con el inventario observado sin copiar frase, personajes, escenario ni arte.
 - [ ] **12.20** Actualizar `README.md`, esta guía y `CONTEXTO.md` con el estado validado de la familia.
+- [ ] **12.21** Filtrar el catálogo completo por compatibilidad de escenario y sortear un subconjunto de candidatos con el flujo PRNG de pistas.
+- [ ] **12.22** Asegurar que la selección aleatoria cubra los sospechosos y alcance el suelo de átomos aprobado (propuesta inicial en `README.md` §4.4) antes de comprobar unicidad.
+- [ ] **12.23** Mantener la selección aleatoria al añadir/reducir pistas; toda decisión debe ser reproducible y respetar mínimo, cobertura y dificultad.
+- [ ] **12.24** Comprobar que familias de escenario (por ejemplo, hoyos o recintos con roles) solo se sortean si el modelo del tablero define sus entidades y reglas.
+- [ ] **12.25** Implementar pertenencia exacta, exclusión y alternativas de región (`ROOM_IS`, `ROOM_NOT`, `ROOM_IN_SET`).
+- [ ] **12.26** Implementar coordenada exacta, primera/última fila o columna y bordes del tablero.
+- [ ] **12.27** Implementar distancias cardinales exactas y orden relativo norte/sur/este/oeste con las semánticas diferenciadas de §2.2.
+- [ ] **12.28** Completar relaciones entre personas: adyacencia, misma zona, orden direccional, compañía y soledad con universo explícito.
+- [ ] **12.29** Completar relaciones con objetos: adyacencia, ocupación/superficie, asiento y sus negaciones tipadas.
+- [ ] **12.30** Implementar cardinalidad de zona para `NONE`, `EXACTLY`, `AT_LEAST` y paridad, incluidos atributos de las personas contadas.
+- [ ] **12.31** Implementar unicidad de coincidencia y comparación de conteos entre zonas o conjuntos declarados.
+- [ ] **12.32** Implementar reglas de escenario para dominios, roles y permisos con esquema y versión explícitos.
+- [ ] **12.33** Implementar composición `NOT`, `AND`, alternativa inclusiva y `XOR` separadamente; renderizar cada operador sin ambigüedad.
 
-**Hecho cuando:** cada operador habilitado tiene semántica aprobada, predicado correcto, generación reproducible, explicación legible, validación de unicidad y una decisión explícita de nivel de disponibilidad.
+**Hecho cuando:** todas las familias del inventario están implementadas por fases, cada partida sortea reproduciblemente un subconjunto aplicable que cumple mínimo y cobertura, y el caso resultante tiene explicación pedagógica y solución única.
 
 ## Dependencias generales
 
@@ -395,7 +409,8 @@ Los bloques pueden dividirse todavía más durante implementación si una subtar
 - `N=5..16` y `P=4..N` siguen siendo valores propuestos, no reglas aprobadas.
 - Presets de nivel son orientativos y no sustituyen el clasificador de razonamiento.
 - Las capturas compartidas sirven para ampliar el inventario de operadores, pero no traen etiquetas de dificultad por caso; véase `README.md` §§3.3 y 7.4. No se deduce de ellas un baremo oficial.
-- Alternativas, cardinalidad avanzada y reglas de escenario permanecen bloqueadas hasta una decisión funcional y tareas completas del bloque 12.
+- El repertorio objetivo incluye todas las familias observadas; alternativas, cardinalidad avanzada y reglas de escenario se activarán por fases tras aprobar semántica e implementación completa.
+- El mínimo global de pistas por partida sigue pendiente de definir en la tarea 0.16; la base propuesta de una pista por sospechoso no sustituye esa decisión.
 - Solo se implementan reglas y plantillas que aparezcan aprobadas en [`README.md`](README.md).
 - La solución se genera/valida en cliente para evitar backend; no se promete secreto frente a inspección del navegador.
 - Este trabajo no altera las propuestas pendientes de Botellas y líquidos ni sus dependencias.

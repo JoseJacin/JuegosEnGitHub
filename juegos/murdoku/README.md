@@ -118,7 +118,9 @@ Las capturas enviadas por el usuario muestran una colección de tableros de 5×5
 
 Las pistas pueden tener distintos ámbitos: `PERSON` (una carta dirigida a una persona), `GLOBAL` (restricción general sobre el caso) o `SCENARIO` (regla declarativa aplicable a un tema). El ámbito es independiente de la familia lógica: una cuenta puede ser global, una negación puede estar en una carta y una regla de rol puede restringir varias zonas. No duplicar una pista global en todas las tarjetas para simular su alcance.
 
-La tabla es un **inventario de expresividad**, no un compromiso de incluir todas las familias en la primera versión. La sección 3.1 delimita el vocabulario base candidato. Alternativas, cardinalidad avanzada y reglas de escenario necesitan decisiones explícitas, AST, plantillas, evaluadores y pasos pedagógicos antes de poder implementarse.
+La tabla define el **repertorio objetivo completo**: todas las familias y variantes listadas deberán poder aparecer en el generador ya desarrollado. Cada partida elige mediante la semilla un subconjunto de las pistas candidatas que sean compatibles con el escenario y el tablero; no tiene que contener todas las familias a la vez. Las pistas especiales de golf, zoológico u otros escenarios solo son candidatas cuando se selecciona contenido con las entidades y reglas necesarias. La implementación puede activar el repertorio por fases, pero una familia solo entra al sorteo después de tener semántica aprobada, AST, plantilla, evaluador, explicación pedagógica y validador. No se la considera excluida permanentemente por quedar fuera de la primera entrega.
+
+El generador debe respetar el mínimo de pistas acordado, cubrir las tarjetas requeridas y producir un caso verdadero, explicable y de solución única. Si el subconjunto aleatorio no satisface esas condiciones o la dificultad solicitada, se descarta y se vuelve a muestrear dentro del presupuesto. El número exacto del mínimo total y si se cuenta por tarjetas, pistas o átomos independientes queda pendiente en §13; no se inventa un umbral.
 
 #### Distinción semántica obligatoria
 
@@ -173,9 +175,37 @@ Si el usuario altera los números sugeridos, se conserva su configuración y el 
 - «Nueva partida» obtiene una semilla nueva y regenera desde cero mapa, forma de salas, decoración/objetos, personajes, solución, pistas y asesino.
 - Semillas distintas pueden coincidir en alguna característica; no se promete unicidad visual absoluta entre todas las semillas.
 - Guardar la última semilla/configuración en el estado de sesión. «Reiniciar» restaura la misma partida exacta; no llama al generador.
-- «Compartir» codifica o enlaza `generatorVersion`, semilla y configuración. Si la URL resulta demasiado larga, usar un identificador compacto solo si es reversible localmente; no depender de un servidor.
+- «Compartir» codifica o enlaza `generatorVersion`, `rulesVersion`, semilla y configuración. Esa tupla restaura el mismo mapa, reglas activas y subconjunto de pistas. Si la URL resulta demasiado larga, usar un identificador compacto solo si es reversible localmente; no depender de un servidor.
+- La semilla controla también el orden y la selección de familias, pistas, argumentos y reglas de escenario; el mismo `generatorVersion`, configuración, catálogo/reglas versionados y semilla reconstruyen el mismo subconjunto y tablero.
+- Una pista entra en el sorteo solo si su familia está implementada y el escenario contiene todos los tipos de entidad que requiere. La selección aleatoria nunca permite saltarse el mínimo de pistas ni la validación de verdad, dificultad y solución única.
+- El mínimo inicial propuesto está en §4.4: `ceil(1,5 × P)` átomos lógicos visibles, sujeto a calibración. No se confunde el recuento de átomos con el de tarjetas/frases.
 - La aleatoriedad debe provenir de un PRNG con semilla, nunca de `Math.random()` sin inicialización reproducible dentro del generador.
 - Registrar `generatorVersion`; si cambia, la misma semilla puede tener un resultado nuevo solo si la versión también cambia.
+
+### 4.4 Suelo inicial propuesto para la cantidad de pistas
+
+Además de cubrir a todos los sospechosos con al menos un átomo cada uno, se propone que la selección final contenga como mínimo:
+
+```text
+minimumClueAtoms(P) = ceil(3 * P / 2)
+```
+
+`P` incluye a la víctima. El conteo incluye los átomos lógicos visibles en pistas de persona, globales y de escenario, también la pista tipada de la víctima. No incluye reglas estructurales permanentes del juego (por ejemplo, restricciones de ocupación del tablero) salvo que se presenten explícitamente como una pista.
+
+| Personas `P` | Átomos visibles mínimos propuestos |
+|---:|---:|
+| 4 | 6 |
+| 6 | 9 |
+| 8 | 12 |
+| 10 | 15 |
+| 12 | 18 |
+| 16 | 24 |
+
+El contador usa hojas del AST, no tarjetas ni operadores de agrupación: `AND(A,B)` y `OR_INCLUSIVE(A,B)` cuentan dos átomos; `NOT(A)` cuenta uno; una afirmación tipada `COUNT_EXACTLY(...)` cuenta uno. Así, una misma condición no cambia de peso por el diseño visual de la tarjeta. Cada sospechoso debe conservar al menos un átomo dirigido a él, aunque el suelo total se alcance principalmente mediante pistas globales.
+
+Este es un **suelo de cantidad**, no una fórmula de dificultad: el clasificador pedagógico decide el nivel por las deducciones necesarias. La unicidad o el nivel objetivo pueden exigir más pistas que el suelo. El generador solo acepta el caso cuando cumple simultáneamente cobertura, suelo, verdad, nivel solicitado y solución única. Si no lo consigue dentro del presupuesto, informa de que no encontró un caso; no reduce el suelo ni cambia `N`, `P` o el nivel silenciosamente.
+
+La cifra es una propuesta inicial para la primera calibración, no un dato extraído de Murdoku. Puede ajustarse tras revisar un corpus de semillas y resolver casos manualmente. Si cambia la regla de conteo o la salida determinista, incrementar la versión pertinente del generador/reglas.
 
 ## 5. Modelo de datos lógico
 
@@ -185,6 +215,7 @@ La implementación separa datos de dominio, estado de la partida, preferencias y
 PuzzleDefinition
   schemaVersion: integer
   generatorVersion: string
+  rulesVersion: string
   seed: string
   config: { gridSize: N, personCount: P, requestedDifficulty: tier | "any" }
   board: Board
@@ -287,7 +318,7 @@ La generación es una tubería con etapas pequeñas, observables y depurables. N
 
 - Usar una función hash definida y un PRNG reproducible documentado. No depender del orden accidental de propiedades de objetos, locale ni APIs de dibujo.
 - Definir las conversiones de enteros y orden de elección para que diferentes navegadores produzcan el mismo modelo lógico.
-- El enlace representa `{v, seed, n, p, tier}` donde `v` es versión de generador. Al abrir, validar y reconstruir; un `v` no soportado da un error claro y no genera otra partida en su lugar.
+- El enlace representa `{v, r, seed, n, p, tier}` donde `v` es `generatorVersion` y `r` es `rulesVersion`. Al abrir, validar ambas y reconstruir; una versión no soportada da un error claro y no genera otra partida en su lugar.
 - Guardar estado de partida del jugador por separado del PuzzleDefinition (colocaciones provisionales, X, notas y preferencias).
 
 ## 7. Evaluación de dificultad
@@ -492,7 +523,8 @@ Estas preguntas deben cerrarse revisando este documento; ningún LLM de implemen
 7. Aprobar preferencias de primera versión, su persistencia y el alcance pospuesto de sliders visuales.
 8. Cerrar el catálogo original inicial (tema, salas, tipos de objeto, nombres, personajes y retratos) y licencias/forma de creación de arte.
 9. Determinar presupuesto de generación, reintentos y clasificación cuando la dificultad solicitada no se encuentre.
-10. Decidir qué operadores de la taxonomía observada pasan a MVP, cuáles quedan expresamente fuera y en qué orden se añadirán alternativas, conteos avanzados y reglas de escenario.
+10. Decidir el orden de activación por fases del repertorio completo: operadores del MVP y versiones posteriores. No quitar una familia observada del alcance objetivo sin una decisión explícita.
+11. Revisar y aprobar o ajustar el suelo de `ceil(3 × P / 2)` átomos lógicos propuesto en §4.4; confirmar si se exige además una cantidad mínima de familias distintas.
 
 ## 14. Instrucciones para agentes de implementación
 
