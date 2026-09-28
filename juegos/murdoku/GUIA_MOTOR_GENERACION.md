@@ -358,6 +358,11 @@ El testigo es conocido durante generación, pero se oculta de la vista de juego.
 Una pista se representa como AST/dato tipado; la plantilla solo la presenta.
 
 ```text
+ClueDefinition
+  scope: PERSON | GLOBAL | SCENARIO
+  subjectPersonId?: ID
+  expression: ClueExpression
+
 ClueAtom
   kind: ROOM_IS | ROW_IS | COLUMN_IS | ROW_OFFSET | COLUMN_OFFSET |
         OBJECT_IS | ADJACENT_TO_OBJECT | ADJACENT_TO_PERSON |
@@ -425,6 +430,48 @@ No se exige encontrar el conjunto mínimo absoluto de pistas. Ese problema aumen
 - Este resaltado es una vista de referencia, no una acción del puzzle: no cambia colocaciones, X, notas, historial ni validación. Debe distinguirse sin depender solo del color y no revelar la solución.
 - Validar que cada plantilla se puede renderizar en español y no contiene `undefined`, ID crudo o término de otro idioma.
 - Si una plantilla no cabe en tarjeta pequeña, permitir expansión/tooltip; no omitir condiciones.
+
+### 9.5 Incorporar una familia nueva de pistas sin huecos entre módulos
+
+La taxonomía funcional está en [`README.md` §3.3](README.md#33-taxonomía-observada-en-las-capturas-de-referencia). La guía no redefine su semántica: esta lista es un contrato de trabajo para que cada familia no se añada solo en el render o solo al generador.
+
+Cada `ClueDefinition` declara `scope`: `PERSON` requiere un `subjectPersonId`; `GLOBAL` no tiene persona sujeto y restringe el caso completo; `SCENARIO` referencia una regla nombrada y versionada. No conviertas una regla global en N copias dirigidas a personas. El solver aplica cada definición según su ámbito antes de buscar, y la interfaz la muestra en su sección correspondiente. `scope` no reemplaza el `kind`: ambos son campos obligatorios con responsabilidades distintas.
+
+| Paso obligatorio | Entregable de una familia habilitada |
+|---|---|
+| 1. Definir semántica | Predicado matemático en lenguaje llano y ejemplos verdaderos/falsos, incluidas fronteras de tablero, solapamientos y cero ocupantes. |
+| 2. Definir datos | Un miembro explícito en la unión discriminada del AST; argumentos son IDs/coordenadas/conteos tipados, nunca texto parseable. |
+| 3. Generar candidatos | Enumerador que produce solo predicados verdaderos en el testigo; limitado por presupuesto y con orden reproducible. |
+| 4. Evaluar y propagar | Evaluador completo de asignación y propagación parcial segura. Si no puede deducir, conserva candidatas; nunca elimina por aproximación. |
+| 5. Renderizar | Plantilla española revisada, con argumentos y tokens de énfasis asociados a slots semánticos. |
+| 6. Explicar | Regla del `HumanStepSolver`, `techniqueId`, origen de la inferencia y explicación visible/localizable. |
+| 7. Validar | Casos de comprobación del predicado, verdad del testigo, plantilla, referencias y consistencia del conteo hasta dos soluciones. |
+| 8. Clasificar y versionar | Registrar la familia como señal; no cambiar categoría sin corpus/calibración y bump de `classifierVersion` si altera la puntuación. |
+
+Una familia se considera **implementada** solo después de los ocho pasos. Hasta entonces, el generador no la emite aunque haya una plantilla provisional.
+
+#### Tipos de predicado y cautelas de contrato
+
+- `ON_OBJECT(person, objectInstance)`: persona comparte la celda ocupable del objeto; el objeto debe declarar soporte de ocupación.
+- `SITTING_AT_OBJECT(person, seatInstance)`: no equivale a `ADJACENT_TO_OBJECT`; requiere que el asiento sea el punto ocupable acordado.
+- `ADJACENT_TO_OBJECT(person, objectInstance)`: existe una celda de la persona ortogonalmente vecina a alguna celda de la huella; la propia huella nunca cuenta como adyacencia.
+- `ALONE_IN_ROOM(person)`: no existe otra persona en la región. `ALONE_WITH(person, other)` requiere que ambos estén en la región y que no haya una tercera persona.
+- `COUNT_EXACTLY(subjectSet, k)`, `COUNT_AT_LEAST(subjectSet, k)`, `COUNT_PARITY(subjectSet, even|odd)`: `subjectSet` debe resolverse de forma estable (por ejemplo, personas en una sala), y se cuentan las asignaciones, no objetos decorativos. Cero es valor válido.
+- `UNIQUE_MATCH(subjectSet, predicate)`: debe demostrar exactamente un sujeto que satisface el predicado; no basta con que el objetivo sea el único conocido actualmente.
+- `AND(children)`: todos los hijos son verdaderos. Validar lista no vacía y límite de profundidad aprobado.
+- `OR_INCLUSIVE(children)`: al menos un hijo verdadero, permitiendo que más de uno lo sea. No llamarlo `OR` ambiguo en el modelo. Si se decide XOR, usar `XOR` separado.
+- `NOT(child)`: negar un átomo aprobado y evaluable. No aceptar texto negativo cuya condición subyacente no tenga tipo.
+- `ScenarioRule`: datos versionados que establecen dominios, roles o permisos propios del escenario. No es una cadena de texto ni un predicado que el solver desconoce.
+
+Para cada tipo, el predicado de asignación completa es la autoridad semántica. Una propagación parcial puede ser conservadora: ante estado desconocido devuelve `UNKNOWN` y no descarta. En la generación y validación se usa evaluación completa sobre el testigo.
+
+#### Protocolo pequeño al añadir un operador
+
+1. Abrir subtareas separadas para AST, evaluación, propagación, generación, plantilla y explicación; no tocar los seis lugares en un único cambio grande.
+2. Añadir una tabla de verdad mínima: una posición que cumple, una que no cumple, y casos límite si aplica.
+3. Confirmar que semilla, versión y orden estable preservan reproducibilidad.
+4. Enlazar la familia a una tarea del plan y marcarla como bloqueada si README aún deja abierta su semántica.
+5. Aceptar la familia en la lista blanca del generador solo tras superar el validador de puzzle completo.
 
 ## 10. Solucionador exacto
 
@@ -526,6 +573,20 @@ Aplicar técnicas en orden conocido, repetir hasta resolver o atascarse y regist
 La rubrica cualitativa actual está en [`README.md` §7](README.md#7-evaluación-de-dificultad). No inventar umbrales de minutos humanos. Calibrar puntuación con corpus reproducible, revisión manual y sesiones de juego; versionar el clasificador.
 
 La opción «cualquiera» acepta toda dificultad soportada. Una categoría solicitada filtra candidatos hasta el límite acordado. Agotado el presupuesto, devuelve `DIFFICULTY_NOT_FOUND` y conserva configuración; no cambia silenciosamente de nivel/tamaño/personas.
+
+### 11.3 Usar la evidencia sin inventar baremos del referente
+
+Las capturas compartidas enseñan pistas de región, coordenada, distancia cardinal, vecindad, objetos ocupables, relaciones entre personas, soledad, negación, conjunción, alternativa, conteos y reglas especiales; su inventario funcional vive en [`README.md` §3.3](README.md#33-taxonomía-observada-en-las-capturas-de-referencia). La muestra cubre tableros entre 5×5 y 16×16, pero no trae una dificultad identificable para cada captura ni un historial de resolución. Así que:
+
+1. Etiquetar las capturas como evidencia cualitativa, no como ejemplos de entrenamiento con nivel oro.
+2. No extraer umbrales para niveles del número de cartas, tamaño del mapa o presencia de una palabra operadora.
+3. En el solver pedagógico registrar familias efectivamente usadas, pasos, eliminaciones, forzados, relaciones encadenadas y explicación fuente.
+4. Tratar negación, alternativa, cardinalidad y reglas de escenario como capacidades distintas; su presencia no aumenta automáticamente el nivel.
+5. Medir por separado dificultad lógica y carga de presentación (N, P, densidad del tablero y cantidad de texto).
+6. Calibrar perfiles cualitativos de README §7.4 con corpus congelado, revisión humana y sesiones de jugadores antes de asignar rangos numéricos.
+7. Versionar los cambios de política; conservar por partida la versión del solver pedagógico y del clasificador.
+
+Si no hay secuencia pedagógica completa, el resultado es `UNRATABLE`, incluso cuando el solucionador exacto demuestra unicidad. No promoverlo a experto por descarte.
 
 ## 12. Iteración completa, fallos y rendimiento
 
@@ -662,13 +723,14 @@ La guía no crea una mega-tarea nueva. Implementar siguiendo [`PLAN.md`](PLAN.md
 
 | Parte de la guía | Subtareas principales |
 |---|---|
-| Tipos, config y validador | 1.1–1.14 |
+| Tipos, config y validador | 1.1–1.16 |
 | Semillas/PRNG y enlaces | 2.1–2.12 |
 | Cuadrícula y salas | 3.1–3.15 |
 | Objetos/ocupabilidad | 4.1–4.13 |
 | CSP/solver exacto | 5.1–5.24 |
 | Testigo, personas y pistas | 6.1–6.24 |
-| Rating y dificultad | 7.1–7.17 |
+| Rating y dificultad | 7.1–7.24 |
+| Taxonomía observada y futuras familias de pista | README §3.3, guía §§9.5 y 11.3, PLAN tareas 0 y 12 |
 | UI de generación/juego | 8.1–8.22 |
 | Tooltips/preferencias/accesibilidad | 9.1–9.24 |
 | Arte y render | 10.1–10.15 |
@@ -685,6 +747,8 @@ Revisar [`README.md` §13](README.md#13-decisiones-abiertas-que-bloquean-la-impl
 - rangos de `N`, `P` y presets;
 - nivel «cualquiera» y calibración de niveles;
 - tipos de pista MVP y paridad/conteos;
+- operadores de la taxonomía observada que entran en MVP, y significado exacto de alternativa, operadores compuestos y ámbito `PERSON`/`GLOBAL`/`SCENARIO`;
+- orden de activación de las familias pospuestas del bloque 12 y disponibilidad por tamaño/dificultad;
 - una pista por sospechoso o más;
 - ajustes de primera versión;
 - presupuesto/reintentos/fallback;
