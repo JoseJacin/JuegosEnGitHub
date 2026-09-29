@@ -30,7 +30,7 @@ Para consultas, auditorías o cambios puramente documentales pedidos directament
 - Si el usuario pide solo investigar o revisar, no modifiques archivos.
 - No cambies reglas documentadas por iniciativa propia.
 - Sigue la estructura, la convención de ramas y los comandos de `COMANDOS.md`; no incluyas cambios ajenos al alcance.
-- `COMANDOS.md` documenta scripts en `scripts/` (`serve.sh`, `check-js.sh`, `smoke-test.sh`, `new-branch.sh`, `merge-to-main.sh`, `new-proposal.sh`, `check-docs.mjs`, `proposal-status.mjs`) que agilizan levantar el servidor local, validar sintaxis JS, crear propuestas con el idPropuesta correcto, y comprobar la coherencia documental (enlaces rotos, propuestas implementadas sin retirar o con checklist incoherente). Son atajos opcionales sobre los mismos comandos: no cambian las aprobaciones exigidas, en particular `merge-to-main.sh` sigue requiriendo el OK explícito de fusión antes de ejecutarse.
+- `COMANDOS.md` documenta scripts en `scripts/` (`serve.sh`, `check-js.sh`, `smoke-test.sh`, `new-branch.sh`, `merge-to-main.sh`, `new-proposal.sh`, `check-docs.mjs`, `proposal-status.mjs`) que agilizan levantar el servidor local, validar sintaxis JS, comprobar marcadores estructurales del HTML servido (`juegos/<id>/smoke-checks.txt`, opcional), crear propuestas con el idPropuesta correcto, y comprobar la coherencia documental (enlaces rotos, propuestas implementadas sin retirar o con checklist incoherente). Son atajos opcionales sobre los mismos comandos: no cambian las aprobaciones exigidas, en particular `merge-to-main.sh` sigue requiriendo el OK explícito de fusión antes de ejecutarse.
 
 ## Consultas de estado
 

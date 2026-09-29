@@ -19,12 +19,14 @@ Las propuestas de cada juego (por ejemplo, las de `botellas-y-liquidos`) las imp
   - `scripts/check-docs.mjs`: recorre todo el repositorio, detecta enlaces relativos de Markdown que apuntan a rutas inexistentes (probó dos problemas reales del repositorio, ya corregidos como parte de esta propuesta), señala propuestas marcadas `**Estado:** Implementada` con elementos de checklist sin marcar (incoherencia entre el estado declarado y el trabajo real) y señala propuestas marcadas `**Estado:** Implementada` que sigan presentes en el árbol de trabajo.
   - `scripts/proposal-status.mjs <ruta-al-md>`: para una propuesta concreta, muestra su `Estado` declarado, cuántos elementos de checklist quedan sin marcar y qué otros documentos Markdown mencionan su identificador de 3 dígitos.
   - `scripts/new-proposal.sh <juego-o-sitio> <descripcion_con_guiones> ["Título"]`: calcula el siguiente idPropuesta libre revisando archivos de propuestas en todo el historial de Git, nombres de rama y mensajes de commit (no solo el árbol de trabajo actual, porque las propuestas completadas se retiran de él), y crea el archivo desde `docs/plantillas/propuesta.md` ya rellenado con número, título y fecha.
+  - `juegos/<id>/smoke-checks.txt` (opcional, convención documentada en `juegos/README.md`): lista de cadenas literales que deben aparecer en el HTML servido de ese juego. `smoke-test.sh` las comprueba automáticamente si el archivo existe; es la única verificación «visual» viable para un modelo de solo texto, ya que no requiere ejecutar JavaScript ni interpretar imágenes. Creado para `botellas-y-liquidos` con seis marcadores (`id="board-head"`, `id="moveCount"`, `id="bottles"`, `id="victoryDialog"`, `id="hint"`, `src="./game.js"`).
   - Aclaración explícita en `AGENTS.md` (fase 5 del flujo SDD) y en `.agents/skills/juegosengithub/SKILL.md` (fase 5) de que, al cerrar una propuesta implementada y fusionada, hay que retirar su archivo `.md` del árbol de trabajo (salvo excepción documentada en el índice) y ejecutar los dos scripts anteriores antes de pedir el OK de documentación.
   - Sección «Cierre de una propuesta» en `COMANDOS.md` y sección «Cierre de esta propuesta» añadida a `docs/plantillas/propuesta.md` y a las propuestas activas de `botellas-y-liquidos` (035, 036, 037), para que el recordatorio esté en el propio documento que el agente ya tiene abierto.
   - Documentación de los scripts en `COMANDOS.md`, una regla en `.continue/rules/02_scripts_y_verificacion.md` (harness Continue/LM Studio) y una mención en `.agents/skills/juegosengithub/SKILL.md` (harness basado en skills), para que cualquier agente que siga alguno de los dos flujos de lectura documental los encuentre.
 - No incluye:
   - Ningún gestor de paquetes, dependencia nueva ni build step (`npm`, `pip`, etc.). Todo se apoya en `python3`, `node` y `curl`, que ya se usan o mencionan en el repositorio.
-  - Validación de HTML/CSS (no hay una herramienta sin dependencias que aporte suficiente valor frente a falsos positivos); la comprobación de páginas se limita a que respondan HTTP 200.
+  - Verificación visual con navegador headless (Puppeteer/Playwright) ni capturas de pantalla: se descartó porque exigiría instalar un Chromium propio (nueva dependencia pesada) y, sobre todo, porque el modelo objetivo es de solo texto y no podría interpretar una captura. `smoke-checks.txt` cubre la parte verificable por un modelo de texto (estructura del HTML servido); la revisión visual real sigue siendo tarea humana con `./scripts/serve.sh` y el navegador.
+  - Validación de HTML/CSS (no hay una herramienta sin dependencias que aporte suficiente valor frente a falsos positivos); la comprobación de páginas se limita a que respondan HTTP 200 y, opcionalmente, a los marcadores de `smoke-checks.txt`.
   - Cambios en el algoritmo, las reglas o el contenido de ningún juego.
   - Automatizar el commit o el merge sin intervención humana: los scripts de Git son atajos de las mismas órdenes ya documentadas, con las mismas aprobaciones.
 
@@ -50,6 +52,7 @@ Las propuestas de cada juego (por ejemplo, las de `botellas-y-liquidos`) las imp
 - [x] `node scripts/proposal-status.mjs <ruta>` muestra el estado, el recuento de checklist pendiente y las referencias cruzadas de una propuesta real (probado con 035).
 - [x] `./scripts/new-proposal.sh botellas-y-liquidos <descripcion>` calcula el idPropuesta 057 (siguiente tras el 056 usado por esta misma propuesta) y genera el archivo desde la plantilla (probado y el archivo de prueba eliminado).
 - [x] `AGENTS.md` y `.agents/skills/juegosengithub/SKILL.md` dejan explícito, en la fase de revisión de documentación, que hay que retirar el archivo de una propuesta implementada y fusionada (salvo excepción documentada).
+- [x] `./scripts/smoke-test.sh` detecta que faltan los seis marcadores de `smoke-checks.txt` cuando se añade uno inexistente (probado y revertido) y los da todos por buenos con el HTML real.
 
 ## Tareas
 
@@ -62,7 +65,9 @@ Las propuestas de cada juego (por ejemplo, las de `botellas-y-liquidos`) las imp
 - [x] T8 Añadir la aclaración de cierre de propuesta en `AGENTS.md`, `.agents/skills/juegosengithub/SKILL.md`, `docs/plantillas/propuesta.md`, `COMANDOS.md` (sección «Cierre de una propuesta») y `.continue/rules/02_scripts_y_verificacion.md`; retrofit de la misma sección en las propuestas 035, 036 y 037 de `botellas-y-liquidos`.
 - [x] T9 Añadir a `check-docs.mjs` la detección de propuestas `Implementada` con checklist sin marcar; probarla con un caso temporal.
 - [x] T10 Crear `scripts/new-proposal.sh` (cálculo del idPropuesta libre a partir de archivos, ramas y commits de todo el historial) y documentarlo en `COMANDOS.md` (sección «Creación de una propuesta nueva»), la regla de Continue y el SKILL.
-- [ ] T6 Revisar el diff con el usuario, obtener el OK de código y de documentación, y fusionar solo tras el OK explícito de merge.
+- [x] T11 Añadir a `smoke-test.sh` la comprobación opcional de `juegos/<id>/smoke-checks.txt`; crear ese archivo para `botellas-y-liquidos` y documentar la convención en `juegos/README.md`, `COMANDOS.md`, la regla de Continue y el SKILL.
+- [x] T12 Comprobar los commits de código y documentación de las tareas T1–T10 (hechos: `d7cf636` código, `561744a` documentación).
+- [ ] T6 Comitear T11 (código: `smoke-test.sh`; documentación: `juegos/README.md`, `COMANDOS.md`, la regla de Continue, el SKILL y esta propuesta) y fusionar la rama en `main` solo tras el OK explícito de merge.
 
 ## Riesgos, dependencias y preguntas
 

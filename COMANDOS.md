@@ -10,7 +10,7 @@ El repositorio incluye scripts en `scripts/` para las tareas repetitivas de este
 | --- | --- |
 | `scripts/serve.sh [puerto]` | Levanta el servidor estático local (por defecto puerto 8000) para probar el sitio en el navegador. |
 | `scripts/check-js.sh [ruta]` | Valida con `node --check` que los `.js` de la ruta indicada (por defecto todo el repo) no tienen errores de sintaxis, sin ejecutarlos. |
-| `scripts/smoke-test.sh [puerto-base]` | Levanta un servidor temporal, comprueba que `/`, `/menu/` y cada `juegos/<id>/index.html` responden 200, valida la sintaxis de los `.js` de `juegos/` y detiene el servidor al terminar. Útil como autocomprobación antes de pedir el OK de código. |
+| `scripts/smoke-test.sh [puerto-base]` | Levanta un servidor temporal, comprueba que `/`, `/menu/` y cada `juegos/<id>/index.html` responden 200, comprueba en el HTML servido los marcadores de `juegos/<id>/smoke-checks.txt` (si existe), valida la sintaxis de los `.js` de `juegos/` y detiene el servidor al terminar. Útil como autocomprobación antes de pedir el OK de código. |
 | `scripts/new-branch.sh <juego-o-sitio> <idPropuesta> <descripcion>` | Actualiza `main` y crea la rama `feature/<juego-o-sitio>_<idPropuesta>_<descripcion>` (mismo formato que la sección «Flujo de rama»). |
 | `scripts/merge-to-main.sh --confirmado <rama>` | Ejecuta la secuencia de fusión y publicación de la sección «Merge y publicación». El flag `--confirmado` solo evita ejecuciones accidentales; **sigue exigiendo el OK explícito del usuario antes de invocarlo**. |
 | `node scripts/check-docs.mjs` | Revisa todo el repositorio: enlaces relativos de Markdown rotos, propuestas `**Estado:** Implementada` con elementos de checklist sin marcar (incoherencia) y propuestas `**Estado:** Implementada` que sigan en el árbol de trabajo (candidatas a retirar, ver «Cierre de una propuesta»). No modifica nada. |
@@ -66,7 +66,7 @@ Para verificar un cambio sin depender de abrir el navegador (por ejemplo, en un 
 ./scripts/smoke-test.sh
 ```
 
-Esto levanta un servidor temporal en un puerto libre (8099 u otro cercano si está ocupado), comprueba que la portada, el menú y el `index.html` de cada juego responden con código 200, valida con `node --check` que los `.js` de `juegos/` no tienen errores de sintaxis, y detiene el servidor al terminar. El script devuelve un código de salida distinto de cero si algo falla, con el detalle impreso por pantalla.
+Esto levanta un servidor temporal en un puerto libre (8099 u otro cercano si está ocupado), comprueba que la portada, el menú y el `index.html` de cada juego responden con código 200, comprueba en ese HTML los marcadores literales de `juegos/<id>/smoke-checks.txt` cuando ese archivo existe (por ejemplo, que sigan presentes ciertos `id="..."` clave), valida con `node --check` que los `.js` de `juegos/` no tienen errores de sintaxis, y detiene el servidor al terminar. El script devuelve un código de salida distinto de cero si algo falla, con el detalle impreso por pantalla. Esta comprobación de marcadores es estructural (sobre el HTML tal cual lo sirve el servidor, sin ejecutar JavaScript); no sustituye la revisión visual en navegador cuando el cambio afecta a estilos, animaciones o interacción.
 
 Si solo hace falta comprobar la sintaxis de un archivo o carpeta concreta (más rápido que el smoke test completo):
 
