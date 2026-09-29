@@ -13,7 +13,7 @@ Planificar la implementación y las mejoras de Botellas y líquidos como parte d
 - GitHub Pages está activo y publica `main` desde la raíz: [josejacin.github.io/JuegosEnGitHub](https://josejacin.github.io/JuegosEnGitHub/).
 - La presentación y las reglas de Botellas y líquidos están acordadas en [`README.md`](README.md).
 - El catálogo y Botellas y líquidos están implementados y publicados.
-- T1–T13 y T20–T22 están completadas. T22 registra el refactor interno de Botellas y líquidos (propuesta 041). La siguiente tarea pendiente dentro de este juego es T14, propuesta 032; las propuestas 032–037 siguen aprobadas y pendientes. Según la prioridad general acordada, el trabajo en este backlog queda pospuesto mientras se prepara la propuesta del nuevo juego. No se han cancelado sus tareas.
+- T1–T13 y T20–T22 están completadas. T22 registra el refactor interno de Botellas y líquidos (propuesta 041). La siguiente tarea pendiente dentro de este juego es T15, récord local (propuesta 033), ya que T14 está completada. Las propuestas 032–037 siguen aprobadas; la propuesta 032 está implementada en `main`. Según la prioridad general acordada, el trabajo en este backlog queda pospuesto mientras se prepara la propuesta del nuevo juego. No se han cancelado sus tareas.
 
 ## Estructura del juego
 
@@ -252,7 +252,7 @@ El sitio debe funcionar como archivos estáticos bajo la ruta de proyecto de Git
 5. T6 puede avanzar junto con T1–T5, ajustándose al comportamiento real.
 6. T7 depende de que T1–T6 estén completos.
 7. T20 es un refactor transversal completado antes de continuar las mejoras pendientes.
-8. T14 es la siguiente tarea pendiente dentro del backlog de este juego. T15 y T17 dependen de T14; T16, T18 y T19 son independientes. La prioridad vigente del sitio es preparar primero la propuesta de Murdoku; después se volverá a priorizar el backlog de este juego sin perder esta secuencia ni sus dependencias.
+8. La propuesta 032 está integrada en `main`. T15 y T17 dependen de T14. T16, T18 y T19 son independientes. La prioridad vigente del sitio es preparar primero la propuesta de Murdoku; después se volverá a priorizar el backlog de este juego sin perder esta secuencia ni sus dependencias.
 
 ## Decisiones vigentes
 

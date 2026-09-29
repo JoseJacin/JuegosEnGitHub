@@ -6,7 +6,7 @@ Este documento registra solo la continuidad de este juego. La continuidad genera
 
 - Colección estática publicada en GitHub Pages: [josejacin.github.io/JuegosEnGitHub](https://josejacin.github.io/JuegosEnGitHub/).
 - El juego está implementado y publicado. Sus reglas vigentes están en [`README.md`](README.md).
-- T1–T13 y T20–T22 están completadas. Las propuestas 030, 031, 038 y 041 se implementaron; sus archivos se retiraron del árbol de trabajo y permanecen en el historial de Git. La propuesta transversal 039 también está completada y archivada. La propuesta 032 (contador de movimientos) está implementada en la rama `feature/032_contador_movimientos` (commit `058d114`) pero aún no integrada en `main`. Las propuestas 033–037 siguen aprobadas y pendientes en `propuestas/`. T14 está lista para su integración.
+- T1–T13 y T20–T22 están completadas. Las propuestas 030, 031, 038 y 041 se implementaron; sus archivos se retiraron del árbol de trabajo y permanecen en el historial de Git. La propuesta transversal 039 también está completada y archivada. La propuesta 032 (contador de movimientos) está integrada en `main` (commit `8fe895a`). Las propuestas 033–037 siguen aprobadas y pendientes en `propuestas/`. T15 (récord local) es la siguiente tarea del backlog de este juego.
 - T15 (récord local) y T17 (compartir resultado) dependen de T14. T16, T18 y T19 son independientes; revisar el plan para el orden acordado.
 - En la rama `feature/052_detalle_propuestas_botellas` se amplió la guía de implementación de las propuestas pendientes 032–037 para que un modelo local pueda seguir puntos de integración, estado, casos límite y comprobaciones. La propuesta 037 se ajustó a seis patrones porque las reglas y el código vigentes admiten como máximo seis colores; no se amplió el alcance del juego. Esta revisión documental no implementa las propuestas ni cambia su estado aprobado/pendiente.
 
@@ -32,6 +32,6 @@ Este documento registra solo la continuidad de este juego. La continuidad genera
 ## Prioridad actual
 
 - Siguiente iniciativa general: preparar la propuesta de Murdoku.
-- La propuesta 032 (contador de movimientos) está en rama `feature/032_contador_movimientos` (commit `058d114`), lista para integración.
-- Tras integrar la propuesta 032 en `main`, retomar las propuestas pendientes: 033, 034, 035 (con dependencias), 036 y 037 (independientes).
+- La propuesta 032 (contador de movimientos) está integrada en `main` (commit `8fe895a`).
+- Las propuestas pendientes de este juego: 033, 034, 035 (con dependencias), 036 y 037 (independientes).
 - La rama `feature/042_planes_contexto_por_juego` se integró en `main` (commit `a93aae0`, merge `d18fbad`) y ambas ramas están publicadas en `origin`.
