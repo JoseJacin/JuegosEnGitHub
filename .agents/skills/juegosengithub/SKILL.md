@@ -1,29 +1,37 @@
 ---
 name: juegosengithub
-description: Apply the JuegosEnGitHub repository workflow when answering project status questions, investigating tasks, or changing project files.
+description: Apply the JuegosEnGitHub repository workflow, including its SDD proposal, approval, implementation, verification, and closure phases.
 ---
 
 # Flujo del proyecto JuegosEnGitHub
 
 ## Fuentes y comprobación
 
-- Lee `AGENTS.md` y `COMANDOS.md` antes de trabajar. Para saber el estado o el siguiente paso, consulta además `PLAN.md`, `CONTEXTO.md` y `docs/README.md`.
-- Sigue las referencias locales pertinentes: plan general `PLAN.md`, plan y contexto `juegos/<id>/PLAN.md` y `juegos/<id>/CONTEXTO.md`, propuestas aprobadas y README relacionados. Usa las reglas en `juegos/<id>/README.md` como autoridad sobre la mecánica.
+- Lee `AGENTS.md` y `COMANDOS.md` antes de cambiar archivos. Consulta los documentos de estado pertinentes al pedido: los de raíz para el sitio y los de `juegos/<id>/` para ese juego.
+- Para un juego, usa `juegos/<id>/README.md` como autoridad sobre sus reglas y su `PLAN.md`, `CONTEXTO.md` e índice de propuestas como fuentes de tareas, continuidad y estado. Para trabajo transversal, usa los documentos generales y `docs/propuestas/`.
 - Inspecciona Git y los archivos actuales. No tomes una afirmación del usuario, una conversación anterior o `CONTEXTO.md` como prueba de que existe una tarea, carpeta, archivo o función.
-- Compara el plan general y los planes de los juegos pertinentes con sus propuestas aprobadas. Si discrepan, señala la diferencia; identifica el siguiente paso por estado y dependencias documentadas.
+- El plan general registra solo el trabajo del sitio. No enumeres ni compares allí propuestas o estados de juegos. Si el plan de un juego y sus propuestas discrepan, señala la discrepancia dentro de ese ámbito y usa las dependencias documentadas.
 - Busca código en las extensiones reales del repositorio. JavaScript y CSS pueden estar integrados en `.html`.
 - Respalda conclusiones con rutas y encabezados concretos. No inventes datos; separa hechos observados de inferencias.
 
-## Límites y cambios
+## Fases SDD
 
-- Respeta el alcance pedido. Si el usuario pide investigar o revisar en modo de solo lectura, no modifiques archivos.
-- Para una funcionalidad nueva, aplica el flujo SDD de `AGENTS.md`: propuesta, alcance aprobado, criterios de aceptación, implementación y registro actualizado.
-- No cambies reglas documentadas por iniciativa propia. Si aparece una contradicción que afecte al comportamiento, descríbela y espera resolución.
-- Sigue la estructura y los comandos de `COMANDOS.md`; no incluyas cambios ajenos al alcance.
+1. **Propuesta:** para una funcionalidad o cambio de producto, crea primero una propuesta con la plantilla común. Define problema, objetivo, incluye/excluye, requisitos, criterios verificables, tareas, dependencias y preguntas. No dupliques reglas ya especificadas.
+2. **Revisión y aprobación:** comprueba que la propuesta concuerda con las reglas y el código actuales. Expón decisiones abiertas y contradicciones. No implementes el cambio de producto hasta que el usuario apruebe el alcance; no supongas que un borrador está aprobado.
+3. **Implementación:** trabaja solo dentro del alcance aprobado, en la rama exigida por `COMANDOS.md`. Sigue el plan y las dependencias del ámbito. Si hace falta cambiar una regla o ampliar el alcance, detén ese punto y solicita resolución antes de continuar con ese cambio.
+4. **Verificación:** revisa cada criterio de aceptación y comunica qué quedó cubierto, cómo se comprobó y qué falta. No marques como completado lo que no se haya verificado.
+5. **Cierre:** actualiza el estado de la propuesta y las tareas del plan pertinente; registra decisiones, estado Git y próximos pasos en el `CONTEXTO.md` del ámbito. Actualiza el contexto raíz solo si cambió el estado compartido del sitio; actualiza ambos ámbitos si el cambio afecta a ambos. Sigue el flujo de revisión, commit, merge y publicación de `COMANDOS.md`.
 
-## Respuesta sobre el siguiente paso
+Para consultas, auditorías o cambios puramente documentales pedidos directamente, respeta el alcance de la petición y no inicies una implementación de producto que no se haya aprobado.
 
-- Indica primero la siguiente tarea pendiente y su propuesta relacionada.
-- Resume por qué le toca ahora, citando el plan y cualquier dependencia.
-- Señala cualquier estado de Git o documento obsoleto que pueda inducir a error.
-- Mantén la respuesta breve y en español, salvo que el usuario pida otro idioma.
+## Límites de trabajo
+
+- Si el usuario pide solo investigar o revisar, no modifiques archivos.
+- No cambies reglas documentadas por iniciativa propia.
+- Sigue la estructura, la convención de ramas y los comandos de `COMANDOS.md`; no incluyas cambios ajenos al alcance.
+
+## Consultas de estado
+
+- Solo si el usuario pregunta qué queda o cuál es el siguiente paso, consulta el plan y contexto del ámbito solicitado, su índice de propuestas y el estado actual de Git.
+- Explica el orden por estado y dependencias documentadas. Señala documentación obsoleta o discrepancias en ese ámbito; no infieras pendientes del historial.
+- Responde en español y con el detalle adecuado a la pregunta.
