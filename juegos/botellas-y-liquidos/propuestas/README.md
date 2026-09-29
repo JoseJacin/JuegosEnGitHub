@@ -8,7 +8,7 @@ Las propuestas completadas 030, 031, 033, 034, 038 y 041 se retiraron del árbol
 
 - [032 — Contador de movimientos](032_contador_movimientos.md)
 
-**Estado:** 030, 031 y 032 están implementadas y fusionadas en `main`. Los documentos 030 y 031 están retirados del árbol de trabajo y disponibles en el historial de Git; 032 se conserva aquí como referencia histórica y no forma parte del backlog activo. 033 (récord local) y 034 (pista de movimiento) están implementadas; sus documentos se retiraron del árbol de trabajo. 033 ya está fusionada en `main`; 034 está implementada en `feature/botellas-y-liquidos_034_pista_hint`, pendiente de fusión.
+**Estado:** 030, 031 y 032 están implementadas y fusionadas en `main`. Los documentos 030 y 031 están retirados del árbol de trabajo y disponibles en el historial de Git; 032 se conserva aquí como referencia histórica y no forma parte del backlog activo. 033 (récord local) y 034 (pista de movimiento) están implementadas, fusionadas en `main` y sus documentos se retiraron del árbol de trabajo.
 
 ## Aprobadas pendientes
 
