@@ -11,6 +11,9 @@
 - Propuesta inicial de mínimo total: `ceil(3 × P / 2)` átomos lógicos visibles, incluyendo la pista de víctima y contando hojas del AST; además, al menos un átomo dirigido a cada sospechoso. El usuario pidió que el mínimo sea escalable y delegó proponerlo; falta que revise/apruebe o ajuste la fórmula y su calibración. No es una cifra extraída del referente.
 - La muestra aportada abarca tableros 5×5–16×16 y enseña pistas de posición, región, vecindad, relaciones, negación, composición, conteo y reglas de escenario. Las capturas no muestran etiquetas de nivel vinculables a cada caso ni baremos numéricos; no permiten deducir umbrales oficiales. La dificultad propia queda sujeta a solver pedagógico y calibración.
 - No se han iniciado pruebas o perfilado de código.
+- `GUIA_MOTOR_GENERACION.md` incorporó pseudocódigo concreto para el crecimiento de salas (§6.1), la selección de pistas únicas (§9.3) y la selección de técnica del solver pedagógico D0–D4 (§11.1.1), además de un caso de referencia completo e ilustrativo (§21: tablero 5×5, testigo, pistas y traza de resolución) pensado como fixture de prueba unitaria para `PuzzleValidator`, `ConstraintSolver` y `HumanStepSolver` antes de conectar el generador aleatorio. No cambia ninguna regla funcional de `README.md` ni resuelve las decisiones abiertas de su §13.
+- `PLAN.md` reforzó el criterio de atomicidad ("Guía para ejecutar tareas") con señales concretas de subtarea demasiado grande y dividió las que agrupaban varios predicados/técnicas en una sola entrada: 1.7 (átomos de pista, ahora 1.7.1–1.7.6 por familia), 3.11 (forma de sala, ahora 3.11.1–3.11.3 con métrica de compacidad nueva en `GUIA_MOTOR_GENERACION.md` §6.2), 5.9/5.13 (relaciones cardinales y no-adyacencia, ahora 5.9.1–5.9.4 y 5.13.1–5.13.2), 6.10/6.12/6.13/6.15 (generación y renderizado de átomos, divididos igual que el lado del solver) y 7.4/7.5 (detección D2/D3, ahora 7.4.1–7.4.3 y 7.5.1–7.5.4). Ninguna división cambia el alcance ni las reglas, solo el tamaño de la unidad de trabajo.
+- `GUIA_MOTOR_GENERACION.md` incorporó pseudocódigo concreto para el crecimiento de salas (§6.1), la selección de pistas únicas (§9.3) y la selección de técnica del solver pedagógico D0–D4 (§11.1.1), además de un caso de referencia completo e ilustrativo (§21: tablero 5×5, testigo, pistas y traza de resolución) pensado como fixture de prueba unitaria para `PuzzleValidator`, `ConstraintSolver` y `HumanStepSolver` antes de conectar el generador aleatorio. No cambia ninguna regla funcional de `README.md` ni resuelve las decisiones abiertas de su §13.
 
 ## Decisiones recogidas
 
@@ -36,5 +39,6 @@ Revisar `README.md` §§3.3, 4.3–4.4 y 13, `PLAN.md` tareas 0.15–0.16 y bloq
 - La rama `feature/045_guia_motor_generacion_murdoku` se integró en `main` mediante merge `a1c078d`.
 - La rama `feature/047_resaltado_semiotico_pistas` se integró en `main` mediante merge `8cb0ba4`.
 - La rama `feature/048_resaltado_habitacion_y_ocupabilidad` se integró en `main` mediante merge `9dbd102`.
-- Rama actual: `feature/050_repertorio_total_reglas`.
+- La rama `feature/050_repertorio_total_reglas` se integró en `main` mediante merge `43e758e`.
+- Rama actual: `feature/057_detalle_tecnico_pseudocodigo_murdoku` (solo añade pseudocódigo y un fixture ilustrativo a la guía técnica, sin código de juego).
 - La guía técnica todavía no está aprobada y no se ha implementado el motor.
