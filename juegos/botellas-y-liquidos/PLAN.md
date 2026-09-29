@@ -204,11 +204,11 @@ El sitio debe funcionar como archivos estáticos bajo la ruta de proyecto de Git
 
 ### T15 — Récord local
 
-- [ ] T15.1 Guardar y consultar el mínimo de movimientos por configuración en `localStorage`, tolerando errores de acceso.
-- [ ] T15.2 Comparar el resultado al ganar y actualizar el diálogo de victoria.
-- [ ] T15.3 Crear la rama `feature/botellas-y-liquidos_033_record_local`, revisar y confirmar el cambio, fusionarlo en `main` y publicarlo.
+- [x] T15.1 Guardar y consultar el mínimo de movimientos por configuración en `localStorage`, tolerando errores de acceso.
+- [x] T15.2 Comparar el resultado al ganar y actualizar el diálogo de victoria.
+- [x] T15.3 Crear la rama `feature/botellas-y-liquidos_033_record_local`, revisar y confirmar el cambio, fusionarlo en `main` y publicarlo.
 
-**Hecho cuando:** el récord se crea y mejora según los criterios aprobados, y el juego sigue funcionando si `localStorage` no está disponible. Depende de T14; alcance en la [propuesta 033](propuestas/033_record_local.md).
+**Hecho cuando:** el récord se crea y mejora según los criterios aprobados, y el juego sigue funcionando si `localStorage` no está disponible. Completada y fusionada en `main` en 2026-09-29 (commit `760a27b`); alcance en la [propuesta 033](propuestas/033_record_local.md).
 
 ### T16 — Pista de movimiento
 
