@@ -15,9 +15,9 @@ Las propuestas completadas 030, 031, 033, 034, 038 y 041 se retiraron del árbol
 - [035 — Compartir resultado](035_compartir_resultado.md)
   - **Depende de:** T14 completada; puede mostrar el récord de T15 si esa tarea ya está implementada.
 - [036 — Animación de vertido](036_animacion_vertido.md)
-  - **Depende de:** Ninguna (independiente de otras propuestas).
+  - **Depende de:** Ninguna (independiente de otras propuestas). **Coordinación:** modifica el mismo bloque de `renderGame()` que crea/actualiza `.liquid` que toca la 037; si ambas están pendientes, revisar cuál se implementa primero y aplicar la nota cruzada del documento correspondiente antes de tocar esa función.
 - [037 — Modo daltónico / alto contraste](037_modo_daltonico.md)
-  - **Depende de:** Ninguna (independiente de otras propuestas).
+  - **Depende de:** Ninguna (independiente de otras propuestas). **Coordinación:** ver nota de la 036.
 
 **Proceso de aprobación:** Una propuesta se considera aprobada cuando:
 - Tiene un objetivo claro y alcanzable en el contexto actual del juego.

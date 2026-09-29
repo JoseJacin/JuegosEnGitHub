@@ -20,7 +20,7 @@ description: Apply the JuegosEnGitHub repository workflow, including its SDD pro
 2. **Revisión y aprobación:** comprueba que la propuesta concuerda con las reglas y el código actuales. Expón decisiones abiertas y contradicciones. No implementes el cambio de producto hasta que el usuario apruebe el alcance; no supongas que un borrador está aprobado.
 3. **Implementación:** trabaja solo dentro del alcance aprobado, en la rama exigida por `COMANDOS.md`. Sigue el plan y las dependencias del ámbito. Si hace falta cambiar una regla o ampliar el alcance, detén ese punto y solicita resolución antes de continuar con ese cambio.
 4. **Revisión del código:** verifica los criterios de aceptación y revisa el diff de código. Explica qué cambió y qué comprobaste; espera el OK del usuario antes del commit de código. Si no hay cambios de código, omite esta fase.
-5. **Revisión de documentación:** tras el commit de código, actualiza la propuesta, el plan y el contexto pertinentes. Presenta y revisa el diff documental; espera un OK distinto antes del commit de documentación. Si el cambio es solo documental, esta es la primera revisión y aprobación de commit.
+5. **Revisión de documentación:** tras el commit de código, actualiza la propuesta, el plan y el contexto pertinentes. Si la propuesta queda implementada y fusionada en `main`, retira su archivo `.md` del árbol de trabajo (su contenido sigue disponible en el historial de Git) salvo que el índice de propuestas del ámbito documente explícitamente una excepción. Ejecuta `node scripts/check-docs.mjs` (enlaces rotos y propuestas implementadas sin retirar) y, para la propuesta concreta que cierras, `node scripts/proposal-status.mjs <ruta-al-md>` (checklist pendiente y referencias a actualizar). Presenta y revisa el diff documental; espera un OK distinto antes del commit de documentación. Si el cambio es solo documental, esta es la primera revisión y aprobación de commit.
 6. **Merge:** una vez hechos los commits necesarios, solicita un OK explícito para fusionar en `main`. El OK de código o documentación no autoriza el merge. Tras aprobarlo, completa la publicación según `COMANDOS.md`.
 
 Para consultas, auditorías o cambios puramente documentales pedidos directamente, respeta el alcance de la petición y no inicies una implementación de producto que no se haya aprobado.
@@ -30,6 +30,7 @@ Para consultas, auditorías o cambios puramente documentales pedidos directament
 - Si el usuario pide solo investigar o revisar, no modifiques archivos.
 - No cambies reglas documentadas por iniciativa propia.
 - Sigue la estructura, la convención de ramas y los comandos de `COMANDOS.md`; no incluyas cambios ajenos al alcance.
+- `COMANDOS.md` documenta scripts en `scripts/` (`serve.sh`, `check-js.sh`, `smoke-test.sh`, `new-branch.sh`, `merge-to-main.sh`, `new-proposal.sh`, `check-docs.mjs`, `proposal-status.mjs`) que agilizan levantar el servidor local, validar sintaxis JS, crear propuestas con el idPropuesta correcto, y comprobar la coherencia documental (enlaces rotos, propuestas implementadas sin retirar o con checklist incoherente). Son atajos opcionales sobre los mismos comandos: no cambian las aprobaciones exigidas, en particular `merge-to-main.sh` sigue requiriendo el OK explícito de fusión antes de ejecutarse.
 
 ## Consultas de estado
 
