@@ -36,6 +36,7 @@ const ui = {
   moveStatus: document.querySelector('#moveStatus'),
   undo: document.querySelector('#undo'),
   restart: document.querySelector('#restart'),
+  hint: document.querySelector('#hint'),
   editSettings: document.querySelector('#editSettings'),
   copyDiagnostics: document.querySelector('#copyDiagnostics'),
   diagnosticsStatus: document.querySelector('#diagnosticsStatus'),
@@ -60,6 +61,7 @@ let moveHistory = [];
 let moveCount = 0;
 let gameConfig = null;
 let gameWon = false;
+let hintTimeout = null;
 
 // ============================================================
 // Récord local (localStorage)
@@ -388,6 +390,8 @@ function makeGame() {
   initialBottles = copyBottles(currentBottles);
   moveHistory = [];
   gameWon = false;
+  updateHintButton();
+  clearHint();
   ui.victoryDialog.close();
   renderGame();
 }
@@ -522,7 +526,9 @@ function finishIfWon() {
   if (!isVictory()) return;
   gameWon = true;
   clearSelection();
+  clearHint();
   updateUndoButton();
+  updateHintButton();
   ui.moveStatus.textContent = '¡Victoria! Todas las botellas con líquido están completas.';
 
   const configKey = buildRecordKey();
@@ -621,6 +627,7 @@ function handleBottleChoice(bottleId) {
 function undoMove() {
   if (!moveHistory.length) return;
   gameWon = false;
+  updateHintButton();
   ui.victoryDialog.close();
   currentBottles = moveHistory.pop();
   moveCount -= 1;
@@ -636,6 +643,8 @@ function restartGame() {
   moveHistory = [];
   moveCount = 0;
   gameWon = false;
+  updateHintButton();
+  clearHint();
   ui.victoryDialog.close();
   setRecordMessage('');
   renderGame();
@@ -644,9 +653,58 @@ function restartGame() {
 }
 
 function showSettings() {
+  clearHint();
   ui.victoryDialog.close();
   ui.game.hidden = true;
   ui.form.hidden = false;
+}
+
+// ============================================================
+// Pista: sugerencia de movimiento legal sin ejecutarlo
+// ============================================================
+
+// Busca la primera pareja origen→destino jugable; no modifica el estado.
+function findHint() {
+  for (const source of currentBottles) {
+    if (!source.open || !source.layers.length) continue;
+    const top = source.layers[source.layers.length - 1];
+    for (const destination of currentBottles) {
+      if (destination.id === source.id || !destination.open) continue;
+      const occupied = destination.layers.reduce((sum, layer) => sum + layer.units, 0);
+      const free = destination.capacity - occupied;
+      if (free <= 0) continue;
+      const destinationTop = destination.layers[destination.layers.length - 1];
+      if (destinationTop && destinationTop.color !== top.color) continue;
+      return { sourceId: source.id, destinationId: destination.id };
+    }
+  }
+  return null;
+}
+
+function clearHint() {
+  if (hintTimeout) {
+    clearTimeout(hintTimeout);
+    hintTimeout = null;
+  }
+  bottleGrid.querySelectorAll('.bottle.hint').forEach((item) => item.classList.remove('hint'));
+}
+
+function showHint() {
+  if (gameWon) return;
+  clearSelection();
+  clearHint();
+  const hint = findHint();
+  if (!hint) {
+    setMoveStatus('Sin movimientos disponibles', false);
+    return;
+  }
+  bottleGrid.querySelector(`[data-bottle-id="${hint.sourceId}"]`)?.classList.add('hint');
+  bottleGrid.querySelector(`[data-bottle-id="${hint.destinationId}"]`)?.classList.add('hint');
+  hintTimeout = setTimeout(clearHint, 1500);
+}
+
+function updateHintButton() {
+  ui.hint.disabled = gameWon;
 }
 
 // ============================================================
@@ -725,6 +783,7 @@ ui.start.addEventListener('click', makeGame);
 ui.undo.addEventListener('click', undoMove);
 ui.undoVictory.addEventListener('click', undoMove);
 ui.restart.addEventListener('click', restartGame);
+ui.hint.addEventListener('click', showHint);
 ui.repeatGame.addEventListener('click', makeGame);
 ui.changeAfterWin.addEventListener('click', showSettings);
 ui.editSettings.addEventListener('click', showSettings);
