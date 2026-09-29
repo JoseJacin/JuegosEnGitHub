@@ -19,8 +19,9 @@ description: Apply the JuegosEnGitHub repository workflow, including its SDD pro
 1. **Propuesta:** para una funcionalidad o cambio de producto, crea primero una propuesta con la plantilla común. Define problema, objetivo, incluye/excluye, requisitos, criterios verificables, tareas, dependencias y preguntas. No dupliques reglas ya especificadas.
 2. **Revisión y aprobación:** comprueba que la propuesta concuerda con las reglas y el código actuales. Expón decisiones abiertas y contradicciones. No implementes el cambio de producto hasta que el usuario apruebe el alcance; no supongas que un borrador está aprobado.
 3. **Implementación:** trabaja solo dentro del alcance aprobado, en la rama exigida por `COMANDOS.md`. Sigue el plan y las dependencias del ámbito. Si hace falta cambiar una regla o ampliar el alcance, detén ese punto y solicita resolución antes de continuar con ese cambio.
-4. **Verificación:** revisa cada criterio de aceptación y comunica qué quedó cubierto, cómo se comprobó y qué falta. No marques como completado lo que no se haya verificado.
-5. **Cierre:** actualiza el estado de la propuesta y las tareas del plan pertinente; registra decisiones, estado Git y próximos pasos en el `CONTEXTO.md` del ámbito. Actualiza el contexto raíz solo si cambió el estado compartido del sitio; actualiza ambos ámbitos si el cambio afecta a ambos. Sigue el flujo de revisión, commit, merge y publicación de `COMANDOS.md`.
+4. **Revisión del código:** verifica los criterios de aceptación y revisa el diff de código. Explica qué cambió y qué comprobaste; espera el OK del usuario antes del commit de código. Si no hay cambios de código, omite esta fase.
+5. **Revisión de documentación:** tras el commit de código, actualiza la propuesta, el plan y el contexto pertinentes. Presenta y revisa el diff documental; espera un OK distinto antes del commit de documentación. Si el cambio es solo documental, esta es la primera revisión y aprobación de commit.
+6. **Merge:** una vez hechos los commits necesarios, solicita un OK explícito para fusionar en `main`. El OK de código o documentación no autoriza el merge. Tras aprobarlo, completa la publicación según `COMANDOS.md`.
 
 Para consultas, auditorías o cambios puramente documentales pedidos directamente, respeta el alcance de la petición y no inicies una implementación de producto que no se haya aprobado.
 
