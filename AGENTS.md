@@ -11,7 +11,7 @@
 ## Consultas de estado y continuidad
 
 - Para responder qué queda por hacer, inspecciona el `PLAN.md` de raíz, los planes de los juegos pertinentes y el estado actual de Git; no deduzcas pendientes del historial de conversaciones ni de un resumen antiguo.
-- Compara el plan con las propuestas aprobadas enlazadas desde `docs/README.md` y los índices de cada juego. Si hay propuestas aprobadas que aún no aparecen en el plan, indícalo como discrepancia y usa sus dependencias documentadas para identificar el siguiente paso.
+- El plan general registra solo trabajo transversal del sitio. El estado y las propuestas de cada juego se consultan en el plan, contexto e índice de propuestas de ese juego; no dupliques propuestas específicas de juego en documentación global.
 - Si una petición presupone una tarea, archivo, carpeta o función, compruébalo en el repositorio antes de aceptarlo. Si no existe o contradice las fuentes de verdad, señala la discrepancia.
 - Busca código en las extensiones presentes en el repositorio. En particular, el JavaScript y CSS pueden estar integrados en archivos `.html`; no concluyas que no hay funciones solo por no encontrar `.js` o `.ts`.
 - Distingue entre hechos documentados, estado observado y recomendaciones. Cita rutas concretas y no inventes rutas, tareas o estados.
@@ -35,8 +35,8 @@
 
 ## Git
 
-- Antes de cambiar archivos, comprueba `git status`; parte de `main` actualizado y crea `feature/<id>_<descripcion>`.
-- En entornos con sandbox, `.git` puede estar protegido aunque el árbol de trabajo sea escribible. Ejecuta desde el principio con escalación/autorización del entorno toda operación que escriba metadatos Git (`fetch`, `pull`, `switch`/`checkout` que cambien rama, `add`, `commit`, `merge`, `push`). Las consultas (`status`, `diff`, `log`, `branch`) pueden ejecutarse sin escalación.
+- Antes de cambiar archivos, comprueba `git status`; parte de `main` actualizado y crea una rama `feature/<ambito>_<idPropuesta>_<descripcion>`. Usa el identificador del juego para cambios propios de un juego y `sitio` para cambios globales, transversales o de documentación del repositorio. Este requisito aplica también a cambios exclusivamente documentales.
+- En entornos con sandbox, `.git` puede estar protegido aunque el árbol de trabajo sea escribible. Ejecuta desde el primer intento con escalación/autorización del entorno toda operación que escriba metadatos Git (`fetch`, `pull`, `switch`/`checkout` que cambien rama, `add`, `commit`, `merge`, `push`). No pruebes primero sin autorización. Las consultas (`status`, `diff`, `log`, `branch`) pueden ejecutarse sin escalación.
 - Si una operación mutante falla por permiso al escribir `.git`, no repitas la misma orden sin escalación: conserva los cambios de archivos, informa de la causa y vuelve a ejecutarla por el mecanismo de autorización del entorno. No intentes corregir permisos de `.git` a mano.
 - Haz commits pequeños y atómicos con mensajes que describan el cambio.
 - Revisa `git status` y el diff antes de confirmar.

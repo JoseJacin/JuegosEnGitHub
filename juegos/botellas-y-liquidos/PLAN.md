@@ -13,7 +13,7 @@ Planificar la implementación y las mejoras de Botellas y líquidos como parte d
 - GitHub Pages está activo y publica `main` desde la raíz: [josejacin.github.io/JuegosEnGitHub](https://josejacin.github.io/JuegosEnGitHub/).
 - La presentación y las reglas de Botellas y líquidos están acordadas en [`README.md`](README.md).
 - El catálogo y Botellas y líquidos están implementados y publicados.
-- T1–T13 y T20–T22 están completadas. T22 registra el refactor interno de Botellas y líquidos (propuesta 041). La siguiente tarea pendiente dentro de este juego es T14, propuesta 032; las propuestas 032–037 siguen aprobadas y pendientes. Según la prioridad general acordada, el trabajo en este backlog queda pospuesto mientras se prepara la propuesta del nuevo juego. No se han cancelado sus tareas.
+- T1–T14 y T20–T22 están completadas. T14 (contador de movimientos) se implementó conforme a la propuesta 032. Las tareas y propuestas aún pendientes se mantienen en el índice de este juego; la prioridad se gestiona aquí sin duplicarla en el plan general.
 
 ## Estructura del juego
 
@@ -30,7 +30,7 @@ El sitio debe funcionar como archivos estáticos bajo la ruta de proyecto de Git
 
 - Cada tarea principal representa una funcionalidad que se pueda revisar por separado.
 - Las subtareas se completan en orden; se actualiza este plan y [`CONTEXTO.md`](CONTEXTO.md) del juego al cerrar cada bloque.
-- Para cambios de código, crear una rama `feature/<id>_<descripcion>`, hacer commits atómicos, fusionar en `main` y publicar las ramas necesarias en GitHub.
+- Para cualquier cambio del juego, incluido el documental, crear una rama `feature/botellas-y-liquidos_<idPropuesta>_<descripcion>`, hacer commits atómicos, fusionar en `main` y publicar las ramas necesarias en GitHub.
 - Mantener las reglas de juego según la especificación aprobada. Si aparece una decisión de diseño que cambie esas reglas, aclararla antes de implementarla.
 
 ## Tareas de implementación
@@ -194,19 +194,19 @@ El sitio debe funcionar como archivos estáticos bajo la ruta de proyecto de Git
 
 ### T14 — Contador de movimientos
 
-- [ ] T14.1 Incrementar el contador solo después de un trasvase válido.
-- [ ] T14.2 Reducirlo al deshacer un movimiento.
-- [ ] T14.3 Reiniciarlo al iniciar o reiniciar una partida.
-- [ ] T14.4 Mostrarlo junto a las acciones del tablero y adaptar su tamaño a móvil.
-- [ ] T14.5 Crear la rama `feature/032_contador_movimientos`, revisar y confirmar el cambio, fusionarlo en `main` y publicarlo.
+- [x] T14.1 Incrementar el contador solo después de un trasvase válido.
+- [x] T14.2 Reducirlo al deshacer un movimiento.
+- [x] T14.3 Reiniciarlo al iniciar o reiniciar una partida.
+- [x] T14.4 Mostrarlo junto a las acciones del tablero y adaptar su tamaño a móvil.
+- [x] T14.5 Implementar en `feature/032_contador_movimientos`, revisar y confirmar el cambio, fusionarlo en `main` y publicarlo.
 
-**Hecho cuando:** el contador refleja los trasvases válidos, los deshacer y los reinicios sin romper la cabecera en móvil. Alcance aprobado en la [propuesta 032](propuestas/032_contador_movimientos.md).
+**Hecho cuando:** el contador refleja los trasvases válidos, los deshacer y los reinicios sin romper la cabecera en móvil. Completada y fusionada en `main` el 2026-09-23 (merge `8fe895a`); alcance conservado en [032](propuestas/032_contador_movimientos.md).
 
 ### T15 — Récord local
 
 - [ ] T15.1 Guardar y consultar el mínimo de movimientos por configuración en `localStorage`, tolerando errores de acceso.
 - [ ] T15.2 Comparar el resultado al ganar y actualizar el diálogo de victoria.
-- [ ] T15.3 Crear la rama `feature/033_record_local`, revisar y confirmar el cambio, fusionarlo en `main` y publicarlo.
+- [ ] T15.3 Crear la rama `feature/botellas-y-liquidos_033_record_local`, revisar y confirmar el cambio, fusionarlo en `main` y publicarlo.
 
 **Hecho cuando:** el récord se crea y mejora según los criterios aprobados, y el juego sigue funcionando si `localStorage` no está disponible. Depende de T14; alcance en la [propuesta 033](propuestas/033_record_local.md).
 
@@ -215,7 +215,7 @@ El sitio debe funcionar como archivos estáticos bajo la ruta de proyecto de Git
 - [ ] T16.1 Encontrar una pareja origen-destino válida y resaltarla temporalmente.
 - [ ] T16.2 Cancelar selección activa antes de mostrar la pista y avisar si no hay movimientos.
 - [ ] T16.3 Añadir botón accesible y deshabilitarlo tras ganar.
-- [ ] T16.4 Crear la rama `feature/034_pista_hint`, revisar y confirmar el cambio, fusionarlo en `main` y publicarlo.
+- [ ] T16.4 Crear la rama `feature/botellas-y-liquidos_034_pista_hint`, revisar y confirmar el cambio, fusionarlo en `main` y publicarlo.
 
 **Hecho cuando:** la pista resalta un movimiento legal sin ejecutarlo y no interfiere con selección ni victoria. Alcance en la [propuesta 034](propuestas/034_pista_hint.md).
 
@@ -223,7 +223,7 @@ El sitio debe funcionar como archivos estáticos bajo la ruta de proyecto de Git
 
 - [ ] T17.1 Construir un resumen con colores completados, movimientos y URL del juego.
 - [ ] T17.2 Copiarlo al portapapeles con alternativa manual cuando la API no esté disponible.
-- [ ] T17.3 Crear la rama `feature/035_compartir_resultado`, revisar y confirmar el cambio, fusionarlo en `main` y publicarlo.
+- [ ] T17.3 Crear la rama `feature/botellas-y-liquidos_035_compartir_resultado`, revisar y confirmar el cambio, fusionarlo en `main` y publicarlo.
 
 **Hecho cuando:** el diálogo de victoria permite copiar un resultado con emojis correctos y ofrece el fallback aprobado. Depende de T14; alcance en la [propuesta 035](propuestas/035_compartir_resultado.md).
 
@@ -231,7 +231,7 @@ El sitio debe funcionar como archivos estáticos bajo la ruta de proyecto de Git
 
 - [ ] T18.1 Revisar el renderizado actual y determinar cómo animar las capas sin retrasar movimientos.
 - [ ] T18.2 Aplicar la transición respetando `prefers-reduced-motion` y comprobarla en móvil.
-- [ ] T18.3 Crear la rama `feature/036_animacion_vertido`, revisar y confirmar el cambio, fusionarlo en `main` y publicarlo.
+- [ ] T18.3 Crear la rama `feature/botellas-y-liquidos_036_animacion_vertido`, revisar y confirmar el cambio, fusionarlo en `main` y publicarlo.
 
 **Hecho cuando:** el vertido tiene una transición suave, se desactiva con movimiento reducido y no bloquea la interacción. Alcance en la [propuesta 036](propuestas/036_animacion_vertido.md).
 
@@ -239,7 +239,7 @@ El sitio debe funcionar como archivos estáticos bajo la ruta de proyecto de Git
 
 - [ ] T19.1 Definir patrones distinguibles en escala de grises para los colores del juego.
 - [ ] T19.2 Añadir un control accesible y aplicar/restaurar su preferencia local.
-- [ ] T19.3 Crear la rama `feature/037_modo_daltonico`, revisar y confirmar el cambio, fusionarlo en `main` y publicarlo.
+- [ ] T19.3 Crear la rama `feature/botellas-y-liquidos_037_modo_daltonico`, revisar y confirmar el cambio, fusionarlo en `main` y publicarlo.
 
 **Hecho cuando:** los líquidos se distinguen por patrón sin depender del color, la preferencia persiste y las reglas de juego no cambian. Alcance en la [propuesta 037](propuestas/037_modo_daltonico.md).
 
@@ -252,7 +252,7 @@ El sitio debe funcionar como archivos estáticos bajo la ruta de proyecto de Git
 5. T6 puede avanzar junto con T1–T5, ajustándose al comportamiento real.
 6. T7 depende de que T1–T6 estén completos.
 7. T20 es un refactor transversal completado antes de continuar las mejoras pendientes.
-8. T14 es la siguiente tarea pendiente dentro del backlog de este juego. T15 y T17 dependen de T14; T16, T18 y T19 son independientes. La prioridad vigente del sitio es preparar primero la propuesta de Murdoku; después se volverá a priorizar el backlog de este juego sin perder esta secuencia ni sus dependencias.
+8. T14 está completada. T15 y T17 dependen de T14; T16, T18 y T19 son independientes. El orden y la prioridad restante se mantienen en el índice y el contexto de este juego.
 
 ## Decisiones vigentes
 

@@ -37,7 +37,7 @@ Suavizar visualmente el trasvase con una transición CSS de altura en las capas 
 - [ ] T18.2 Añadir/ajustar la regla CSS de transición en `.liquid` dentro del bloque `prefers-reduced-motion: no-preference`.
 - [ ] T18.3 Si es necesario, refactorizar `renderGame` para actualizar `.liquid` in-place en lugar de recrear el DOM.
 - [ ] T18.4 Verificar en móvil que la animación no causa jank.
-- [ ] T18.5 Crear rama `feature/036_animacion_vertido`, commits atómicos, merge en `main` y push.
+- [ ] T18.5 Crear rama `feature/botellas-y-liquidos_036_animacion_vertido`, commits atómicos, merge en `main` y push.
 
 ## Guía de implementación
 

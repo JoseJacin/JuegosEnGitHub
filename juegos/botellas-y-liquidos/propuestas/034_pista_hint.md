@@ -43,7 +43,7 @@ Añadir un botón «Pista» que resalte visualmente la primera pareja origen→d
 - [ ] T16.3 Añadir botón con icono de bombilla (SVG) en la barra de acciones.
 - [ ] T16.4 Limpiar el resaltado después de 1500 ms con `setTimeout`.
 - [ ] T16.5 Deshabilitar el botón cuando `gameWon === true`.
-- [ ] T16.6 Crear rama `feature/034_pista_hint`, commits atómicos, merge en `main` y push.
+- [ ] T16.6 Crear rama `feature/botellas-y-liquidos_034_pista_hint`, commits atómicos, merge en `main` y push.
 
 ## Guía de implementación
 

@@ -4,8 +4,8 @@
 
 - El sitio está publicado en [GitHub Pages](https://josejacin.github.io/JuegosEnGitHub/); el catálogo y Botellas y líquidos están disponibles.
 - El plan raíz registra solo decisiones y trabajo transversal. Cada juego mantiene su propio [plan](juegos/botellas-y-liquidos/PLAN.md) y [contexto](juegos/botellas-y-liquidos/CONTEXTO.md).
-- La organización documental por juego está implementada (T23); la propuesta 042 completada se retiró del árbol de trabajo y se conserva en el historial de Git.
-- La propuesta [043 de Murdoku](juegos/murdoku/propuestas/043_murdoku_generacion_visual.md) está aprobada. El borrador de [reglas](juegos/murdoku/README.md), [plan](juegos/murdoku/PLAN.md), [contexto](juegos/murdoku/CONTEXTO.md) y [guía técnica del generador](juegos/murdoku/GUIA_MOTOR_GENERACION.md) está preparado para revisión; no hay código implementado.
+- La organización documental por juego está implementada (T23); la propuesta transversal 042 completada se retiró del árbol de trabajo y se conserva en el historial de Git.
+- Cada juego mantiene su estado, prioridades, propuestas y próximos pasos en los documentos de su carpeta. El plan raíz registra únicamente el sitio y el trabajo compartido.
 
 ## Fuentes de verdad
 
@@ -29,4 +29,4 @@
 - La rama `feature/046_archivar_propuestas_finalizadas` se integró en `main` mediante merge `4e9b8aa`; seis propuestas completadas se retiraron del árbol y se conservaron en el historial de Git.
 - Rama actual: `main`; reglas y guía técnica de Murdoku siguen en revisión, sin código.
 - Las instrucciones para trabajar con `.git` protegido por sandbox se integraron en `main` mediante merge `b3cf8e6`; la rama `feature/051_documentar_permisos_git` está publicada.
-- Próximo paso: revisar/aprobar reglas y guía técnica antes de iniciar implementación.
+- Próximo paso: continuar el trabajo transversal del sitio desde `PLAN.md`; los próximos pasos de cada juego constan en su plan y contexto.
