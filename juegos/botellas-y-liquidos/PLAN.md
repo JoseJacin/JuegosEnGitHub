@@ -212,12 +212,12 @@ El sitio debe funcionar como archivos estáticos bajo la ruta de proyecto de Git
 
 ### T16 — Pista de movimiento
 
-- [ ] T16.1 Encontrar una pareja origen-destino válida y resaltarla temporalmente.
-- [ ] T16.2 Cancelar selección activa antes de mostrar la pista y avisar si no hay movimientos.
-- [ ] T16.3 Añadir botón accesible y deshabilitarlo tras ganar.
+- [x] T16.1 Encontrar una pareja origen-destino válida y resaltarla temporalmente.
+- [x] T16.2 Cancelar selección activa antes de mostrar la pista y avisar si no hay movimientos.
+- [x] T16.3 Añadir botón accesible y deshabilitarlo tras ganar.
 - [ ] T16.4 Crear la rama `feature/botellas-y-liquidos_034_pista_hint`, revisar y confirmar el cambio, fusionarlo en `main` y publicarlo.
 
-**Hecho cuando:** la pista resalta un movimiento legal sin ejecutarlo y no interfiere con selección ni victoria. Alcance en la [propuesta 034](propuestas/034_pista_hint.md).
+**Hecho cuando:** la pista resalta un movimiento legal sin ejecutarlo y no interfiere con selección ni victoria. Implementada y verificada en la rama `feature/botellas-y-liquidos_034_pista_hint` (commit `37f1609`); pendiente de fusión en `main`. Alcance en la propuesta 034 (retirada del árbol de trabajo tras su implementación; disponible en el historial de Git).
 
 ### T17 — Compartir resultado
 
@@ -252,7 +252,7 @@ El sitio debe funcionar como archivos estáticos bajo la ruta de proyecto de Git
 5. T6 puede avanzar junto con T1–T5, ajustándose al comportamiento real.
 6. T7 depende de que T1–T6 estén completos.
 7. T20 es un refactor transversal completado antes de continuar las mejoras pendientes.
-8. T14 está completada. T15 y T17 dependen de T14; T16, T18 y T19 son independientes. El orden y la prioridad restante se mantienen en el índice y el contexto de este juego.
+8. T14, T15 y T16 están completadas (T16 pendiente de fusión, ver su sección). T17 depende de T14; T18 y T19 son independientes. El orden y la prioridad restante se mantienen en el índice y el contexto de este juego.
 
 ## Decisiones vigentes
 

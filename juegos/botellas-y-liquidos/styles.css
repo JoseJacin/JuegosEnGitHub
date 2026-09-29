@@ -197,6 +197,7 @@ button:disabled {
   display: flex;
   flex-wrap: wrap;
   gap: .25rem;
+  margin-left: auto;
 }
 .move-status {
   display: flex;
@@ -204,9 +205,6 @@ button:disabled {
   align-items: center;
   gap: .45rem;
   margin: 0;
-}
-.game-actions {
-  margin-left: auto;
 }
 .poured-color {
   width: .68rem;
@@ -249,6 +247,41 @@ button:disabled {
   border-color: var(--accent);
   color: var(--accent);
 }
+
+/* Botón de pista con icono de bombilla */
+#hint {
+  color: #f5c542;
+}
+
+#hint:hover {
+  border-color: #f5c542;
+  color: #f5c542;
+}
+
+#hint:disabled {
+  color: var(--muted);
+  opacity: .5;
+}
+
+/* Botellas con pista (resaltado) */
+.bottle.hint {
+  border-color: #f5c542;
+  box-shadow: 0 0 0 3px #f5c54233, inset 0 0 0 2px #f5c542;
+}
+
+.bottle.hint .glass {
+  outline: 2px solid #f5c542;
+  outline-offset: 2px;
+}
+
+.bottle.hint .bottle-meta {
+  color: #f5c542;
+}
+
+.bottle.hint .bottle-closed-check {
+  color: #f5c542;
+}
+
 .victory-dialog {
   width: min(100% - 2rem, 28rem);
   padding: 1.5rem;
@@ -287,6 +320,7 @@ button:disabled {
 .victory-dialog h2 {
   margin-top: 0;
 }
+.diagnostic-report {
   max-height: 16rem;
   overflow: auto;
   padding: .75rem;

@@ -1,43 +1,72 @@
-// CONFIGURACIÓN INICIAL: valores predeterminados y límites acordados del juego.
+// ============================================================
+// Configuración y constantes
+// ============================================================
+
+// Valores predeterminados y límites acordados del juego.
 const CONFIG = Object.freeze({
   defaults: { columns: 4, rows: 2, colors: 4, maxCapacity: 4, differentCapacities: false, sizeCount: 2 },
   limits: { columns: [2, 10], rows: [1, 6], colors: [2, 6], maxCapacity: [2, 6], sizeCount: [2, 4] },
   generationAttempts: 15
 });
 
+// Paletas paralelas por índice: COLORS[i] se muestra como COLOR_NAMES[i].
+const COLORS = ['#e87575', '#66b8e8', '#efc15e', '#aa83e0', '#62c88b', '#ed83bd'];
+const COLOR_NAMES = ['coral', 'azul', 'amarillo', 'violeta', 'verde', 'rosa'];
+
+// ============================================================
+// Referencias a la interfaz
+// ============================================================
+
 const ui = {
   form: document.querySelector('#settings'),
-  moveCount: document.querySelector('#moveCount'),
   columns: document.querySelector('#columns'),
   rows: document.querySelector('#rows'),
   colors: document.querySelector('#colors'),
   maxCapacity: document.querySelector('#maxCapacity'),
   differentCapacities: document.querySelector('#differentCapacities'),
   sizeCount: document.querySelector('#sizeCount'),
-  summaryText: document.querySelector('#summaryText'),
-  validation: document.querySelector('#validation'),
   sizeControl: document.querySelector('#sizesControl'),
   sizesHint: document.querySelector('#sizesHint'),
+  summaryText: document.querySelector('#summaryText'),
+  validation: document.querySelector('#validation'),
   start: document.querySelector('#start'),
-  undo: document.querySelector('#undo'),
-  undoVictory: document.querySelector('#undoVictory'),
-  restart: document.querySelector('#restart'),
-  repeatGame: document.querySelector('#repeatGame'),
-  changeAfterWin: document.querySelector('#changeAfterWin'),
-  copyDiagnostics: document.querySelector('#copyDiagnostics'),
-  editSettings: document.querySelector('#editSettings'),
-  moveStatus: document.querySelector('#moveStatus'),
-  victoryDialog: document.querySelector('#victoryDialog'),
   game: document.querySelector('#game'),
   bottles: document.querySelector('#bottles'),
+  moveCount: document.querySelector('#moveCount'),
+  moveStatus: document.querySelector('#moveStatus'),
+  undo: document.querySelector('#undo'),
+  restart: document.querySelector('#restart'),
+  hint: document.querySelector('#hint'),
+  editSettings: document.querySelector('#editSettings'),
+  copyDiagnostics: document.querySelector('#copyDiagnostics'),
   diagnosticsStatus: document.querySelector('#diagnosticsStatus'),
   diagnosticReport: document.querySelector('#diagnosticReport'),
-  
-  // Referencias al elemento de récord
-  recordMessage: null // Se establecerá al cargar el diálogo de victoria
+  victoryDialog: document.querySelector('#victoryDialog'),
+  recordMessage: document.querySelector('#recordMessage'),
+  undoVictory: document.querySelector('#undoVictory'),
+  repeatGame: document.querySelector('#repeatGame'),
+  changeAfterWin: document.querySelector('#changeAfterWin')
 };
 
-// Funciones para localStorage
+const bottleGrid = ui.bottles;
+
+// ============================================================
+// Estado mutable de la partida
+// ============================================================
+
+let currentBottles = [];
+let selectedBottle = null;
+let initialBottles = [];
+let moveHistory = [];
+let moveCount = 0;
+let gameConfig = null;
+let gameWon = false;
+let hintTimeout = null;
+
+// ============================================================
+// Récord local (localStorage)
+// ============================================================
+
 function getRecord(key) {
   try {
     if (!window.localStorage) return null;
@@ -67,89 +96,45 @@ function buildRecordKey() {
   const maxCapacity = gameConfig.maxCapacity;
   const capacityMode = gameConfig.differentCapacities ? 'mixed' : 'uniform';
   const sizeCount = gameConfig.differentCapacities ? gameConfig.sizeCount : 0;
-  
   return `botellas-record-v1-${total}-${colors}-${maxCapacity}-${capacityMode}-${sizeCount}`;
 }
 
-const fields = {
-  columns: ui.columns, rows: ui.rows, colors: ui.colors,
-  maxCapacity: ui.maxCapacity, differentCapacities: ui.differentCapacities,
-  sizeCount: ui.sizeCount, moveCount: ui.moveCount
-};
-const sizeCountSelect = fields.sizeCount;
-let currentBottles = [];
-let selectedBottle = null;
-let initialBottles = [];
-let moveHistory = [];
-let moveCount = 0;
-let gameConfig = null;
-let gameWon = false;
+// Reutiliza el contenedor fijo del diálogo en vez de recrearlo en cada victoria.
+function setRecordMessage(text) {
+  ui.recordMessage.textContent = text;
+  ui.recordMessage.hidden = !text;
+}
+
+// ============================================================
+// Utilidades generales
+// ============================================================
+
+function shuffled(values) {
+  const result = [...values];
+  for (let i = result.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [result[i], result[j]] = [result[j], result[i]];
+  }
+  return result;
+}
 
 function copyBottles(bottles) {
   return bottles.map((bottle) => ({ ...bottle, layers: bottle.layers.map((layer) => ({ ...layer })) }));
 }
 
-function updateUndoButton() {
-  ui.undo.disabled = moveHistory.length === 0;
+function fillRange(select, min, max, selected) {
+  const previous = Number(select.value);
+  select.replaceChildren(...Array.from({ length: max - min + 1 }, (_, i) => {
+    const value = min + i;
+    const option = new Option(String(value), String(value));
+    option.selected = value === (previous >= min && previous <= max ? previous : selected);
+    return option;
+  }));
 }
 
-function isVictory() {
-  return currentBottles.every((bottle) => {
-    if (!bottle.layers.length) return true;
-    const units = bottle.layers.reduce((sum, layer) => sum + layer.units, 0);
-    return units === bottle.capacity && bottle.layers.length === 1 && !bottle.open;
-  });
-}
-
-function finishIfWon() {
-  if (!isVictory()) return;
-  gameWon = true;
-  clearSelection();
-  updateUndoButton();
-  ui.moveStatus.textContent = '¡Victoria! Todas las botellas con líquido están completas.';
-  
-  // Calcular la clave del récord
-  const configKey = buildRecordKey();
-  const previousRecord = getRecord(configKey);
-  
-  // Limpiar mensaje de récord anterior si existe
-  const recordMessageElement = document.getElementById('recordMessage');
-  if (recordMessageElement) {
-    recordMessageElement.remove();
-  }
-  
-  // Crear nuevo mensaje de récord
-  let recordMessage = document.createElement('div');
-  recordMessage.id = 'recordMessage';
-  recordMessage.className = 'record-message';
-  recordMessage.hidden = true;
-  
-  if (previousRecord === null) {
-    // Primera victoria con esta configuración
-    if (setRecord(configKey, moveCount)) {
-      recordMessage.textContent = '¡Récord local guardado!';
-    } else {
-      recordMessage.textContent = 'No se pudo guardar el récord (almacenamiento no disponible).';
-    }
-    recordMessage.hidden = false;
-  } else if (moveCount < previousRecord) {
-    // Nueva mejorada
-    if (setRecord(configKey, moveCount)) {
-      recordMessage.textContent = `¡Nuevo récord! Anterior: ${previousRecord}, actual: ${moveCount}`;
-    } else {
-      recordMessage.textContent = `Récord: ${previousRecord} movimientos (no se pudo actualizar).`; 
-    }
-  } else {
-    // Igualando o superando
-    recordMessage.textContent = `Récord: ${previousRecord} movimientos; esta partida: ${moveCount}`;
-    if (moveCount === previousRecord) {
-      recordMessage.textContent = `¡Igualaste el récord! ${previousRecord} movimientos.`;
-    }
-  }
-  
-  ui.victoryDialog.appendChild(recordMessage);
-  ui.victoryDialog.showModal();
-}
+// ============================================================
+// Planificación de capacidades y botellas objetivo (generador)
+// ============================================================
 
 function getGoalSelectionOptions(capacities, colorCount) {
   const total = capacities.length;
@@ -228,37 +213,31 @@ function hasCapacityPlan(total, maxCapacity, variable, sizeCount, colors) {
   return chooseSizes(3);
 }
 
-function fillRange(select, min, max, selected) {
-  const previous = Number(select.value);
-  select.replaceChildren(...Array.from({ length: max - min + 1 }, (_, i) => {
-    const value = min + i;
-    const option = new Option(String(value), String(value));
-    option.selected = value === (previous >= min && previous <= max ? previous : selected);
-    return option;
-  }));
-}
+// ============================================================
+// Formulario de configuración
+// ============================================================
 
 for (const key of ['columns', 'rows', 'colors', 'maxCapacity']) {
   const [min, max] = CONFIG.limits[key];
-  fillRange(fields[key], min, max, CONFIG.defaults[key]);
+  fillRange(ui[key], min, max, CONFIG.defaults[key]);
 }
-fields.differentCapacities.checked = CONFIG.defaults.differentCapacities;
+ui.differentCapacities.checked = CONFIG.defaults.differentCapacities;
 
 function update() {
-  const maxCapacity = Number(fields.maxCapacity.value);
-  const columns = Number(fields.columns.value);
-  const rows = Number(fields.rows.value);
-  const colors = Number(fields.colors.value);
+  const maxCapacity = Number(ui.maxCapacity.value);
+  const columns = Number(ui.columns.value);
+  const rows = Number(ui.rows.value);
+  const colors = Number(ui.colors.value);
   const total = columns * rows;
-  const enabled = fields.differentCapacities.checked;
+  const enabled = ui.differentCapacities.checked;
   const availableSizes = Math.max(0, maxCapacity - 2);
   const maxSizes = Math.min(CONFIG.limits.sizeCount[1], availableSizes, total);
   ui.sizeControl.hidden = !enabled;
   ui.sizesHint.textContent = `Tamaños disponibles: ${Array.from({ length: availableSizes }, (_, i) => i + 3).join(', ')} unidades.`;
-  fillRange(sizeCountSelect, CONFIG.limits.sizeCount[0], Math.max(CONFIG.limits.sizeCount[0], maxSizes), CONFIG.defaults.sizeCount);
-  sizeCountSelect.disabled = !enabled || maxSizes < CONFIG.limits.sizeCount[0];
+  fillRange(ui.sizeCount, CONFIG.limits.sizeCount[0], Math.max(CONFIG.limits.sizeCount[0], maxSizes), CONFIG.defaults.sizeCount);
+  ui.sizeCount.disabled = !enabled || maxSizes < CONFIG.limits.sizeCount[0];
 
-  const sizeCount = Number(sizeCountSelect.value);
+  const sizeCount = Number(ui.sizeCount.value);
   const messages = [];
   if (maxCapacity < 3) messages.push('La capacidad debe ser de al menos 3 unidades para que cada botella pueda empezar con dos colores y espacio libre.');
   if (colors >= total) messages.push(`Esta combinación no deja botellas libres al completar los colores. Añade al menos ${colors + 1 - total} botella${colors + 1 - total === 1 ? '' : 's'} o reduce el número de colores.`);
@@ -283,19 +262,9 @@ function update() {
   ui.start.disabled = messages.length > 0;
 }
 
-ui.form.addEventListener('change', update);
-const COLORS = ['#e87575', '#66b8e8', '#efc15e', '#aa83e0', '#62c88b', '#ed83bd'];
-const COLOR_NAMES = ['coral', 'azul', 'amarillo', 'violeta', 'verde', 'rosa'];
-const bottleGrid = ui.bottles;
-
-function shuffled(values) {
-  const result = [...values];
-  for (let i = result.length - 1; i > 0; i -= 1) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [result[i], result[j]] = [result[j], result[i]];
-  }
-  return result;
-}
+// ============================================================
+// Generación y arranque de partida
+// ============================================================
 
 function makeColorPlan(capacities, colorCount) {
   const goalSelection = selectGoalBottles(capacities, colorCount);
@@ -367,14 +336,14 @@ function findCapacityPlan(total, maxCapacity, variable, sizeCount, colors) {
 }
 
 function makeGame() {
-  const columns = Number(fields.columns.value);
-  const rows = Number(fields.rows.value);
+  const columns = Number(ui.columns.value);
+  const rows = Number(ui.rows.value);
   const total = columns * rows;
-  const colors = Number(fields.colors.value);
-  const maxCapacity = Number(fields.maxCapacity.value);
+  const colors = Number(ui.colors.value);
+  const maxCapacity = Number(ui.maxCapacity.value);
   let capacityPlan = null;
   for (let attempt = 0; !capacityPlan && attempt < CONFIG.generationAttempts; attempt += 1) {
-    capacityPlan = findCapacityPlan(total, maxCapacity, fields.differentCapacities.checked, Number(fields.sizeCount.value), colors);
+    capacityPlan = findCapacityPlan(total, maxCapacity, ui.differentCapacities.checked, Number(ui.sizeCount.value), colors);
   }
   if (!capacityPlan) {
     ui.validation.classList.add('error');
@@ -421,9 +390,15 @@ function makeGame() {
   initialBottles = copyBottles(currentBottles);
   moveHistory = [];
   gameWon = false;
+  updateHintButton();
+  clearHint();
   ui.victoryDialog.close();
   renderGame();
 }
+
+// ============================================================
+// Renderizado del tablero
+// ============================================================
 
 function renderGame() {
   selectedBottle = null;
@@ -527,6 +502,58 @@ function clearSelection() {
   });
 }
 
+// ============================================================
+// Estado de la partida y condición de victoria
+// ============================================================
+
+function updateUndoButton() {
+  ui.undo.disabled = moveHistory.length === 0;
+}
+
+function updateMoveCounter() {
+  ui.moveCount.textContent = String(moveCount);
+}
+
+function isVictory() {
+  return currentBottles.every((bottle) => {
+    if (!bottle.layers.length) return true;
+    const units = bottle.layers.reduce((sum, layer) => sum + layer.units, 0);
+    return units === bottle.capacity && bottle.layers.length === 1 && !bottle.open;
+  });
+}
+
+function finishIfWon() {
+  if (!isVictory()) return;
+  gameWon = true;
+  clearSelection();
+  clearHint();
+  updateUndoButton();
+  updateHintButton();
+  ui.moveStatus.textContent = '¡Victoria! Todas las botellas con líquido están completas.';
+
+  const configKey = buildRecordKey();
+  const previousRecord = getRecord(configKey);
+  if (previousRecord === null) {
+    setRecordMessage(setRecord(configKey, moveCount)
+      ? '¡Récord local guardado!'
+      : 'No se pudo guardar el récord (almacenamiento no disponible).');
+  } else if (moveCount < previousRecord) {
+    setRecordMessage(setRecord(configKey, moveCount)
+      ? `¡Nuevo récord! Anterior: ${previousRecord}, actual: ${moveCount}`
+      : `Récord: ${previousRecord} movimientos (no se pudo actualizar).`);
+  } else if (moveCount === previousRecord) {
+    setRecordMessage(`¡Igualaste el récord! ${previousRecord} movimientos.`);
+  } else {
+    setRecordMessage(`Récord: ${previousRecord} movimientos; esta partida: ${moveCount}`);
+  }
+
+  ui.victoryDialog.showModal();
+}
+
+// ============================================================
+// Interacción: selección, trasvase, deshacer y reinicio
+// ============================================================
+
 function handleBottleChoice(bottleId) {
   if (gameWon) return;
   const chosen = currentBottles.find((bottle) => bottle.id === bottleId);
@@ -600,6 +627,7 @@ function handleBottleChoice(bottleId) {
 function undoMove() {
   if (!moveHistory.length) return;
   gameWon = false;
+  updateHintButton();
   ui.victoryDialog.close();
   currentBottles = moveHistory.pop();
   moveCount -= 1;
@@ -615,24 +643,73 @@ function restartGame() {
   moveHistory = [];
   moveCount = 0;
   gameWon = false;
+  updateHintButton();
+  clearHint();
   ui.victoryDialog.close();
-  
-  // Limpiar mensaje de récord de la partida anterior
-  const recordMessageElement = document.getElementById('recordMessage');
-  if (recordMessageElement) {
-    recordMessageElement.remove();
-  }
-  
+  setRecordMessage('');
   renderGame();
   updateMoveCounter();
   setMoveStatus('Partida reiniciada a su disposición inicial.', false);
 }
 
 function showSettings() {
+  clearHint();
   ui.victoryDialog.close();
   ui.game.hidden = true;
   ui.form.hidden = false;
 }
+
+// ============================================================
+// Pista: sugerencia de movimiento legal sin ejecutarlo
+// ============================================================
+
+// Busca la primera pareja origen→destino jugable; no modifica el estado.
+function findHint() {
+  for (const source of currentBottles) {
+    if (!source.open || !source.layers.length) continue;
+    const top = source.layers[source.layers.length - 1];
+    for (const destination of currentBottles) {
+      if (destination.id === source.id || !destination.open) continue;
+      const occupied = destination.layers.reduce((sum, layer) => sum + layer.units, 0);
+      const free = destination.capacity - occupied;
+      if (free <= 0) continue;
+      const destinationTop = destination.layers[destination.layers.length - 1];
+      if (destinationTop && destinationTop.color !== top.color) continue;
+      return { sourceId: source.id, destinationId: destination.id };
+    }
+  }
+  return null;
+}
+
+function clearHint() {
+  if (hintTimeout) {
+    clearTimeout(hintTimeout);
+    hintTimeout = null;
+  }
+  bottleGrid.querySelectorAll('.bottle.hint').forEach((item) => item.classList.remove('hint'));
+}
+
+function showHint() {
+  if (gameWon) return;
+  clearSelection();
+  clearHint();
+  const hint = findHint();
+  if (!hint) {
+    setMoveStatus('Sin movimientos disponibles', false);
+    return;
+  }
+  bottleGrid.querySelector(`[data-bottle-id="${hint.sourceId}"]`)?.classList.add('hint');
+  bottleGrid.querySelector(`[data-bottle-id="${hint.destinationId}"]`)?.classList.add('hint');
+  hintTimeout = setTimeout(clearHint, 1500);
+}
+
+function updateHintButton() {
+  ui.hint.disabled = gameWon;
+}
+
+// ============================================================
+// Diagnóstico visual (copiable para depuración)
+// ============================================================
 
 function diagnosticReportText() {
   const round = (value) => Number(value.toFixed(2));
@@ -697,12 +774,20 @@ async function copyDiagnostics() {
   }
 }
 
+// ============================================================
+// Eventos y arranque
+// ============================================================
+
+ui.form.addEventListener('change', update);
 ui.start.addEventListener('click', makeGame);
 ui.undo.addEventListener('click', undoMove);
 ui.undoVictory.addEventListener('click', undoMove);
 ui.restart.addEventListener('click', restartGame);
+ui.hint.addEventListener('click', showHint);
 ui.repeatGame.addEventListener('click', makeGame);
 ui.changeAfterWin.addEventListener('click', showSettings);
+ui.editSettings.addEventListener('click', showSettings);
+ui.copyDiagnostics.addEventListener('click', copyDiagnostics);
 bottleGrid.addEventListener('click', (event) => {
   const item = event.target.closest('.bottle[data-bottle-id]');
   if (item) handleBottleChoice(Number(item.dataset.bottleId));
@@ -714,13 +799,5 @@ bottleGrid.addEventListener('keydown', (event) => {
   event.preventDefault();
   handleBottleChoice(Number(item.dataset.bottleId));
 });
-ui.copyDiagnostics.addEventListener('click', copyDiagnostics);
-ui.editSettings.addEventListener('click', () => {
-  showSettings();
-});
-update();
 
-// Función para actualizar el contador de movimientos
-function updateMoveCounter() {
-  ui.moveCount.textContent = String(moveCount);
-}
+update();
