@@ -8,7 +8,7 @@ Este documento registra solo la continuidad de este juego. La continuidad genera
 - El juego está implementado y publicado. Sus reglas vigentes están en [`README.md`](README.md).
 - T1–T13 y T20–T22 están completadas. Las propuestas 030, 031, 032, 033 y 034 se implementaron; sus archivos se retiraron del árbol de trabajo y permanecen en el historial de Git. La propuesta transversal 039 también está completada y archivada. Las propuestas aprobadas pendientes son [035–037](propuestas/README.md).
 - T15 (récord local) y T16 (pista) están completadas. T17 (compartir resultado) depende de T14 (completada) y puede mostrar el récord de T15. T18 y T19 son independientes; revisar el plan para el orden acordado.
-- La propuesta 032 (contador de movimientos) ha sido implementada, aprobada y fusionada en `main` el 2026-09-23 (commit `8fe895a`). El archivo permanece como referencia histórica en el directorio `propuestas/`.
+- La propuesta 032 (contador de movimientos) ha sido implementada, aprobada y fusionada en `main` el 2026-09-23 (commit `8fe895a`). Su archivo se retiró del árbol de trabajo y se conserva en el historial de Git.
 - La propuesta 033 (récord local) ha sido implementada y fusionada en `main` en 2026-09-29 (commit `760a27b`). Su archivo se retiró del árbol de trabajo (no se movió a `propuestas/archivadas/`, pese a lo que indicaba una versión previa de este documento y del índice de propuestas); permanece en el historial de Git.
 - La propuesta 034 (pista de movimiento) se implementó en la rama `feature/botellas-y-liquidos_034_pista_hint` (commit `37f1609`), verificada manualmente en navegador, y se fusionó en `main` el 2026-09-29 (commit `f97eb6a`). Su archivo se retiró del árbol de trabajo.
 - La revisión documental de la rama `feature/052_detalle_propuestas_botellas` añadió guías de implementación para las propuestas del juego. La propuesta 037 se ajustó a seis patrones porque las reglas y el código vigentes admiten como máximo seis colores; no se amplió el alcance del juego.
@@ -32,7 +32,7 @@ Este documento registra solo la continuidad de este juego. La continuidad genera
 
 - La rama `feature/046_archivar_propuestas_finalizadas` se integró en `main` mediante merge `4e9b8aa`. Las propuestas implementadas 030, 031, 038 y 041 se retiraron del árbol; sus archivos siguen en el historial de Git.
 - La rama `feature/041_refactor_botellas_codigo` se integró en `main` y ambas ramas se publicaron en `origin`. Commit de implementación: `8b8429f`; merge en `main`: `78b0c1e`.
-- La propuesta 032 (contador de movimientos) se implementó, aprobó y fusionó en `main` el 2026-09-23. Commit de implementación: `058d114`; merge en `main`: `8fe895a`. El archivo permanece como referencia histórica en el directorio `propuestas/`.
+- La propuesta 032 (contador de movimientos) se implementó, aprobó y fusionó en `main` el 2026-09-23. Commit de implementación: `058d114`; merge en `main`: `8fe895a`. Su archivo se retiró del árbol de trabajo y se conserva en el historial de Git.
 
 ## Prioridad actual
 
