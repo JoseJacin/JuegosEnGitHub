@@ -51,14 +51,26 @@ git pull --ff-only origin main
 git switch -c feature/<juego-o-sitio>_<idPropuesta>_<descripcion>
 ```
 
-Después de revisar el diff, crea commits atómicos:
+## Aprobaciones para commit y merge
+
+1. Implementa y verifica el código. Revisa los criterios de aceptación, `git status` y el diff; informa al usuario y espera su OK para confirmar el código. Sin OK, no hagas `git add` ni `git commit`.
+2. Tras el OK, crea un commit que contenga solo código. Si el cambio no incluye código, omite este paso.
+3. Después, actualiza y revisa la documentación pertinente. Presenta el diff documental y espera otro OK antes de hacer `git add` o `git commit` de esos archivos. Para cambios solo documentales, esta es la primera aprobación y el único commit.
+4. Cuando todos los commits estén listos, solicita una confirmación explícita aparte para fusionar. La aprobación de un commit no autoriza el merge.
+5. Solo después del OK de merge, actualiza `main`, fusiona la rama y publica en `origin`.
+
+## Commit
+
+Después del OK explícito correspondiente, crea un commit atómico solo con los archivos aprobados para esa etapa:
 
 ```sh
 git add <archivos-del-cambio>
 git commit -m "tipo: descripción breve"
 ```
 
-Al terminar y revisar la funcionalidad:
+## Merge y publicación
+
+Ejecuta este paso únicamente después del OK explícito del usuario para fusionar:
 
 ```sh
 git switch main

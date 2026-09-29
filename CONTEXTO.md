@@ -4,9 +4,9 @@
 
 - El sitio está publicado en [GitHub Pages](https://josejacin.github.io/JuegosEnGitHub/); el catálogo y Botellas y líquidos están disponibles.
 - El plan raíz registra solo decisiones y trabajo transversal. Cada juego mantiene su plan y contexto en su carpeta, según la estructura descrita en [`juegos/README.md`](juegos/README.md).
-- La organización documental por juego está implementada (T23); las propuestas transversales 042 y 033 completadas se retiraron del árbol de trabajo y se conservan en el historial de Git.
+- La organización documental por juego está implementada (T23); la propuesta transversal 042 completada se retiró del árbol de trabajo y se conserva en el historial de Git.
 - Cada juego mantiene su estado, prioridades, propuestas y próximos pasos en los documentos de su carpeta. El plan raíz registra únicamente el sitio y el trabajo compartido.
-- La skill `juegosengithub` guía las fases SDD y consulta el estado en el ámbito correspondiente, sin comparar el plan global con propuestas específicas de juegos.
+- La skill `juegosengithub` guía las fases SDD y consulta el estado en el ámbito correspondiente. El flujo separa revisión y commit de código, revisión y commit de documentación, y aprobación del merge.
 
 ## Fuentes de verdad
 
@@ -25,9 +25,7 @@
 ## Estado de Git al cerrar este bloque
 
 - Las instrucciones para trabajar con `.git` protegido por sandbox se integraron en `main` mediante merge `b3cf8e6`; la rama `feature/051_documentar_permisos_git` está publicada.
-- La modificación de propiedad documental y flujo Git se integró en `main`; las ramas `feature/sitio_032_documentacion_estado_y_ambitos` y `feature/sitio_033_implementacion_record_local` están publicadas en `origin`.
-
-- La propuesta 033 (récord local) ha sido completada y archivada en `juegos/botellas-y-liquidos/propuestas/archivadas/033_record_local.md`.
+- La modificación de propiedad documental y flujo Git se integró en `main`; la rama `feature/sitio_032_documentacion_estado_y_ambitos` está publicada en `origin`.
 - La guía SDD por fases se integró en `main`; la rama `feature/sitio_053_flujo_sdd_skill` está publicada en `origin`.
-- Estado al cerrar: rama `main`, sincronizada con `origin/main`, sin cambios pendientes en el árbol de trabajo.
+- El ajuste de aprobaciones quedó registrado en `feature/sitio_054_confirmaciones_commit_merge` (commit `13f6770`); está pendiente la confirmación del usuario para fusionarlo en `main`.
 - Próximo paso: continuar el trabajo transversal desde `PLAN.md`; los próximos pasos de cada juego constan en su plan y contexto.

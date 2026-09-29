@@ -38,9 +38,9 @@
 - Antes de cambiar archivos, comprueba `git status`; parte de `main` actualizado y crea una rama `feature/<ambito>_<idPropuesta>_<descripcion>`. Usa el identificador del juego para cambios propios de un juego y `sitio` para cambios globales, transversales o de documentación del repositorio. Este requisito aplica también a cambios exclusivamente documentales.
 - En entornos con sandbox, `.git` puede estar protegido aunque el árbol de trabajo sea escribible. Ejecuta desde el primer intento con escalación/autorización del entorno toda operación que escriba metadatos Git (`fetch`, `pull`, `switch`/`checkout` que cambien rama, `add`, `commit`, `merge`, `push`). No pruebes primero sin autorización. Las consultas (`status`, `diff`, `log`, `branch`) pueden ejecutarse sin escalación.
 - Si una operación mutante falla por permiso al escribir `.git`, no repitas la misma orden sin escalación: conserva los cambios de archivos, informa de la causa y vuelve a ejecutarla por el mecanismo de autorización del entorno. No intentes corregir permisos de `.git` a mano.
-- Haz commits pequeños y atómicos con mensajes que describan el cambio.
-- Revisa `git status` y el diff antes de confirmar.
-- Al completar la tarea, fusiona la rama de funcionalidad en `main` y publica las ramas necesarias en `origin`.
+- Después de implementar código, revisa los criterios de aceptación y el diff. Resume los cambios y comprobaciones al usuario y espera su aprobación explícita antes de confirmar el código.
+- Tras el OK del código, crea un commit que contenga solo código. Después actualiza y revisa la documentación pertinente; presenta ese diff y espera una aprobación distinta antes del commit documental. Si el cambio es solo documental, omite la aprobación y el commit de código.
+- Después de todos los commits, pide una confirmación explícita aparte antes de fusionar en `main`. Solo tras recibirla, completa el merge y publica las ramas necesarias en `origin`.
 - No incluyas cambios ajenos al alcance. Si el entorno impide publicar, deja constancia del error y del estado local.
 
 ## Instrucciones personalizadas de Codex
