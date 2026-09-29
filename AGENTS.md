@@ -22,7 +22,7 @@
 2. Antes de escribir capítulos o contenido funcional extenso, presenta un esquema y espera confirmación.
 3. Para una funcionalidad, redacta primero una propuesta con objetivo, alcance, exclusiones, requisitos, criterios de aceptación y tareas. No empieces su implementación hasta que esté aprobada.
 4. Implementa solo el alcance aprobado. Si la implementación descubre una decisión que altera una regla aprobada, documenta el conflicto y solicita resolución.
-5. Actualiza la propuesta, el plan y `CONTEXTO.md` cuando corresponda; evita copiar la misma especificación en varios archivos.
+5. Actualiza la propuesta, el plan y `CONTEXTO.md` cuando corresponda; evita copiar la misma especificación en varios archivos. Cuando la propuesta quede implementada y fusionada en `main`, retira su archivo `.md` del árbol de trabajo (su contenido sigue disponible en el historial de Git) y refleja el resultado en el `PLAN.md`, el `CONTEXTO.md` y el índice de propuestas del ámbito correspondiente; conserva el archivo solo si ese mismo índice documenta explícitamente una excepción (como la propuesta 032 de Botellas y líquidos, guardada como referencia histórica). Antes de pedir el OK de documentación, ejecuta `node scripts/check-docs.mjs` para detectar enlaces rotos y propuestas implementadas que hayan quedado sin retirar; para revisar una propuesta concreta antes de cerrarla, usa `node scripts/proposal-status.mjs <ruta-al-md>`.
 6. No marques una tarea como terminada hasta que sus criterios de aceptación estén cubiertos. Informa qué se verificó y qué queda pendiente.
 
 ## Agentes y colaboración

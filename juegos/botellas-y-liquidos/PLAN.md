@@ -208,7 +208,7 @@ El sitio debe funcionar como archivos estáticos bajo la ruta de proyecto de Git
 - [x] T15.2 Comparar el resultado al ganar y actualizar el diálogo de victoria.
 - [x] T15.3 Crear la rama `feature/botellas-y-liquidos_033_record_local`, revisar y confirmar el cambio, fusionarlo en `main` y publicarlo.
 
-**Hecho cuando:** el récord se crea y mejora según los criterios aprobados, y el juego sigue funcionando si `localStorage` no está disponible. Completada y fusionada en `main` en 2026-09-29 (commit `760a27b`); alcance en la [propuesta 033](propuestas/033_record_local.md).
+**Hecho cuando:** el récord se crea y mejora según los criterios aprobados, y el juego sigue funcionando si `localStorage` no está disponible. Completada y fusionada en `main` en 2026-09-29 (commit `760a27b`); alcance en la propuesta 033 (retirada del árbol de trabajo tras su implementación; disponible en el historial de Git).
 
 ### T16 — Pista de movimiento
 

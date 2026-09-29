@@ -1,0 +1,18 @@
+---
+name: Scripts de apoyo y verificación
+alwaysApply: true
+description: Uso de los scripts de scripts/ para levantar el servidor, validar JS y gestionar ramas/merge
+---
+
+# Scripts de apoyo (`scripts/`)
+
+- Antes de pedir el OK de código de un cambio, ejecuta `./scripts/smoke-test.sh` con la herramienta de terminal. Levanta un servidor temporal, comprueba que la portada, el menú y el `index.html` de cada juego responden 200, comprueba en ese HTML los marcadores de `juegos/<id>/smoke-checks.txt` cuando existan (ids/atributos clave que no deberían desaparecer), y valida con `node --check` que los `.js` de `juegos/` no tienen errores de sintaxis. Si falla, corrige antes de continuar; si `node` o `python3` no están disponibles, dilo explícitamente y sigue con la revisión manual descrita en `COMANDOS.md`. Esta comprobación no ejecuta JavaScript ni sustituye la revisión visual cuando el cambio afecta a estilos, animaciones o interacción: en ese caso, sigue usando `./scripts/serve.sh` y el navegador.
+- Si tu cambio añade o renombra un `id`/atributo del que dependa la lógica del juego (por ejemplo, un elemento que `game.js` busca con `querySelector`), añade o actualiza la línea correspondiente en `juegos/<id>/smoke-checks.txt` para que quede cubierta por el smoke test.
+- Para revisar solo un archivo o carpeta tras un cambio puntual, usa `./scripts/check-js.sh <ruta>` en vez de repetir el smoke test completo.
+- Para ver el resultado visual (animaciones, estilos, disposición), usa `./scripts/serve.sh [puerto]` y abre la URL indicada con la herramienta de navegador si está disponible; si no lo está, indica que esa comprobación queda pendiente de revisión manual y no afirmes haberla verificado.
+- Para crear la rama de trabajo, usa `./scripts/new-branch.sh <juego-o-sitio> <idPropuesta> <descripcion_con_guiones_bajos>` en vez de teclear los tres comandos de `git switch`/`git pull`/`git switch -c` por separado.
+- **No ejecutes `./scripts/merge-to-main.sh` bajo ninguna circunstancia sin que el usuario haya dado antes el OK explícito de fusión** (fase 6 de `AGENTS.md`). El flag `--confirmado` del script solo evita ejecuciones accidentales; no es el OK del usuario ni lo sustituye.
+- Antes de pedir el OK de documentación (fase 5 de `AGENTS.md`/`SKILL.md`), ejecuta `node scripts/check-docs.mjs`: detecta enlaces relativos de Markdown rotos, propuestas `**Estado:** Implementada` con elementos de checklist sin marcar (incoherencia entre el estado declarado y el trabajo real) y propuestas `**Estado:** Implementada` que sigan en el árbol de trabajo (deberían retirarse una vez fusionadas, salvo excepción documentada en el índice). Es un fallo frecuente de los cierres de propuesta: no lo omitas.
+- Para crear una propuesta nueva, usa `./scripts/new-proposal.sh <juego-o-sitio> <descripcion_con_guiones> ["Título"]` en vez de adivinar el siguiente número de propuesta a mano: calcula el idPropuesta libre revisando archivos, ramas y commits de todo el historial (muchas propuestas completadas ya no tienen archivo en el árbol de trabajo).
+- Al cerrar la propuesta concreta que estás implementando, ejecuta `node scripts/proposal-status.mjs <ruta-al-md-de-la-propuesta>`. Te dice si quedan elementos de checklist sin marcar y qué otros archivos Markdown (PLAN, CONTEXTO, índices) mencionan su identificador y probablemente necesiten actualizarse. Solo después de actualizar esos archivos y con el checklist completo, retira el archivo de la propuesta con `git rm` (ver «Cierre de una propuesta» en `COMANDOS.md`).
+- Estos scripts son atajos sobre los comandos documentados en `COMANDOS.md`; si un script falla o no está disponible, usa los comandos manuales de ese archivo en vez de improvisar variantes.

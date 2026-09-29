@@ -23,9 +23,9 @@ Añadir un modo alternativo donde cada color de líquido lleva un patrón CSS su
 
 ## Requisitos y decisiones
 
-1. Independiente de las demás propuestas.
-2. Los patrones se asignan mediante el índice del color en el array `COLORS` (`data-color-index` ya existe en `.liquid`). Comprobar si ya se establece ese atributo; si no, añadirlo en `renderGame`.
-3. El interruptor usa el mismo estilo que los demás controles (`icon-button` o `check`).
+1. No depende de ninguna otra propuesta para su aprobación. Aviso de coordinación: esta propuesta y la 036 (animación de vertido) modifican el mismo bloque de creación de `.liquid` dentro de `renderGame()` en `../game.js` (el lugar donde se fija `dataset.color` y el color inline). Si 036 se implementa antes, revisar que su refactor incremental siga fijando `dataset.color`/`dataset.units` por capa antes de añadir aquí `dataset.colorIndex`; si 037 se implementa antes, dejar constancia en el commit de que 036 deberá adaptar su propio código a la línea `backgroundColor` (ver más abajo) y al nuevo `dataset.colorIndex` al reescribir esa función.
+2. Los patrones se asignan mediante el índice del color en el array `COLORS`. **Comprobado en el código actual: el atributo `data-color-index` NO existe todavía en `.liquid`** (solo se fijan `dataset.color` y `dataset.units` dentro de `renderGame()`); esta propuesta debe añadirlo, tal como detalla la sección «Ajuste del alcance a las reglas actuales» más abajo.
+3. El interruptor usa el mismo estilo que los demás controles (`icon-button`); ver ubicación y marcado exactos en «Control accesible y persistencia».
 
 ## Criterios de aceptación
 
@@ -40,7 +40,7 @@ Añadir un modo alternativo donde cada color de líquido lleva un patrón CSS su
 - [ ] T19.1 Definir seis patrones CSS con `repeating-linear-gradient` (diagonal, horizontal, vertical, cuadrícula, puntos…).
 - [ ] T19.2 Verificar que `renderGame` establece `data-color-index` en cada `.liquid`; añadirlo si no existe.
 - [ ] T19.3 Añadir reglas CSS `.colorblind .liquid[data-color-index="N"]` con el patrón y opacidad de overlay.
-- [ ] T19.4 Añadir interruptor en la UI (icono de ojo o similar).
+- [ ] T19.4 Añadir interruptor `#colorPatternToggle` en `.game-actions`, justo después de `#hint` (ver marcado exacto en la guía de implementación).
 - [ ] T19.5 Guardar y recuperar preferencia en `localStorage` con clave `botellas-colorblind`.
 - [ ] T19.6 Crear rama `feature/botellas-y-liquidos_037_modo_daltonico`, commits atómicos, merge en `main` y push.
 
@@ -83,16 +83,28 @@ El ejemplo no define textura final obligatoria. Completar los índices 4 y 5; co
 
 ### Control accesible y persistencia
 
-- Poner el interruptor en `.game-actions` junto a las acciones de partida para que se encuentre de forma consistente. Usar `button type="button"`, id `colorPatternToggle`, `class="icon-button"`, SVG decorativo y texto accesible «Activar patrones de color» / «Desactivar patrones de color» según estado.
-- Reflejar el estado con `aria-pressed="true|false"`; no comunicarlo solo con el icono o el color. Mantener tamaño táctil mínimo de 44×44 px y foco visible.
+- Poner el interruptor en `.game-actions` (dentro de `#board-head`, en `../index.html`), como último botón del grupo, justo después de `#hint`. Usar exactamente esta marca, siguiendo el patrón de los botones vecinos (mismo `class="icon-button"`, mismo formato de `<svg>`):
+
+  ```html
+  <button id="colorPatternToggle" class="icon-button" type="button" aria-pressed="false" aria-label="Activar patrones de color" title="Patrones de color">
+    <svg aria-hidden="true" viewBox="0 0 24 24">
+      <rect x="4" y="4" width="16" height="16" rx="2"/>
+      <path d="M4 9h16M4 14h16M9 4v16M14 4v16"/>
+    </svg>
+  </button>
+  ```
+
+  El icono (cuadrícula) es coherente con la idea de «patrones»; puede sustituirse por otro SVG con el mismo `viewBox="0 0 24 24"` y estilo de trazo (`fill="none"`, `stroke=currentColor`, ya heredado de la regla `.icon-button svg` en `../styles.css`) si se prefiere un ojo tachado u otro símbolo, siempre que sea puramente decorativo (`aria-hidden="true"`) y el estado se comunique por `aria-pressed` y `aria-label`.
+- Registrar el nodo en el objeto `ui` de `../game.js`: `colorPatternToggle: document.querySelector('#colorPatternToggle')`.
+- Reflejar el estado con `aria-pressed="true|false"`; no comunicarlo solo con el icono o el color. Sobre el tamaño táctil: **no fijar un tamaño propio**; el botón hereda las reglas ya existentes `.game-actions .icon-button` (44×44 px en escritorio) y su ajuste en el breakpoint móvil (36×36 px, ver bloque de medios cerca de la línea 599 de `../styles.css`), igual que `#undo`, `#restart`, `#copyDiagnostics`, `#editSettings` y `#hint`. Mantener el mismo comportamiento de foco visible que ya provee `.bottle:focus-visible`/estilos globales de botón; no es necesario añadir CSS nuevo para este botón salvo los selectores `.colorblind .liquid[data-color-index="N"]`.
 - La clase global será `colorblind` en `document.body`, tal como establece la propuesta. El nombre de la clase es interno; el texto para usuarios puede ser «Patrones de color».
 - Usar clave exacta `botellas-colorblind`; serializar `'true'` o `'false'`. Implementar lectura/escritura con `try/catch`, incluyendo acceso a `window.localStorage`. Si storage falla, el interruptor sigue funcionando durante la página actual sin lanzar excepción.
-- Al inicializar el script, leer la clave: solo el valor literal `'true'` activa el modo; ausente, corrupto o error equivale a desactivado. Aplicar/quitar clase en `<body>` y actualizar `aria-pressed`/etiqueta si el botón existe.
+- Al inicializar el script, leer la clave: solo el valor literal `'true'` activa el modo; ausente, corrupto o error equivale a desactivado. Aplicar/quitar clase en `<body>` y actualizar `aria-pressed`/etiqueta si el botón existe. Llamar a esta inicialización junto a la línea `update();` al final de `../game.js` (sección «Eventos y arranque»), para que la preferencia se aplique antes de que el jugador vea el formulario o el tablero.
 - Al activar/desactivar, cambiar clase inmediatamente y luego intentar persistir. Si la escritura falla, conservar el estado visual hasta recargar. No mostrar un falso mensaje de guardado.
-- Añadir listener una sola vez; no reconstruir el botón en cada `renderGame()`.
+- Añadir listener una sola vez junto a los demás (`ui.colorPatternToggle.addEventListener('click', ...)`, en la sección «Eventos y arranque»); no reconstruir el botón en cada `renderGame()`.
 - Persistir solo la preferencia. Nunca guardar color/capas/tablero ni modificar `gameConfig`, el contenido de botellas o el algoritmo de validación.
 
-Pseudocódigo:
+Pseudocódigo (usar los nombres reales `ui.colorPatternToggle` y la clave `botellas-colorblind` al implementarlo en `../game.js`, no un `button` genérico):
 
 ```text
 readPatternPreference():
@@ -103,14 +115,17 @@ readPatternPreference():
 
 applyPatternPreference(enabled):
     document.body.classList.toggle("colorblind", enabled)
-    button.setAttribute("aria-pressed", String(enabled))
-    button.setAttribute("aria-label", enabled ? "Desactivar patrones de color" : "Activar patrones de color")
+    ui.colorPatternToggle.setAttribute("aria-pressed", String(enabled))
+    ui.colorPatternToggle.setAttribute("aria-label", enabled ? "Desactivar patrones de color" : "Activar patrones de color")
 
-on button click:
+on ui.colorPatternToggle click:
     enabled = !document.body.classList.contains("colorblind")
     applyPatternPreference(enabled)
     try localStorage.setItem("botellas-colorblind", String(enabled))
     catch: keep current page state; continue silently
+
+al cargar el script:
+    applyPatternPreference(readPatternPreference())
 ```
 
 ### Comprobaciones concretas
@@ -121,3 +136,7 @@ on button click:
 - Inspeccionar los seis patrones en escala de grises, en capas de poca altura, tablero grande y móvil. Cada patrón debe distinguirse de los otros cinco.
 - Probar control con ratón, teclado y toque; comprobar nombre y estado con lector de pantalla o inspección del árbol accesible.
 - Ganar/deshacer/rehacer jugadas no modifica la preferencia ni la lógica de movimiento.
+
+## Cierre de esta propuesta
+
+Cuando quede implementada y fusionada en `main`: marca todas las tareas y criterios de aceptación, actualiza `../PLAN.md` y `../CONTEXTO.md` con la rama/commit de fusión, actualiza `./README.md` (quítala de «Aprobadas pendientes»), y retira este archivo con `git rm` (su contenido queda disponible en el historial de Git). Antes de pedir el OK de documentación, ejecuta desde la raíz del repositorio `node scripts/proposal-status.mjs juegos/botellas-y-liquidos/propuestas/037_modo_daltonico.md` y `node scripts/check-docs.mjs`.

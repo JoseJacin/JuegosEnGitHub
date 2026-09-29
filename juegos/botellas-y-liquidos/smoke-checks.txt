@@ -1,0 +1,10 @@
+# Marcadores literales que scripts/smoke-test.sh comprueba en el HTML servido
+# de este juego. Una cadena por línea; se busca con coincidencia exacta de texto
+# (sin regex). Las líneas vacías y las que empiezan por # se ignoran.
+# Actualiza este archivo si cambian los ids/atributos citados aquí.
+id="board-head"
+id="moveCount"
+id="bottles"
+id="victoryDialog"
+id="hint"
+src="./game.js"
