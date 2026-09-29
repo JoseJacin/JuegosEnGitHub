@@ -11,6 +11,7 @@ Este documento registra solo la continuidad de este juego. La continuidad genera
 - La propuesta 032 (contador de movimientos) ha sido implementada, aprobada y fusionada en `main` el 2026-09-23 (commit `8fe895a`). El archivo permanece como referencia histórica en el directorio `propuestas/`.
 - La propuesta 033 (récord local) ha sido implementada y fusionada en `main` en 2026-09-29 (commit `760a27b`). El archivo se archiva en el directorio `propuestas/archivadas/`.
 - La revisión documental de la rama `feature/052_detalle_propuestas_botellas` añadió guías de implementación para las propuestas del juego. La propuesta 037 se ajustó a seis patrones porque las reglas y el código vigentes admiten como máximo seis colores; no se amplió el alcance del juego.
+- En la rama `feature/botellas-y-liquidos_034_pista_hint`, antes de implementar la propuesta 034, se hizo una revisión y reorganización de `game.js` (secciones agrupadas por tema, objeto `fields` eliminado en favor de `ui`) y se corrigieron dos regresiones detectadas: el mensaje de récord de la propuesta 033 no se mostraba salvo en la primera victoria y cambiaba de posición en el diálogo; y faltaba el selector `.diagnostic-report` en `styles.css`. No se cambiaron las reglas del juego. Commit `aaef339`.
 
 ## Reorganización de propuestas (completada)
 
