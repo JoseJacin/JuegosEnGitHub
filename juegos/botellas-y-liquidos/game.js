@@ -31,8 +31,46 @@ const ui = {
   game: document.querySelector('#game'),
   bottles: document.querySelector('#bottles'),
   diagnosticsStatus: document.querySelector('#diagnosticsStatus'),
-  diagnosticReport: document.querySelector('#diagnosticReport')
+  diagnosticReport: document.querySelector('#diagnosticReport'),
+  
+  // Referencias al elemento de récord
+  recordMessage: null // Se establecerá al cargar el diálogo de victoria
 };
+
+// Funciones para localStorage
+function getRecord(key) {
+  try {
+    if (!window.localStorage) return null;
+    const value = localStorage.getItem(key);
+    if (value === null || value === '') return null;
+    const parsed = Number.parseInt(value, 10);
+    if (String(parsed) !== value || !Number.isSafeInteger(parsed) || parsed < 0) return null;
+    return parsed;
+  } catch {
+    return null;
+  }
+}
+
+function setRecord(key, value) {
+  try {
+    if (!window.localStorage) return false;
+    localStorage.setItem(key, String(value));
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function buildRecordKey() {
+  const total = gameConfig.columns * gameConfig.rows;
+  const colors = gameConfig.colors;
+  const maxCapacity = gameConfig.maxCapacity;
+  const capacityMode = gameConfig.differentCapacities ? 'mixed' : 'uniform';
+  const sizeCount = gameConfig.differentCapacities ? gameConfig.sizeCount : 0;
+  
+  return `botellas-record-v1-${total}-${colors}-${maxCapacity}-${capacityMode}-${sizeCount}`;
+}
+
 const fields = {
   columns: ui.columns, rows: ui.rows, colors: ui.colors,
   maxCapacity: ui.maxCapacity, differentCapacities: ui.differentCapacities,
@@ -69,6 +107,47 @@ function finishIfWon() {
   clearSelection();
   updateUndoButton();
   ui.moveStatus.textContent = '¡Victoria! Todas las botellas con líquido están completas.';
+  
+  // Calcular la clave del récord
+  const configKey = buildRecordKey();
+  const previousRecord = getRecord(configKey);
+  
+  // Limpiar mensaje de récord anterior si existe
+  const recordMessageElement = document.getElementById('recordMessage');
+  if (recordMessageElement) {
+    recordMessageElement.remove();
+  }
+  
+  // Crear nuevo mensaje de récord
+  let recordMessage = document.createElement('div');
+  recordMessage.id = 'recordMessage';
+  recordMessage.className = 'record-message';
+  recordMessage.hidden = true;
+  
+  if (previousRecord === null) {
+    // Primera victoria con esta configuración
+    if (setRecord(configKey, moveCount)) {
+      recordMessage.textContent = '¡Récord local guardado!';
+    } else {
+      recordMessage.textContent = 'No se pudo guardar el récord (almacenamiento no disponible).';
+    }
+    recordMessage.hidden = false;
+  } else if (moveCount < previousRecord) {
+    // Nueva mejorada
+    if (setRecord(configKey, moveCount)) {
+      recordMessage.textContent = `¡Nuevo récord! Anterior: ${previousRecord}, actual: ${moveCount}`;
+    } else {
+      recordMessage.textContent = `Récord: ${previousRecord} movimientos (no se pudo actualizar).`; 
+    }
+  } else {
+    // Igualando o superando
+    recordMessage.textContent = `Récord: ${previousRecord} movimientos; esta partida: ${moveCount}`;
+    if (moveCount === previousRecord) {
+      recordMessage.textContent = `¡Igualaste el récord! ${previousRecord} movimientos.`;
+    }
+  }
+  
+  ui.victoryDialog.appendChild(recordMessage);
   ui.victoryDialog.showModal();
 }
 
@@ -537,6 +616,13 @@ function restartGame() {
   moveCount = 0;
   gameWon = false;
   ui.victoryDialog.close();
+  
+  // Limpiar mensaje de récord de la partida anterior
+  const recordMessageElement = document.getElementById('recordMessage');
+  if (recordMessageElement) {
+    recordMessageElement.remove();
+  }
+  
   renderGame();
   updateMoveCounter();
   setMoveStatus('Partida reiniciada a su disposición inicial.', false);

@@ -257,13 +257,36 @@ button:disabled {
   background: var(--panel);
   color: var(--text);
 }
+
+.record-message {
+  padding: 0.75rem 1rem;
+  margin: 1rem 0;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+
+.record-message.success {
+  background-color: #059567;
+  color: #ffffff;
+}
+
+.record-message.neutral {
+  background-color: #0ea5e9;
+  color: #ffffff;
+}
+
+.record-message.warning {
+  background-color: #f59e0b;
+  color: #ffffff;
+}
+
 .victory-dialog::backdrop {
   background: #071015cc;
 }
 .victory-dialog h2 {
   margin-top: 0;
 }
-.diagnostic-report {
   max-height: 16rem;
   overflow: auto;
   padding: .75rem;
@@ -583,6 +606,11 @@ button:disabled {
   }
   .victory-dialog button {
     width: 100%;
+  }
+  
+  .record-message {
+    font-size: 0.95rem;
+    padding: 0.5rem 0.75rem;
   }
 }
 @media (prefers-reduced-motion: no-preference) {

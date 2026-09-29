@@ -7,15 +7,14 @@ Las propuestas completadas 030, 031, 038 y 041 se retiraron del árbol de trabaj
 ## Aprobadas e integradas en main
 
 - [032 — Contador de movimientos](032_contador_movimientos.md)
+- [033 — Récord local](./archivadas/033_record_local.md)
 
-**Estado:** 030, 031 y 032 están implementadas y fusionadas en `main`. Los documentos 030 y 031 están archivados en el historial de Git; 032 se conserva aquí como referencia histórica y no forma parte del backlog activo.
+**Estado:** 030, 031 y 032 están implementadas y fusionadas en `main`. Los documentos 030, 031 y 033 están archivados en el historial de Git y en el directorio `archivadas/`; 032 se conserva aquí como referencia histórica y no forma parte del backlog activo.
 
 ## Aprobadas pendientes
 
-- [033 — Récord local](033_record_local.md)
-  - **Depende de:** T14 completada; requiere el contador de movimientos disponible.
 - [034 — Pista de movimiento](034_pista_hint.md)
-  - **Depende de:** Ninguna (independiente de 032 y 033).
+  - **Depende de:** Ninguna (independiente de 032).
 - [035 — Compartir resultado](035_compartir_resultado.md)
   - **Depende de:** T14 completada; puede mostrar el récord de T15 si esa tarea ya está implementada.
 - [036 — Animación de vertido](036_animacion_vertido.md)
