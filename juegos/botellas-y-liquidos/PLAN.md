@@ -215,9 +215,9 @@ El sitio debe funcionar como archivos estáticos bajo la ruta de proyecto de Git
 - [x] T16.1 Encontrar una pareja origen-destino válida y resaltarla temporalmente.
 - [x] T16.2 Cancelar selección activa antes de mostrar la pista y avisar si no hay movimientos.
 - [x] T16.3 Añadir botón accesible y deshabilitarlo tras ganar.
-- [ ] T16.4 Crear la rama `feature/botellas-y-liquidos_034_pista_hint`, revisar y confirmar el cambio, fusionarlo en `main` y publicarlo.
+- [x] T16.4 Crear la rama `feature/botellas-y-liquidos_034_pista_hint`, revisar y confirmar el cambio, fusionarlo en `main` y publicarlo.
 
-**Hecho cuando:** la pista resalta un movimiento legal sin ejecutarlo y no interfiere con selección ni victoria. Implementada y verificada en la rama `feature/botellas-y-liquidos_034_pista_hint` (commit `37f1609`); pendiente de fusión en `main`. Alcance en la propuesta 034 (retirada del árbol de trabajo tras su implementación; disponible en el historial de Git).
+**Hecho cuando:** la pista resalta un movimiento legal sin ejecutarlo y no interfiere con selección ni victoria. Implementada en la rama `feature/botellas-y-liquidos_034_pista_hint` (commit `37f1609`) y fusionada en `main` el 2026-09-29 (commit `f97eb6a`). Alcance en la propuesta 034 (retirada del árbol de trabajo tras su implementación; disponible en el historial de Git).
 
 ### T17 — Compartir resultado
 
