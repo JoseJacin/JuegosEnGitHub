@@ -4,8 +4,7 @@ Este directorio contiene propuestas que afectan al sitio o a más de un juego. C
 
 Las propuestas 039 (organizar propuestas por juego) y 042 (planes y contextos independientes por juego) están completadas. Sus archivos se retiraron del árbol de trabajo; el historial de Git conserva su contenido. Los resultados siguen vigentes y se describen en [`../README.md`](../README.md), [`../../AGENTS.md`](../../AGENTS.md) y [`../../PLAN.md`](../../PLAN.md).
 
-## En revisión
+La propuesta 056 (scripts de apoyo para agentes con modelos más modestos) también está completada y fusionada en `main`; su archivo se retiró del árbol de trabajo y su resultado se describe en [`../../COMANDOS.md`](../../COMANDOS.md), [`../../AGENTS.md`](../../AGENTS.md) y [`../../PLAN.md`](../../PLAN.md).
 
-- [056 — Scripts de apoyo para agentes con modelos más modestos](056_scripts_apoyo_modelos_modestos.md)
-  - **Depende de:** Ninguna.
+Actualmente no hay propuestas transversales activas en este directorio.
 

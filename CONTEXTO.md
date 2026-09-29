@@ -28,4 +28,5 @@
 - La modificación de propiedad documental y flujo Git se integró en `main`; la rama `feature/sitio_032_documentacion_estado_y_ambitos` está publicada en `origin`.
 - La guía SDD por fases se integró en `main`; la rama `feature/sitio_053_flujo_sdd_skill` está publicada en `origin`.
 - La rama `feature/sitio_054_confirmaciones_commit_merge` se integró en `main` mediante merge `b65a418` y quedó publicada en `origin`.
+- La propuesta 056 (scripts de apoyo para agentes con modelos más modestos) se integró en `main` mediante merge `e19062e`; la rama `feature/sitio_056_scripts_apoyo_modelos_modestos` quedó publicada en `origin`. Añade `scripts/serve.sh`, `check-js.sh`, `smoke-test.sh` (con comprobación opcional de `juegos/<id>/smoke-checks.txt`), `new-branch.sh`, `merge-to-main.sh`, `new-proposal.sh`, `check-docs.mjs` y `proposal-status.mjs`; y hace explícito en `AGENTS.md`/`SKILL.md` que una propuesta implementada y fusionada debe retirar su archivo `.md` del árbol de trabajo.
 - Próximo paso: continuar el trabajo transversal desde `PLAN.md`; los próximos pasos de cada juego constan en su plan y contexto.

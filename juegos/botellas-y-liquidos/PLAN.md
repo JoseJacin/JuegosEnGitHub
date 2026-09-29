@@ -200,7 +200,7 @@ El sitio debe funcionar como archivos estáticos bajo la ruta de proyecto de Git
 - [x] T14.4 Mostrarlo junto a las acciones del tablero y adaptar su tamaño a móvil.
 - [x] T14.5 Implementar en `feature/032_contador_movimientos`, revisar y confirmar el cambio, fusionarlo en `main` y publicarlo.
 
-**Hecho cuando:** el contador refleja los trasvases válidos, los deshacer y los reinicios sin romper la cabecera en móvil. Completada y fusionada en `main` el 2026-09-23 (merge `8fe895a`); alcance conservado en [032](propuestas/032_contador_movimientos.md).
+**Hecho cuando:** el contador refleja los trasvases válidos, los deshacer y los reinicios sin romper la cabecera en móvil. Completada y fusionada en `main` el 2026-09-23 (merge `8fe895a`); alcance en la propuesta 032 (retirada del árbol de trabajo tras su implementación; disponible en el historial de Git).
 
 ### T15 — Récord local
 

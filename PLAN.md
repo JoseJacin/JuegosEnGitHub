@@ -9,6 +9,7 @@ Mantener una colección de juegos web estáticos publicada con GitHub Pages. Est
 - Repositorio: `JoseJacin/JuegosEnGitHub`; rama principal `main` y publicación desde la raíz mediante GitHub Pages.
 - El catálogo y Botellas y líquidos están implementados y publicados.
 - La estructura de planificación por juego quedó establecida en T23; las propuestas 042 y 033 se completaron y sus archivos se retiraron del árbol de trabajo (se conservan en el historial de Git).
+- La propuesta transversal 056 (scripts de apoyo en `scripts/` para agentes con modelos más modestos: servidor local, validación JS, smoke test con marcadores HTML, comprobación de coherencia documental y creación de propuestas) se completó y se fusionó en `main`; su archivo se retiró del árbol de trabajo y se conserva en el historial de Git.
 - Cada juego registra sus mejoras, prioridades y dependencias en su plan y su índice de propuestas.
 
 ## Estructura documental
