@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 # Prueba automática: levanta un servidor temporal, comprueba que las páginas
-# principales responden y valida la sintaxis de los .js. Pensado para que un
-# agente compruebe sus propios cambios sin depender de un navegador.
+# principales responden, que el HTML servido contiene los marcadores esperados
+# de cada juego (ver `juegos/<id>/smoke-checks.txt`) y valida la sintaxis de los
+# .js. Pensado para que un agente compruebe sus propios cambios sin depender de
+# un navegador ni de ejecutar JavaScript (no sustituye la revisión visual).
 # Uso: scripts/smoke-test.sh [puerto-base]   (por defecto 8099; si está ocupado prueba los 4 siguientes)
 set -uo pipefail
 cd "$(dirname "$0")/.."
@@ -73,6 +75,29 @@ for path in "${paths[@]}"; do
     fail=1
   fi
 done
+
+echo "== Comprobando marcadores esperados en el HTML de cada juego =="
+any_checks=0
+while IFS= read -r -d '' index; do
+  rel="${index#./}"
+  checks_file="$(dirname "$rel")/smoke-checks.txt"
+  [[ -f "$checks_file" ]] || continue
+  any_checks=1
+  body="$(curl -s "http://localhost:${PORT}/${rel}")"
+  echo "-- ${rel} (marcadores en ${checks_file}) --"
+  while IFS= read -r marker || [[ -n "$marker" ]]; do
+    [[ -z "$marker" || "$marker" == \#* ]] && continue
+    if grep -qF -- "$marker" <<<"$body"; then
+      echo "  ✓ contiene: ${marker}"
+    else
+      echo "  ✗ falta: ${marker}"
+      fail=1
+    fi
+  done < "$checks_file"
+done < <(find juegos -mindepth 2 -maxdepth 2 -name 'index.html' -print0)
+if [[ "$any_checks" -eq 0 ]]; then
+  echo "Ningún juego define smoke-checks.txt; comprobación omitida."
+fi
 
 echo "== Comprobando sintaxis de los .js del sitio =="
 if ! ./scripts/check-js.sh juegos; then
