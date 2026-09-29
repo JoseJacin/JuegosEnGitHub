@@ -7,6 +7,7 @@ const CONFIG = Object.freeze({
 
 const ui = {
   form: document.querySelector('#settings'),
+  moveCount: document.querySelector('#moveCount'),
   columns: document.querySelector('#columns'),
   rows: document.querySelector('#rows'),
   colors: document.querySelector('#colors'),
@@ -35,13 +36,14 @@ const ui = {
 const fields = {
   columns: ui.columns, rows: ui.rows, colors: ui.colors,
   maxCapacity: ui.maxCapacity, differentCapacities: ui.differentCapacities,
-  sizeCount: ui.sizeCount
+  sizeCount: ui.sizeCount, moveCount: ui.moveCount
 };
 const sizeCountSelect = fields.sizeCount;
 let currentBottles = [];
 let selectedBottle = null;
 let initialBottles = [];
 let moveHistory = [];
+let moveCount = 0;
 let gameConfig = null;
 let gameWon = false;
 
@@ -496,6 +498,7 @@ function handleBottleChoice(bottleId) {
   }
 
   moveHistory.push(copyBottles(currentBottles));
+  moveCount += 1;
   updateUndoButton();
   const moved = Math.min(sourceTop.units, free);
   const movedColor = sourceTop.color;
@@ -510,6 +513,7 @@ function handleBottleChoice(bottleId) {
   }
   clearSelection();
   renderGame();
+  updateMoveCounter();
   setMoveStatus('', false, { units: moved, color: movedColor });
   finishIfWon();
 }
@@ -519,7 +523,9 @@ function undoMove() {
   gameWon = false;
   ui.victoryDialog.close();
   currentBottles = moveHistory.pop();
+  moveCount -= 1;
   renderGame();
+  updateMoveCounter();
   setMoveStatus('Se ha deshecho el último movimiento.', false);
   updateUndoButton();
 }
@@ -528,9 +534,11 @@ function restartGame() {
   if (!initialBottles.length) return;
   currentBottles = copyBottles(initialBottles);
   moveHistory = [];
+  moveCount = 0;
   gameWon = false;
   ui.victoryDialog.close();
   renderGame();
+  updateMoveCounter();
   setMoveStatus('Partida reiniciada a su disposición inicial.', false);
 }
 
@@ -625,3 +633,8 @@ ui.editSettings.addEventListener('click', () => {
   showSettings();
 });
 update();
+
+// Función para actualizar el contador de movimientos
+function updateMoveCounter() {
+  ui.moveCount.textContent = String(moveCount);
+}

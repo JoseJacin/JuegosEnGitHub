@@ -64,8 +64,9 @@
       </section>
     </form>
     <section id="game" class="board" aria-label="Partida de Botellas y líquidos" hidden>
-      <div class="board-head">
+      <div class="board-head" id="board-head">
         <p id="moveStatus" class="move-status" role="status" aria-live="polite"></p>
+        <p class="move-counter" aria-live="polite">Movimientos: <span id="moveCount">0</span></p>
         <div class="game-actions" role="group" aria-label="Acciones de la partida">
           <button id="undo" class="icon-button" type="button" aria-label="Deshacer" title="Deshacer" disabled>
             <svg aria-hidden="true" viewBox="0 0 24 24">
