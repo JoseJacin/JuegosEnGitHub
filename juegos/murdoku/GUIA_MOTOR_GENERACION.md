@@ -230,6 +230,52 @@ El resultado inicial es un modelo geométrico; se dibuja más tarde. Para una cu
 
 Una implementación de crecimiento exacta puede usar colas de frontera. Mantener una colección de candidatos sin ordenar vuelve el resultado no reproducible; ordenar antes de barajar o usar una secuencia fija.
 
+Pseudocódigo de referencia para los pasos 2–7 (los nombres de función son sugeridos, no obligatorios):
+
+```text
+function createTopology(config, mapRng):
+  N = config.gridSize
+  cells = createEmptyCells(N)                    // fila principal, coordenadas 1-based
+  roomCount = pickRoomCount(N, mapRng)           // dentro de los límites que apruebe README
+  targetSizes = partitionCellCount(N * N, roomCount, mapRng, minRoomSize, maxRoomSize)
+  seedCells = pickDistinctSeedCells(cells, roomCount, mapRng)   // sin repetir celda
+
+  rooms = []
+  for i in 0 until roomCount:
+    rooms[i] = { id: "room-" + zeroPad(i), cellIds: [seedCells[i]], frontier: neighborsOf(seedCells[i]) }
+    cells[seedCells[i]].roomId = rooms[i].id
+
+  unassigned = allCellIds(cells) minus seedCells
+
+  // Crecimiento por rondas: cada sala añade como mucho una celda por ronda,
+  // en orden estable de ID, hasta alcanzar su tamaño objetivo o quedarse sin frontera.
+  while unassigned is not empty:
+    progressedThisRound = false
+    for room in rooms in stable ID order:
+      if room.cellIds.length >= targetSizes[room.id]: continue
+      candidates = room.frontier filtered to cells still in unassigned
+      if candidates is empty: continue
+      chosen = mapRng.pick(candidates)             // usar intBelow de §5.3, nunca Math.random
+      cells[chosen].roomId = room.id
+      room.cellIds.push(chosen)
+      unassigned.remove(chosen)
+      room.frontier = (room.frontier union neighborsOf(chosen)) minus alreadyAssignedCells
+      progressedThisRound = true
+    if not progressedThisRound: break               // ninguna sala pudo crecer esta ronda
+
+  if unassigned is not empty:
+    return FAILURE("map_growth_stuck")               // el llamador reintenta con el siguiente mapAttempt
+
+  return { cells, rooms }
+```
+
+Notas de contrato:
+
+- `pickRoomCount`, `partitionCellCount` y `pickDistinctSeedCells` son las funciones que decide la tarea 3.3–3.4 del plan; deben usar siempre el flujo `mapRng`, nunca otro flujo ni `Math.random()`.
+- El orden de recorrido de `rooms` es por `id` estable, no por tamaño ni por orden de inserción variable; así dos ejecuciones con la misma semilla crecen las salas en el mismo orden.
+- Si `unassigned` queda no vacío tras una ronda sin progreso, es exactamente el caso descrito en el paso 7 del README (“sala sin posibilidad de completar su tamaño o celdas aisladas”): se descarta la tentativa completa, no se rellenan las celdas restantes con una sala arbitraria.
+- `mapRng.pick(candidates)` debe usar `intBelow(candidates.length)` (§5.3) sobre una lista ya ordenada de forma estable antes de elegir, para que el resultado sea reproducible entre navegadores.
+
 ### 6.2 Reglas de mapa válido
 
 `BoardValidator` debería verificar en funciones separadas:
@@ -246,6 +292,32 @@ Una implementación de crecimiento exacta puede usar colas de frontera. Mantener
 - hay posiciones candidatas suficientes bajo las restricciones ya aprobadas.
 
 La compacidad de la forma y su legibilidad pueden ser filtros graduados: por ejemplo, rechazar una sala de una sola celda solo si lo prohíbe la especificación; usar una puntuación de forma para limitar mapas estrechos o fragmentados. No imponer un límite no aprobado como regla funcional.
+
+Métrica de compacidad recomendada, para que la tarea 3.11 del plan se divida en funciones puras y pequeñas:
+
+```text
+function boundingBoxOf(room):
+  rows = room.cellIds map to row
+  columns = room.cellIds map to column
+  return { minRow: min(rows), maxRow: max(rows), minColumn: min(columns), maxColumn: max(columns) }
+
+function aspectRatioOf(room):
+  box = boundingBoxOf(room)
+  height = box.maxRow - box.minRow + 1
+  width = box.maxColumn - box.minColumn + 1
+  return max(height, width) / min(height, width)     // 1.0 = caja cuadrada; crece cuanto más alargada es
+
+function compactnessOf(room):
+  box = boundingBoxOf(room)
+  boxArea = (box.maxRow - box.minRow + 1) * (box.maxColumn - box.minColumn + 1)
+  return room.cellIds.length / boxArea               // 1.0 = rellena su caja; baja si es muy irregular/dispersa
+
+function isRoomShapeAcceptable(room, limits):
+  return aspectRatioOf(room) <= limits.maxAspectRatio
+     and compactnessOf(room) >= limits.minCompactness
+```
+
+`limits.maxAspectRatio` y `limits.minCompactness` son los "límites de legibilidad" que debe aprobar README; mientras no estén aprobados, la tarea 3.11 permanece bloqueada en vez de inventar un número. `aspectRatioOf` y `compactnessOf` son funciones puras y testeables por separado (tarea 3.11.1); `isRoomShapeAcceptable` solo las compone contra los límites (tarea 3.11.2); el rechazo de toda la tentativa de tablero cuando una sala no cumple es una integración aparte con el bucle de `createTopology` (tarea 3.11.3), no una sala corregida a mitad de camino.
 
 ### 6.3 Variedad sin prometer infinitud literal
 
@@ -421,6 +493,56 @@ Procedimiento recomendado:
 8. Una vez única, se permite reducir una pista solo si se conserva el mínimo total, la cobertura requerida por personaje y cualquier variedad mínima aprobada.
 9. Ejecutar validación de verdad, cobertura, mínimo, dificultad y unicidad sobre la selección final.
 
+Pseudocódigo de referencia para los pasos 2–7 (nombre de función sugerido, no obligatorio):
+
+```text
+function buildUniqueSet(case, candidatesByScope, limits, clueRng):
+  // candidatesByScope ya viene filtrado por familias implementadas y por
+  // compatibilidad de escenario (paso 1; ver §9.2).
+  pool = clueRng.shuffle(flattenToList(candidatesByScope))   // orden estable antes de barajar
+  chosen = []
+
+  // Fase 1: cobertura obligatoria, un átomo dirigido a cada sospechoso.
+  for suspect in case.suspects in stable ID order:
+    candidate = firstMatching(pool, atom => atom.subjectPersonId == suspect.id)
+    if candidate is NONE: return FAILURE("no_candidate_for_suspect")
+    chosen.push(candidate)
+    pool.remove(candidate)
+  chosen.push(case.victimStandardClue)             // pista fija de víctima, no cuenta como sorteada
+
+  // Fase 2: alcanzar el suelo de átomos de README §4.4 antes de comprobar unicidad.
+  floor = ceil(3 * case.config.personCount / 2)
+  while countLeafAtoms(chosen) < floor and pool is not empty:
+    chosen.push(pool.shift())
+
+  // Fase 3: comprobar unicidad y dificultad; añadir átomos si hace falta, dentro del presupuesto.
+  attempts = 0
+  loop:
+    attempts += 1
+    if attempts > limits.maxClueAttempts: return FAILURE("clue_search_exhausted")
+
+    result = ConstraintSolver.countUpToTwo(case.with(chosen), limits.solverBudget)
+    if result.aborted: return FAILURE("clue_search_exhausted")
+    if result.count == 0: return FAILURE("clues_contradict_witness")   // defecto: rechazar todo el caso
+
+    if result.count == 1:
+      rating = HumanStepSolver.rate(case.with(chosen))
+      if rating is UNRATABLE:
+        if pool is empty: return FAILURE("difficulty_not_found_or_ambiguous")
+        chosen.push(pool.shift()); continue
+      if case.config.requestedDifficulty == "any" or rating.tier == case.config.requestedDifficulty:
+        return SUCCESS(chosen, rating)
+      if pool is empty: return FAILURE("difficulty_not_found_or_ambiguous")
+      chosen.push(pool.shift())                     // única pero no en el nivel pedido: seguir añadiendo
+      continue
+
+    // result.count == 2: todavía ambigua, añadir un candidato verdadero más.
+    if pool is empty: return FAILURE("clue_search_exhausted")
+    chosen.push(pool.shift())
+```
+
+Esta función no busca el conjunto mínimo matemático de pistas: se detiene en el primer conjunto que cumple cobertura, suelo, verdad, unicidad y dificultad solicitada, tal como exige el párrafo final de esta sección. `pool.shift()` siempre toma el siguiente candidato del orden ya barajado por `clueRng`, nunca un candidato elegido por su tipo o por parecer “más fácil”.
+
 La fórmula de §4.4 es una propuesta inicial pendiente de aprobación y calibración, no un baremo del referente. Cuenta hojas lógicas del AST según esa sección, no tarjetas. Mientras se revisa, usarla como objetivo de diseño y mantener al menos un átomo dirigido a cada sospechoso; cualquier implementación queda bloqueada hasta aprobar la regla. No se exige encontrar el conjunto mínimo matemático: basta un subconjunto aleatorio válido, único y por encima del suelo aprobado.
 
 ### 9.4 Plantillas legibles
@@ -561,6 +683,43 @@ ReasoningStep
 ```
 
 Un paso tiene que poder leerse y verificarse desde la regla y las pistas citadas. Un `D4_CHAIN` es una deducción demostrada por una cadena finita de implicaciones: por ejemplo, al considerar cada alternativa de una variable, todas fuerzan el mismo resultado, o una alternativa contradice una regla. No basta con elegir una alternativa y continuar como si fuera cierta. Si solo sabemos que la solución final es única pero no hay una cadena humana soportada, clasificar el candidato como no graduable y rechazarlo para niveles normales; no etiquetarlo como experto automáticamente.
+
+### 11.1.1 Algoritmo de selección de técnica
+
+`HumanStepSolver` prueba las técnicas en orden fijo, de la más barata a la más cara, y aplica la primera que produzca un paso válido. Nunca elige una técnica "porque sí" ni mezcla una suposición de búsqueda con una deducción:
+
+```text
+function runPedagogicalStep(domains, clues, approvedRules):
+  if step = tryDirect(domains, clues):              return step   // D0_DIRECT
+  if step = tryRowColumnExclusion(domains):         return step   // D1_EXCLUSION
+  if step = tryRelation(domains, clues):            return step   // D2_RELATION
+  if step = tryCardinality(domains, clues, approvedRules): return step // D3_CARDINALITY
+  if step = tryChain(domains, clues, maxChainDepth): return step  // D4_CHAIN
+  return NONE                                                     // atascado en este estado
+
+function rate(caseWithClues, maxStepsBudget, maxChainDepth):
+  domains = initialDomains(caseWithClues)            // §10.1: dominio inicial por persona
+  steps = []
+  while not allPeopleAssigned(domains):
+    step = runPedagogicalStep(domains, caseWithClues.clues, approvedRules)
+    if step is NONE: return { tier: \"UNRATABLE\", steps: steps }
+    applyStepToDomains(step, domains)                // fija celda o elimina candidatas, nunca ambigua
+    steps.push(step)
+    if steps.length > maxStepsBudget: return { tier: \"UNRATABLE\", steps: steps }
+  return classify(steps)                             // agrega técnicas/profundidad según perfiles de README §7.4
+```
+
+Contrato de cada función `tryX` (todas devuelven `NONE` si no encuentran una reducción segura; ninguna adivina):
+
+- `tryDirect`: aplica un átomo unary (`ROOM_IS`, `ROW_IS`, `COLUMN_IS`, `OBJECT_IS`, …) y comprueba si, tras filtrar, el dominio de esa persona queda con exactamente una celda; si es así, fija la asignación.
+- `tryRowColumnExclusion`: para cada persona ya fijada, elimina su fila y columna de los dominios de las demás personas no asignadas; devuelve un paso si eliminó al menos una candidata.
+- `tryRelation`: evalúa átomos binarios (`ADJACENT_TO_OBJECT`, `ADJACENT_TO_PERSON`, sus negaciones, orden direccional, `SAME_ROOM_AS`) cuando al menos uno de los dos sujetos ya tiene dominio reducido a una celda; elimina del otro dominio las celdas que no cumplen la relación.
+- `tryCardinality`: aplica átomos de conteo, paridad, unicidad y soledad (`COUNT_*`, `UNIQUE_MATCH`, `ALONE_IN_ROOM`, `ALONE_WITH`) cuando el número de candidatas restantes en el conjunto referido permite una conclusión segura.
+- `tryChain`: solo se activa si ninguna de las anteriores avanzó. Para una persona con dominio de tamaño ≥ 2, comprueba si **todas** las alternativas restantes fuerzan el mismo resultado en otra variable (o contradicen una regla), hasta `maxChainDepth` niveles de profundidad; si es así, produce un paso `D4_CHAIN` citando cada rama descartada. Si no puede demostrarlo para ninguna variable, devuelve `NONE`.
+
+`SEARCH` (backtracking de `ConstraintSolver`, §10.3) es un camino de código totalmente distinto: solo confirma cuántas soluciones existen y nunca alimenta un `ReasoningStep`. Un caso que solo se resuelve por `SEARCH` sin que `runPedagogicalStep` complete la asignación se marca `UNRATABLE`, tal como exige §11.3.
+
+Ni `tryRelation` ni `tryCardinality` se implementan como un único bloque que reconozca todos sus casos a la vez: cada uno se compone de sub-detectores más pequeños, uno por tipo de predicado, siguiendo `PLAN.md` tareas 7.4.1–7.4.3 (adyacencia, orden direccional, mismo recinto/soledad) y 7.5.1–7.5.4 (unicidad, conteos, paridad, reglas de escenario). Añadir un sub-detector nuevo no debe obligar a reescribir los demás.
 
 ### 11.2 Clasificación provisional
 
@@ -770,8 +929,112 @@ Antes de hacer cualquier cambio:
 4. Implementar solo esa subtarea, sin abrir alcance nuevo.
 5. Registrar cualquier incertidumbre como bloqueo con archivo/sección y pregunta concreta.
 6. Verificar el criterio de aceptación de esa subtarea; no declarar tareas dependientes como terminadas.
-7. Actualizar plan/contexto, revisar diff, hacer un commit atómico y publicar la rama.
+7. Al implementar `PuzzleValidator`, `ConstraintSolver` o `HumanStepSolver` (tareas 1, 5, 6 y 7 del plan), escribir primero una prueba con el fixture fijo de [§21](#21-caso-de-referencia-completo-ilustrativo) antes de conectarlo con `SeededRandom`/`BoardBuilder`; así se valida el contrato de datos sin depender todavía de la generación aleatoria.
+8. Actualizar plan/contexto, revisar diff, hacer un commit atómico y publicar la rama.
 
 ## 20. Estado técnico
 
 Esta guía define contratos y recomienda algoritmos para orientar implementaciones futuras. No significa que los algoritmos, rangos, criterios de dificultad ni límites hayan sido implementados o perfilados. Los valores concretos de presupuesto y toda regla marcada abierta en `README.md` necesitan resolución antes de codificarse.
+
+## 21. Caso de referencia completo (ilustrativo)
+
+Este caso es **ilustrativo y de tamaño mínimo** (usa los límites propuestos `N=5`, `P=4` de README §4.1, aún sin aprobar). No es contenido final del juego ni prueba que el generador real produzca exactamente estos datos; sirve para que un agente de implementación tenga un fixture concreto contra el que escribir una prueba unitaria de `PuzzleValidator`, `ConstraintSolver` y `HumanStepSolver` antes de conectar el generador completo. Nombres, IDs y escenario son de ejemplo, no el catálogo original aprobado en la tarea correspondiente del plan.
+
+### 21.1 Tablero
+
+Cuadrícula `5×5`. Fila 1 = norte, columna 1 = oeste. Tres salas rectangulares (conexas por construcción):
+
+| Sala | `roomId` | Celdas (`fila,columna`) |
+|---|---|---|
+| Vestíbulo | `room-hall` | (1,1) (1,2) (2,1) (2,2) (3,1) (3,2) (4,1) (4,2) (5,1) (5,2) |
+| Biblioteca | `room-library` | (1,3) (1,4) (1,5) (2,3) (2,4) (2,5) |
+| Jardín | `room-garden` | (3,3) (3,4) (3,5) (4,3) (4,4) (4,5) (5,3) (5,4) (5,5) |
+
+Objetos:
+
+| `instanceId` | `typeId` | Celda | `occupiable` |
+|---|---|---|---|
+| `object-bench-01` | `object-bench` | (2,1) | `true` |
+| `object-shelf-01` | `object-shelf` | (1,4) | `false` |
+| `object-fountain-01` | `object-fountain` | (4,4) | `false` |
+
+Todas las demás celdas son ocupables por defecto (terreno base ocupable). Total ocupables: `25 − 1 (fuente en (4,4))` = 24; el estante en (1,4) es un objeto no ocupable pero no se resta dos veces porque solo hay un objeto por celda en este ejemplo.
+
+### 21.2 Personas y solución testigo
+
+| `id` | Rol | Celda solución | Fila | Columna |
+|---|---|---|---|---|
+| `person-01` | Víctima | (5,5) | 5 | 5 |
+| `person-02` | Sospechoso | (1,1) | 1 | 1 |
+| `person-03` | Sospechosa | (2,4) | 2 | 4 |
+| `person-04` | Sospechoso (asesino) | (3,3) | 3 | 3 |
+
+Comprobación de reglas estructurales sobre esta asignación:
+
+- Filas usadas `{5,1,2,3}` y columnas usadas `{5,1,4,3}`: todas distintas → cumple "como máximo una persona por fila/columna" incluso con `P=4 < N=5` (fila 4 y columna 2 quedan vacías, permitido).
+- `person-01` y `person-04` están en `room-garden`; ningún otro sospechoso ocupa esa sala → cumple la regla propuesta de "víctima y asesino son los únicos dos ocupantes de la sala del crimen".
+- Ninguna persona ocupa (4,4) (fuente, no ocupable) ni (1,4) (estante, no ocupable).
+
+### 21.3 Pistas (átomos verdaderos sobre el testigo)
+
+Ámbito `PERSON` salvo que se indique lo contrario. Se listan como `ClueAtom` tipados; la traducción española es solo ilustrativa.
+
+```text
+// Carta de víctima (2 átomos)
+AND(
+  ROW_IS(person-01, 5),
+  COLUMN_IS(person-01, 5)
+)
+// "Su cuerpo se encontró en la última fila y la última columna del jardín."
+
+// Carta de person-02 (2 átomos)
+AND(
+  ROOM_IS(person-02, room-hall),
+  ADJACENT_TO_OBJECT(person-02, object-bench-01)
+)
+// "Estaba en el vestíbulo, junto al banco."
+
+// Carta de person-03 (2 átomos)
+AND(
+  ROW_IS(person-03, 2),
+  COLUMN_IS(person-03, 4)
+)
+// "Estaba en la segunda fila y la cuarta columna."
+
+// Carta de person-04 (2 átomos)
+AND(
+  ROOM_IS(person-04, room-garden),
+  ROW_IS(person-04, 3)
+)
+// "Estaba en el jardín, en la tercera fila."
+```
+
+Total: `2 + 2 + 2 + 2 = 8` átomos hoja, por encima del suelo propuesto `ceil(3 × 4 / 2) = 6` de README §4.4, y con al menos un átomo dirigido a cada sospechoso. Ninguna carta supera los dos átomos por conjunción, como exige README §3.1 punto 11 para la primera entrega.
+
+### 21.4 Traza de resolución para `HumanStepSolver` (según §11.1.1)
+
+Dominio inicial de cada persona (celdas ocupables filtradas por su carta, antes de cruzar información entre personas):
+
+- `person-01`: `ROW_IS(5) AND COLUMN_IS(5)` → dominio `{(5,5)}` (ya único).
+- `person-02`: `ROOM_IS(room-hall) AND ADJACENT_TO_OBJECT(object-bench-01)` → vecinos ortogonales de (2,1) dentro del vestíbulo → dominio `{(1,1), (3,1), (2,2)}`.
+- `person-03`: `ROW_IS(2) AND COLUMN_IS(4)` → dominio `{(2,4)}` (ya único).
+- `person-04`: `ROOM_IS(room-garden) AND ROW_IS(3)` → dominio `{(3,3), (3,4), (3,5)}`.
+
+Pasos, en el orden que produce `runPedagogicalStep`:
+
+1. **`D0_DIRECT`** — `person-01`: dominio ya de tamaño 1 → asignación forzada a (5,5).
+2. **`D0_DIRECT`** — `person-03`: dominio ya de tamaño 1 → asignación forzada a (2,4).
+3. **`D1_EXCLUSION`** — con `person-01`=fila 5/columna 5 y `person-03`=fila 2/columna 4 ya fijadas, se elimina esa fila/columna de los dominios pendientes:
+   - `person-02`: se elimina (2,2) (fila 2 ya usada) → dominio `{(1,1), (3,1)}`.
+   - `person-04`: se elimina (3,4) (columna 4 ya usada) y (3,5) (columna 5 ya usada) → dominio `{(3,3)}`.
+4. **`D0_DIRECT`** — `person-04`: su dominio quedó en tamaño 1 tras el paso 3 → asignación forzada a (3,3).
+5. **`D1_EXCLUSION`** — con `person-04`=fila 3/columna 3 ya fijada, se elimina (3,1) del dominio de `person-02` (fila 3 ya usada) → dominio `{(1,1)}`.
+6. **`D0_DIRECT`** — `person-02`: su dominio quedó en tamaño 1 tras el paso 5 → asignación forzada a (1,1).
+
+Todas las personas quedan asignadas usando solo `D0_DIRECT` y `D1_EXCLUSION`; ninguna requirió `D2_RELATION`, `D3_CARDINALITY` ni `D4_CHAIN`. Por los perfiles cualitativos de README §7.4, este caso ilustrativo clasificaría como **muy fácil** — coherente con ser un fixture mínimo de prueba, no con un caso de producción real.
+
+### 21.5 Uso recomendado de este fixture
+
+- Codificar esta tabla como datos de prueba (`PuzzleDefinition` fijo, sin generador) para probar `PuzzleValidator.validateComplete`, `ConstraintSolver.countUpToTwo` (debe devolver `count: 1` con `solutions[0]` igual al testigo) y `HumanStepSolver.rate` (debe completar sin `UNRATABLE` usando solo `D0`/`D1`) antes de integrar `SeededRandom`, `BoardBuilder` u otros módulos que dependan de la semilla.
+- No usar estos nombres, retratos, salas u objetos como contenido final: son solo suficientes para validar contratos y trazas, no arte ni narrativa aprobada.
+- Si una regla aprobada cambia (por ejemplo, la política de fila/columna o la definición del crimen), este fixture debe actualizarse o descartarse junto con esa decisión; no se ejecuta como oráculo si las reglas de origen cambiaron.

@@ -17,6 +17,9 @@ Generar y jugar casos originales de deducción en cuadrículas configurables. Ca
 
 - **Una subtarea es un cambio pequeño:** una función, regla, plantilla, control o recurso por vez. Como referencia, debe caber en una sesión corta de un agente y producir un resultado revisable.
 - Si una subtarea afecta a varios comportamientos, varios tipos de pista o muchas piezas a la vez, desglosarla antes en subtareas `X.Y.Z`. No agrupar trabajo solo porque comparta archivo.
+- **Señales de que una subtarea sigue siendo demasiado grande** para un agente con poco contexto: su enunciado usa "cada"/"todos"/"todas", une dos acciones distintas con "y", o menciona más de un predicado/técnica/dirección/familia a la vez (por ejemplo "norte/sur/este/oeste" o "objeto/persona"). Ante cualquiera de esas señales, dividir en una subtarea `X.Y` por elemento antes de empezar, en vez de interpretarla de forma amplia.
+- Ejemplo ya aplicado en este plan: "Implementar relaciones norte/sur/este/oeste" se dividió en 5.9.1 (una fila al norte/sur), 5.9.2 (una columna al este/oeste), 5.9.3 (más al norte/sur) y 5.9.4 (más al este/oeste); cada una cubre un único predicado con su propia prueba de verdad/falsedad. Seguir ese mismo patrón al dividir una subtarea nueva.
+- Si no se puede describir el resultado de una subtarea en una frase y un único archivo o función, detenerse y proponer la división correspondiente en el plan antes de escribir código.
 - Ejecutar únicamente la subtarea asignada y las dependencias explícitas. No anticipar subtareas posteriores.
 - Al empezar, leer [`../../AGENTS.md`](../../AGENTS.md), [`../../COMANDOS.md`](../../COMANDOS.md), [`README.md`](README.md), este plan y [`CONTEXTO.md`](CONTEXTO.md).
 - `README.md` manda sobre las reglas. Una decisión marcada pendiente bloquea el código relacionado. Parar y anotar el conflicto; no adivinar.
@@ -60,7 +63,13 @@ Generar y jugar casos originales de deducción en cuadrículas configurables. Ca
 - [ ] **1.4** Definir el tipo `Room` con nombre, tema y lista de celdas.
 - [ ] **1.5** Definir `ObjectInstance` con tipo, huella de celdas y ocupabilidad.
 - [ ] **1.6** Definir `Person` con ID, etiqueta, rol y retrato.
-- [ ] **1.7** Definir un tipo discriminado para cada átomo de pista aprobado.
+- [ ] **1.7** Definir el tipo discriminado `ClueAtom` como unión con el envoltorio común (`kind`, `subjectPersonId?`, argumentos tipados) y sin miembros todavía; los miembros concretos se añaden en 1.7.1–1.7.6.
+- [ ] **1.7.1** Añadir los miembros de pertenencia a sala: `ROOM_IS`, `ROOM_IN_SET`.
+- [ ] **1.7.2** Añadir los miembros de fila/columna exacta: `ROW_IS`, `COLUMN_IS`.
+- [ ] **1.7.3** Añadir los miembros de desplazamiento y orden direccional: `ROW_OFFSET`, `COLUMN_OFFSET`, `DIRECTIONAL_ORDER`.
+- [ ] **1.7.4** Añadir los miembros de objeto y adyacencia: `OBJECT_IS`, `ADJACENT_TO_OBJECT`, `ADJACENT_TO_PERSON`.
+- [ ] **1.7.5** Añadir los miembros de relación social: `ALONE_IN_ROOM`, `ALONE_WITH`, `SAME_ROOM_AS`.
+- [ ] **1.7.6** Añadir los miembros lógicos compuestos aprobados para esta fase por la tarea 0.7 (como mínimo `AND`, `NOT`); no añadir `OR_INCLUSIVE`, `XOR`, `UNIQUE_MATCH` ni `COUNT_*` hasta que 0.7/0.8 los incluyan explícitamente en esta fase.
 - [ ] **1.8** Definir `Solution` como asignación de persona a celda y culpable.
 - [ ] **1.9** Definir `PlayerState` separado de la definición inmutable del caso.
 - [ ] **1.10** Definir las versiones de esquema, generador y clasificador.
@@ -106,7 +115,9 @@ Generar y jugar casos originales de deducción en cuadrículas configurables. Ca
 - [ ] **3.8** Comprobar que cada recinto es conexo.
 - [ ] **3.9** Rechazar recintos menores que el mínimo aprobado.
 - [ ] **3.10** Rechazar recintos mayores que el máximo aprobado.
-- [ ] **3.11** Rechazar tableros con formas o proporciones fuera de los límites de legibilidad.
+- [ ] **3.11.1** Implementar `aspectRatioOf(room)` y `compactnessOf(room)` como funciones puras, según `GUIA_MOTOR_GENERACION.md` §6.2.
+- [ ] **3.11.2** Implementar `isRoomShapeAcceptable(room, limits)` comparando ambas métricas contra los límites que apruebe README.
+- [ ] **3.11.3** Integrar `isRoomShapeAcceptable` en el bucle de reintentos: si alguna sala la incumple, descartar la tentativa completa de tablero, no solo esa sala.
 - [ ] **3.12** Volver a generar una partición rechazada con un límite de intentos.
 - [ ] **3.13** Elegir nombres originales de recinto sin duplicados dentro del tablero.
 - [ ] **3.14** Asignar un tipo de terreno válido a cada celda.
@@ -146,11 +157,15 @@ Generar y jugar casos originales de deducción en cuadrículas configurables. Ca
 - [ ] **5.6** Implementar el predicado de sala exacta.
 - [ ] **5.7** Implementar el predicado de pertenencia a una de varias salas.
 - [ ] **5.8** Implementar predicados de fila y columna.
-- [ ] **5.9** Implementar relaciones norte/sur/este/oeste según el glosario.
+- [ ] **5.9.1** Implementar el predicado "una fila al norte/sur" (diferencia de fila exactamente 1; README §2.2).
+- [ ] **5.9.2** Implementar el predicado "una columna al este/oeste" (diferencia de columna exactamente 1).
+- [ ] **5.9.3** Implementar el predicado "más al norte/sur" (comparación estricta de fila, cualquier diferencia positiva).
+- [ ] **5.9.4** Implementar el predicado "más al este/oeste" (comparación estricta de columna, cualquier diferencia positiva).
 - [ ] **5.10** Implementar ocupación exacta de objeto.
 - [ ] **5.11** Implementar adyacencia a un objeto.
 - [ ] **5.12** Implementar adyacencia a otra persona.
-- [ ] **5.13** Implementar no-adyacencia.
+- [ ] **5.13.1** Implementar no-adyacencia a un objeto.
+- [ ] **5.13.2** Implementar no-adyacencia a otra persona.
 - [ ] **5.14** Implementar condición de persona sola en sala.
 - [ ] **5.15** Implementar condición de víctima y asesino en sala.
 - [ ] **5.16** Implementar conjunción de átomos de pista.
@@ -162,7 +177,7 @@ Generar y jugar casos originales de deducción en cuadrículas configurables. Ca
 - [ ] **5.22** Detener búsqueda al encontrar dos soluciones.
 - [ ] **5.23** Devolver los estados cero, una o varias soluciones.
 - [ ] **5.24** Devolver métricas de búsqueda separadas del resultado lógico.
-- [ ] **5.25** Para cada predicado aprobado, distinguir evaluación completa de propagación parcial; devolver estado desconocido cuando no sea seguro eliminar candidatas.
+- [ ] **5.25** Al implementar cada predicado de 5.6–5.14, distinguir en esa misma subtarea su evaluación completa de su propagación parcial; devolver estado desconocido cuando no sea seguro eliminar candidatas. No abrir una tarea aparte que toque todos los predicados a la vez.
 
 **Hecho cuando:** cualquier definición puede contarse hasta dos soluciones de forma reproducible, sin aceptar una solución parcial ni esconder contradicciones.
 
@@ -179,12 +194,19 @@ Generar y jugar casos originales de deducción en cuadrículas configurables. Ca
 - [ ] **6.7** Elegir víctima y culpable compatibles con la regla aprobada.
 - [ ] **6.8** Comprobar ocupación exclusiva de la sala del crimen.
 - [ ] **6.9** Generar un átomo de sala verdadera para una persona.
-- [ ] **6.10** Generar un átomo verdadero de fila/columna/dirección.
+- [ ] **6.10.1** Generar un átomo verdadero de fila o columna exacta, usando 5.8.
+- [ ] **6.10.2** Generar un átomo verdadero de desplazamiento u orden direccional, usando 5.9.1–5.9.4.
 - [ ] **6.11** Generar un átomo verdadero de ocupación de objeto.
-- [ ] **6.12** Generar un átomo verdadero de adyacencia a objeto/persona.
-- [ ] **6.13** Generar un átomo verdadero de negación de adyacencia.
+- [ ] **6.12.1** Generar un átomo verdadero de adyacencia a un objeto.
+- [ ] **6.12.2** Generar un átomo verdadero de adyacencia a otra persona.
+- [ ] **6.13.1** Generar un átomo verdadero de no-adyacencia a un objeto.
+- [ ] **6.13.2** Generar un átomo verdadero de no-adyacencia a otra persona.
 - [ ] **6.14** Generar un átomo verdadero de soledad/relación en sala.
-- [ ] **6.15** Renderizar cada clave de pista con plantilla española revisada.
+- [ ] **6.15.1** Renderizar la plantilla española de pertenencia a sala (6.9).
+- [ ] **6.15.2** Renderizar la plantilla española de fila/columna exacta y de desplazamiento/orden direccional (6.10.1–6.10.2).
+- [ ] **6.15.3** Renderizar la plantilla española de ocupación de objeto (6.11).
+- [ ] **6.15.4** Renderizar la plantilla española de adyacencia a objeto/persona y sus negaciones (6.12.1–6.13.2).
+- [ ] **6.15.5** Renderizar la plantilla española de soledad/relación en sala (6.14).
 - [ ] **6.16** Verificar que los IDs de cada pista existen en el caso.
 - [ ] **6.17** Elegir una pista para cada sospechoso según reglas aprobadas.
 - [ ] **6.18** Añadir la pista estándar de víctima.
@@ -204,8 +226,13 @@ Generar y jugar casos originales de deducción en cuadrículas configurables. Ca
 - [ ] **7.1** Definir el formato de un paso pedagógico (regla, pista, dominio antes/después).
 - [ ] **7.2** Detectar una colocación directa de una sola celda (`D0_DIRECT`).
 - [ ] **7.3** Detectar eliminación de fila/columna (`D1_EXCLUSION`).
-- [ ] **7.4** Detectar deducción de relación entre dos entidades (`D2_RELATION`).
-- [ ] **7.5** Detectar deducción de cardinalidad aprobada (`D3_CARDINALITY`).
+- [ ] **7.4.1** Detectar `D2_RELATION` para adyacencia a objeto o a persona (usa 5.11–5.13.2).
+- [ ] **7.4.2** Detectar `D2_RELATION` para orden/desplazamiento direccional (usa 5.9.1–5.9.4).
+- [ ] **7.4.3** Detectar `D2_RELATION` para mismo recinto y soledad (`SAME_ROOM_AS`, `ALONE_IN_ROOM`, `ALONE_WITH`).
+- [ ] **7.5.1** Detectar `D3_CARDINALITY` para unicidad (`UNIQUE_MATCH`), solo si 0.7/0.8 la aprueban para esta fase.
+- [ ] **7.5.2** Detectar `D3_CARDINALITY` para conteos exactos/mínimos/ninguno (`COUNT_EXACTLY`/`COUNT_AT_LEAST`/`NONE`), solo si están aprobados.
+- [ ] **7.5.3** Detectar `D3_CARDINALITY` para paridad (`COUNT_PARITY`), solo si está aprobada.
+- [ ] **7.5.4** Detectar `D3_CARDINALITY` para reglas de escenario (`ScenarioRule`) aprobadas y con entidades presentes en el tablero.
 - [ ] **7.6** Encadenar pasos justificados con profundidad acotada (`D4_CHAIN`).
 - [ ] **7.7** Rechazar paso pedagógico sin una razón verificable.
 - [ ] **7.8** Ejecutar el solver pedagógico en orden determinista.
