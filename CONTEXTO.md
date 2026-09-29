@@ -27,5 +27,5 @@
 - Las instrucciones para trabajar con `.git` protegido por sandbox se integraron en `main` mediante merge `b3cf8e6`; la rama `feature/051_documentar_permisos_git` está publicada.
 - La modificación de propiedad documental y flujo Git se integró en `main`; la rama `feature/sitio_032_documentacion_estado_y_ambitos` está publicada en `origin`.
 - La guía SDD por fases se integró en `main`; la rama `feature/sitio_053_flujo_sdd_skill` está publicada en `origin`.
-- Este ajuste de aprobaciones está en `feature/sitio_054_confirmaciones_commit_merge`, pendiente de revisión del usuario y sin commit.
+- El ajuste de aprobaciones quedó registrado en `feature/sitio_054_confirmaciones_commit_merge` (commit `13f6770`); está pendiente la confirmación del usuario para fusionarlo en `main`.
 - Próximo paso: continuar el trabajo transversal desde `PLAN.md`; los próximos pasos de cada juego constan en su plan y contexto.
