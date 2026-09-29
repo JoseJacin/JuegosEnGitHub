@@ -1,6 +1,6 @@
 # Propuesta 032 — Contador de movimientos
 
-**Estado:** Aprobada  
+**Estado:** Implementada y fusionada en `main`
 **Fecha:** 2026-09-23  
 **Responsable:** Usuario y agente Antigravity
 
@@ -27,19 +27,21 @@ Mostrar al jugador cuántos trasvases lleva en la partida actual, reflejando tam
 
 ## Criterios de aceptación
 
-- [ ] El contador sube en 1 con cada trasvase ejecutado.
-- [ ] Al deshacer, el contador baja en 1.
-- [ ] Al reiniciar o empezar nueva partida, el contador vuelve a 0.
-- [ ] Es legible en móvil sin romper la cabecera compacta.
+- [x] El contador sube en 1 con cada trasvase ejecutado.
+- [x] Al deshacer, el contador baja en 1.
+- [x] Al reiniciar o empezar nueva partida, el contador vuelve a 0.
+- [x] Es legible en móvil sin romper la cabecera compacta.
 
 ## Tareas
 
-- [ ] T14.1 Añadir variable `moveCount` e incremento en `handleBottleChoice` tras el trasvase.
-- [ ] T14.2 Decrementar `moveCount` en `undoMove`.
-- [ ] T14.3 Resetear `moveCount` en `startGame` y `restartGame`.
-- [ ] T14.4 Renderizar el contador en `#board-head` (elemento `<span id="moveCount">`).
-- [ ] T14.5 Ajustar CSS para que el contador sea compacto en móvil.
-- [ ] T14.6 Crear rama `feature/032_contador_movimientos`, commits atómicos, merge en `main` y push.
+- [x] T14.1 Añadir variable `moveCount` e incremento en `handleBottleChoice` tras el trasvase.
+- [x] T14.2 Decrementar `moveCount` en `undoMove`.
+- [x] T14.3 Resetear `moveCount` en `startGame` y `restartGame`.
+- [x] T14.4 Renderizar el contador en `#board-head` (elemento `<span id="moveCount">`).
+- [x] T14.5 Ajustar CSS para que el contador sea compacto en móvil.
+- [x] T14.6 Crear rama `feature/032_contador_movimientos`, commits atómicos, merge en `main` y push.
+
+**Cierre:** Implementada en `feature/032_contador_movimientos` (commit `058d114`) y fusionada en `main` el 2026-09-23 (merge `8fe895a`). El archivo se conserva como referencia histórica; su estado vigente y el backlog se mantienen en el plan e índice de Botellas y líquidos.
 
 ## Guía de implementación
 

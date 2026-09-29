@@ -42,7 +42,7 @@ Añadir un modo alternativo donde cada color de líquido lleva un patrón CSS su
 - [ ] T19.3 Añadir reglas CSS `.colorblind .liquid[data-color-index="N"]` con el patrón y opacidad de overlay.
 - [ ] T19.4 Añadir interruptor en la UI (icono de ojo o similar).
 - [ ] T19.5 Guardar y recuperar preferencia en `localStorage` con clave `botellas-colorblind`.
-- [ ] T19.6 Crear rama `feature/037_modo_daltonico`, commits atómicos, merge en `main` y push.
+- [ ] T19.6 Crear rama `feature/botellas-y-liquidos_037_modo_daltonico`, commits atómicos, merge en `main` y push.
 
 ## Guía de implementación
 

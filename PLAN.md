@@ -2,15 +2,14 @@
 
 ## Objetivo
 
-Mantener una colección de juegos web estáticos publicada con GitHub Pages. Este plan registra decisiones, estado y trabajo compartido del sitio. Cada juego es responsable de su plan detallado y su continuidad.
+Mantener una colección de juegos web estáticos publicada con GitHub Pages. Este plan registra decisiones, estado y trabajo compartido del sitio. Cada juego es responsable de su plan detallado y su continuidad. Cada juego tiene sus propias fuentes de verdad en su carpeta específica; no se asuman decisiones globales que no estén documentadas allí.
 
 ## Estado
 
 - Repositorio: `JoseJacin/JuegosEnGitHub`; rama principal `main` y publicación desde la raíz mediante GitHub Pages.
 - El catálogo y Botellas y líquidos están implementados y publicados.
 - La estructura de planificación por juego quedó establecida en T23; la propuesta 042 se completó y su archivo se retiró del árbol de trabajo (se conserva en el historial de Git).
-- El alcance de Murdoku está aprobado en [043](juegos/murdoku/propuestas/043_murdoku_generacion_visual.md). Su [especificación funcional](juegos/murdoku/README.md) y [guía técnica propuesta del generador](juegos/murdoku/GUIA_MOTOR_GENERACION.md) están en revisión; no hay implementación.
-- Botellas y líquidos conserva mejoras aprobadas pendientes (propuestas [032–037](juegos/botellas-y-liquidos/propuestas/README.md)); no se cancelan ni se mezclan con el trabajo del nuevo juego. Su estado y dependencias están en el [plan del juego](juegos/botellas-y-liquidos/PLAN.md).
+- Cada juego registra sus mejoras, prioridades y dependencias en su plan y su índice de propuestas.
 
 ## Estructura documental
 
@@ -35,11 +34,8 @@ Mantener una colección de juegos web estáticos publicada con GitHub Pages. Est
 
 ## Secuencia acordada
 
-1. Completar y publicar esta reorganización documental (T23).
-2. Revisar y aprobar las reglas de Murdoku ([README](juegos/murdoku/README.md)) y su diseño técnico del motor ([guía](juegos/murdoku/GUIA_MOTOR_GENERACION.md), [plan](juegos/murdoku/PLAN.md)) conforme al alcance aprobado [043](juegos/murdoku/propuestas/043_murdoku_generacion_visual.md); después, implementar según sus fases.
-3. Continuar los juegos desde sus planes específicos y actualizar el plan general cuando el trabajo afecte al sitio o cambie prioridades.
-
-La prioridad de Murdoku no elimina las propuestas aprobadas 032–037 de Botellas y líquidos. Se mantienen pendientes para priorización posterior; las dependencias T14 → T15/T17 siguen definidas en su plan.
+1. La reorganización documental T23 está completada.
+2. Continuar cada juego desde su propio plan y actualizar el plan general cuando cambie el trabajo compartido del sitio.
 
 ## Decisiones compartidas vigentes
 

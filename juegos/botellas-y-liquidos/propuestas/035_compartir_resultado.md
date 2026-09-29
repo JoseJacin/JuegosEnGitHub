@@ -41,7 +41,7 @@ Permitir copiar al portapapeles un resumen del resultado al ganar, con emojis de
 - [ ] T17.3 Añadir botón «Copiar resultado» en `#victoryDialog`.
 - [ ] T17.4 Implementar la lógica de copia con fallback a `<textarea>`.
 - [ ] T17.5 Animar el botón con texto «¡Copiado!» durante 2 s.
-- [ ] T17.6 Crear rama `feature/035_compartir_resultado`, commits atómicos, merge en `main` y push.
+- [ ] T17.6 Crear rama `feature/botellas-y-liquidos_035_compartir_resultado`, commits atómicos, merge en `main` y push.
 
 ## Guía de implementación
 

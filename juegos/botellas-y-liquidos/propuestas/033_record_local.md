@@ -37,7 +37,7 @@ Guardar el número mínimo de movimientos conseguido para cada configuración y 
 - [ ] T15.2 Construir la clave a partir de los parámetros de configuración actuales.
 - [ ] T15.3 Integrar comparación y actualización en `finishIfWon`.
 - [ ] T15.4 Actualizar el HTML del diálogo de victoria para mostrar récord y mensaje condicional.
-- [ ] T15.5 Crear rama `feature/033_record_local`, commits atómicos, merge en `main` y push.
+- [ ] T15.5 Crear rama `feature/botellas-y-liquidos_033_record_local`, commits atómicos, merge en `main` y push.
 
 ## Guía de implementación
 

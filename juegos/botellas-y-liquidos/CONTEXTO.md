@@ -6,9 +6,10 @@ Este documento registra solo la continuidad de este juego. La continuidad genera
 
 - Colección estática publicada en GitHub Pages: [josejacin.github.io/JuegosEnGitHub](https://josejacin.github.io/JuegosEnGitHub/).
 - El juego está implementado y publicado. Sus reglas vigentes están en [`README.md`](README.md).
-- T1–T13 y T20–T22 están completadas. Las propuestas 030, 031, 038 y 041 se implementaron; sus archivos se retiraron del árbol de trabajo y permanecen en el historial de Git. La propuesta transversal 039 también está completada y archivada. La propuesta 032 (contador de movimientos) está implementada en la rama `feature/032_contador_movimientos` (commit `058d114`) pero aún no integrada en `main`. Las propuestas 033–037 siguen aprobadas y pendientes en `propuestas/`. T14 está lista para su integración.
+- T1–T13 y T20–T22 están completadas. Las propuestas 030, 031, 032, 038 y 041 se implementaron; sus archivos se retiraron del árbol de trabajo y permanecen en el historial de Git. La propuesta transversal 039 también está completada y archivada. Las propuestas aprobadas pendientes son [033–037](propuestas/README.md).
 - T15 (récord local) y T17 (compartir resultado) dependen de T14. T16, T18 y T19 son independientes; revisar el plan para el orden acordado.
-- En la rama `feature/052_detalle_propuestas_botellas` se amplió la guía de implementación de las propuestas pendientes 032–037 para que un modelo local pueda seguir puntos de integración, estado, casos límite y comprobaciones. La propuesta 037 se ajustó a seis patrones porque las reglas y el código vigentes admiten como máximo seis colores; no se amplió el alcance del juego. Esta revisión documental no implementa las propuestas ni cambia su estado aprobado/pendiente.
+- La propuesta 032 (contador de movimientos) ha sido implementada, aprobada y fusionada en `main` el 2026-09-23 (commit `8fe895a`). El archivo permanece como referencia histórica en el directorio `propuestas/`.
+- La revisión documental de la rama `feature/052_detalle_propuestas_botellas` añadió guías de implementación para las propuestas del juego. La propuesta 037 se ajustó a seis patrones porque las reglas y el código vigentes admiten como máximo seis colores; no se amplió el alcance del juego.
 
 ## Reorganización de propuestas (completada)
 
@@ -28,10 +29,9 @@ Este documento registra solo la continuidad de este juego. La continuidad genera
 
 - La rama `feature/046_archivar_propuestas_finalizadas` se integró en `main` mediante merge `4e9b8aa`. Las propuestas implementadas 030, 031, 038 y 041 se retiraron del árbol; sus archivos siguen en el historial de Git.
 - La rama `feature/041_refactor_botellas_codigo` se integró en `main` y ambas ramas se publicaron en `origin`. Commit de implementación: `8b8429f`; merge en `main`: `78b0c1e`.
+- La propuesta 032 (contador de movimientos) se implementó, aprobó y fusionó en `main` el 2026-09-23. Commit de implementación: `058d114`; merge en `main`: `8fe895a`. El archivo permanece como referencia histórica en el directorio `propuestas/`.
 
 ## Prioridad actual
 
-- Siguiente iniciativa general: preparar la propuesta de Murdoku.
-- La propuesta 032 (contador de movimientos) está en rama `feature/032_contador_movimientos` (commit `058d114`), lista para integración.
-- Tras integrar la propuesta 032 en `main`, retomar las propuestas pendientes: 033, 034, 035 (con dependencias), 036 y 037 (independientes).
-- La rama `feature/042_planes_contexto_por_juego` se integró en `main` (commit `a93aae0`, merge `d18fbad`) y ambas ramas están publicadas en `origin`.
+- Siguiente iniciativa: continuar desde las propuestas pendientes y sus dependencias, registradas en el [índice de propuestas](./propuestas/README.md).
+- Mantener sincronizado el plan general (`../../PLAN.md`) cuando el trabajo afecte al sitio o cambie prioridades transversales.
